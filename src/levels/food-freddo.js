@@ -5,7 +5,7 @@ import { defineLevel } from "./define.js";
 export default defineLevel({
   slug: "food-freddo", id: "1-5", world: "food", sp: "thermo", scene: "autostrada", events,
 
-  mount({ C, show, levelShell, ask, setMsg, win, sfx, img, sprite, fx, later, reduced, $ }) {
+  mount({ C, hook, show, levelShell, ask, setMsg, win, sfx, img, sprite, fx, later, reduced, $ }) {
     show(levelShell(this,
       `<div class="temp" id="temp">${img("thermo", 22)}<span id="tv">4,0 °C</span></div><div class="road" id="road">${img("truck", 110, "truck")}</div><span class="cap" id="link">${C.cap}</span>`,
       `<p class="story">${C.story}</p>
@@ -14,14 +14,14 @@ export default defineLevel({
        <div class="row" id="pre"></div>
        <div class="stack" id="qa"></div>`));
     ask($("#opts1"), C.opts1, () => {
-      $("#link").textContent = C.linked;
+      $("#link").textContent = C.linked; hook("link");
       $("#opts1").querySelectorAll(".opt").forEach(b => b.removeAttribute("data-key"));
       $("#pre").innerHTML = `<button class="btn" data-primary id="drive">${C.drive}</button>`;
       $("#drive").onclick = drive;
     });
 
     function drive() {
-      $("#pre").innerHTML = ""; setMsg("");
+      $("#pre").innerHTML = ""; setMsg(""); hook("drive");
       fx.drive($("#road .truck"), $("#road"), 4);
       fx.frames($("#road .truck"), [sprite("truck"), sprite("truckB")], 0.15);
       $("#scene").classList.add("road-moving");
@@ -32,7 +32,7 @@ export default defineLevel({
         if (t > 80) $("#temp").classList.add("hot");
         if (t < end) return;
         later.stop(iv); sfx.alarm();
-        $("#scene").classList.remove("road-moving");
+        $("#scene").classList.remove("road-moving"); hook("alarm");
         $("#qa").innerHTML = `<p class="q">${C.q2}</p><div class="opts" id="opts2"></div><div class="row" id="after"></div>`;
         ask($("#opts2"), C.opts2, () => {
           $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;

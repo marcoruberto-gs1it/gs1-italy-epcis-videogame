@@ -5,7 +5,7 @@ import { defineLevel } from "./define.js";
 export default defineLevel({
   slug: "tessile-reso", id: "2-3", world: "textile", sp: "jacket", scene: "negozio", events,
 
-  mount({ C, show, levelShell, ask, win, sfx, img, fx, $, $$ }) {
+  mount({ C, hook, show, levelShell, ask, win, sfx, img, fx, $, $$ }) {
     show(levelShell(this,
       `<div class="jackets">
          <div class="jk">${img("jacket", 64)}<span class="sn">${C.jacketA}</span><button class="btn alt" data-key="8" id="qa1">${C.query} (8)</button><div class="tl" id="tlA"></div></div>
@@ -18,8 +18,9 @@ export default defineLevel({
       if ($("#tlA").children.length) return;
       $("#tlA").innerHTML = C.historyA.map(([d, e]) => `<div><span>${d}</span><span>${e}</span></div>`).join("");
       fx.staggerIn($$("#tlA > div"));
+      hook("historyA");
     };
-    const showB = () => { $("#tlB").innerHTML = `<div class="none"><span>${C.historyB}</span></div>`; };
+    const showB = () => { if ($("#tlB").children.length) return; $("#tlB").innerHTML = `<div class="none"><span>${C.historyB}</span></div>`; hook("historyB"); };
     $("#qa1").onclick = () => { sfx.sel(); showA(); };
     $("#qb1").onclick = () => { sfx.no(); showB(); };
     ask($("#opts"), C.opts, () => {

@@ -7,7 +7,7 @@ const CARTONS = 12, PER_CARTON = 24;
 export default defineLevel({
   slug: "food-raggi-x", id: "1-3", world: "food", sp: "carton", scene: "caseificio", events,
 
-  mount({ C, show, levelShell, ask, setMsg, win, sfx, sprite, fx, $, $$ }) {
+  mount({ C, hook, show, levelShell, ask, setMsg, win, sfx, sprite, fx, $, $$ }) {
     const jars = Array.from({ length: PER_CARTON }, () => `<img class="px" src="${sprite("minijar")}" alt="">`).join("");
     const cartons = Array.from({ length: CARTONS }, () => `<div class="carton" hidden><img class="px" src="${sprite("carton")}" alt=""><div class="jars">${jars}</div></div>`).join("");
     show(levelShell(this,
@@ -24,7 +24,7 @@ export default defineLevel({
       const box = $$(".carton")[stacked];
       box.hidden = false;
       fx.dropIn(box);
-      stacked++; sfx.sel(); count();
+      stacked++; sfx.sel(); count(); hook("stack", stacked);
       if (stacked === CARTONS) ready();
     };
     $("#stack").onclick = stackOne;
@@ -36,7 +36,7 @@ export default defineLevel({
       ask($("#opts"), C.opts, () => {
         $("#after").innerHTML = `<button class="btn" data-primary id="scan">${C.scan}</button>`;
         $("#scan").onclick = () => {
-          sfx.power(); fx.beam($("#beam")); $("#pallet").classList.add("xray");
+          sfx.power(); fx.beam($("#beam")); $("#pallet").classList.add("xray"); hook("xray");
           $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;
           setMsg(C.scanned, true);
           $("#reg").onclick = () => win();

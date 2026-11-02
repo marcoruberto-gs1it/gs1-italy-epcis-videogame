@@ -9,6 +9,8 @@ import { gsap, reduced } from "../anim/gsap-setup.js";
 import { skippable } from "../anim/skip.js";
 import { LEVELS } from "../levels/index.js";
 import { $, $$, show } from "../ui/dom.js";
+import { mountScene } from "../render/scene-host.js";
+import { mapScene } from "../render/three/scenes.js";
 
 // Ultima tappa "sei qui" mostrata: serve per far camminare il vasetto fino alla tappa nuova.
 let lastHere = null;
@@ -29,6 +31,7 @@ register("map", () => {
   };
   const goLabel = !next ? t("map.seeEnd") : next.id === "finale" ? t("map.playFinale") : t("map.play", { id: next.id });
   show(`<div class="map">
+    <div class="diorama" id="diorama" aria-hidden="true"></div>
     ${world("food")}${world("textile")}${world("finale")}
     <div class="row"><button class="btn" data-primary id="goNext">${goLabel}</button>
     <button class="btn alt" id="codex">${t("map.codex")}</button>
@@ -42,6 +45,14 @@ register("map", () => {
     const a = from.getBoundingClientRect(), b = here.closest(".node").getBoundingClientRect();
     anim(() => skippable(gsap.from(here, { x: a.left - b.left, y: a.top - b.top, duration: 0.9, delay: 0.4, ease: "steps(9)", onComplete: () => bob(here) })));
   } else bob(here);
+  // Diorama 3D: un'isola per tappa, nell'ordine di gioco (food su una riga, tessile e sfida finale sotto).
+  const cols = { food: 0, textile: 0 };
+  const nodes = LEVELS.map(l => {
+    const row = l.world === "food" ? 0 : 1;
+    const col = l.world === "finale" ? cols.textile : cols[l.world]++;
+    return { id: l.id, sp: l.meta.sp, done: !!state.done[l.id], row, col: l.world === "food" ? col : col + 1 };
+  });
+  mountScene($("#diorama"), mapScene({ nodes, here: next && next.id, from: lastHere }, { clickHtml: sel => { const b = $(sel); if (b) b.click(); } }));
   lastHere = next ? next.id : null;
   $$(".node").forEach(b => b.onclick = () => { sfx.sel(); go("intro", b.dataset.lv); });
   $("#goNext").onclick = () => (next ? go("intro", next.id) : go("final"));

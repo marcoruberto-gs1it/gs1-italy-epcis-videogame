@@ -2,6 +2,7 @@
 import { gsap } from "../anim/gsap-setup.js";
 import { clearSkippable } from "../anim/skip.js";
 import { reveal } from "../anim/transitions.js";
+import { unmountScene } from "../render/scene-host.js";
 import { state, commit } from "./state.js";
 
 const screens = {};
@@ -14,6 +15,7 @@ export function go(name, arg) {
   if (!screens[name]) throw new Error("Schermata sconosciuta: " + name);
   scope.revert();
   clearSkippable();
+  unmountScene();
   timers.forEach(id => { clearInterval(id); clearTimeout(id); });
   timers.clear();
   document.querySelectorAll(".fx-particle, .float-score").forEach(el => el.remove());

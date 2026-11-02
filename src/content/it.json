@@ -10,9 +10,12 @@
     "audioAria": "Attiva o disattiva l'audio"
   },
   "foot": {
-    "keys": "<b>1-9</b> SCEGLI · <b>INVIO</b> CONFERMA · <b>ESC</b> MAPPA · <b>G</b> CODEX · <b>M</b> AUDIO · <b>C</b> CRT",
+    "keys": "<b>1-9</b> SCEGLI · <b>INVIO</b> CONFERMA · <b>ESC</b> MAPPA · <b>G</b> CODEX · <b>M</b> AUDIO · <b>C</b> CRT · <b>X</b> PIXEL",
     "brand": "REVERSE COACHING EPCIS",
-    "logoPlaceholder": "LOGO GS1 ITALY"
+    "logoPlaceholder": "LOGO GS1 ITALY",
+    "mode3d": "R · 3D {q}",
+    "mode2d": "R · 2D",
+    "fallback": "La grafica 3D non è disponibile su questo computer: continuo in 2D."
   },
   "marquee": { "sub": "EPCIS ARCADE · GS1 ITALY" },
   "narrator": {

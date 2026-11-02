@@ -5,6 +5,7 @@ import { toggleMute } from "../ui/hud.js";
 import { screenEl } from "../ui/dom.js";
 import { skipAll } from "../anim/skip.js";
 import { toggleCrt } from "../render/two/crt.js";
+import { toggleRenderer, togglePixel } from "../render/scene-host.js";
 
 export function initInput() {
   document.addEventListener("keydown", e => {
@@ -15,6 +16,8 @@ export function initInput() {
     if (e.key === "Enter" && skipAll()) { e.preventDefault(); return; }
     if (e.key === "m" || e.key === "M") { toggleMute(); return; }
     if (e.key === "c" || e.key === "C") { toggleCrt(); return; }
+    if (e.key === "r" || e.key === "R") { toggleRenderer(); return; }
+    if (e.key === "x" || e.key === "X") { togglePixel(); return; }
     if (e.key === "Escape") { if (state.view !== "title") go("map"); return; }
     if (e.key === "g" || e.key === "G") {
       // Il Codex si apre dalle schermate di riposo, mai a metà livello.

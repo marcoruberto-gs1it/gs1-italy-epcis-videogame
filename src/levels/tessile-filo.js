@@ -5,7 +5,7 @@ import { defineLevel } from "./define.js";
 export default defineLevel({
   slug: "tessile-filo", id: "2-1", world: "textile", sp: "shirt", scene: "tessile", events,
 
-  mount({ C, show, levelShell, fail, setMsg, win, sfx, img, fx, $, $$ }) {
+  mount({ C, hook, show, levelShell, fail, setMsg, win, sfx, img, fx, $, $$ }) {
     const chain = [];
     show(levelShell(this,
       `<div class="chain"><span class="cap">${C.chainTitle}</span><ol id="chain"><li class="empty">${C.chainEmpty}</li></ol></div><div class="row center">${img("spool", 44)}${img("fabric", 60)}${img("shirt", 52)}</div>`,
@@ -16,7 +16,7 @@ export default defineLevel({
     $$("#steps .opt").forEach(b => b.onclick = () => {
       const s = C.steps[+b.dataset.i];
       if (s.pos !== chain.length) { b.classList.add("no"); fail(C.wrong); setTimeout(() => b.classList.remove("no"), 600); return; }
-      chain.push(s); b.disabled = true; b.classList.add("ok"); sfx.ok();
+      chain.push(s); b.disabled = true; b.classList.add("ok"); sfx.ok(); hook("step", chain.length - 1);
       $("#chain").innerHTML = chain.map(x => `<li>✓ ${x.t}</li>`).join("");
       fx.popIn($("#chain li:last-child"));
       if (chain.length < C.steps.length) return;

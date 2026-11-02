@@ -4,7 +4,7 @@ Gioco arcade per spiegare **EPCIS** in modo semplice, realizzato per il Reverse 
 
 Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filiera chi gioca scrive una pagina del suo "diario" (un evento EPCIS) e sblocca un superpotere. Alla fine arriva il richiamo del lotto.
 
-> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 3 · Grafica 2D e animazioni** completata. Il gioco è completo e presentabile in 2D; il 3D arriva nella Fase 4.
+> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 4 · Three.js** completata. Scene 3D low-poly con ritorno automatico al 2D.
 
 ## Struttura del gioco
 
@@ -27,6 +27,17 @@ Apri `dist/index.html` con un doppio clic: è un unico file, funziona offline, s
 | D | Documento EPCIS completo (nella schermata dell'evento) |
 | M | Audio sì/no |
 | C | Effetto CRT sì/no (spento da solo con «riduci movimento») |
+| R | Cambia renderer al volo: 3D o 2D, restando nello stesso punto |
+| X | Pixelatura leggera del 3D (non in qualità bassa) |
+
+### 3D o 2D
+
+Il gioco parte in 3D se il computer lo permette (WebGL), altrimenti in 2D. In fondo allo schermo un'etichetta dice quale renderer è attivo («R · 3D MEDIA» o «R · 2D»).
+
+- Per forzare un renderer aggiungi all'indirizzo `?render=2d` o `?render=3d`; per la qualità `?quality=alta`, `media` o `bassa`. I valori predefiniti sono in `src/config.js`.
+- Se il 3D va lento (sotto 45 fotogrammi al secondo per qualche secondo) la qualità si abbassa da sola. In qualità bassa, se non basta, il gioco passa al 2D.
+- Se il contesto WebGL si perde (driver, sospensione del portatile), il gioco continua in 2D senza ricaricare e senza perdere il punto.
+- Su smartphone e schermi piccoli il 3D parte in qualità bassa.
 
 I progressi restano salvati nel browser. Per ripartire da capo usa **Ricomincia da zero** nella mappa.
 
@@ -57,6 +68,8 @@ I test nel browser usano Microsoft Edge già installato sul PC (`channel: "msedg
 | `src/engine/` | Stato, salvataggio, router, tastiera, audio |
 | `src/anim/` | GSAP: configurazione, effetti, intro animate, tendina tra le schermate, animazioni saltabili |
 | `src/render/two/` | Sprite in pixel art, sfondi a strati, effetto CRT |
+| `src/render/three/` | Three.js: stage (renderer, telecamera, luci, qualità), materiali di brand, oggetti low-poly, scene dei livelli e diorama della mappa |
+| `src/render/scene-host.js` | Collega le schermate al renderer: agganci di scena (`hook`), cambio 3D/2D, ritorno automatico al 2D |
 | `tests/` | Test unitari (`unit/`) e nel browser (`e2e/`) |
 
 Il logo ufficiale di GS1 Italy è in `assets/gs1-italy-logo.png` e viene incluso nel build in automatico. Sul fondo scuro compare su un riquadro bianco, senza modifiche al marchio. Se il file manca, compare un segnaposto.
@@ -75,6 +88,7 @@ Colori, tinte derivate e regole sono in [docs/brand-tokens.md](docs/brand-tokens
 
 | Componente | Licenza |
 | --- | --- |
+| [Three.js](https://threejs.org) 0.186.1 | MIT |
 | [GSAP](https://gsap.com) 3.15.0 | Standard "no charge" license di GSAP (Webflow): uso gratuito anche commerciale, plugin inclusi. Non è una licenza open source: vieta, tra l'altro, l'uso in strumenti che fanno concorrenza a Webflow. Testo: https://gsap.com/standard-license |
 | Press Start 2P (via `@fontsource/press-start-2p`) | SIL Open Font License 1.1 |
 | Logo GS1 Italy (`assets/gs1-italy-logo.png`) | Marchio di GS1 Italy, preso dal sito ufficiale gs1it.org, usato senza modifiche |

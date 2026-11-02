@@ -25,7 +25,7 @@
 
 /* Scena dei livelli con sfondo a strati */
 .scene { padding: 0; }
-.scene-content { position: relative; z-index: 1; width: 100%; min-height: 260px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.scene-content { position: relative; z-index: 2; width: 100%; min-height: 260px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
 .backdrop { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .bd-sky { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--gs1-blue-950), var(--gs1-blue-900) 70%); }
 .bd-far { position: absolute; left: -64px; right: -64px; bottom: 22%; height: 40px; background-repeat: repeat-x; background-size: auto 40px; image-rendering: pixelated; opacity: .9; }
@@ -66,3 +66,32 @@
   .bezel.crt::after, .bezel.crt .screen::after { display: none; }
   .curtain { display: none; }
 }
+
+/* Fase 4: scene 3D. Il canvas sta sotto il contenuto HTML, che resta leggibile e cliccabile. */
+.stage3d { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; }
+.stage3d.pixelated { image-rendering: pixelated; }
+.scene.r3d { min-height: 440px; }
+.scene.r3d .bd-far, .scene.r3d .bd-ground { display: none; }
+.scene.r3d .scene-content { min-height: 440px; justify-content: space-between; align-items: center; gap: 8px; pointer-events: none; }
+.scene.r3d .scene-content > * { pointer-events: auto; }
+.scene.r3d .scene-content img.px, .scene.r3d .pallet, .scene.r3d .road, .scene.r3d .beam, .scene.r3d .born,
+.scene.r3d .minimap, .scene.r3d .wave, .scene.r3d [data-bob], .scene.r3d [data-blink] { display: none; }
+/* In 3D i riquadri informativi stanno negli angoli, il centro resta alla scena. */
+.scene.r3d .tank, .scene.r3d .chain { position: absolute; top: 10px; left: 10px; max-width: 42%; font-size: .72em; min-height: 0; padding: 8px; gap: 4px; background: color-mix(in srgb, var(--gs1-blue-900) 88%, transparent); }
+.scene.r3d .tank-wrap { position: static; }
+.scene.r3d .feed { font-size: .72em; margin-top: auto; }
+.scene.r3d .feed div { padding: 3px 8px; }
+.scene.r3d .bubble { font-size: .85em; align-self: flex-start; }
+.scene.r3d .jackets { margin-top: auto; }
+.scene.r3d .jk { padding: 6px; }
+.scene.r3d .shelf, .scene.r3d .shelf-plank, .sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.scene.r3d .feed, .scene.r3d .req, .scene.r3d .temp, .scene.r3d .clock, .scene.r3d .counter, .scene.r3d .cap { background: color-mix(in srgb, var(--gs1-blue-950) 70%, transparent); padding: 2px 8px; }
+.scene.r3d .jk { background: color-mix(in srgb, var(--gs1-blue-950) 70%, transparent); }
+
+/* Diorama 3D della mappa (in 2D resta nascosto) */
+.diorama { display: none; }
+.diorama.r3d { display: block; position: relative; height: clamp(220px, 34vh, 380px); border: 3px solid var(--gs1-blue-700); background: linear-gradient(to bottom, var(--gs1-blue-950), var(--gs1-blue-900)); overflow: hidden; }
+
+/* Indicatore del renderer e avviso di passaggio al 2D */
+.rmode { color: var(--gs1-teal-300); }
+.toast { position: fixed; left: 50%; bottom: 70px; transform: translateX(-50%); z-index: 30; background: var(--gs1-white); color: var(--gs1-blue-950); border: 3px solid var(--gs1-blue); padding: 10px 14px; max-width: 90vw; box-shadow: 4px 4px 0 var(--shadow); }

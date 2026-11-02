@@ -31,7 +31,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
     await press("Enter");
   };
 
-  await page.goto(GAME);
+  await page.goto(GAME + "?render=" + info.project.metadata.render);
   await expect(page.locator("h1")).toHaveText("MISSIONE L123");
   await expect(page.locator(".title img.logo")).toBeVisible();
   await shot("01-titolo");
@@ -43,7 +43,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   // Invio durante l'intro animata la porta alla fine senza cambiare schermata.
   await press("Enter");
   await expect(page.locator(".narrator")).toBeVisible();
-  if (info.project.name === "desktop") {
+  if (info.project.name.startsWith("desktop")) {
     // Con le animazioni attive, Invio porta l'intro alla fine e resta sulla stessa schermata.
     await page.keyboard.press("Enter");
     await idle();
@@ -53,7 +53,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await shot("03-intro-1-1");
   // Il tasto C spegne e riaccende l'effetto CRT.
   // Con prefers-reduced-motion il CRT resta sempre spento.
-  if (info.project.name === "desktop") {
+  if (info.project.name.startsWith("desktop")) {
     await expect(page.locator("#bezel.crt")).toHaveCount(1);
     await page.keyboard.press("c");
     await expect(page.locator("#bezel.crt")).toHaveCount(0);
@@ -92,7 +92,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   for (let i = 0; i < 12; i++) await press("Enter");
   await expect(page.locator("#cnt")).toContainText("12/12");
   await press("2"); await press("Enter");
-  await expect(page.locator("#pallet.xray")).toBeVisible();
+  await expect(page.locator("#pallet.xray")).toHaveCount(1);
   await page.waitForTimeout(1200);
   await shot("09-livello-1-3-raggi-x");
   await press("Enter");

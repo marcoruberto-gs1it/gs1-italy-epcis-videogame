@@ -5,7 +5,7 @@ import { defineLevel } from "./define.js";
 export default defineLevel({
   slug: "food-latte", id: "1-1", world: "food", sp: "factory", scene: "caseificio", events,
 
-  mount({ C, show, levelShell, ask, fail, setMsg, win, sfx, img, fx, $, $$ }) {
+  mount({ C, hook, show, levelShell, ask, fail, setMsg, win, sfx, img, fx, $, $$ }) {
     const inTank = [];
     const needed = C.ingredients.filter(i => i.ok).length;
     show(levelShell(this,
@@ -21,8 +21,8 @@ export default defineLevel({
       const b = $(`.ingr[data-id="${id}"]`);
       if (!g || !b || b.disabled) return;
       b.disabled = true;
-      if (!g.ok) { b.classList.add("no"); fail(g.why); return; }
-      b.classList.add("ok"); sfx.ok();
+      if (!g.ok) { b.classList.add("no"); hook("reject", id); fail(g.why); return; }
+      b.classList.add("ok"); sfx.ok(); hook("put", id);
       fx.burst($(".vat"), ["var(--gs1-white)", "var(--gs1-blue-200)"], 10);
       inTank.push(g);
       $("#tankList").innerHTML = inTank.map(x => `<li>✓ ${x.t}</li>`).join("");
@@ -32,6 +32,7 @@ export default defineLevel({
       setMsg(C.tankFull, true);
       // Trasformazione: gli ingredienti spariscono, nasce il vasetto.
       $("#born").hidden = false;
+      hook("born");
       fx.popIn($("#born"), 0.2);
       fx.burst($("#born"), ["var(--gs1-white)", "var(--gs1-forest-300)", "var(--gs1-blue-200)"], 18);
       $("#qa").innerHTML = `<p class="q">${C.q}</p><div class="opts" id="opts"></div>`;

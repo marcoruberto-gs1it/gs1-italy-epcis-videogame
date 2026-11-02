@@ -9,6 +9,11 @@ import { img, sprite } from "../render/two/sprites.js";
 import { byId, WORLDS } from "../levels/index.js";
 import { levelShell, ask, fail } from "../ui/kit.js";
 import { $, $$, show, setMsg } from "../ui/dom.js";
+import { mountScene, hook } from "../render/scene-host.js";
+import { levelScene } from "../render/three/scenes.js";
+
+// Gli oggetti 3D cliccabili hanno sempre un equivalente HTML: il clic sul 3D attiva il pulsante HTML.
+const ctx3d = { clickHtml: sel => { const b = $(sel); if (b && !b.disabled) b.click(); } };
 
 register("intro", id => {
   const level = byId(id);
@@ -42,8 +47,10 @@ register("level", id => {
       $$("[data-blink]").forEach(fx.blink);
       $$("img[data-sprite=jar]").forEach(el => fx.eyes(el, sprite("jar"), sprite("jarBlink")));
     },
-    levelShell, ask, fail, setMsg,
+    levelShell, ask, fail, setMsg, hook,
     win: () => go("win", id),
     sfx, img, sprite, fx, later, reduced, state, commit, $, $$
   });
+  const build = levelScene(level.slug);
+  mountScene($("#scene"), build && (api => build(api, ctx3d)));
 });

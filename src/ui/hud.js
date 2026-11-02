@@ -4,6 +4,7 @@ import { t } from "../content/index.js";
 import { sprite, img } from "../render/two/sprites.js";
 import { LEVELS } from "../levels/index.js";
 import { $ } from "./dom.js";
+import { render, onRender } from "../render/scene-host.js";
 
 // Il logo si aggiunge in assets/gs1-italy-logo.png: se manca, compare un segnaposto.
 const logoFiles = import.meta.glob("/assets/gs1-italy-logo.png", { eager: true, query: "?url", import: "default" });
@@ -28,14 +29,31 @@ export function renderHud() {
 export function toggleMute() { state.muted = !state.muted; commit(); }
 
 export function renderFoot() {
-  $("#foot").innerHTML = `<span>${t("foot.keys")}</span><span class="brand">${t("foot.brand")} ${logoHtml()}</span>`;
+  $("#foot").innerHTML = `<span>${t("foot.keys")}</span><span class="rmode" id="rmode"></span><span class="brand">${t("foot.brand")} ${logoHtml()}</span>`;
+  renderMode();
 }
 
 export function renderMarquee() {
   $("#marquee").innerHTML = `${img("jar", 30)}<span class="mq-title">${t("title.heading")}</span><span class="mq-sub">${t("marquee.sub")}</span>${img("bip", 30)}`;
 }
 
+/** Indicatore del renderer attivo (tasto R) e avviso quando il 3D passa da solo al 2D. */
+export function renderMode() {
+  const el = $("#rmode");
+  if (el) el.textContent = render.mode === "3d" ? t("foot.mode3d", { q: render.quality.toUpperCase() }) : t("foot.mode2d");
+}
+
+function fallbackNotice(r) {
+  if (r.mode !== "2d" || !r.reason || r.reason === "manual") return;
+  const n = document.createElement("div");
+  n.className = "toast"; n.setAttribute("role", "status");
+  n.textContent = t("foot.fallback");
+  document.body.appendChild(n);
+  setTimeout(() => n.remove(), 4000);
+}
+
 export function initHud() {
+  onRender(r => { renderMode(); fallbackNotice(r); });
   renderMarquee();
   renderFoot();
   renderHud();

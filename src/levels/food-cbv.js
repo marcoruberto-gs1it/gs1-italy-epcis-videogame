@@ -5,16 +5,16 @@ import { defineLevel } from "./define.js";
 export default defineLevel({
   slug: "food-cbv", id: "1-4", world: "food", sp: "truck", scene: "caseificio", events,
 
-  mount({ C, show, levelShell, ask, win, img, $, $$ }) {
+  mount({ C, hook, show, levelShell, ask, win, img, $, $$ }) {
     show(levelShell(this,
       `<div class="bubble" id="bub">${C.bubble}</div>${img("person", 64)}${img("truck", 150)}<span class="cap">${C.cap}</span>`,
       `<p class="story">${C.story}</p>
        <p class="q">${C.q}</p>
        <div class="opts" id="opts"></div><div class="row" id="after"></div>`));
-    const confuse = () => { const b = $("#bub"); b.className = "bubble bad"; b.textContent = C.bubbleBad; };
+    const confuse = () => { const b = $("#bub"); b.className = "bubble bad"; b.textContent = C.bubbleBad; hook("confused"); };
     const box = $("#opts");
     ask(box, C.opts, () => {
-      const b = $("#bub"); b.className = "bubble good"; b.textContent = C.bubbleGood;
+      const b = $("#bub"); b.className = "bubble good"; b.textContent = C.bubbleGood; hook("depart");
       $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;
       $("#reg").onclick = () => win();
     });
