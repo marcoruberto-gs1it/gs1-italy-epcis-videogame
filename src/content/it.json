@@ -1,0 +1,73 @@
+{
+  "hud": {
+    "events": "EVENTI",
+    "lot": "LOTTO L123",
+    "lives": "VITE",
+    "livesAria": "{n} vite",
+    "powers": "POTERI",
+    "audioOn": "AUDIO ATTIVO",
+    "audioOff": "AUDIO SPENTO",
+    "audioAria": "Attiva o disattiva l'audio"
+  },
+  "foot": {
+    "keys": "<b>1-9</b> SCEGLI · <b>INVIO</b> CONFERMA · <b>ESC</b> MAPPA · <b>M</b> AUDIO",
+    "brand": "REVERSE COACHING EPCIS",
+    "logoPlaceholder": "LOGO GS1 ITALY"
+  },
+  "title": {
+    "presents": "GS1 ITALY PRESENTA",
+    "heading": "MISSIONE L123",
+    "sub": "EPCIS e il diario segreto della filiera",
+    "start": "PREMI INVIO",
+    "record": "RECORD · RICHIAMO IN 2,2 SECONDI",
+    "credit": "Reverse Coaching · 1 gettone",
+    "jarAlt": "Il vasetto di yogurt, protagonista del gioco"
+  },
+  "map": {
+    "food": { "heading": "MONDO 1 · FOOD", "text": "Il viaggio di un vasetto di yogurt, dalla linea al CeDi." },
+    "textile": { "heading": "MONDO 2 · TESSILE", "text": "Il cartellino che parla: inventario e resi." },
+    "finale": { "heading": "ZONA SFIDA FINALE", "text": "Un allarme sul lotto L123. Servono tutti i poteri." },
+    "level": "LIVELLO {id}",
+    "finaleNode": "SFIDA FINALE",
+    "here": "Sei qui",
+    "play": "GIOCA {id} ▶",
+    "playFinale": "AFFRONTA LA SFIDA FINALE ▶",
+    "seeEnd": "VEDI IL FINALE ▶",
+    "reset": "RICOMINCIA DA ZERO"
+  },
+  "intro": {
+    "tag": "MONDO {w} · LIVELLO {id}",
+    "tagFinale": "SFIDA FINALE",
+    "concept": "CONCETTO · {c}",
+    "go": "VIA!"
+  },
+  "level": {
+    "code": "MONDO {id}",
+    "codeFinale": "SFIDA FINALE"
+  },
+  "win": {
+    "heading": "EVENTO REGISTRATO!",
+    "diary": "LA PAGINA DEL DIARIO · EPCIS 2.0 JSON",
+    "unlocked": "SUPERPOTERE SBLOCCATO",
+    "map": "MAPPA",
+    "next": "LIVELLO {id} ▶",
+    "nextFinale": "AFFRONTA LA SFIDA FINALE ▶",
+    "end": "FINALE ▶"
+  },
+  "continue": {
+    "heading": "CONTINUI?",
+    "coin": "INSERISCI GETTONE"
+  },
+  "final": {
+    "tag": "TRAGUARDO",
+    "heading": "MISSIONE COMPIUTA",
+    "sub": "EPCIS: se funziona, non sai che c'è.",
+    "score": "PUNTEGGIO {n} EVENTI",
+    "map": "MAPPA",
+    "again": "GIOCA ANCORA",
+    "cases": [
+      { "tag": "WALMART · MANGHI", "from": "6 GIORNI E 18 ORE", "to": "2,2 SECONDI", "text": "Da quale azienda agricola viene il mango? Prima e dopo la tracciabilità a eventi." },
+      { "tag": "NHS · SCAN4SAFETY", "from": "8,33 GIORNI", "to": "MENO DI 35 MIN", "text": "Richiamo di un dispositivo medico: chi l'ha ricevuto?" }
+    ]
+  }
+}

@@ -14,7 +14,7 @@ Fase 0 · Analisi. Questo documento descrive come porto il gioco attuale (un sol
 
 | Punto | Dove | Nota |
 |---|---|---|
-| "boss" | 26 occorrenze: id livello, classi CSS (`.world.boss`, `.node.boss`), testi ("BOSS FINALE", "ZONA BOSS", "AFFRONTA IL BOSS", "BOSS SCONFITTO", "BOSS"), README | Diventa `finale` / "Sfida finale" ovunque |
+| Vecchio nome inglese della sfida finale | 26 occorrenze: id livello, classi CSS, testi a schermo, README | Diventa `finale` / "Sfida finale" ovunque (fatto nella Fase 1, con un test che lo verifica) |
 | `window.claude.hot` | righe 308-310 | Rimosso |
 | Colori fuori palette | `--sky #00b6de`, `--lime #7ac143`, `--pink #f05587`, `--gold #fbb034`, `--danger #ff5a5f`, legno `#c69c6d`/`#8a6a43`, sfondi `#00102b`, `#000c22`, `#0d4a2a` | Mappatura in sezione 5 |
 | VT323 per il corpo testo | `--font-body` | Sostituito da Verdana |
@@ -93,7 +93,7 @@ Numerazione nuova: i livelli esistenti scorrono di un posto per far spazio alle 
 | 2-1 | nuovo | Dal filo al capo | `TransformationEvent` ×3 filato → tessuto → capo | Collega le tappe nell'ordine giusto | FILO ROSSO |
 | 2-2 | 2-1 | Inventario lampo | `ObjectEvent` `OBSERVE` `cycle_counting` | Barcode a clic contro un impulso RFID, con cronometro | LETTURA LAMPO |
 | 2-3 | 2-2 | Il reso sospetto | `ObjectEvent` `OBSERVE` `receiving` `returned` | Interroga due seriali, la storia scorre sulla mappa | PEDIGREE |
-| finale | boss | Il grande richiamo | query + `ObjectEvent` `holding` `recalled` per luogo | Round 1 come una volta, round 2 dal lotto di latte ai lotti di yogurt | RICHIAMO CHIRURGICO |
+| finale | finale | Il grande richiamo | query + `ObjectEvent` `holding` `recalled` per luogo | Round 1 come una volta, round 2 dal lotto di latte ai lotti di yogurt | RICHIAMO CHIRURGICO |
 
 I superpoteri passano da 8 a 10. Il mondo tessile si spegne da `config.js`: la mappa, l'HUD dei poteri, il Codex e la scheda finale si adattano.
 

@@ -1,0 +1,18 @@
+{
+  "type": "AggregationEvent",
+  "eventTime": "2026-11-02T09:40:00.000+01:00",
+  "eventTimeZoneOffset": "+01:00",
+  "action": "ADD",
+  "bizStep": "packing",
+  "disposition": "in_progress",
+  "parentID": "https://id.gs1.org/00/106141411234567897",
+  "childQuantityList": [
+    {
+      "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+      "quantity": 288
+    }
+  ],
+  "readPoint": {
+    "id": "https://id.gs1.org/414/0614141007776/254/finelinea"
+  }
+}

@@ -1,0 +1,47 @@
+/* Layout: cabinato arcade a schermo pieno — HUD in alto, schermo al centro, barra comandi in basso. */
+:root {
+  --font-display: "Press Start 2P", "Courier New", monospace;
+  --font-body: Verdana, Arial, sans-serif;
+  --shadow: var(--gs1-blue-950);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--gs1-blue-950); color: var(--gs1-white); font-family: var(--font-body); font-size: clamp(17px, 1.25vw, 26px); line-height: 1.35; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--gs1-teal); outline-offset: 3px; }
+.app { height: 100%; display: flex; flex-direction: column; gap: 10px; padding-block: 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.hud { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 18px; font-family: var(--font-display); font-size: clamp(9px, 1.05vw, 14px); letter-spacing: .04em; }
+.hud .lbl { color: var(--gs1-teal); margin-right: 6px; }
+.hud .val { color: var(--gs1-white); font-variant-numeric: tabular-nums; }
+.hud .lotto { color: var(--gs1-orange); }
+.hud .hearts { display: inline-flex; gap: 4px; vertical-align: middle; }
+.hud .hearts img { width: 18px; height: auto; }
+.hud .hearts img.lost { opacity: .2; }
+.hud .pw { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.hud .pw span { width: 12px; height: 12px; background: var(--gs1-blue-700); border: 2px solid var(--gs1-blue-200); display: inline-block; }
+.hud .pw span.on { background: var(--gs1-forest); border-color: var(--gs1-forest); }
+.mute { background: var(--gs1-blue); border: 2px solid var(--gs1-teal); padding: 6px 8px; font-family: var(--font-display); font-size: 10px; }
+
+.screen { flex: 1; min-height: 0; position: relative; overflow: auto; background: var(--gs1-blue-900); border: 4px solid var(--gs1-orange); box-shadow: 0 0 0 4px var(--gs1-blue-950), 0 0 0 8px var(--gs1-blue); padding: clamp(14px, 2.4vw, 34px); }
+.screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(to bottom, transparent 0 2px, color-mix(in srgb, var(--gs1-blue-950) 22%, transparent) 2px 4px); }
+
+.foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; font-family: var(--font-display); font-size: clamp(8px, .85vw, 12px); color: var(--gs1-blue-200); letter-spacing: .04em; }
+.foot b { color: var(--gs1-orange); font-weight: 400; }
+.foot .brand { display: inline-flex; align-items: center; gap: 12px; }
+.logo { height: clamp(22px, 2.6vw, 40px); width: auto; display: block; }
+.logo-ph { display: inline-grid; place-items: center; padding: 4px 10px; border: 2px dashed var(--gs1-blue-200); color: var(--gs1-blue-200); font-family: var(--font-display); font-size: 9px; letter-spacing: .06em; }
+.title .logo { height: clamp(40px, 5vw, 72px); }
+
+.px { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: .03em; line-height: 1.35; }
+h1 { font-size: clamp(22px, 4.2vw, 54px); color: var(--gs1-orange); }
+h2 { font-size: clamp(15px, 2vw, 26px); }
+h3 { font-size: clamp(11px, 1.15vw, 16px); color: var(--gs1-teal); }
+p { margin: 0; max-width: 62ch; }
+code { font-family: Consolas, "Courier New", monospace; color: var(--gs1-forest-300); background: color-mix(in srgb, var(--gs1-forest) 14%, transparent); padding: 0 4px; font-size: .92em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

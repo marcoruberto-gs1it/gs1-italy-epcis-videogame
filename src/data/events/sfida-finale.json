@@ -1,0 +1,17 @@
+{
+  "type": "ObjectEvent",
+  "eventTime": "2026-11-02T18:00:00.000+01:00",
+  "eventTimeZoneOffset": "+01:00",
+  "action": "OBSERVE",
+  "bizStep": "holding",
+  "disposition": "recalled",
+  "quantityList": [
+    {
+      "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+      "quantity": 264
+    }
+  ],
+  "bizLocation": {
+    "id": "https://id.gs1.org/414/0614141007776"
+  }
+}

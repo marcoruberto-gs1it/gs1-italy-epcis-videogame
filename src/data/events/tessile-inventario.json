@@ -1,0 +1,16 @@
+{
+  "type": "ObjectEvent",
+  "eventTime": "2026-11-02T08:55:00.000+01:00",
+  "eventTimeZoneOffset": "+01:00",
+  "action": "OBSERVE",
+  "bizStep": "cycle_counting",
+  "disposition": "sellable_accessible",
+  "epcList": [
+    "https://id.gs1.org/01/09506000134376/21/TS-0001",
+    "https://id.gs1.org/01/09506000134376/21/TS-0002",
+    "https://id.gs1.org/01/09506000134376/21/TS-0003"
+  ],
+  "bizLocation": {
+    "id": "https://id.gs1.org/414/0614141000005"
+  }
+}
