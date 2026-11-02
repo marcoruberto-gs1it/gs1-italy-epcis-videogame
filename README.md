@@ -4,7 +4,7 @@ Gioco arcade per spiegare **EPCIS** in modo semplice, realizzato per il Reverse 
 
 Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filiera chi gioca scrive una pagina del suo "diario" (un evento EPCIS) e sblocca un superpotere. Alla fine arriva il richiamo del lotto.
 
-> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 5 · Modalità** completata: modalità sala (note e squadre) e modalità individuale.
+> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 6 · Verifica** completata: accessibilità, prestazioni e stile dei testi controllati da test automatici.
 
 ## Struttura del gioco
 
@@ -89,6 +89,21 @@ I test nel browser usano Microsoft Edge già installato sul PC (`channel: "msedg
 | `tests/` | Test unitari (`unit/`) e nel browser (`e2e/`) |
 
 Il logo ufficiale di GS1 Italy è in `assets/gs1-italy-logo.png` e viene incluso nel build in automatico. Sul fondo scuro compare su un riquadro bianco, senza modifiche al marchio. Se il file manca, compare un segnaposto.
+
+## Qualità verificata dai test
+
+| Area | Cosa controllano i test |
+| --- | --- |
+| EPCIS | Ogni evento è valido contro lo schema JSON ufficiale EPCIS 2.0; cifre di controllo di GTIN, GLN, SSCC; quantità coerenti tra livelli e scene; uso corretto di `action` |
+| Percorso | Dal titolo al finale solo con la tastiera, in 3D, in 2D e su smartphone (390×844, movimento ridotto) |
+| 3D | GS1 Blue esatto a schermo; ritorno al 2D se il contesto WebGL si perde; tasto R; memoria stabile dopo tre giri; meno di 150 draw call e 100.000 triangoli per scena |
+| Accessibilità | axe-core (WCAG 2 A e AA) su titolo, mappa, livello, note, evento, Codex, comandi e finale, in 3D, in 2D e su smartphone |
+| Brand | Nessun colore fuori dai token; contrasti AA; Orange e Teal mai a contatto negli sprite |
+| Testi | Stile GS1 Italy: numeri da uno a dieci in lettere, «barcode» e «standard» minuscoli, È accentata, plurali stranieri invariati, niente maschile generico, frasi brevi, sigle spiegate |
+
+Per chi usa un lettore di schermo: a ogni cambio di schermata il focus va sul titolo, ogni scena ha una descrizione testuale, il canvas 3D è nascosto alle tecnologie assistive e ogni oggetto 3D cliccabile ha il suo pulsante HTML.
+
+**Non verificato in automatico:** i 60 fotogrammi al secondo in qualità media. I test girano senza scheda video; vanno provati sul portatile usato in sala.
 
 ## Brand
 

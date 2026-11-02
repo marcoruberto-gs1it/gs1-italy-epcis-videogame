@@ -81,3 +81,26 @@ test("nessuna perdita di memoria dopo tre giri di tutte le scene", async ({ page
   expect(third.textures).toBe(first.textures);
   expect(errors).toEqual([]);
 });
+
+test("prestazioni: meno di 150 draw call e 100.000 triangoli per scena, pixel ratio limitato", async ({ page }) => {
+  const { errors, press, openLevel } = await start(page);
+  const ids = await page.$$eval(".node", els => els.map(e => e.dataset.lv));
+  const report = [];
+  const check = async label => {
+    const st = await page.evaluate(() => window.missioneL123.stats());
+    report.push(`${label}: ${st.calls} draw call, ${st.triangles} triangoli`);
+    expect(st.calls, label).toBeLessThan(150);
+    expect(st.triangles, label).toBeLessThan(100_000);
+    expect(st.pixelRatio, label).toBeLessThanOrEqual(st.quality === "alta" ? 2 : 1.5);
+  };
+  await check("mappa");
+  for (const id of ids) { await openLevel(id); await check("livello " + id); await page.keyboard.press("Escape"); await expect(page.locator(".map")).toBeVisible(); }
+  // Il momento più pesante: raggi X con 12 cartoni e 288 vasetti visibili.
+  await openLevel("1-3");
+  for (let i = 0; i < 12; i++) await press("Enter");
+  await press("2"); await press("Enter");
+  await expect(page.locator("#pallet.xray")).toHaveCount(1);
+  await check("raggi X");
+  console.log(report.join(" | "));
+  expect(errors).toEqual([]);
+});

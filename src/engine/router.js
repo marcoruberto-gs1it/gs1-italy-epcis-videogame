@@ -28,6 +28,8 @@ export function go(name, arg) {
   if (name !== "level" && name !== "intro" && name !== "win") state.level = null;
   commit();
   screens[name](arg);
+  const heading = document.querySelector("#screen h1, #screen h2");
+  if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
   reveal();
   routeListeners.forEach(fn => fn(name, arg));
 }

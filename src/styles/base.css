@@ -45,3 +45,7 @@ code { font-family: Consolas, "Courier New", monospace; color: var(--gs1-forest-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* I titoli ricevono il focus a ogni cambio di schermata (per i lettori di schermo): niente contorno visibile. */
+h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

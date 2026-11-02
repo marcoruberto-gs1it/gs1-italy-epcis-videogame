@@ -102,5 +102,12 @@ window.missioneL123 = {
   memory: () => (stage ? { ...stage.info(), programs: stage.renderer.info.programs?.length ?? 0 } : null),
   loseContext: () => { const ext = stage && stage.renderer.getContext().getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); return !!ext; },
   probe: () => (stage && stage.content && stage.content.probe ? stage.project(stage.content.probe()) : null),
-  sample: (x, y) => (stage ? stage.sample(x, y) : null)
+  sample: (x, y) => (stage ? stage.sample(x, y) : null),
+  /** Draw call e triangoli di un fotogramma della scena corrente, più il pixel ratio usato. */
+  stats: () => {
+    if (!stage || !stage.scene) return null;
+    stage.renderer.render(stage.scene, stage.camera);
+    const r = stage.renderer.info.render;
+    return { calls: r.calls, triangles: r.triangles, pixelRatio: stage.renderer.getPixelRatio(), quality: render.quality };
+  }
 };

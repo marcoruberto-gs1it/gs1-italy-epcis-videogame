@@ -7,7 +7,8 @@
     "powers": "POTERI",
     "audioOn": "AUDIO ATTIVO",
     "audioOff": "AUDIO SPENTO",
-    "audioAria": "Attiva o disattiva l'audio"
+    "audioAria": "Attiva o disattiva l'audio",
+    "powersAria": "Superpoteri sbloccati: {n} su {total}"
   },
   "foot": {
     "keys": "<b>1-9</b> SCEGLI · <b>INVIO</b> CONFERMA · <b>ESC</b> MAPPA · <b>G</b> CODEX · <b>?</b> COMANDI",
@@ -30,7 +31,7 @@
     "sub": "EPCIS e il diario segreto della filiera",
     "start": "PREMI INVIO",
     "record": "RECORD · RICHIAMO IN 35 MINUTI",
-    "credit": "Reverse Coaching · 1 gettone",
+    "credit": "Reverse Coaching · un gettone",
     "jarAlt": "Il vasetto di yogurt, protagonista del gioco"
   },
   "map": {
@@ -210,9 +211,10 @@
         "ask": "Se domani scoprite un problema su una cisterna di latte, quali prodotti finiti dovete fermare?",
         "answer": "Tutti i lotti fatti con quel latte, e solo quelli. Senza il legame ingredienti-prodotto si ferma tutto per prudenza.",
         "story": "Il TransformationEvent è il pezzo che manca a molti sistemi: registra cosa entra e cosa esce, quindi il legame si ritrova anche dopo mesi.",
-        "link": "Con le aziende di trasformazione è un buon aggancio: è il dato che serve per richiami mirati e per le schede di origine degli ingredienti."
+        "link": "Con le aziende di trasformazione è un buon aggancio. È il dato che serve per richiami mirati e per l'origine degli ingredienti."
       },
-      "hint": "Nella vasca entra solo quello che diventa yogurt. Poi chiediti: si può tornare indietro?"
+      "hint": "Nella vasca entra solo quello che diventa yogurt. Poi chiediti: si può tornare indietro?",
+      "sceneDesc": "Scena: la vasca del caseificio. Intorno ci sono latte, fermenti, un pallet vuoto e un detergente. Quello che metti nella vasca compare nell'elenco."
     },
     "food-nascita": {
       "meta": {
@@ -289,7 +291,8 @@
         "story": "Ogni evento risponde sempre alle stesse domande: COSA, QUANDO, DOVE, PERCHÉ. È la grammatica comune della filiera.",
         "link": "Ricorda che GTIN e GLN sono già nei sistemi di molte aziende: EPCIS li riusa, non chiede codici nuovi."
       },
-      "hint": "Per ogni riga scegli la risposta che un partner di un'altra azienda capirebbe senza telefonarti."
+      "hint": "Per ogni riga scegli la risposta che un partner di un'altra azienda capirebbe senza telefonarti.",
+      "sceneDesc": "Scena: il caseificio e la linea 2, con il vasetto del lotto L123 sul nastro verso il controllo qualità."
     },
     "food-raggi-x": {
       "meta": {
@@ -343,7 +346,8 @@
         "story": "L'aggregazione si può disfare: quando il CeDi apre il pallet si registra un evento con action DELETE, e i cartoni tornano liberi.",
         "link": "Il ricevimento al CeDi è un punto in cui il vantaggio si vede subito: meno controlli manuali, meno contestazioni."
       },
-      "hint": "Il CeDi non vuole aprire il pallet: deve saperlo prima, da un evento registrato in caseificio."
+      "hint": "Il CeDi non vuole aprire il pallet: deve saperlo prima, da un evento registrato in caseificio.",
+      "sceneDesc": "Scena: un pallet su cui impilare 12 cartoni da 24 vasetti. Con lo scanner il pallet diventa trasparente e si vedono i 288 vasetti."
     },
     "food-cbv": {
       "meta": {
@@ -398,7 +402,8 @@
         "story": "Il CBV (Core Business Vocabulary) è il vocabolario di GS1: passi di processo come shipping e stati come in_transit sono uguali per tutti.",
         "link": "Quando un'azienda dice «abbiamo già i dati», chiedete se usano parole standard: è lì che si perde l'interoperabilità."
       },
-      "hint": "Il sistema del CeDi capisce solo il vocabolario standard GS1, in inglese e minuscolo."
+      "hint": "Il sistema del CeDi capisce solo il vocabolario standard GS1, in inglese e minuscolo.",
+      "sceneDesc": "Scena: la baia di carico del caseificio con il camion e il CeDi di Bologna sullo sfondo."
     },
     "food-freddo": {
       "meta": {
@@ -447,7 +452,7 @@
         "Associazione: il sensore viene legato al pallet",
         "Trasporto: minimo, massimo e allarme della temperatura"
       ],
-      "fact": "Due pagine: l'<code>AssociationEvent</code> lega il sensore al pallet, poi <code>sensorElementList</code> porta minimo, massimo e allarme dentro l'evento di trasporto, con unità di misura standard (<code>CEL</code>, gradi Celsius).",
+      "fact": "Due pagine. L'<code>AssociationEvent</code> lega il sensore al pallet. Poi <code>sensorElementList</code> porta minimo, massimo e allarme dentro l'evento di trasporto, con unità di misura standard (<code>CEL</code>, gradi Celsius).",
       "power": [
         "CATENA DEL FREDDO",
         "I dati dei sensori viaggiano dentro l'evento: minimo, massimo, allarmi."
@@ -465,7 +470,8 @@
         "story": "EPCIS 2.0 ha portato i dati dei sensori dentro gli eventi: minimo, massimo, allarmi, con unità di misura standard.",
         "link": "Per il fresco e il surgelato è un tema concreto: la prova della catena del freddo viaggia con il prodotto."
       },
-      "hint": "Il sensore deve seguire la merce. Poi pensa a un dato che tutti i partner possano interrogare."
+      "hint": "Il sensore deve seguire la merce. Poi pensa a un dato che tutti i partner possano interrogare.",
+      "sceneDesc": "Scena: il camion in autostrada verso Bologna. La temperatura del sensore compare in alto."
     },
     "food-errore": {
       "meta": {
@@ -473,10 +479,10 @@
         "c": "Dichiarazione di errore",
         "place": "CeDi di Bologna"
       },
-      "intro": "Il pallet arriva al CeDi. Un operatore stanco registra il ricevimento...",
+      "intro": "Il pallet arriva al CeDi. Una persona del magazzino, stanca, registra il ricevimento...",
       "req": "receiving · lotto <span class=\"bad\">L132</span> · 288 pezzi",
       "cap": "EVENTO GIÀ LETTO DA TRE PARTNER",
-      "story": "L'operatore registra il ricevimento ma digita <code>L132</code> invece di <code>L123</code>. L'evento è già stato letto dal produttore, dal trasportatore e dalla sede.",
+      "story": "Chi registra il ricevimento digita <code>L132</code> invece di <code>L123</code>. L'evento è già stato letto dal caseificio, dall'azienda di trasporto e dalla sede.",
       "q": "Che cosa fai?",
       "opts": [
         {
@@ -517,7 +523,8 @@
         "story": "La dichiarazione di errore conserva l'ora e il motivo: anche la correzione diventa parte della storia.",
         "link": "È un argomento di fiducia: utile con chi teme che condividere dati esponga i propri errori."
       },
-      "hint": "In EPCIS la storia non si riscrive di nascosto: si aggiunge qualcosa che la corregge."
+      "hint": "In EPCIS la storia non si riscrive di nascosto: si aggiunge qualcosa che la corregge.",
+      "sceneDesc": "Scena: il pallet appena arrivato davanti al CeDi di Bologna."
     },
     "tessile-filo": {
       "meta": {
@@ -560,7 +567,7 @@
         "Ogni capo porta con sé la storia dei suoi materiali, passaggio dopo passaggio."
       ],
       "why": {
-        "benefit": "Le informazioni su materiali e lavorazioni seguono il capo: servono per la sostenibilità e per il Passaporto Digitale di Prodotto previsto dal regolamento europeo ESPR.",
+        "benefit": "Le informazioni su materiali e lavorazioni seguono il capo. Servono per la sostenibilità e per il Passaporto Digitale di Prodotto previsto dal regolamento europeo ESPR.",
         "who": [
           "produttore",
           "consumatore",
@@ -574,7 +581,8 @@
         "story": "Gli stessi TransformationEvent del latte funzionano per il tessile: ogni output diventa l'input del passaggio dopo.",
         "link": "Il Passaporto Digitale di Prodotto previsto dal regolamento ESPR rende questo tema concreto per moda e tessile. Non citare scadenze: dipendono dagli atti delegati."
       },
-      "hint": "Ogni passaggio usa quello che esce dal passaggio prima: dalla fibra al capo."
+      "hint": "Ogni passaggio usa quello che esce dal passaggio prima: dalla fibra al capo.",
+      "sceneDesc": "Scena: tre stazioni, filatura, tessitura e confezione. Ogni passaggio giusto si accende."
     },
     "tessile-inventario": {
       "meta": {
@@ -589,7 +597,7 @@
       "toRfid": "BASTA, PASSA ALL'RFID",
       "scan": "LETTURA RAIN RFID",
       "counter": "LETTI {n}/24 · 00:{s}",
-      "result": "Barcode: {n} capi in {s} secondi. RAIN RFID: 24 capi in un secondo.",
+      "result": "Con il barcode: {n} capi in {s} secondi. Con RAIN RFID: 24 capi in un secondo.",
       "q3": "Domanda trabocchetto: che cosa ha letto davvero il lettore?",
       "opts": [
         {
@@ -630,7 +638,8 @@
         "story": "Il tag RFID è solo il mezzo: l'identità è l'EPC, la stessa che può stare in un barcode o in un database.",
         "link": "Caso pubblico: Decathlon applica un tag EPC/RFID al 100% dei suoi prodotti (case study GS1 US, vedi SOURCES.md)."
       },
-      "hint": "Distingui il dato dal mezzo che lo trasporta."
+      "hint": "Distingui il dato dal mezzo che lo trasporta.",
+      "sceneDesc": "Scena: uno scaffale con 24 t-shirt e un lettore RFID. I capi letti si accendono, il contatore in basso dice quanti sono."
     },
     "tessile-reso": {
       "meta": {
@@ -638,7 +647,7 @@
         "c": "Storia del capo · pedigree",
         "place": "Negozio di Roma"
       },
-      "intro": "Due clienti riportano lo stesso modello di giubbotto. Nessuno dei due ha lo scontrino.",
+      "intro": "Due persone riportano lo stesso modello di giubbotto. Nessuna delle due ha lo scontrino.",
       "story": "Negozio di Roma. Due giubbotti identici tornano indietro senza scontrino. Interroga il repository EPCIS, l'archivio degli eventi, e leggi la storia di ciascun numero di serie.",
       "q": "Quale reso accetti?",
       "jacketA": "CAPO A<br>JK-0457",
@@ -710,7 +719,8 @@
         "story": "Un numero di serie senza storia nel repository è un campanello d'allarme: quel capo potrebbe non essere mai nato in fabbrica.",
         "link": "Resi e contraffazione sono temi forti per i marchi: la storia degli eventi è una prova di autenticità."
       },
-      "hint": "Interroga tutti e due i capi e guarda quale ha una storia."
+      "hint": "Interroga tutti e due i capi e guarda quale ha una storia.",
+      "sceneDesc": "Scena: due giubbotti identici sul bancone e la mappa dei passaggi del capo A."
     },
     "sfida-finale": {
       "meta": {
@@ -796,7 +806,7 @@
         },
         {
           "sp": "person",
-          "t": "Già venduti ai consumatori",
+          "t": "Già venduti · a casa di chi li ha comprati",
           "n": "24 PZ",
           "lot": "L123"
         }
@@ -853,7 +863,7 @@
       "block": "BLOCCA I LOTTI · RECALLED",
       "blocked": "BLOCCATI",
       "notice": "AVVISO",
-      "recap": "Bloccati 552 vasetti: 264 del lotto L123 e 288 del lotto L124. Per i 24 vasetti già venduti parte un avviso ai consumatori.",
+      "recap": "Bloccati 552 vasetti: 264 del lotto L123 e 288 del lotto L124. Per i 24 vasetti già venduti parte un avviso a chi li ha comprati.",
       "done": "SFIDA SUPERATA ▶",
       "events": [
         "Richiamo al CeDi: lotti L123 e L124",
@@ -874,16 +884,17 @@
           "consumatore",
           "autorita"
         ],
-        "case": "Al Leeds Teaching Hospitals NHS Trust il tempo medio per richiamare un prodotto è sceso da 8,33 giorni a meno di 35 minuti, grazie agli standard GS1 del programma Scan4Safety.",
+        "case": "Al Leeds Teaching Hospitals NHS Trust il tempo medio per richiamare un prodotto è sceso da 8,33 giorni a meno di 35 minuti. Il merito è degli standard GS1 del programma Scan4Safety.",
         "source": "GS1 UK, «A scan of the benefits: the Scan4Safety evidence report», 2020"
       },
       "notes": {
         "ask": "Nel round 1 quante telefonate avreste fatto voi?",
         "answer": "Tante, e alla fine si richiama tutto per prudenza.",
-        "story": "Al Leeds Teaching Hospitals NHS Trust il tempo medio di richiamo è sceso da 8,33 giorni a meno di 35 minuti con gli standard GS1 (Scan4Safety, vedi SOURCES.md).",
-        "link": "Il richiamo chirurgico è il messaggio da portare ai vertici: meno prodotto distrutto, meno danno di immagine, consumatori protetti."
+        "story": "Al Leeds Teaching Hospitals NHS Trust il tempo medio di richiamo è sceso da 8,33 giorni a meno di 35 minuti. Il programma Scan4Safety usa gli standard GS1 (vedi SOURCES.md).",
+        "link": "Il richiamo chirurgico è il messaggio da portare ai vertici: meno prodotto distrutto, meno danno di immagine, più tutela per chi compra."
       },
-      "hint": "Parti dal latte: la trasformazione ti dice in quali lotti è finito. Poi cerca quei lotti, non tutto il prodotto."
+      "hint": "Parti dal latte: la trasformazione ti dice in quali lotti è finito. Poi cerca quei lotti, non tutto il prodotto.",
+      "sceneDesc": "Scena: la mappa della filiera. Nel round 2 si accendono solo i luoghi dove si trovano i lotti L123 e L124."
     }
   },
   "codex": {

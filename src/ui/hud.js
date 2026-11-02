@@ -21,8 +21,8 @@ export function renderHud() {
   $("#hud").innerHTML = `
     <span><span class="lbl">${t("hud.events")}</span><span class="val">${String(state.score).padStart(5, "0")}</span></span>
     <span class="lotto">${t("hud.lot")}</span>
-    <span><span class="lbl">${t("hud.lives")}</span><span class="hearts" aria-label="${t("hud.livesAria", { n: state.lives })}">${hearts}</span></span>
-    <span><span class="lbl">${t("hud.powers")}</span><span class="pw">${pw}</span></span>
+    <span><span class="lbl">${t("hud.lives")}</span><span class="hearts" role="img" aria-label="${t("hud.livesAria", { n: state.lives })}">${hearts}</span></span>
+    <span><span class="lbl">${t("hud.powers")}</span><span class="pw" role="img" aria-label="${t("hud.powersAria", { n: state.powers.length, total: LEVELS.length })}">${pw}</span></span>
     ${teamsHtml()}
     <button class="mute" id="mute" aria-label="${t("hud.audioAria")}">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</button>`;
   $("#mute").onclick = toggleMute;
@@ -31,7 +31,7 @@ export function renderHud() {
 function teamsHtml() {
   if (!teamsOn()) return "";
   const tm = state.teams;
-  const team = k => `<span class="team team-${k} ${tm.turn === k ? "turn" : ""}" aria-label="${t("teams.name" + k)}: ${t("teams.points", { n: tm[k] })}">${t("teams." + k)} ${tm[k]}</span>`;
+  const team = k => `<span class="team team-${k} ${tm.turn === k ? "turn" : ""}">${t("teams." + k)} ${tm[k]}<span class="sr-only"> · ${t("teams.name" + k)}: ${t("teams.points", { n: tm[k] })}</span></span>`;
   const turn = tm.turn ? t("teams.turn", { t: t("teams." + tm.turn) }) : t("teams.noTurn");
   return `<span class="teams" title="${turn}">${team("A")}${team("B")}</span><span class="sr-only" aria-live="polite">${turn}</span>`;
 }

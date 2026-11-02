@@ -338,6 +338,8 @@ export function mapScene({ nodes, here, from }, ctx) {
     }
     // Centro del diorama: media delle posizioni delle isole.
     const center = nodes.reduce((c, n) => c.add(pos(n)), new Vector3()).divideScalar(Math.max(1, nodes.length));
+    // Nel diorama solo il vasetto proietta ombra: dimezza le draw call del passaggio delle ombre.
+    root.traverse(o => { o.castShadow = false; });
     const jar = P.jar();
     jar.scale.setScalar(0.9);
     const target = nodes.find(n => n.id === here);

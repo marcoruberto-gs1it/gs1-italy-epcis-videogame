@@ -13,7 +13,7 @@ export const levelCode = level => (level.id === "finale" ? t("level.codeFinale")
 export function levelShell(level, sceneHtml, bodyHtml) {
   const m = level.meta;
   return `<div class="lv-head"><span class="code">${levelCode(level)}</span><h2>${m.t.toUpperCase()}</h2><span class="tag">${m.place.toUpperCase()}</span></div>
-    <div class="lv"><div class="scene" id="scene">${backdrop(level.scene)}<div class="scene-content">${sceneHtml}</div></div><div class="stack" id="body">${hintBox(level)}${bodyHtml}<div class="msg" id="msg" role="status"></div></div></div>`;
+    <div class="lv"><div class="scene" id="scene"><p class="sr-only">${level.C.sceneDesc}</p>${backdrop(level.scene)}<div class="scene-content">${sceneHtml}</div></div><div class="stack" id="body">${hintBox(level)}${bodyHtml}<div class="msg" id="msg" role="status"></div></div></div>`;
 }
 
 /** Modalità individuale: pulsante e testo del suggerimento del livello. */
