@@ -1,4 +1,5 @@
 // Livello 2-1 · Dal filo al capo: tre TransformationEvent in fila, la base del Passaporto Digitale di Prodotto.
+// Tra i passaggi ci sono anche una spedizione e un'etichettatura: reali, ma non trasformazioni.
 import events from "../data/events/tessile-filo.json";
 import { defineLevel } from "./define.js";
 
@@ -15,11 +16,12 @@ export default defineLevel({
        <div class="row" id="after"></div>`));
     $$("#steps .opt").forEach(b => b.onclick = () => {
       const s = C.steps[+b.dataset.i];
-      if (s.pos !== chain.length) { b.classList.add("no"); fail(C.wrong); setTimeout(() => b.classList.remove("no"), 600); return; }
+      if (s.pos !== chain.length) { b.classList.add("no"); fail(s.pos < 0 ? s.why : C.wrong); setTimeout(() => b.classList.remove("no"), 600); return; }
       chain.push(s); b.disabled = true; b.classList.add("ok"); sfx.ok(); hook("step", chain.length - 1);
       $("#chain").innerHTML = chain.map(x => `<li>✓ ${x.t}</li>`).join("");
       fx.popIn($("#chain li:last-child"));
-      if (chain.length < C.steps.length) return;
+      if (chain.length < C.steps.filter(x => x.pos >= 0).length) return;
+      $$("#steps .opt:not(:disabled)").forEach(x => { x.disabled = true; });
       setMsg(C.done, true);
       teamPoint(b);
       $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;

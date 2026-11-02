@@ -8,8 +8,8 @@ Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filie
 
 ## Struttura del gioco
 
-- **Mondo 1 · Food**: dal latte allo yogurt (trasformazione), le dimensioni di un evento, aggregazione (raggi X), vocabolario CBV, sensori e catena del freddo (AssociationEvent), dichiarazione di errore.
-- **Mondo 2 · Tessile**: dal filo al capo (trasformazioni in fila, base del DPP), inventario con RAIN RFID (EPC e vettore), resi e storia del capo. Si può spegnere da `src/config.js`.
+- **Filiera food**: dal latte allo yogurt (trasformazione), le dimensioni di un evento, aggregazione (raggi X), vocabolario CBV, sensori e catena del freddo (AssociationEvent), dichiarazione di errore.
+- **Filiera tessile**: dal filo al capo (trasformazioni in fila, base del DPP), inventario con RAIN RFID (EPC e vettore), resi e storia del capo. Si può spegnere da `src/config.js`.
 - **Sfida finale**: il grande richiamo, prima "come una volta" e poi con due query EPCIS, dal latte ai lotti di yogurt e da lì ai luoghi.
 
 Ogni livello mostra le sue pagine del diario in EPCIS 2.0 JSON (anche dentro un EPCISDocument completo), un superpotere e una scheda "Perché conta". Il **Codex** raccoglie le carte dei concetti, che si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.

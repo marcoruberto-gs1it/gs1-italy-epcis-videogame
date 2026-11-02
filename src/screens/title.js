@@ -49,6 +49,6 @@ register("title", () => {
   bob($("#hero img"));
   eyes($("#hero img"), sprite("jar"), sprite("jarBlink"));
   introSequence($(".home .intro"));
-  mountScene($("#heroScene"), mapScene({ nodes: mapNodes(state.done), here: null, from: null }, { clickHtml() {} }));
+  mountScene($("#heroScene"), mapScene({ world: "food", nodes: mapNodes(state.done).filter(n => n.world === "food"), here: null, from: null }, { clickHtml() {} }));
   $("#start").onclick = () => { sfx.coin(); go("map"); };
 });

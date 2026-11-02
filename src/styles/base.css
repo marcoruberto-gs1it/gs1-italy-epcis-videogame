@@ -23,7 +23,8 @@ h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
 .topbar .brandbox { display: flex; align-items: center; gap: 12px; font-weight: 700; color: var(--gs1-blue); }
 .topbar .status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
 .topbar .tools { display: flex; gap: 8px; }
-.steps { display: inline-flex; align-items: center; gap: 4px; }
+.steps { display: inline-flex; align-items: center; gap: 14px; }
+.steps .grp { display: inline-flex; align-items: center; gap: 4px; }
 .steps i { width: 12px; height: 12px; border-radius: 50%; background: var(--gs1-light-gray); display: inline-block; }
 .steps i.on { background: var(--gs1-forest); }
 .steps .lbl { font-size: .85em; margin-right: 6px; }

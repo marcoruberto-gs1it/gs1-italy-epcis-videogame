@@ -110,7 +110,10 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
 
   // 2-1 Dal filo al capo
   await intro("15-intro-2-1");
-  await press("2"); await press("1"); await press("3");
+  // La spedizione non è una trasformazione: costa una vita.
+  await press("1");
+  await expect(page.locator("#msg")).toContainText("Cambia il luogo");
+  await press("3"); await press("2"); await press("5");
   await shot("16-livello-2-1");
   await press("Enter");
   await seeWin("17-evento-2-1");

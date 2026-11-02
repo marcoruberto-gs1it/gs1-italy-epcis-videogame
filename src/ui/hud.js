@@ -19,12 +19,14 @@ let onHelp = () => {};
 export const setHelpHandler = fn => { onHelp = fn; };
 
 export function renderHud() {
-  const steps = LEVELS.map(l => `<i class="${state.done[l.id] ? "on" : ""}"></i>`).join("");
+  // Avanzamento diviso per filiera: food, tessile, sfida finale.
+  const steps = ["food", "textile", "finale"].map(w => LEVELS.filter(l => l.world === w)).filter(g => g.length)
+    .map(g => `<span class="grp"><span class="lbl" aria-hidden="true">${t(`hud.world.${g[0].world}`)}</span>${g.map(l => `<i class="${state.done[l.id] ? "on" : ""}"></i>`).join("")}</span>`).join("");
   const hearts = [0, 1, 2].map(i => `<span class="${i < state.lives ? "" : "lost"}">♥</span>`).join("");
   $("#hud").innerHTML = `
     <div class="brandbox">${logoHtml()}<span>${t("title.heading")}</span></div>
     <div class="status">
-      <span class="steps" role="img" aria-label="${t("hud.powersAria", { n: Object.keys(state.done).length, total: LEVELS.length })}"><span class="lbl" aria-hidden="true">${t("hud.stepsLabel")}</span>${steps}</span>
+      <span class="steps" role="img" aria-label="${t("hud.powersAria", { n: Object.keys(state.done).length, total: LEVELS.length })}">${steps}</span>
       <span class="hearts" role="img" aria-label="${t("hud.livesAria", { n: state.lives })}">${hearts}</span>
       <span class="score">${state.score} ${t("hud.events").toLowerCase()}</span>
       ${teamsHtml()}

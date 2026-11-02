@@ -14,11 +14,15 @@ import finale from "./sfida-finale.js";
 
 const ALL = [latte, nascita, raggiX, cbv, freddo, errore, filo, inventario, reso, finale];
 
-export const WORLDS = { food: 1, textile: 2 };
-
 export const LEVELS = ALL.filter(l => l.world === "finale" || CONFIG.worlds.includes(l.world));
 
 export const byId = id => LEVELS.find(l => l.id === id);
+
+/** Posizione della tappa nella sua filiera: { n, total }. */
+export function worldStep(level) {
+  const list = LEVELS.filter(l => l.world === level.world);
+  return { n: list.indexOf(level) + 1, total: list.length };
+}
 
 export const nextOf = id => LEVELS[LEVELS.findIndex(l => l.id === id) + 1];
 

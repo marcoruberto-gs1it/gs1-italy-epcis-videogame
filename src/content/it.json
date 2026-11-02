@@ -12,7 +12,11 @@
     "help": "Comandi (?)",
     "logoPlaceholder": "Logo GS1 Italy",
     "fallback": "La grafica 3D non è disponibile su questo computer: continuo in 2D.",
-    "stepsLabel": "Tappe"
+    "world": {
+      "food": "Food",
+      "textile": "Tessile",
+      "finale": "Finale"
+    }
   },
   "narrator": {
     "name": "Bip",
@@ -29,16 +33,16 @@
   },
   "map": {
     "food": {
-      "heading": "Mondo 1 · food",
-      "text": "Il viaggio di un vasetto di yogurt, dal latte al supermercato."
+      "heading": "Filiera food",
+      "text": "Il viaggio di un vasetto di yogurt: dal latte della stalla allo scaffale."
     },
     "textile": {
-      "heading": "Mondo 2 · tessile",
-      "text": "Il cartellino che parla: dal filo al reso."
+      "heading": "Filiera tessile",
+      "text": "Il cartellino che parla: dalla fibra di cotone al reso in negozio."
     },
     "finale": {
-      "heading": "Zona sfida finale",
-      "text": "Un allarme sul latte del lotto L123. Servono tutti i poteri."
+      "heading": "Sfida finale",
+      "text": "Un allarme sul latte del lotto L123. Si affronta dopo le due filiere, con tutti i superpoteri."
     },
     "level": "Tappa {id}",
     "finaleNode": "Sfida finale",
@@ -48,12 +52,16 @@
     "seeEnd": "Vedi il finale",
     "codex": "Codex (G)",
     "reset": "Ricomincia da zero",
-    "nextLabel": "Prossima tappa",
-    "title": "La filiera del lotto L123",
-    "hint": "Clicca una tappa sulla mappa o nell'elenco."
+    "tabsAria": "Scegli la filiera",
+    "progress": "{n} di {total}",
+    "goto": {
+      "food": "Torna alla filiera food",
+      "textile": "Passa alla filiera tessile",
+      "finale": "Vai alla sfida finale"
+    }
   },
   "intro": {
-    "tag": "Mondo {w} · tappa {id}",
+    "tag": "{w} · tappa {n} di {total}",
     "tagFinale": "Sfida finale",
     "concept": "Concetto: {c}",
     "go": "Inizia"
@@ -172,20 +180,20 @@
       ],
       "tankFull": "Latte e fermenti sono nella vasca. Il lotto L123 sta nascendo!",
       "born": "Lotto L123 · 288 vasetti",
-      "q": "Domani il laboratorio trova un problema sulla cisterna C0471. Che cosa ti permette di fare l'evento che stai per registrare?",
+      "q": "Domani il laboratorio segnala un problema sulla cisterna C0471. Che cosa rende possibile l'evento che stai per registrare?",
       "opts": [
         {
-          "t": "Bloccare tutto lo yogurt prodotto in settimana, per sicurezza",
-          "why": "È quello che succede senza il legame tra ingredienti e prodotto. Con la trasformazione registrata sai quali lotti contengono quel latte."
+          "t": "Trovare i vasetti coinvolti, ma solo se ogni vasetto ha un numero di serie",
+          "why": "Non serve serializzare: la trasformazione lavora anche per lotti e quantità. Basta il legame tra lotto di latte e lotto di yogurt."
         },
         {
-          "t": "Risalire in pochi secondi ai soli lotti di yogurt fatti con quel latte",
+          "t": "Passare dalla cisterna ai lotti di yogurt e viceversa, senza serializzare i vasetti",
           "ok": true,
-          "why": "Esatto. Input e output nello stesso evento danno la genealogia del prodotto, in tutte e due le direzioni."
+          "why": "Esatto. Input e output nello stesso evento danno la genealogia, in tutte e due le direzioni, anche a livello di lotto."
         },
         {
-          "t": "Sapere chi ha venduto il latte al caseificio",
-          "why": "Quello è un dato commerciale. La trasformazione collega i lotti di input ai lotti di output, non i fornitori."
+          "t": "Ricostruire anche dove è andato lo yogurt, perché la trasformazione registra le spedizioni successive",
+          "why": "Ogni passo ha il suo evento. La trasformazione dà il legame tra lotti; il percorso lo raccontano gli eventi di spedizione e ricevimento."
         }
       ],
       "events": [
@@ -209,7 +217,7 @@
         "story": "Il TransformationEvent è il pezzo che manca a molti sistemi: registra cosa entra e cosa esce, quindi il legame si ritrova anche dopo mesi.",
         "link": "Con le aziende di trasformazione è un buon aggancio. È il dato che serve per richiami mirati e per l'origine degli ingredienti."
       },
-      "hint": "Nella vasca entra solo quello che diventa yogurt. Poi chiediti: si può tornare indietro?",
+      "hint": "Nella vasca entra solo quello che diventa yogurt. Poi pensa alla granularità: bastano i lotti, o servono i numeri di serie?",
       "sceneDesc": "Scena: la vasca del caseificio. Intorno ci sono latte, fermenti, un pallet vuoto e un detergente. Quello che metti nella vasca compare nell'elenco."
     },
     "food-nascita": {
@@ -227,40 +235,40 @@
           "o": [
             "GTIN 09506000134352",
             "GTIN 09506000134352 + lotto L123",
-            "SSCC del pallet 106141411234567897"
+            "Codice interno del gestionale «L123-LINEA2»"
           ],
           "ok": 1,
-          "why": "Al controllo osservi un lotto preciso: serve GTIN più lotto. Il solo GTIN non distingue L123 dagli altri lotti, e il pallet non esiste ancora."
+          "why": "Al controllo osservi un lotto preciso: GTIN più lotto. Il solo GTIN non distingue i lotti; il codice interno lo capisce solo la tua azienda."
         },
         {
           "d": "QUANDO",
           "o": [
             "2026-11-02T08:15:00+01:00",
             "2026-11-02T08:15:00, senza fuso orario",
-            "Scadenza 2026-11-30"
+            "L'ora in cui l'evento arriva nel repository"
           ],
           "ok": 0,
-          "why": "Serve l'istante con il fuso orario: senza, un partner all'estero legge un'ora sbagliata. La scadenza descrive il lotto, non il momento dell'evento."
+          "why": "Serve l'istante del fatto, con il fuso orario. L'ora di arrivo nel repository è un altro campo (recordTime), che compila il sistema."
         },
         {
           "d": "DOVE",
           "o": [
             "GLN della sede legale del gruppo",
             "GLN 0614141007776 con l'estensione «linea 2»",
-            "Coordinate GPS dello stabilimento"
+            "GLN del CeDi a cui è destinato il lotto"
           ],
           "ok": 1,
-          "why": "Il DOVE è il luogo dove è successo il fatto: il GLN del caseificio con l'estensione della linea. La sede legale non dice dove si trova la merce."
+          "why": "Il DOVE è il luogo del fatto: il caseificio, con l'estensione della linea. La sede legale è un'anagrafica; il CeDi è la destinazione."
         },
         {
           "d": "PERCHÉ",
           "o": [
             "commissioning",
             "inspecting",
-            "shipping"
+            "creating_class_instance"
           ],
           "ok": 1,
-          "why": "Il lotto è già nato nella trasformazione: adesso lo stai controllando. Il passo di processo CBV giusto è inspecting."
+          "why": "Il lotto è già nato nella trasformazione: commissioning e creating_class_instance descrivono una nascita. Adesso lo stai controllando: inspecting."
         }
       ],
       "needAll": "Scegli una risposta per ogni riga.",
@@ -287,7 +295,7 @@
         "story": "Ogni evento risponde sempre alle stesse domande: COSA, QUANDO, DOVE, PERCHÉ. È la grammatica comune della filiera.",
         "link": "Ricorda che GTIN e GLN sono già nei sistemi di molte aziende: EPCIS li riusa, non chiede codici nuovi."
       },
-      "hint": "Per ogni riga scegli la risposta che un partner di un'altra azienda capirebbe senza telefonarti.",
+      "hint": "Per ogni riga chiediti: un partner di un'altra azienda lo capirebbe? E descrive il fatto, o qualcos'altro?",
       "sceneDesc": "Scena: il caseificio e la linea 2, con il vasetto del lotto L123 sul nastro verso il controllo qualità."
     },
     "food-raggi-x": {
@@ -301,20 +309,20 @@
       "stack": "Impila un cartone",
       "stackAll": "Impila tutti",
       "count": "Cartoni {n}/12 · vasetti {j}/288",
-      "q": "Il pallet arriva al CeDi filmato. Quale vantaggio porta al CeDi l'aggregazione registrata in caseificio?",
+      "q": "Il CeDi legge un solo SSCC e conosce lotti e quantità del pallet. A quale condizione funziona davvero?",
       "opts": [
         {
-          "t": "Ricevere il pallet leggendo un solo SSCC e sapere subito lotti e quantità che contiene",
+          "t": "Il caseificio condivide l'aggregazione e chi smonta il pallet registra la disaggregazione",
           "ok": true,
-          "why": "Esatto. Il legame tra contenitore e contenuto viaggia con i dati: meno controlli manuali, meno contestazioni."
+          "why": "Esatto. Il contenuto vale finché nessuno lo cambia: ogni montaggio e smontaggio diventa un evento condiviso."
         },
         {
-          "t": "Non dover più applicare l'etichetta logistica al pallet",
-          "why": "L'etichetta con l'SSCC serve ancora: è la chiave che collega il pallet fisico ai suoi dati."
+          "t": "CeDi e caseificio usano lo stesso gestionale",
+          "why": "È proprio quello che lo standard evita: sistemi diversi si capiscono perché parlano EPCIS."
         },
         {
-          "t": "Conoscere il prezzo di ogni vasetto senza aprire il pallet",
-          "why": "EPCIS racconta che cosa succede agli oggetti. Prezzi e condizioni commerciali viaggiano in altri messaggi."
+          "t": "L'SSCC contiene già nel codice i GTIN dei cartoni",
+          "why": "L'SSCC è solo un numero seriale. Il contenuto viaggia nei dati dell'evento, non nel codice."
         }
       ],
       "scan": "Scansiona il pallet",
@@ -342,7 +350,7 @@
         "story": "L'aggregazione si può disfare: quando il CeDi apre il pallet si registra un evento con action DELETE, e i cartoni tornano liberi.",
         "link": "Il ricevimento al CeDi è un punto in cui il vantaggio si vede subito: meno controlli manuali, meno contestazioni."
       },
-      "hint": "Il CeDi non vuole aprire il pallet: deve saperlo prima, da un evento registrato in caseificio.",
+      "hint": "Che cosa sa davvero un numero SSCC? E che cosa succede ai dati quando il pallet viene smontato?",
       "sceneDesc": "Scena: un pallet su cui impilare 12 cartoni da 24 vasetti. Con lo scanner il pallet diventa trasparente e si vedono i 288 vasetti."
     },
     "food-cbv": {
@@ -357,24 +365,24 @@
       "bubbleGood": "Ricevuto! Pallet in viaggio, ordine collegato. Vi aspetto.",
       "cap": "IL SISTEMA DEL CeDi ASCOLTA",
       "story": "Il pallet sale sul camion. Ogni azienda ha il suo gergo, ma il sistema del CeDi capisce solo il CBV (Core Business Vocabulary), il vocabolario comune di GS1.",
-      "q": "Il tuo gestionale chiama la spedizione «uscita_merce». Perché nell'evento conviene usare il termine CBV shipping?",
+      "q": "Il gestionale chiama la spedizione «uscita_merce» e lo stato «in_viaggio». Che cosa cambia usando shipping e in_transit del CBV?",
       "opts": [
         {
-          "t": "Perché il vocabolario CBV è obbligatorio per legge",
-          "why": "Non è una legge: è un accordo tra partner sullo stesso standard. Funziona perché lo adottano tutti."
+          "t": "Nulla nei sistemi dei partner: il CBV serve per la certificazione GS1",
+          "why": "Non esiste una certificazione legata al CBV. Il valore sta nell'interpretazione comune tra partner."
         },
         {
-          "t": "Perché il CeDi interpreta l'evento in automatico, senza una tabella di conversione per ogni fornitore",
+          "t": "Ogni partner interpreta l'evento con le stesse regole, senza tabelle di conversione per fornitore",
           "ok": true,
-          "why": "Esatto. Un vocabolario comune elimina le traduzioni da sistema a sistema: meno lavoro e meno errori."
+          "why": "Esatto. Un vocabolario comune elimina le traduzioni da sistema a sistema: meno lavoro, meno errori."
         },
         {
-          "t": "Perché i termini in inglese occupano meno spazio nel database",
-          "why": "Lo spazio non c'entra. Conta che il significato sia lo stesso per tutti i sistemi."
+          "t": "L'evento diventa valido: con un valore aziendale verrebbe rifiutato",
+          "why": "EPCIS accetta anche valori propri, scritti come URI. Il problema è che li capisce solo chi li ha inventati."
         },
         {
-          "t": "Perché così il trasportatore può emettere la fattura",
-          "why": "La fattura viaggia in altri documenti. shipping descrive il passo di processo, non il pagamento."
+          "t": "Il CBV sostituisce i dati anagrafici del prodotto scambiati con GDSN",
+          "why": "Ambiti diversi: il CBV descrive i fatti, GDSN le caratteristiche del prodotto. Si completano."
         }
       ],
       "events": [
@@ -398,7 +406,7 @@
         "story": "Il CBV (Core Business Vocabulary) è il vocabolario di GS1: passi di processo come shipping e stati come in_transit sono uguali per tutti.",
         "link": "Quando un'azienda dice «abbiamo già i dati», chiedete se usano parole standard: è lì che si perde l'interoperabilità."
       },
-      "hint": "Il sistema del CeDi capisce solo il vocabolario standard GS1, in inglese e minuscolo.",
+      "hint": "Un termine aziendale è vietato? No. Ma chi altro lo capisce senza una tabella di conversione?",
       "sceneDesc": "Scena: la baia di carico del caseificio con il camion e il CeDi di Bologna sullo sfondo."
     },
     "food-freddo": {
@@ -409,39 +417,39 @@
       },
       "intro": "Due ore di autostrada. Prima di partire, sul pallet viene montato un sensore di temperatura. Va collegato all'oggetto giusto.",
       "story": "Il sensore registra la temperatura per tutto il viaggio. Lo yogurt deve restare sotto gli 8 °C.",
-      "q1": "Perché conviene legare il sensore al pallet con un AssociationEvent, invece di annotarlo sul camion?",
+      "q1": "Il pallet cambierà camion al CeDi. Perché legare il sensore al pallet con un AssociationEvent?",
       "opts1": [
         {
-          "t": "Perché le misure seguono il pallet anche se cambia camion o magazzino",
+          "t": "Perché le misure restano riferite al pallet per tutto il viaggio, qualunque mezzo lo porti",
           "ok": true,
-          "why": "Esatto. L'associazione dice a quale oggetto si riferiscono le misure, per tutto il viaggio. È una novità di EPCIS 2.0."
+          "why": "Esatto. L'associazione dice a quale oggetto si riferiscono le misure. È una novità di EPCIS 2.0."
         },
         {
-          "t": "Perché così il sensore non va più calibrato",
-          "why": "La calibrazione resta necessaria. L'associazione dice solo a quale oggetto si riferiscono le misure."
+          "t": "Perché solo l'AssociationEvent può contenere le letture dei sensori",
+          "why": "Le letture (sensorElementList) possono stare in ogni tipo di evento. L'associazione serve a legare il dispositivo alla merce."
         },
         {
-          "t": "Perché così il camion non ha bisogno di un identificativo",
-          "why": "Mezzi e luoghi hanno i loro identificativi. L'associazione lega il sensore alla merce che sta controllando."
+          "t": "Perché così il sensore entra nell'identità del pallet, cioè nel suo SSCC",
+          "why": "L'SSCC non cambia. Il sensore ha la sua identità e l'evento le collega."
         }
       ],
       "drive": "Avvia il viaggio",
       "linked": "Sensore SENS042 sul pallet 106141411234567897",
       "cap": "Soglia yogurt · massimo 8 °C",
-      "q2": "Il sensore ha registrato fino a 9 °C. Quale vantaggio dà avere questo dato dentro l'evento EPCIS?",
+      "q2": "Il sensore ha registrato 9 °C per 40 minuti. Che cosa aggiunge l'evento EPCIS rispetto al file del datalogger?",
       "opts2": [
         {
-          "t": "Chi riceve può decidere su quel pallet in base ai dati, prima ancora di aprirlo",
+          "t": "Il dato è legato a quel pallet, quel luogo e quel passo, e ogni partner lo interroga allo stesso modo",
           "ok": true,
-          "why": "Esatto. Minimo, massimo e allarme sono legati a quel pallet e a quel tratto: la decisione è mirata, non su tutto il carico."
+          "why": "Esatto. Minimo, massimo e allarme diventano un fatto condiviso: la decisione è mirata su quel pallet."
         },
         {
-          "t": "Il sistema scarta il pallet in automatico",
-          "why": "EPCIS registra e condivide i fatti. Le regole su cosa fare restano alle aziende."
+          "t": "La garanzia che il sensore fosse calibrato",
+          "why": "EPCIS registra le misure e chi le ha fatte, non certifica lo strumento. La calibrazione resta a carico delle aziende."
         },
         {
-          "t": "Il trasportatore non risponde più di eventuali danni",
-          "why": "Contratti e responsabilità non cambiano. Cambia che i fatti sono documentati e condivisi."
+          "t": "La decisione automatica: lo standard prescrive lo scarto sopra gli 8 °C",
+          "why": "EPCIS non decide. Soglie e azioni le stabiliscono le aziende e le norme di settore."
         }
       ],
       "events": [
@@ -466,7 +474,7 @@
         "story": "EPCIS 2.0 ha portato i dati dei sensori dentro gli eventi: minimo, massimo, allarmi, con unità di misura standard.",
         "link": "Per il fresco e il surgelato è un tema concreto: la prova della catena del freddo viaggia con il prodotto."
       },
-      "hint": "Il sensore deve seguire la merce. Poi pensa a un dato che tutti i partner possano interrogare.",
+      "hint": "Le letture dei sensori possono stare in qualunque evento. Allora a che cosa serve l'associazione?",
       "sceneDesc": "Scena: il camion in autostrada verso Bologna. La temperatura del sensore compare in alto."
     },
     "food-errore": {
@@ -479,20 +487,20 @@
       "req": "receiving · lotto <span class=\"bad\">L132</span> · 288 pezzi",
       "cap": "Evento già letto da tre partner",
       "story": "Chi registra il ricevimento digita <code>L132</code> invece di <code>L123</code>. L'evento è già stato letto dal caseificio, dall'azienda di trasporto e dalla sede.",
-      "q": "Tre partner hanno già letto l'evento con il lotto sbagliato. Che cosa garantisce la dichiarazione di errore?",
+      "q": "Tre partner hanno già letto l'evento con il lotto sbagliato. Come si corregge in EPCIS 2.0?",
       "opts": [
         {
-          "t": "Che l'evento sbagliato sparisca dai sistemi di tutti",
-          "why": "<b>Fine partita per la fiducia.</b> In EPCIS non si cancella: altri sistemi hanno già usato quell'evento, e le storie non tornerebbero più."
+          "t": "Si ripubblica l'evento con lo stesso eventID e i dati giusti",
+          "why": "<b>Fine partita per la fiducia.</b> Due versioni con lo stesso ID: ogni partner avrebbe una storia diversa."
         },
         {
-          "t": "Che tutti vedano l'errore, il motivo, l'ora della correzione e l'evento giusto",
+          "t": "Si dichiara l'errore sull'evento originale, con il motivo, e lo si collega all'evento corretto",
           "ok": true,
-          "why": "Esatto. La storia resta verificabile da tutti i partner: è la base della fiducia nei dati condivisi."
+          "why": "Esatto. La storia resta verificabile: chi ha letto l'evento sbagliato vede l'errore e la correzione."
         },
         {
-          "t": "Che il CeDi non debba più ricevere quel pallet",
-          "why": "Il ricevimento è avvenuto davvero. Si corregge il dato, non il fatto."
+          "t": "Si pubblica un evento con action DELETE che annulla il precedente",
+          "why": "DELETE descrive un fatto fisico, come lo smontaggio di un pallet. Non annulla un evento."
         }
       ],
       "register": "Registra correzione",
@@ -519,7 +527,7 @@
         "story": "La dichiarazione di errore conserva l'ora e il motivo: anche la correzione diventa parte della storia.",
         "link": "È un argomento di fiducia: utile con chi teme che condividere dati esponga i propri errori."
       },
-      "hint": "In EPCIS la storia non si riscrive di nascosto: si aggiunge qualcosa che la corregge.",
+      "hint": "In EPCIS la storia non si riscrive: si aggiunge qualcosa. E DELETE parla degli oggetti, non degli eventi.",
       "sceneDesc": "Scena: il pallet appena arrivato davanti al CeDi di Bologna."
     },
     "tessile-filo": {
@@ -529,9 +537,15 @@
         "place": "Filiera tessile"
       },
       "intro": "Cambio di mondo: stesso standard, altro settore. Una t-shirt nasce da un tessuto, il tessuto da un filo, il filo da una fibra.",
-      "story": "Tre aziende, tre trasformazioni. Mettile nell'ordine giusto per costruire la storia delle 24 t-shirt.",
-      "q": "Quale passaggio viene adesso?",
+      "story": "Cinque passaggi reali tra fibra e t-shirt. Solo alcuni creano un prodotto nuovo: sono loro a costruire la genealogia.",
+      "q": "Scegli in ordine solo i passaggi che sono trasformazioni.",
       "steps": [
+        {
+          "id": "spedizione",
+          "t": "Spedizione · il filato va dalla filatura alla tessitura",
+          "pos": -1,
+          "why": "Cambia il luogo, non il prodotto: è un ObjectEvent con shipping."
+        },
         {
           "id": "tessitura",
           "t": "Tessitura · il filato diventa tessuto",
@@ -543,12 +557,18 @@
           "pos": 0
         },
         {
+          "id": "etichetta",
+          "t": "Etichettatura · a ogni t-shirt si applica un tag RFID",
+          "pos": -1,
+          "why": "Il capo resta lo stesso: si associa un'etichetta a un oggetto che esiste già."
+        },
+        {
           "id": "confezione",
           "t": "Confezione · il tessuto diventa 24 t-shirt",
           "pos": 2
         }
       ],
-      "wrong": "Non ancora: ogni passaggio usa quello che esce dal passaggio prima.",
+      "wrong": "Non ancora: ogni trasformazione usa quello che esce dalla trasformazione prima.",
       "chainTitle": "La storia delle t-shirt",
       "chainEmpty": "Scegli il primo passaggio.",
       "done": "La catena è completa: fibra, filato, tessuto, t-shirt.",
@@ -577,7 +597,7 @@
         "story": "Gli stessi TransformationEvent del latte funzionano per il tessile: ogni output diventa l'input del passaggio dopo.",
         "link": "Il Passaporto Digitale di Prodotto previsto dal regolamento ESPR rende questo tema concreto per moda e tessile. Non citare scadenze: dipendono dagli atti delegati."
       },
-      "hint": "Ogni passaggio usa quello che esce dal passaggio prima: dalla fibra al capo.",
+      "hint": "Chiediti: dopo questo passaggio esiste un prodotto che prima non c'era? Se no, non è una trasformazione.",
       "sceneDesc": "Scena: tre stazioni, filatura, tessitura e confezione. Ogni passaggio giusto si accende."
     },
     "tessile-inventario": {
@@ -594,20 +614,20 @@
       "scan": "Lettura RAIN RFID",
       "counter": "Letti {n}/24 · 00:{s}",
       "result": "Con il barcode: {n} capi in {s} secondi. Con RAIN RFID: 24 capi in un secondo.",
-      "q3": "Che cosa ha letto davvero il lettore RFID, e perché conta?",
+      "q3": "Il lettore RAIN RFID ha letto 48 tag in un secondo. Che cosa ha letto davvero, e perché conta?",
       "opts": [
         {
-          "t": "L'EPC del capo: la stessa identità che potrebbe stare in un barcode",
+          "t": "Un EPC: la stessa identità GS1 che può stare in un Data Matrix o in un QR con GS1 Digital Link",
           "ok": true,
-          "why": "Esatto. L'identità non dipende dal mezzo: puoi cambiare tecnologia senza cambiare dati ed eventi."
+          "why": "Esatto. L'identità non dipende dal mezzo: cambi tecnologia senza cambiare dati ed eventi."
         },
         {
-          "t": "Il tag RFID, che è l'identità del capo",
-          "why": "Il tag è il mezzo. Se lo sostituisci, l'identità del capo resta la stessa."
+          "t": "Un codice del produttore del tag, da tradurre in GTIN",
+          "why": "Il tag contiene un EPC GS1 standard: nessuna traduzione, lo legge qualunque partner."
         },
         {
-          "t": "Prezzo e taglia, scritti sul tag",
-          "why": "Sul tag c'è l'identità. Prezzo, taglia e descrizione si recuperano dai dati anagrafici del prodotto."
+          "t": "Il GTIN del modello: l'RFID riconosce il tipo di capo, non il singolo capo",
+          "why": "Il tag porta GTIN più numero di serie: ogni capo è unico. Per questo nessun capo viene contato due volte."
         }
       ],
       "register": "Registra inventario",
@@ -634,7 +654,7 @@
         "story": "Il tag RFID è solo il mezzo: l'identità è l'EPC, la stessa che può stare in un barcode o in un database.",
         "link": "Caso pubblico: Decathlon applica un tag EPC/RFID al 100% dei suoi prodotti (case study GS1 US, vedi SOURCES.md)."
       },
-      "hint": "Distingui il dato dal mezzo che lo trasporta.",
+      "hint": "Separa il dato dal mezzo che lo trasporta. E chiediti se il dato identifica un modello o un capo.",
       "sceneDesc": "Scena: uno scaffale con 24 t-shirt e un lettore RFID. I capi letti si accendono, il contatore in basso dice quanti sono."
     },
     "tessile-reso": {
@@ -645,7 +665,7 @@
       },
       "intro": "Due persone riportano lo stesso modello di giubbotto. Nessuna delle due ha lo scontrino.",
       "story": "Negozio di Roma. Due giubbotti identici tornano indietro senza scontrino. Interroga il repository EPCIS, l'archivio degli eventi, e leggi la storia di ciascun numero di serie.",
-      "q": "Due giubbotti identici, nessuno scontrino. Che cosa ti dice la storia degli eventi?",
+      "q": "Hai interrogato i due giubbotti. Quale conclusione puoi difendere davanti alla cliente?",
       "jacketA": "Capo A<br>JK-0457",
       "jacketB": "Capo B<br>JK-9999",
       "query": "Interroga",
@@ -679,17 +699,17 @@
       "historyB": "Zero eventi trovati. Nessuna fabbrica del marchio ha mai creato questo numero di serie.",
       "opts": [
         {
-          "t": "Che il capo A è autentico: la sua storia va dalla fabbrica alla vendita",
+          "t": "A ha una storia dalla produzione alla vendita; il numero di serie di B non è mai nato in una fabbrica del marchio",
           "ok": true,
           "why": "Esatto. Prodotto a Biella, venduto a Milano il 12/10: la storia verificabile vale più dello scontrino."
         },
         {
-          "t": "Che il capo B è autentico, perché non è mai stato venduto",
-          "why": "Nessun evento non vuol dire nuovo: quel numero di serie non è mai nato in una fabbrica del marchio. Probabile contraffazione."
+          "t": "B è nuovo di fabbrica: nessun evento vuol dire che non è mai uscito dal magazzino",
+          "why": "Anche il magazzino genera eventi, e un capo vero nasce con un commissioning. Nessun evento è un campanello d'allarme."
         },
         {
-          "t": "Niente: senza scontrino non si può decidere",
-          "why": "La storia degli eventi è una prova più forte dello scontrino: dice chi ha prodotto il capo e dove è stato venduto."
+          "t": "Vanno accettati tutti e due: il numero di serie sull'etichetta prova l'origine",
+          "why": "Un'etichetta si copia. Una storia di eventi condivisa dai partner no."
         }
       ],
       "register": "Registra il reso",
@@ -715,7 +735,7 @@
         "story": "Un numero di serie senza storia nel repository è un campanello d'allarme: quel capo potrebbe non essere mai nato in fabbrica.",
         "link": "Resi e contraffazione sono temi forti per i marchi: la storia degli eventi è una prova di autenticità."
       },
-      "hint": "Interroga tutti e due i capi e guarda quale ha una storia.",
+      "hint": "Interroga tutti e due i capi. Un capo vero può non avere nessun evento?",
       "sceneDesc": "Scena: due giubbotti identici sul bancone e la mappa dei passaggi del capo A."
     },
     "sfida-finale": {
@@ -738,40 +758,40 @@
       ],
       "tooLate": "Troppo tardi: quasi sette giorni per rispondere, e alla fine richiami tutto. Riprova con i tuoi poteri.",
       "usePowers": "Usa i superpoteri",
-      "q1": "Il latte C0471 ha un problema. Qual è la prima domanda da fare al repository EPCIS?",
+      "q1": "Il latte C0471 ha un problema. Quale query fai per prima al repository EPCIS?",
       "opts1": [
         {
-          "t": "In quali lotti di yogurt è finito quel latte?",
+          "t": "Le trasformazioni che hanno C0471 tra gli input: dicono in quali lotti è finito",
           "ok": true,
           "why": "Il superpotere ALBERO GENEALOGICO: dal latte risali a tutti i lotti di yogurt che lo contengono."
         },
         {
-          "t": "Dov'è adesso il lotto L123?",
+          "t": "Gli eventi del lotto L123, quello che stai seguendo",
           "why": "Così trovi L123, ma non sai se lo stesso latte è finito anche in altri lotti."
         },
         {
-          "t": "Quanti vasetti abbiamo venduto questa settimana?",
-          "why": "È un dato commerciale: non ti dice quali lotti contengono il latte con il problema."
+          "t": "Le spedizioni del latte verso il caseificio",
+          "why": "Ti dicono dove è arrivato il latte, non in quali prodotti è finito."
         }
       ],
       "found": "Il latte C0471 è finito in due lotti: L123 e L124.",
       "q2": "Hai trovato i lotti L123 e L124. Che richiamo fai?",
       "opts2": [
         {
-          "t": "Tutti i lotti di quel GTIN, per sicurezza",
+          "t": "Tutti i lotti di quel GTIN, perché i dati potrebbero essere incompleti",
           "why": "Richiameresti anche i lotti sani: più spreco, più costi, più danno d'immagine. Il superpotere è il richiamo chirurgico."
         },
         {
-          "t": "Solo L123, il lotto che conosci meglio",
-          "why": "E il lotto L124? È fatto con lo stesso latte."
+          "t": "Solo i lotti ancora nella catena: quelli venduti sono fuori dalla visibilità EPCIS",
+          "why": "L'ultimo evento dice in quale negozio sono stati venduti: il negozio può avvisare chi li ha comprati."
         },
         {
-          "t": "L123 e L124, dove si trovano adesso, più un avviso a chi li ha già comprati",
+          "t": "L123 e L124, ovunque si trovino, avvisando anche chi li ha già comprati",
           "ok": true,
           "why": "Proprio così. Invio le query per sapere dove sono adesso."
         },
         {
-          "t": "Aspetti l'analisi del laboratorio su ogni singolo vasetto",
+          "t": "Aspetti l'analisi del laboratorio su ogni lotto",
           "why": "Per un rischio sulla sicurezza si agisce subito sui lotti coinvolti. Le analisi continuano, ma il prodotto si ferma."
         }
       ],
@@ -889,7 +909,7 @@
         "story": "Al Leeds Teaching Hospitals NHS Trust il tempo medio di richiamo è sceso da 8,33 giorni a meno di 35 minuti. Il programma Scan4Safety usa gli standard GS1 (vedi SOURCES.md).",
         "link": "Il richiamo chirurgico è il messaggio da portare ai vertici: meno prodotto distrutto, meno danno di immagine, più tutela per chi compra."
       },
-      "hint": "Parti dal latte: la trasformazione ti dice in quali lotti è finito. Poi cerca quei lotti, non tutto il prodotto.",
+      "hint": "Parti dal latte: le trasformazioni dicono in quali lotti è finito. Poi cerca quei lotti, ovunque siano.",
       "sceneDesc": "Scena: la mappa della filiera. Nel round 2 si accendono solo i luoghi dove si trovano i lotti L123 e L124."
     }
   },

@@ -337,65 +337,98 @@ const STOP_ART = {
   "1-4": () => scaled(P.truck(), 0.45),
   "1-5": () => group(scaled(P.tanker(), 0.45), at(P.sensor(), 0.5, 0, 0.4)),
   "1-6": () => scaled(P.cedi(), 0.45),
-  "2-1": () => group(P.cottonField(1.2, 1.2), at(P.spool(), 0.5, 0, 0.5)),
-  "2-2": () => group(scaled(P.store("gs1-orange"), 0.5), at(P.reader(), 0.6, 0, 0.6)),
+  "2-1": () => group(at(scaled(P.factory(), 0.45), 0.2, 0, -0.1), at(P.spool(), -0.6, 0, 0.5)),
+  "2-2": () => group(scaled(P.store("gs1-teal"), 0.5), at(P.reader(), 0.6, 0, 0.6)),
   "2-3": () => group(scaled(P.store("gs1-orange"), 0.5), at(P.garment("gs1-orange"), 0.6, 0, 0.6)),
-  finale: () => group(P.house(-0.3, -0.2), scaled(P.marker("gs1-orange"), 1.4))
+  finale: () => group(scaled(P.cedi(), 0.45), at(scaled(P.marker("gs1-orange"), 1.4), 0, 1.2, 0))
+};
+
+// La mappa è una striscia che scorre da sinistra a destra sullo schermo, come l'elenco delle tappe sotto.
+// L(a, c): a = lungo la striscia (verso destra), c = verso chi guarda. Gli edifici restano in vista isometrica.
+const R2 = Math.SQRT1_2;
+const L = (a, c = 0) => new Vector3((a + c) * R2, 0, (c - a) * R2);
+const on = (o, a, c, y = 0) => { const v = L(a, c); return at(o, v.x, y, v.z); };
+const turned = o => { o.rotation.y = Math.PI / 4; return o; };
+
+// Disposizione di ogni filiera: tappe in fila lungo una strada, con il paesaggio intorno.
+const WORLD_MAP = {
+  food: {
+    gap: 2.9, len: 20,
+    decor: root => {
+      for (let a = -9; a <= 9; a += 2.4) root.add(on(P.tree(), a, -2.7, 0.12));
+      root.add(on(P.fence(2.4), -8.6, -1.7, 0.12), on(P.cow(0, 0, 0.3), -9.2, -0.4, 0.12), on(P.bush(), -2, 2.9, 0.12), on(P.bush(), 5, 2.9, 0.12));
+    }
+  },
+  textile: {
+    gap: 3.6, len: 15,
+    decor: root => {
+      root.add(on(P.cottonField(1.6, 1.6), -6.2, -0.6, 0.12));
+      [-3.4, 0, 3.4, 6.4].forEach((a, i) => root.add(on(P.tree(0, 0, 0.8 + (i % 2) * 0.2), a, -2.7, 0.12)));
+      root.add(on(P.bush(), -1.6, 2.9, 0.12), on(P.bush(), 4.8, 2.9, 0.12));
+    }
+  },
+  finale: {
+    gap: 0, len: 13,
+    decor: root => {
+      root.add(on(scaled(P.truck(), 0.45), -3.8, -0.3, 0.12), on(scaled(P.store("gs1-orange"), 0.5), 3.6, -0.5, 0.12));
+      [-5, -1.8, 1.8, 5.4].forEach(a => root.add(on(P.tree(), a, -2.7, 0.12)));
+    }
+  }
 };
 
 /**
- * Mappa: un paesaggio con due strade, una per mondo (la sfida finale chiude la seconda).
- * nodes: [{ id, done, world }], here: tappa corrente, from: tappa precedente.
+ * Mappa di una filiera: le sue tappe in fila lungo una strada, numerate da etichette HTML (pins).
+ * nodes: [{ id, done }] della filiera, here: tappa da giocare, from: tappa mostrata la volta prima.
  * Il clic sulla mappa sceglie la tappa più vicina (equivale al pulsante HTML della tappa).
  */
-export function mapScene({ nodes, here, from }, ctx) {
+export function mapScene({ world = "food", nodes, here, from }, ctx) {
   return api => {
+    const W = WORLD_MAP[world] || WORLD_MAP.food;
     const root = new Group();
-    const food = nodes.filter(n => n.world === "food"), tex = nodes.filter(n => n.world !== "food");
-    const pos = n => {
-      const list = n.world === "food" ? food : tex;
-      return new Vector3(-7 + list.indexOf(n) * 2.8, 0, n.world === "food" ? -2.2 : 2.2);
-    };
-    root.add(P.grass(19, 10));
-    root.add(at(P.road(18), 0, 0.02, -1.0), at(P.road(15), 1.4, 0.02, 3.4));
-    for (let x = -8.5; x <= 8.5; x += 2.2) root.add(P.tree(x, -4.4, 0.9), P.bush(x + 1, 0.4));
-    root.add(P.fence(3, -7, -3.9), P.cow(-6.2, -3.6, 0.3));
+    const pos = n => L((nodes.indexOf(n) - (nodes.length - 1) / 2) * W.gap, -0.3);
+    root.add(turned(P.grass(W.len, 6.6)));
+    root.add(on(turned(P.road(W.len - 1)), 0, 1.9, 0.02));
+    W.decor(root);
     nodes.forEach(n => {
       const p = pos(n);
       root.add(at(P.slab(2.2, 1.8, "gs1-off-white", "gs1-light-gray", 0, 0, 0.12), p.x, 0.12, p.z));
       root.add(at((STOP_ART[n.id] || P.carton)(), p.x, 0.12, p.z - 0.2));
-      if (n.done) root.add(at(P.marker("gs1-forest"), p.x + 0.8, 0.9, p.z + 0.6));
     });
-    const jar = dyn(scaled(P.jar(), 0.8));
-    root.add(jar);
+    // Segnaposto della tappa da giocare: un vasetto nel food, una t-shirt nel tessile.
+    const token = dyn(world === "textile" ? P.garment("gs1-teal") : scaled(P.jar(), 0.8));
+    root.add(token);
     const target = nodes.find(n => n.id === here);
     const start = nodes.find(n => n.id === from) || target;
+    const spot = n => pos(n).add(L(0, 1.1));
     let hopping = false;
-    if (target) {
-      const p0 = pos(start), p1 = pos(target);
-      at(jar, p0.x - 0.7, 0.12, p0.z + 0.6);
-      jar.userData.baseY = 0.12;
+    if (target && world !== "finale") {
+      const p0 = spot(start), p1 = spot(target);
+      at(token, p0.x, 0.12, p0.z);
+      token.userData.baseY = 0.12;
       if (start !== target) {
         const hop = { t: 0 };
         hopping = true;
         api.tween(hop, {
           t: 1, duration: 1.1, delay: 0.3, ease: "power1.inOut", onComplete: () => { hopping = false; },
-          onUpdate: () => { jar.position.set(p0.x - 0.7 + (p1.x - p0.x) * hop.t, 0.12 + Math.sin(hop.t * Math.PI) * 2, p0.z + 0.6 + (p1.z - p0.z) * hop.t); }
+          onUpdate: () => { token.position.set(p0.x + (p1.x - p0.x) * hop.t, 0.12 + Math.sin(hop.t * Math.PI) * 2, p0.z + (p1.z - p0.z) * hop.t); }
         });
       }
-    } else jar.visible = false;
+    } else token.visible = false;
     return {
       root: P.mergeStatic(root),
-      view: { size: 10.5, target: new Vector3(0, 0, 0.3) },
+      // La striscia entra sempre per intero in larghezza; in altezza resta lo spazio per le etichette.
+      view: { size: 5.6, width: W.len + 1, target: new Vector3(0, 0.9, 0) },
+      // Le etichette numerate stanno sopra ogni tappa.
+      pins: nodes.map(n => ({ id: n.id, pos: pos(n).add(new Vector3(0, 1.9, 0)) })),
       /** Clic sul terreno: sceglie la tappa più vicina al punto (x, z). */
       pick(x, z) {
         let best = null, d = 1.6;
         nodes.forEach(n => { const p = pos(n); const dd = Math.hypot(p.x - x, p.z - z); if (dd < d) { d = dd; best = n; } });
         if (best) ctx.clickHtml(`.stop[data-lv="${best.id}"]`);
       },
-      update: (dt, t) => (!hopping && target && !api.reduced ? bobber([jar])(dt, t) : false),
+      update: (dt, t) => (!hopping && target && !api.reduced ? bobber([token])(dt, t) : false),
       // Punto per il test del colore: il tetto in GS1 Blue del caseificio (tappa 1-2), in piena luce.
-      probe: () => { const p = pos(nodes[1]); return new Vector3(p.x + 0.15, 0.12 + 1.45 * 0.5, p.z - 0.05); }
+      probe: () => { const p = pos(nodes[1] || nodes[0]); return new Vector3(p.x + 0.15, 0.12 + 1.45 * 0.5, p.z - 0.05); }
     };
   };
 }

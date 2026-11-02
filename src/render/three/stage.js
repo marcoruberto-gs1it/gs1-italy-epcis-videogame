@@ -68,7 +68,8 @@ export class Stage {
     this.scene.add(amb, this.light, this.light.target, this.front, this.front.target);
     this.content = build(this.api());
     this.scene.add(this.content.root);
-    if (this.content.view) Object.assign(this.view, this.content.view);
+    // Ogni scena parte dalla vista di base: niente valori rimasti dalla scena precedente.
+    this.view = { size: 8, target: new Vector3(), ...this.content.view };
     this.applyQuality();
     this.ro = new ResizeObserver(this.resize);
     this.ro.observe(container);
@@ -109,10 +110,11 @@ export class Stage {
   }
 
   place() {
-    const { size, target } = this.view;
+    const { size, width, target } = this.view;
     const r = this.container ? this.container.getBoundingClientRect() : { width: 4, height: 3 };
     const aspect = r.width / Math.max(1, r.height);
-    const h = aspect >= 1 ? size : size / aspect;
+    // width (facoltativa): larghezza minima da tenere sempre in vista, per le scene lunghe come la mappa.
+    const h = Math.max(aspect >= 1 ? size : size / aspect, width ? width / aspect : 0);
     const w = h * aspect;
     Object.assign(this.camera, { left: -w / 2, right: w / 2, top: h / 2, bottom: -h / 2 });
     // Vista isometrica: la telecamera guarda il centro da un angolo, dall'alto.
@@ -161,7 +163,21 @@ export class Stage {
     if (!animating && !this.dirty) return;
     this.renderer.render(this.scene, this.camera);
     this.dirty = false;
+    this.layoutPins();
     if (animating) this.measure(dt);
+  }
+
+  /** Etichette HTML ([data-pin]) agganciate a punti della scena: la mappa numera così le tappe. */
+  layoutPins() {
+    if (!this.content.pins || !this.container) return;
+    const r = this.container.getBoundingClientRect();
+    for (const { id, pos } of this.content.pins) {
+      const el = this.container.querySelector(`[data-pin="${id}"]`);
+      if (!el) continue;
+      const p = pos.clone().project(this.camera);
+      el.style.left = `${((p.x + 1) / 2) * r.width}px`;
+      el.style.top = `${((1 - p.y) / 2) * r.height}px`;
+    }
   }
 
   /** Se gli fps restano bassi per qualche secondo abbassa la qualità; in qualità bassa passa al 2D. */

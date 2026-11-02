@@ -25,7 +25,7 @@ async function start(page, query = "?render=3d") {
 test("il GS1 Blue in 3D resta #002C6C su una superficie in piena luce", async ({ page }) => {
   const { errors } = await start(page);
   expect(await page.evaluate(() => window.missioneL123.mode())).toBe("3d");
-  await expect(page.locator("#diorama.r3d")).toBeVisible();
+  await expect(page.locator(".world:not([hidden]) .diorama.r3d")).toBeVisible();
   const p = await page.evaluate(() => window.missioneL123.probe());
   const [r, g, b] = await page.evaluate(({ x, y }) => window.missioneL123.sample(x, y), p);
   const want = [0x00, 0x2c, 0x6c];

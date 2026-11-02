@@ -6,7 +6,7 @@ import { reduced } from "../anim/gsap-setup.js";
 import * as fx from "../anim/fx.js";
 import { t } from "../content/index.js";
 import { img, sprite } from "../render/two/sprites.js";
-import { byId, WORLDS } from "../levels/index.js";
+import { byId, worldStep } from "../levels/index.js";
 import { levelShell, ask, fail, teamPoint } from "../ui/kit.js";
 import { toggleHint } from "../engine/modes.js";
 import { $, $$, show, setMsg } from "../ui/dom.js";
@@ -25,7 +25,7 @@ register("intro", id => {
   show(`<div class="intro-layout">
     <div class="scene-box intro-scene" id="introScene"><div class="fallback" id="hero">${img(level.meta.sp, finale ? 96 : 120)}</div></div>
     <div class="title intro-card"><div class="inner">
-      <span class="tag">${finale ? t("intro.tagFinale") : t("intro.tag", { w: WORLDS[level.world], id })}</span>
+      <span class="tag">${finale ? t("intro.tagFinale") : t("intro.tag", { w: t(`map.${level.world}.heading`), ...worldStep(level) })}</span>
       <h1>${level.meta.t}</h1>
       <div class="narrator">${img("bip", 56, "bip", t("narrator.alt"))}<p class="speech"><b>${t("narrator.name")}</b><span class="txt">${level.intro}</span></p></div>
       <span class="hi">${t("intro.concept", { c: level.meta.c })}</span>
