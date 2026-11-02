@@ -1,23 +1,45 @@
-{
-  "type": "ObjectEvent",
-  "eventTime": "2026-11-02T11:05:00.000+01:00",
-  "eventTimeZoneOffset": "+01:00",
-  "action": "OBSERVE",
-  "bizStep": "shipping",
-  "disposition": "in_transit",
-  "epcList": [
-    "https://id.gs1.org/00/106141411234567897"
-  ],
-  "readPoint": {
-    "id": "https://id.gs1.org/414/0614141007776/254/baia3"
-  },
-  "bizLocation": {
-    "id": "https://id.gs1.org/414/0614141007776"
-  },
-  "bizTransactionList": [
-    {
-      "type": "po",
-      "bizTransaction": "https://id.gs1.org/253/06141410000122345"
-    }
-  ]
-}
+[
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-02T11:05:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "OBSERVE",
+    "bizStep": "shipping",
+    "disposition": "in_transit",
+    "epcList": [
+      "https://id.gs1.org/00/106141411234567897"
+    ],
+    "readPoint": {
+      "id": "https://id.gs1.org/414/0614141007776/254/baia3"
+    },
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141007776"
+    },
+    "bizTransactionList": [
+      {
+        "type": "po",
+        "bizTransaction": "https://id.gs1.org/253/06141410000122345"
+      }
+    ],
+    "sourceList": [
+      {
+        "type": "owning_party",
+        "source": "https://id.gs1.org/417/0614141000029"
+      },
+      {
+        "type": "location",
+        "source": "https://id.gs1.org/414/0614141007776"
+      }
+    ],
+    "destinationList": [
+      {
+        "type": "owning_party",
+        "destination": "https://id.gs1.org/417/0614141000036"
+      },
+      {
+        "type": "location",
+        "destination": "https://id.gs1.org/414/0614141001002"
+      }
+    ]
+  }
+]

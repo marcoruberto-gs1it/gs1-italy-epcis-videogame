@@ -163,3 +163,16 @@ Fase 0 è questo documento. Le fasi 1–7 seguono il prompt (sezione 11). A ogni
 6. **Schema EPCIS 2.0.** Scarico lo schema JSON ufficiale da ref.gs1.org durante lo sviluppo e lo salvo nel repo (con la sua licenza), così i test girano anche offline. Se la rete aziendale blocca ref.gs1.org, uso un validatore minimo e te lo segnalo.
 7. **Playwright** deve scaricare i browser di test (circa 300 MB). Se la rete aziendale lo blocca, uso Edge già installato sul PC.
 8. **Narratore.** "Bip" ti va bene, o preferisci un altro nome?
+
+---
+
+## 10. Scelte di modellazione (Fase 2)
+
+- **1-1 e 1-2.** Il lotto L123 nasce nel `TransformationEvent` del livello 1-1 (latte + fermenti → 288 vasetti, `bizStep: commissioning`, scadenza in `ilmd`). Un secondo `ObjectEvent ADD commissioning` sullo stesso lotto lo farebbe nascere due volte. Per questo il livello 1-2 "Nasce il vasetto" registra il controllo qualità: `ObjectEvent`, `action: OBSERVE`, `bizStep: inspecting`. Il gioco usa la differenza per spiegare ADD e OBSERVE.
+- **1-3.** Due aggregazioni: 24 vasetti per cartone (si mostra il primo dei 12 eventi) e 12 cartoni con il loro SSCC sul pallet.
+- **1-5.** `AssociationEvent` con `parentID` = pallet e `childEPCs` = sensore (GIAI di esempio), poi `sensorElementList` con `deviceID` del sensore. Il tipo di misura è `Temperature`, come nello schema 2.0.1.
+- **1-6.** L'evento sbagliato contiene davvero il lotto L132 (`quantityList`), insieme all'SSCC. La dichiarazione di errore ripete quell'evento con lo stesso `eventID`; l'evento corretto ha L123.
+- **Sfida finale.** Il latte C0471 è finito in L123 e L124 (prodotto più tardi con lo stesso latte, ancora tutto al CeDi). Un evento `recalled` per ogni luogo: CeDi (96 di L123 + 288 di L124), camion (i due cartoni letti per SSCC), supermercati di Milano (72) e Monza (48). Totale L123: 264 bloccati + 24 già venduti = 288. Query: `MATCH_inputEPCClass` sul latte, poi `MATCH_anyEPCClass` sui due lotti.
+- **Tessile.** Le 24 t-shirt create nel livello 2-1 (fibra → filato → tessuto → capi con numero di serie) sono le stesse contate nell'inventario del livello 2-2.
+
+Tutte le regole di coerenza sono verificate in `tests/unit/events.test.js`.

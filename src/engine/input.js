@@ -11,6 +11,13 @@ export function initInput() {
     const onButton = document.activeElement && document.activeElement.tagName === "BUTTON";
     if (e.key === "m" || e.key === "M") { toggleMute(); return; }
     if (e.key === "Escape") { if (state.view !== "title") go("map"); return; }
+    if (e.key === "g" || e.key === "G") {
+      // Il Codex si apre dalle schermate di riposo, mai a metà livello.
+      if (state.view === "codex") go("map");
+      else if (["title", "map", "win", "final"].includes(state.view)) go("codex");
+      return;
+    }
+    if ((e.key === "d" || e.key === "D") && state.view === "win") { screen.querySelector("#doc")?.click(); return; }
     if (/^[1-9]$/.test(e.key)) {
       const b = screen.querySelector(`[data-key="${e.key}"]:not(:disabled)`);
       if (b) { b.click(); e.preventDefault(); }

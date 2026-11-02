@@ -84,15 +84,15 @@
 
 /* Pallet ai raggi X */
 .pallet { display: flex; flex-direction: column; align-items: center; }
-.cartons { display: grid; grid-template-columns: repeat(4, 56px); gap: 4px; }
-.carton { position: relative; width: 56px; height: 40px; }
-.carton > img { width: 56px; transition: opacity .4s steps(3); }
-.carton .jars { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; opacity: 0; transition: opacity .4s steps(3); }
-.carton .jars img { width: 12px; margin: auto; }
+.cartons { display: grid; grid-template-columns: repeat(4, 64px); grid-auto-rows: 48px; gap: 4px; min-height: 152px; align-content: end; }
+.carton { position: relative; width: 64px; height: 48px; }
+.carton > img { width: 64px; transition: opacity .4s steps(3); }
+.carton .jars { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; opacity: 0; transition: opacity .4s steps(3); }
+.carton .jars img { width: 7px; margin: auto; }
 .xray .carton > img { opacity: .12; }
 .xray .carton .jars { opacity: 1; }
 .xray .carton { outline: 2px solid var(--gs1-teal); }
-.palletbase { width: 236px; margin-top: 2px; }
+.palletbase { width: 268px; margin-top: 2px; }
 .beam { position: absolute; left: 0; right: 0; height: 6px; background: var(--gs1-teal); top: 0; opacity: 0; }
 
 /* Fumetto */
@@ -180,3 +180,43 @@ pre.json .n { color: var(--gs1-orange-300); }
 .overlay .box { display: flex; flex-direction: column; gap: 18px; align-items: center; }
 .overlay h2 { color: var(--state-error); }
 .overlay .count { font-family: var(--font-display); font-size: 64px; color: var(--gs1-orange); }
+
+/* Fase 2: vasca, catena tessile, narratore, Perché conta, Codex, finale */
+.row.between { justify-content: space-between; }
+.row.center { justify-content: center; }
+.btn.small { padding: 8px 10px; font-size: clamp(9px, .75vw, 11px); }
+.ok-title { color: var(--gs1-forest-300); }
+.tank, .chain { width: 100%; max-width: 420px; border: 3px solid var(--gs1-teal); background: var(--gs1-blue-900); padding: 12px; display: flex; flex-direction: column; gap: 8px; min-height: 140px; }
+.tank.over { border-color: var(--gs1-white); background: var(--gs1-blue-700); }
+.tank ul, .chain ol { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.tank li.empty, .chain li.empty { list-style: none; margin-left: -1.2em; color: var(--gs1-blue-200); font-family: var(--font-display); font-size: 10px; }
+.tank li, .chain li { color: var(--gs1-forest-300); }
+.narrator { display: flex; align-items: flex-end; gap: 14px; max-width: 46ch; text-align: left; }
+.narrator img { flex: none; }
+.speech { background: var(--gs1-white); color: var(--gs1-blue-950); padding: 12px 14px; border: 3px solid var(--gs1-blue-950); box-shadow: 4px 4px 0 var(--shadow); position: relative; }
+.speech b { font-family: var(--font-display); font-weight: 400; font-size: 11px; color: var(--gs1-blue); display: block; margin-bottom: 4px; }
+.page { display: flex; flex-direction: column; gap: 6px; }
+.page .cap, #diary > .cap { font-family: var(--font-body); font-size: .8em; color: var(--gs1-teal-300); }
+.why-card { border: 3px solid var(--gs1-teal); padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.why-card .tag { color: var(--gs1-teal-300); }
+.why-card .lbl, .card .lbl { color: var(--gs1-blue-200); font-weight: 700; }
+.role { display: inline-block; border: 2px solid var(--gs1-blue-200); padding: 0 8px; margin: 2px 4px 2px 0; font-size: .85em; }
+.why-card .case { border-left: 4px solid var(--gs1-forest); padding-left: 10px; }
+.source { font-size: .75em; color: var(--gs1-blue-200); }
+.codex-new { font-size: .85em; color: var(--gs1-teal-300); }
+.codex-new::before { content: "★ "; }
+.codex { display: flex; flex-direction: column; gap: 16px; }
+.codex .sub { color: var(--gs1-blue-200); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.card { border: 3px solid var(--gs1-teal); background: var(--gs1-blue); padding: 14px; display: flex; flex-direction: column; gap: 8px; font-size: .9em; }
+.card h3 { color: var(--gs1-white); font-size: clamp(10px, .85vw, 13px); overflow-wrap: anywhere; }
+.card.locked { border-color: var(--gs1-blue-700); background: transparent; color: var(--gs1-blue-200); }
+.card.locked h3 { color: var(--gs1-blue-200); }
+.final h3 { margin-top: 10px; }
+.vs .source { color: var(--gs1-blue-200); }
+.benefits { width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; width: 100%; text-align: left; }
+.rolecard { border: 3px solid var(--gs1-forest); padding: 12px 14px; }
+.rolecard h4 { margin: 0 0 6px; font-family: var(--font-display); font-weight: 400; font-size: 12px; color: var(--gs1-forest-300); }
+.rolecard ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.print-only { display: none; }

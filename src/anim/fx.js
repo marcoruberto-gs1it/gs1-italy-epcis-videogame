@@ -40,14 +40,14 @@ export function beam(el) {
   anim(() => gsap.fromTo(el, { top: "0%", autoAlpha: 0.9 }, { top: "100%", duration: 1, ease: "steps(10)", onComplete: () => gsap.set(el, { autoAlpha: 0 }) }));
 }
 
-/** Scrive le righe del JSON una alla volta. Con reduced-motion le mostra subito. */
-export function typeLines(pre, lines, onTick) {
-  if (reduced()) { pre.innerHTML = lines.join("\n"); return; }
+/** Scrive le righe del JSON una alla volta (al massimo in 2,5 secondi). Con reduced-motion le mostra subito. */
+export function typeLines(pre, lines, onTick, onDone) {
+  if (reduced()) { pre.innerHTML = lines.join("\n"); if (onDone) onDone(); return; }
   const p = { i: 0 };
   let shown = 0;
   pre.innerHTML = "";
   anim(() => gsap.to(p, {
-    i: lines.length, duration: lines.length * 0.045, ease: "none",
+    i: lines.length, duration: Math.min(2.5, lines.length * 0.045), ease: "none", onComplete: onDone,
     onUpdate() {
       const n = Math.ceil(p.i);
       if (n === shown) return;

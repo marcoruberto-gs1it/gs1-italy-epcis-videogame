@@ -25,10 +25,12 @@ register("map", () => {
   show(`<div class="map">
     ${world("food")}${world("textile")}${world("finale")}
     <div class="row"><button class="btn" data-primary id="goNext">${goLabel}</button>
+    <button class="btn alt" id="codex">${t("map.codex")}</button>
     <button class="btn alt" id="reset">${t("map.reset")}</button></div>
   </div>`);
   bob($(".node .here"));
   $$(".node").forEach(b => b.onclick = () => { sfx.sel(); go("intro", b.dataset.lv); });
   $("#goNext").onclick = () => (next ? go("intro", next.id) : go("final"));
+  $("#codex").onclick = () => go("codex");
   $("#reset").onclick = () => { resetState({ muted: state.muted }); go("title"); };
 });

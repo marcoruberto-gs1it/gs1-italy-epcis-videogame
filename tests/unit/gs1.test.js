@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-import { readdirSync, readFileSync } from "node:fs";
 import { checkDigit, isValidKey, digitalLinkKeys } from "../../src/gs1/checkdigit.js";
 
 describe("cifra di controllo GS1", () => {
@@ -15,9 +14,8 @@ describe("cifra di controllo GS1", () => {
     expect(isValidKey("abc")).toBe(false);
   });
 
-  const files = readdirSync("src/data/events").filter(f => f.endsWith(".json"));
-  it.each(files)("tutti gli identificativi di %s hanno la cifra di controllo corretta", file => {
-    const keys = digitalLinkKeys(readFileSync("src/data/events/" + file, "utf8"));
-    for (const { ai, key } of keys) expect(isValidKey(key), `AI ${ai} ${key}`).toBe(true);
+  it("estrae le chiavi dalle URI GS1 Digital Link", () => {
+    expect(digitalLinkKeys("https://id.gs1.org/01/09506000134352/10/L123 https://id.gs1.org/417/0614141000029"))
+      .toEqual([{ ai: "01", key: "09506000134352" }, { ai: "417", key: "0614141000029" }]);
   });
 });

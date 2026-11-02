@@ -19,7 +19,7 @@ register("intro", id => {
     <span class="tag">${finale ? t("intro.tagFinale") : t("intro.tag", { w: WORLDS[level.world], id })}</span>
     <div id="hero">${img(level.meta.sp, finale ? 96 : 120)}</div>
     <h1>${level.meta.t.toUpperCase()}</h1>
-    <p class="sub">${level.intro}</p>
+    <div class="narrator">${img("reader", 44, "", t("narrator.alt"))}<p class="speech"><b>${t("narrator.name")}</b> ${level.intro}</p></div>
     <span class="hi">${t("intro.concept", { c: level.meta.c.toUpperCase() })}</span>
     <button class="btn" data-primary id="go">${t("intro.go")}</button>
   </div></div>`);
@@ -32,6 +32,7 @@ register("level", id => {
   if (!level) return go("map");
   state.level = id;
   level.mount({
+    C: { register: t("level.register"), ...level.C },
     show(html) {
       show(html);
       $$("[data-bob]").forEach(fx.bob);

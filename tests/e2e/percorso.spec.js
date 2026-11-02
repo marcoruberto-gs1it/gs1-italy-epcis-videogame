@@ -16,96 +16,125 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   const press = key => page.keyboard.press(key);
   const pressOn = sel => page.locator(sel).press("Enter");
   const seeWin = async name => {
-    await expect(page.locator("#json")).toBeVisible();
-    await page.waitForTimeout(1600);
+    await expect(page.locator(".win")).toBeVisible();
+    await page.waitForTimeout(2800);
     await shot(name);
+  };
+  const intro = async name => {
+    await press("Enter");
+    await expect(page.locator(".narrator")).toBeVisible();
+    if (name) await shot(name);
+    await press("Enter");
   };
 
   await page.goto(GAME);
   await expect(page.locator("h1")).toHaveText("MISSIONE L123");
+  await expect(page.locator(".title img.logo")).toBeVisible();
   await shot("01-titolo");
 
   await press("Enter");
   await expect(page.locator(".map")).toBeVisible();
   await shot("02-mappa");
 
-  // 1-1 Nasce il vasetto
-  await press("Enter");
-  await shot("03-intro-1-1");
-  await press("Enter");
-  for (const [r, j] of [[0, 1], [1, 2], [2, 0], [3, 1]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
+  // 1-1 Dal latte allo yogurt: prima un ingrediente sbagliato
+  await intro("03-intro-1-1");
+  await press("2");
+  await expect(page.locator("#msg")).toBeVisible();
+  await press("1"); await press("3");
+  await expect(page.locator("#opts .opt")).toHaveCount(3);
   await shot("04-livello-1-1");
-  await pressOn("#reg");
+  await press("2"); await press("Enter");
   await seeWin("05-evento-1-1");
 
-  // 1-2 Vista ai raggi X
-  await press("Enter"); await press("Enter");
-  await press("2");
-  await press("Enter");
+  // Documento completo e Codex
+  await press("d");
+  await expect(page.locator("#json0")).toContainText("EPCISDocument");
+  await shot("06-documento-completo");
+  await press("d");
+  await press("g");
+  await expect(page.locator(".card:not(.locked)")).toHaveCount(2);
+  await shot("07-codex");
+  await press("Escape");
+  await expect(page.locator(".map")).toBeVisible();
+
+  // 1-2 Nasce il vasetto
+  await intro();
+  for (const [r, j] of [[0, 1], [1, 2], [2, 0], [3, 1]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
+  await pressOn("#reg");
+  await seeWin("08-evento-1-2");
+
+  // 1-3 Vista ai raggi X: 12 cartoni da impilare
+  await intro();
+  for (let i = 0; i < 12; i++) await press("Enter");
+  await expect(page.locator("#cnt")).toContainText("12/12");
+  await press("2"); await press("Enter");
   await expect(page.locator("#pallet.xray")).toBeVisible();
   await page.waitForTimeout(1200);
-  await shot("06-livello-1-2-raggi-x");
+  await shot("09-livello-1-3-raggi-x");
   await press("Enter");
-  await seeWin("07-evento-1-2");
+  await seeWin("10-evento-1-3");
 
-  // 1-3 Le parole non si inventano: prima un errore, per vedere il messaggio
-  await press("Enter"); await press("Enter");
-  await press("1");
-  await expect(page.locator("#msg")).toBeVisible();
-  await shot("08-livello-1-3-errore");
-  await press("3");
-  await press("Enter");
-  await seeWin("09-evento-1-3");
-
-  // 1-4 Catena del freddo
-  await press("Enter"); await press("Enter");
-  await press("Enter");
-  await expect(page.locator("#opts .opt")).toHaveCount(3, { timeout: 15_000 });
-  await shot("10-livello-1-4");
-  await press("2"); await press("Enter");
+  // 1-4 Le parole non si inventano
+  await intro();
+  await press("3"); await press("Enter");
   await seeWin("11-evento-1-4");
 
-  // 1-5 Ops, errore!
-  await press("Enter"); await press("Enter");
-  await press("2"); await press("Enter");
-  await seeWin("12-evento-1-5");
-
-  // 2-1 Inventario lampo
-  await press("Enter"); await press("Enter");
-  await press("Enter");
-  await press("Enter");
-  await expect(page.locator("#opts .opt")).toHaveCount(3, { timeout: 15_000 });
-  await shot("13-livello-2-1-rfid");
-  await press("2"); await press("Enter");
-  await seeWin("14-evento-2-1");
-
-  // 2-2 Il reso sospetto
-  await press("Enter"); await press("Enter");
-  await press("8"); await press("9");
-  await shot("15-livello-2-2");
+  // 1-5 Catena del freddo
+  await intro();
   await press("1"); await press("Enter");
-  await seeWin("16-evento-2-2");
+  await expect(page.locator("#opts2 .opt")).toHaveCount(3, { timeout: 15_000 });
+  await shot("12-livello-1-5");
+  await press("2"); await press("Enter");
+  await seeWin("13-evento-1-5");
+
+  // 1-6 Ops, errore!
+  await intro();
+  await press("2"); await press("Enter");
+  await seeWin("14-evento-1-6");
+
+  // 2-1 Dal filo al capo
+  await intro("15-intro-2-1");
+  await press("2"); await press("1"); await press("3");
+  await shot("16-livello-2-1");
+  await press("Enter");
+  await seeWin("17-evento-2-1");
+
+  // 2-2 Inventario lampo
+  await intro();
+  await press("Enter"); await press("Enter");
+  await expect(page.locator("#opts .opt")).toHaveCount(3, { timeout: 15_000 });
+  await press("2"); await press("Enter");
+  await seeWin("18-evento-2-2");
+
+  // 2-3 Il reso sospetto
+  await intro();
+  await press("8"); await press("9");
+  await press("1"); await press("Enter");
+  await seeWin("19-evento-2-3");
 
   // Sfida finale
-  await press("Enter");
-  await shot("17-intro-sfida-finale");
-  await press("Enter");
+  await intro("20-intro-sfida-finale");
   await press("Enter");
   await expect(page.locator("#new")).toBeVisible({ timeout: 20_000 });
-  await shot("18-sfida-finale-round-1");
   await press("Enter");
+  await press("1");
+  await expect(page.locator("#opts2 .opt")).toHaveCount(4, { timeout: 10_000 });
   await press("3");
   await expect(page.locator("#block")).toBeVisible({ timeout: 10_000 });
   await press("Enter");
   await expect(page.locator("#reg")).toBeVisible({ timeout: 10_000 });
-  await shot("19-sfida-finale-round-2");
+  await shot("21-sfida-finale-round-2");
   await press("Enter");
-  await seeWin("20-evento-sfida-finale");
+  await seeWin("22-evento-sfida-finale");
 
   await press("Enter");
   await expect(page.locator(".final h1")).toHaveText("MISSIONE COMPIUTA");
-  await expect(page.locator(".pcell.on")).toHaveCount(8);
-  await shot("21-finale");
+  await expect(page.locator(".pcell.on")).toHaveCount(10);
+  await shot("23-finale");
+  await page.locator(".benefits").scrollIntoViewIfNeeded();
+  await shot("24-finale-vantaggi");
+  await page.emulateMedia({ media: "print" });
+  await shot("25-promemoria-stampa");
 
   expect(errors).toEqual([]);
   expect(requests).toEqual([]);

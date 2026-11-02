@@ -1,19 +1,51 @@
-{
-  "type": "ObjectEvent",
-  "eventID": "urn:uuid:6f1c2a3e-9b7d-4e21-8c5a-1d2e3f4a5b6c",
-  "eventTime": "2026-11-02T16:30:00.000+01:00",
-  "eventTimeZoneOffset": "+01:00",
-  "action": "OBSERVE",
-  "bizStep": "receiving",
-  "disposition": "in_progress",
-  "epcList": [
-    "https://id.gs1.org/00/106141411234567897"
-  ],
-  "errorDeclaration": {
-    "declarationTime": "2026-11-02T16:45:00.000+01:00",
-    "reason": "incorrect_data",
-    "correctiveEventIDs": [
-      "urn:uuid:0b9e7d1c-3a2f-4c8b-9e6d-7f5a4b3c2d1e"
-    ]
+[
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-02T16:30:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "eventID": "urn:uuid:6f1c2a3e-9b7d-4e21-8c5a-1d2e3f4a5b6c",
+    "action": "OBSERVE",
+    "bizStep": "receiving",
+    "disposition": "in_progress",
+    "epcList": [
+      "https://id.gs1.org/00/106141411234567897"
+    ],
+    "quantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134352/10/L132",
+        "quantity": 288
+      }
+    ],
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141001002"
+    },
+    "errorDeclaration": {
+      "declarationTime": "2026-11-02T16:45:00.000+01:00",
+      "reason": "incorrect_data",
+      "correctiveEventIDs": [
+        "urn:uuid:0b9e7d1c-3a2f-4c8b-9e6d-7f5a4b3c2d1e"
+      ]
+    }
+  },
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-02T16:30:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "eventID": "urn:uuid:0b9e7d1c-3a2f-4c8b-9e6d-7f5a4b3c2d1e",
+    "action": "OBSERVE",
+    "bizStep": "receiving",
+    "disposition": "in_progress",
+    "epcList": [
+      "https://id.gs1.org/00/106141411234567897"
+    ],
+    "quantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "quantity": 288
+      }
+    ],
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141001002"
+    }
   }
-}
+]

@@ -1,16 +1,39 @@
-{
-  "type": "ObjectEvent",
-  "eventTime": "2026-11-02T08:55:00.000+01:00",
-  "eventTimeZoneOffset": "+01:00",
-  "action": "OBSERVE",
-  "bizStep": "cycle_counting",
-  "disposition": "sellable_accessible",
-  "epcList": [
-    "https://id.gs1.org/01/09506000134376/21/TS-0001",
-    "https://id.gs1.org/01/09506000134376/21/TS-0002",
-    "https://id.gs1.org/01/09506000134376/21/TS-0003"
-  ],
-  "bizLocation": {
-    "id": "https://id.gs1.org/414/0614141000005"
+[
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-02T08:55:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "OBSERVE",
+    "bizStep": "cycle_counting",
+    "disposition": "sellable_accessible",
+    "epcList": [
+      "https://id.gs1.org/01/09506000134376/21/TS-0001",
+      "https://id.gs1.org/01/09506000134376/21/TS-0002",
+      "https://id.gs1.org/01/09506000134376/21/TS-0003",
+      "https://id.gs1.org/01/09506000134376/21/TS-0004",
+      "https://id.gs1.org/01/09506000134376/21/TS-0005",
+      "https://id.gs1.org/01/09506000134376/21/TS-0006",
+      "https://id.gs1.org/01/09506000134376/21/TS-0007",
+      "https://id.gs1.org/01/09506000134376/21/TS-0008",
+      "https://id.gs1.org/01/09506000134376/21/TS-0009",
+      "https://id.gs1.org/01/09506000134376/21/TS-0010",
+      "https://id.gs1.org/01/09506000134376/21/TS-0011",
+      "https://id.gs1.org/01/09506000134376/21/TS-0012",
+      "https://id.gs1.org/01/09506000134376/21/TS-0013",
+      "https://id.gs1.org/01/09506000134376/21/TS-0014",
+      "https://id.gs1.org/01/09506000134376/21/TS-0015",
+      "https://id.gs1.org/01/09506000134376/21/TS-0016",
+      "https://id.gs1.org/01/09506000134376/21/TS-0017",
+      "https://id.gs1.org/01/09506000134376/21/TS-0018",
+      "https://id.gs1.org/01/09506000134376/21/TS-0019",
+      "https://id.gs1.org/01/09506000134376/21/TS-0020",
+      "https://id.gs1.org/01/09506000134376/21/TS-0021",
+      "https://id.gs1.org/01/09506000134376/21/TS-0022",
+      "https://id.gs1.org/01/09506000134376/21/TS-0023",
+      "https://id.gs1.org/01/09506000134376/21/TS-0024"
+    ],
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141000005"
+    }
   }
-}
+]

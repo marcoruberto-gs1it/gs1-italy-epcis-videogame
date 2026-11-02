@@ -10,29 +10,34 @@
     "audioAria": "Attiva o disattiva l'audio"
   },
   "foot": {
-    "keys": "<b>1-9</b> SCEGLI · <b>INVIO</b> CONFERMA · <b>ESC</b> MAPPA · <b>M</b> AUDIO",
+    "keys": "<b>1-9</b> SCEGLI · <b>INVIO</b> CONFERMA · <b>ESC</b> MAPPA · <b>G</b> CODEX · <b>M</b> AUDIO",
     "brand": "REVERSE COACHING EPCIS",
     "logoPlaceholder": "LOGO GS1 ITALY"
+  },
+  "narrator": {
+    "name": "BIP",
+    "alt": "Bip, il lettore di barcode che ti fa da guida"
   },
   "title": {
     "presents": "GS1 ITALY PRESENTA",
     "heading": "MISSIONE L123",
     "sub": "EPCIS e il diario segreto della filiera",
     "start": "PREMI INVIO",
-    "record": "RECORD · RICHIAMO IN 2,2 SECONDI",
+    "record": "RECORD · RICHIAMO IN 35 MINUTI",
     "credit": "Reverse Coaching · 1 gettone",
     "jarAlt": "Il vasetto di yogurt, protagonista del gioco"
   },
   "map": {
-    "food": { "heading": "MONDO 1 · FOOD", "text": "Il viaggio di un vasetto di yogurt, dalla linea al CeDi." },
-    "textile": { "heading": "MONDO 2 · TESSILE", "text": "Il cartellino che parla: inventario e resi." },
-    "finale": { "heading": "ZONA SFIDA FINALE", "text": "Un allarme sul lotto L123. Servono tutti i poteri." },
+    "food": { "heading": "MONDO 1 · FOOD", "text": "Il viaggio di un vasetto di yogurt, dal latte al supermercato." },
+    "textile": { "heading": "MONDO 2 · TESSILE", "text": "Il cartellino che parla: dal filo al reso." },
+    "finale": { "heading": "ZONA SFIDA FINALE", "text": "Un allarme sul latte del lotto L123. Servono tutti i poteri." },
     "level": "LIVELLO {id}",
     "finaleNode": "SFIDA FINALE",
     "here": "Sei qui",
     "play": "GIOCA {id} ▶",
     "playFinale": "AFFRONTA LA SFIDA FINALE ▶",
     "seeEnd": "VEDI IL FINALE ▶",
+    "codex": "CODEX (G)",
     "reset": "RICOMINCIA DA ZERO"
   },
   "intro": {
@@ -43,16 +48,31 @@
   },
   "level": {
     "code": "MONDO {id}",
-    "codeFinale": "SFIDA FINALE"
+    "codeFinale": "SFIDA FINALE",
+    "register": "REGISTRA EVENTO"
   },
   "win": {
     "heading": "EVENTO REGISTRATO!",
     "diary": "LA PAGINA DEL DIARIO · EPCIS 2.0 JSON",
+    "diaryMany": "LE PAGINE DEL DIARIO · EPCIS 2.0 JSON",
+    "showDoc": "VEDI DOCUMENTO COMPLETO (D)",
+    "showEvents": "VEDI SOLO GLI EVENTI (D)",
+    "docNote": "Lo stesso evento dentro un EPCISDocument, il formato con cui i sistemi se lo scambiano.",
     "unlocked": "SUPERPOTERE SBLOCCATO",
+    "whyTitle": "PERCHÉ CONTA",
+    "who": "A chi serve",
+    "source": "Fonte",
+    "codexNew": "Nuove carte nel Codex: {list}",
     "map": "MAPPA",
     "next": "LIVELLO {id} ▶",
     "nextFinale": "AFFRONTA LA SFIDA FINALE ▶",
     "end": "FINALE ▶"
+  },
+  "roles": {
+    "produttore": "Produttore",
+    "distribuzione": "Distribuzione",
+    "consumatore": "Consumatore",
+    "autorita": "Autorità"
   },
   "continue": {
     "heading": "CONTINUI?",
@@ -63,11 +83,330 @@
     "heading": "MISSIONE COMPIUTA",
     "sub": "EPCIS: se funziona, non sai che c'è.",
     "score": "PUNTEGGIO {n} EVENTI",
+    "powersTitle": "I TUOI SUPERPOTERI",
+    "casesTitle": "PRIMA E DOPO · CASI REALI",
+    "benefitsTitle": "COSA PORTI A CASA",
+    "benefitsSub": "I vantaggi principali emersi nel gioco, per chi produce, chi distribuisce e chi compra.",
+    "print": "STAMPA IL PROMEMORIA",
     "map": "MAPPA",
     "again": "GIOCA ANCORA",
     "cases": [
-      { "tag": "WALMART · MANGHI", "from": "6 GIORNI E 18 ORE", "to": "2,2 SECONDI", "text": "Da quale azienda agricola viene il mango? Prima e dopo la tracciabilità a eventi." },
-      { "tag": "NHS · SCAN4SAFETY", "from": "8,33 GIORNI", "to": "MENO DI 35 MIN", "text": "Richiamo di un dispositivo medico: chi l'ha ricevuto?" }
+      {
+        "tag": "NHS · SCAN4SAFETY",
+        "from": "8,33 GIORNI",
+        "to": "MENO DI 35 MINUTI",
+        "text": "Tempo medio per richiamare un prodotto al Leeds Teaching Hospitals NHS Trust, dopo l'introduzione degli standard GS1 al punto di cura.",
+        "source": "GS1 UK, «A scan of the benefits: the Scan4Safety evidence report», 2020"
+      },
+      {
+        "tag": "WALMART · MANGO",
+        "from": "6 GIORNI E 18 ORE",
+        "to": "2,2 SECONDI",
+        "text": "Tempo per risalire all'azienda agricola di un mango, in una prova pilota del 2017 con una piattaforma blockchain. Non è un caso EPCIS: mostra il valore della tracciabilità a eventi digitali.",
+        "source": "Testimonianza di Frank Yiannas (Walmart) al Congresso USA, 14/02/2018; FDA, 2019"
+      }
+    ],
+    "benefits": {
+      "produttore": ["Richiami chirurgici: blocchi solo i lotti coinvolti", "Meno telefonate e meno errori con i partner", "La storia dei materiali è già pronta per il Passaporto Digitale di Prodotto"],
+      "distribuzione": ["Ricevimento veloce: leggi un'etichetta e conosci tutto il contenuto", "Catena del freddo verificata pallet per pallet", "Inventario accurato e resi verificabili"],
+      "consumatore": ["Prodotti più sicuri, con richiami rapidi e mirati", "Informazioni affidabili su origine e materiali", "Meno rischio di contraffazione"]
+    }
+  },
+  "levels": {
+    "food-latte": {
+      "meta": { "t": "Dal latte allo yogurt", "c": "TransformationEvent", "place": "Caseificio · vasca 1" },
+      "intro": "Ciao, sono Bip! Ti guido nel diario del lotto L123. Ogni cosa che succede al prodotto diventa una pagina: un evento EPCIS (Electronic Product Code Information Services). Si comincia dal latte.",
+      "story": "Nella vasca 1 nasce lo yogurt del lotto L123. Metti nella vasca solo quello che diventa yogurt.",
+      "tankEmpty": "LA VASCA È VUOTA",
+      "tankLabel": "NELLA VASCA",
+      "put": "METTI NELLA VASCA",
+      "ingredients": [
+        { "id": "latte", "t": "Latte crudo · lotto cisterna C0471", "ok": true },
+        { "id": "pallet", "t": "Pallet vuoto", "why": "Il pallet serve dopo, per spedire. Non diventa yogurt." },
+        { "id": "fermenti", "t": "Fermenti lattici · lotto F2290", "ok": true },
+        { "id": "detergente", "t": "Detergente per la pulizia", "why": "Pulisce la vasca, ma non entra nel prodotto." }
+      ],
+      "tankFull": "Latte e fermenti sono nella vasca. Il lotto L123 sta nascendo!",
+      "q": "Latte e fermenti diventano yogurt. Che evento è?",
+      "opts": [
+        { "t": "Un'aggregazione", "why": "L'aggregazione mette oggetti in un contenitore e si può disfare: apri il cartone e i vasetti sono ancora lì." },
+        { "t": "Una trasformazione", "ok": true, "why": "Esatto: gli ingredienti spariscono e nasce un prodotto nuovo. Non si torna indietro." },
+        { "t": "Una spedizione", "why": "Niente si è spostato: siamo ancora in caseificio." }
+      ],
+      "events": ["Trasformazione: latte e fermenti diventano 288 vasetti del lotto L123"],
+      "fact": "Un <code>TransformationEvent</code> collega gli ingredienti (input) al prodotto (output). Non ha <code>action</code>: non aggiunge e non toglie, trasforma. Da qui puoi sempre risalire al latte di partenza.",
+      "power": ["ALBERO GENEALOGICO", "Da ogni lotto risali ai suoi ingredienti, e da ogni ingrediente ai lotti in cui è finito."],
+      "why": {
+        "benefit": "Se un ingrediente ha un problema, sai subito quali lotti di prodotto finito lo contengono. Lo vedrai nella sfida finale.",
+        "who": ["produttore", "autorita"]
+      }
+    },
+    "food-nascita": {
+      "meta": { "t": "Nasce il vasetto", "c": "Le dimensioni di un evento", "place": "Caseificio · linea 2" },
+      "intro": "Il lotto L123 è nato nella vasca. Adesso passa il controllo qualità sulla linea 2. Scriviamo la sua carta d'identità.",
+      "story": "Ogni evento EPCIS è una frase che risponde a poche domande. Componi questa pagina del diario: scegli una risposta per ogni riga.",
+      "cap": "LOTTO L123 · 288 VASETTI · SCADENZA 30/11",
+      "rows": [
+        { "d": "COSA", "o": ["Vasetto bianco 125 g", "GTIN 09506000134352 + lotto L123", "Codice interno YG-47"], "ok": 1, "why": "Il COSA è una chiave GS1: il GTIN (Global Trade Item Number) più il lotto. Descrizioni e codici interni non escono dall'azienda." },
+        { "d": "QUANDO", "o": ["Stamattina presto", "Prima della pausa caffè", "2026-11-02T08:15:00+01:00"], "ok": 2, "why": "Il QUANDO è data e ora con il fuso orario: nessun partner può fraintenderlo." },
+        { "d": "DOVE", "o": ["GLN 0614141007776 · linea 2", "Il capannone dietro", "Chiedi a Mario"], "ok": 0, "why": "Il DOVE usa un GLN (Global Location Number): un indirizzo di sede che ogni partner sa leggere." },
+        { "d": "PERCHÉ", "o": ["shipping", "inspecting", "retail_selling"], "ok": 1, "why": "Il lotto passa il controllo qualità: il passo di processo standard giusto è inspecting." }
+      ],
+      "needAll": "Scegli una risposta per ogni riga.",
+      "wrongOne": "Una riga non è comprensibile per gli altri partner. Correggi e riprova.",
+      "wrongMany": "{n} righe non sono comprensibili per gli altri partner. Correggi e riprova.",
+      "events": ["Controllo qualità del lotto L123 sulla linea 2"],
+      "fact": "COSA, QUANDO, DOVE e PERCHÉ, ognuno con una chiave GS1 o un termine standard. Qui <code>action</code> è <code>OBSERVE</code>: il lotto esiste già e lo stai osservando. <code>ADD</code> serve quando qualcosa entra in gioco per la prima volta.",
+      "power": ["DNA DIGITALE", "Ogni lotto ha un'identità GS1 che tutti i partner leggono allo stesso modo."],
+      "why": {
+        "benefit": "Ogni partner legge lo stesso evento allo stesso modo: niente telefonate per capire cosa, dove e quando.",
+        "who": ["produttore", "distribuzione"]
+      }
+    },
+    "food-raggi-x": {
+      "meta": { "t": "Vista ai raggi X", "c": "AggregationEvent · packing", "place": "Caseificio · fine linea" },
+      "intro": "288 vasetti, 12 cartoni, un pallet. Al CeDi (Centro di Distribuzione) nessuno avrà voglia di aprirlo.",
+      "story": "Ogni cartone contiene 24 vasetti. Impila i 12 cartoni sul pallet.",
+      "stack": "IMPILA UN CARTONE",
+      "stackAll": "IMPILA TUTTI",
+      "count": "CARTONI {n}/12 · VASETTI {j}/288",
+      "q": "Il pallet è filmato. Come fa il CeDi a sapere cosa c'è dentro, senza aprirlo?",
+      "opts": [
+        { "t": "Apre il pallet e conta i vasetti", "why": "Funziona, ma costa tempo e rompe la filmatura. Non è questo il superpotere." },
+        { "t": "In caseificio registro due aggregazioni: i vasetti nei cartoni, i cartoni nel pallet", "ok": true, "why": "Esatto. L'aggregazione lega il contenuto al contenitore. Ora prova lo scanner." },
+        { "t": "Lo scrivo a mano sul DDT", "why": "Un documento di trasporto di carta non arriva in automatico nei sistemi del CeDi." }
+      ],
+      "scan": "SCANSIONA IL PALLET",
+      "scanned": "Una sola lettura dell'SSCC (Serial Shipping Container Code, il codice del pallet): 12 cartoni e 288 vasetti.",
+      "cap": "PALLET · SSCC 106141411234567897",
+      "events": ["Primo cartone: 24 vasetti del lotto L123 (lo stesso evento si ripete per tutti i 12 cartoni)", "Pallet: i 12 cartoni, ognuno con il suo SSCC"],
+      "fact": "Due livelli di aggregazione: 24 vasetti in ogni cartone, 12 cartoni sul pallet. Il <code>parentID</code> è il contenitore, i figli sono il contenuto. <code>action: ADD</code> perché il legame nasce adesso.",
+      "power": ["VISTA AI RAGGI X", "Con l'aggregazione leggi il pallet e sai cosa c'è dentro, senza aprirlo."],
+      "why": {
+        "benefit": "Ricevimento più veloce: leggi un'etichetta e conosci tutto il contenuto, senza aprire il pallet.",
+        "who": ["distribuzione", "produttore"]
+      }
+    },
+    "food-cbv": {
+      "meta": { "t": "Le parole non si inventano", "c": "Vocabolario CBV · shipping", "place": "Caseificio · baia 3" },
+      "intro": "Il pallet parte per il CeDi di Bologna. Il sistema del CeDi deve capire cosa sta succedendo, senza telefonate.",
+      "bubble": "Ciao, sono il CeDi di Bologna. Cosa mi state mandando?",
+      "bubbleBad": "??? Non conosco questa parola.",
+      "bubbleGood": "Ricevuto! Pallet in viaggio, ordine collegato. Vi aspetto.",
+      "cap": "IL SISTEMA DEL CeDi ASCOLTA",
+      "story": "Il pallet sale sul camion. Ogni azienda ha il suo gergo, ma il sistema del CeDi capisce solo il CBV (Core Business Vocabulary), il vocabolario comune di GS1.",
+      "q": "Che parola usi per dire che il pallet viene spedito?",
+      "opts": [
+        { "t": "partito_col_camion", "why": "Per il tuo gestionale ha senso, per quello del CeDi no. Le parole inventate rompono l'interoperabilità." },
+        { "t": "SPED-OK", "why": "È un codice interno: fuori dall'azienda nessuno sa cosa significa." },
+        { "t": "shipping", "ok": true, "why": "È il termine del vocabolario CBV. Ogni sistema conforme sa cosa vuol dire." },
+        { "t": "uscita_merce", "why": "Sembra chiaro in italiano, ma il sistema del partner cerca un termine CBV." }
+      ],
+      "events": ["Spedizione del pallet dal caseificio al CeDi di Bologna"],
+      "fact": "Il CBV dà i verbi (<code>shipping</code>) e gli stati (<code>in_transit</code>). L'ordine d'acquisto viaggia agganciato all'evento, e con <code>sourceList</code> e <code>destinationList</code> il CeDi sa chi spedisce, chi riceve e dove.",
+      "power": ["PARLA CON TUTTI", "Il vocabolario CBV: le stesse parole per ogni sistema della filiera."],
+      "why": {
+        "benefit": "Meno errori e meno telefonate: i sistemi dei partner si capiscono senza traduzioni.",
+        "who": ["produttore", "distribuzione"]
+      }
+    },
+    "food-freddo": {
+      "meta": { "t": "Catena del freddo", "c": "AssociationEvent · sensori", "place": "In viaggio verso Bologna" },
+      "intro": "Due ore di autostrada. Prima di partire, sul pallet viene montato un sensore di temperatura. Va collegato all'oggetto giusto.",
+      "story": "Il sensore registra la temperatura per tutto il viaggio. Lo yogurt deve restare sotto gli 8 °C.",
+      "q1": "A cosa colleghi il sensore?",
+      "opts1": [
+        { "t": "Al pallet, con il suo SSCC", "ok": true, "why": "Esatto: il dato segue il pallet anche se cambia camion. È un AssociationEvent, una novità di EPCIS 2.0." },
+        { "t": "Al camion", "why": "Se al CeDi il pallet cambia camion, il dato resta sul camion sbagliato." },
+        { "t": "All'autista", "why": "L'autista finisce il turno, il pallet continua il viaggio." }
+      ],
+      "drive": "AVVIA IL VIAGGIO",
+      "linked": "SENSORE SENS042 ↔ PALLET 106141411234567897",
+      "cap": "SOGLIA YOGURT · MASSIMO 8 °C",
+      "q2": "Il sensore ha registrato fino a 9 °C. Dove va questa informazione?",
+      "opts2": [
+        { "t": "In un'email al responsabile qualità", "why": "L'email arriva a una persona sola e non è legata al pallet: in caso di problema nessuno la ritrova." },
+        { "t": "Nel COME dell'evento: <code>sensorElementList</code>", "ok": true, "why": "Il dato del sensore entra nell'evento ed è legato a quel pallet, in quel momento, in quel luogo." },
+        { "t": "In un campo note libero", "why": "Un testo libero non si può interrogare né confrontare tra partner." }
+      ],
+      "events": ["Associazione: il sensore viene legato al pallet", "Trasporto: minimo, massimo e allarme della temperatura"],
+      "fact": "Due pagine: l'<code>AssociationEvent</code> lega il sensore al pallet, poi <code>sensorElementList</code> porta minimo, massimo e allarme dentro l'evento di trasporto, con unità di misura standard (<code>CEL</code>, gradi Celsius).",
+      "power": ["CATENA DEL FREDDO", "I dati dei sensori viaggiano dentro l'evento: minimo, massimo, allarmi."],
+      "why": {
+        "benefit": "Chi riceve sa subito se la catena del freddo ha tenuto e può decidere su quel pallet, non su tutto il carico.",
+        "who": ["distribuzione", "consumatore"]
+      }
+    },
+    "food-errore": {
+      "meta": { "t": "Ops, errore!", "c": "Dichiarazione di errore", "place": "CeDi di Bologna" },
+      "intro": "Il pallet arriva al CeDi. Un operatore stanco registra il ricevimento...",
+      "req": "receiving · lotto <span class=\"bad\">L132</span> · 288 pezzi",
+      "cap": "EVENTO GIÀ LETTO DA TRE PARTNER",
+      "story": "L'operatore registra il ricevimento ma digita <code>L132</code> invece di <code>L123</code>. L'evento è già stato letto dal produttore, dal trasportatore e dalla sede.",
+      "q": "Che cosa fai?",
+      "opts": [
+        { "t": "Cancello l'evento e lo riscrivo giusto", "why": "<b>Fine partita per la fiducia.</b> In EPCIS gli eventi non si cancellano: altri sistemi li hanno già letti. Cancellare vuol dire riscrivere la storia di nascosto." },
+        { "t": "Pubblico una dichiarazione di errore e un evento corretto", "ok": true, "why": "Così la storia resta onesta: si vedono l'errore e la correzione, con l'ora in cui è stata fatta." },
+        { "t": "Faccio finta di niente, tanto è una cifra", "why": "Il lotto L132 risulterebbe al CeDi. In caso di richiamo cercheresti i vasetti nel posto sbagliato." }
+      ],
+      "register": "REGISTRA CORREZIONE",
+      "events": ["L'evento sbagliato (lotto L132) con la dichiarazione di errore", "L'evento corretto (lotto L123)"],
+      "fact": "Nel diario restano due pagine: l'evento sbagliato con la sua <code>errorDeclaration</code> (motivo standard <code>incorrect_data</code>) e l'evento corretto, collegato con <code>correctiveEventIDs</code>. Niente sparisce, tutto si spiega.",
+      "power": ["MEMORIA ONESTA", "Gli errori si correggono con una dichiarazione, mai cancellando."],
+      "why": {
+        "benefit": "Dati affidabili: ogni correzione è visibile a tutti i partner, con ora e motivo.",
+        "who": ["produttore", "distribuzione", "autorita"]
+      }
+    },
+    "tessile-filo": {
+      "meta": { "t": "Dal filo al capo", "c": "TransformationEvent a più passaggi", "place": "Filiera tessile" },
+      "intro": "Cambio di mondo: stesso standard, altro settore. Una t-shirt nasce da un tessuto, il tessuto da un filo, il filo da una fibra.",
+      "story": "Tre aziende, tre trasformazioni. Mettile nell'ordine giusto per costruire la storia delle 24 t-shirt.",
+      "q": "Quale passaggio viene adesso?",
+      "steps": [
+        { "id": "tessitura", "t": "Tessitura · il filato diventa tessuto", "pos": 1 },
+        { "id": "filatura", "t": "Filatura · la fibra di cotone diventa filato", "pos": 0 },
+        { "id": "confezione", "t": "Confezione · il tessuto diventa 24 t-shirt", "pos": 2 }
+      ],
+      "wrong": "Non ancora: ogni passaggio usa quello che esce dal passaggio prima.",
+      "chainTitle": "LA STORIA DELLE T-SHIRT",
+      "chainEmpty": "Scegli il primo passaggio.",
+      "done": "La catena è completa: fibra, filato, tessuto, t-shirt.",
+      "events": ["Filatura: 120 kg di fibra diventano 110 kg di filato", "Tessitura: il filato diventa 600 metri di tessuto", "Confezione: 36 metri di tessuto diventano 24 t-shirt con numero di serie"],
+      "fact": "Tre <code>TransformationEvent</code> in fila: fibra, filato, tessuto, 24 t-shirt con numero di serie. Ogni output diventa l'input del passaggio dopo. È il filo rosso su cui si costruisce il Passaporto Digitale di Prodotto (DPP).",
+      "power": ["FILO ROSSO", "Ogni capo porta con sé la storia dei suoi materiali, passaggio dopo passaggio."],
+      "why": {
+        "benefit": "Le informazioni su materiali e lavorazioni seguono il capo: servono per la sostenibilità e per il Passaporto Digitale di Prodotto previsto dal regolamento europeo ESPR.",
+        "who": ["produttore", "consumatore", "autorita"],
+        "source": "Regolamento (UE) 2024/1781 sulla progettazione ecocompatibile dei prodotti sostenibili (ESPR)"
+      }
+    },
+    "tessile-inventario": {
+      "meta": { "t": "Inventario lampo", "c": "EPC + RAIN RFID", "place": "Negozio di Milano" },
+      "intro": "Le 24 t-shirt sono arrivate in negozio a Milano. Ore 8:55: tra cinque minuti si apre.",
+      "story": "Ogni t-shirt ha un cartellino con barcode e tag RAIN RFID (Radio Frequency Identification). Dentro c'è la stessa identità: l'EPC (Electronic Product Code) del capo.",
+      "q": "Round 1 · barcode. Scansiona le t-shirt una alla volta, come con la pistola ottica.",
+      "q2": "Round 2 · RAIN RFID. Un solo comando, a distanza, senza vedere i capi.",
+      "toRfid": "BASTA, PASSA ALL'RFID",
+      "scan": "LETTURA RAIN RFID",
+      "counter": "LETTI {n}/24 · 00:{s}",
+      "result": "Barcode: {n} capi in {s} secondi. RAIN RFID: 24 capi in un secondo.",
+      "q3": "Domanda trabocchetto: che cosa ha letto davvero il lettore?",
+      "opts": [
+        { "t": "L'RFID: è lui l'identità del capo", "why": "L'RFID è il mezzo, come la tessera su cui è stampato il codice fiscale. L'identità è un'altra cosa." },
+        { "t": "L'EPC del capo, trasportato dal tag RFID", "ok": true, "why": "Giusto. L'EPC è il dato, l'RFID il mezzo. Lo stesso EPC può stare in un barcode o in un database." },
+        { "t": "Il prezzo del capo", "why": "Il prezzo non sta nella memoria EPC del tag: lì c'è l'identità del capo." }
+      ],
+      "register": "REGISTRA INVENTARIO",
+      "events": ["Inventario: le 24 t-shirt contate una per una"],
+      "fact": "Nella lista ci sono tutti e 24 i numeri di serie: ogni capo è contato uno per uno, senza vederlo. Sono le stesse t-shirt nate nel livello 2-1.",
+      "power": ["LETTURA LAMPO", "Stessa identità EPC, vettore RAIN RFID: uno scaffale intero in un colpo."],
+      "why": {
+        "benefit": "Inventari più veloci e accurati: sai cosa c'è davvero a scaffale e riordini quando serve.",
+        "who": ["distribuzione", "consumatore"],
+        "case": "Decathlon applica un tag EPC/RFID al 100% dei suoi prodotti e usa oltre 50.000 lettori nel mondo. Dichiara un'efficienza dell'inventario cinque volte maggiore.",
+        "source": "GS1 US, case study «Global Retail Sporting Goods Leader Finishes First with RFID»"
+      }
+    },
+    "tessile-reso": {
+      "meta": { "t": "Il reso sospetto", "c": "Storia del capo · pedigree", "place": "Negozio di Roma" },
+      "intro": "Due clienti riportano lo stesso modello di giubbotto. Nessuno dei due ha lo scontrino.",
+      "story": "Negozio di Roma. Due giubbotti identici tornano indietro senza scontrino. Interroga il repository EPCIS, l'archivio degli eventi, e leggi la storia di ciascun numero di serie.",
+      "q": "Quale reso accetti?",
+      "jacketA": "CAPO A<br>JK-0457",
+      "jacketB": "CAPO B<br>JK-9999",
+      "query": "INTERROGA",
+      "cap": "STESSO GTIN 09506000134369 · NUMERI DI SERIE DIVERSI",
+      "historyA": [["03/09", "commissioning · Fabbrica di Biella"], ["10/09", "shipping · Biella → CeDi"], ["11/09", "receiving · CeDi di Piacenza"], ["19/09", "shipping · CeDi → negozio"], ["20/09", "receiving · Negozio di Milano"], ["12/10", "retail_selling · Negozio di Milano"]],
+      "historyB": "Zero eventi trovati. Nessuna fabbrica del marchio ha mai creato questo numero di serie.",
+      "opts": [
+        { "t": "Capo A · JK-0457", "ok": true, "why": "Il capo A ha una storia completa: prodotto a Biella, venduto a Milano il 12/10. Reso accettato." },
+        { "t": "Capo B · JK-9999", "why": "Il capo B non ha storia: quel numero di serie non è mai nato. Probabile contraffazione." },
+        { "t": "Entrambi, sembrano uguali", "why": "Visti da fuori sì. Ma solo uno dei due ha un passato verificabile." }
+      ],
+      "register": "REGISTRA IL RESO",
+      "events": ["Reso accettato del giubbotto JK-0457"],
+      "fact": "La sequenza di eventi è il pedigree del capo: chi l'ha prodotto, dove è passato, dove è stato venduto. È la base per resi, anticontraffazione e Passaporto Digitale di Prodotto.",
+      "power": ["PEDIGREE", "La storia del capo dice se è autentico: resi, anticontraffazione, DPP."],
+      "why": {
+        "benefit": "Resi più sicuri e meno contraffazioni: un numero di serie senza storia è un campanello d'allarme.",
+        "who": ["distribuzione", "produttore", "consumatore"]
+      }
+    },
+    "sfida-finale": {
+      "meta": { "t": "Il grande richiamo", "c": "Query EPCIS · recalled", "place": "Tutta la filiera" },
+      "intro": "Allerta! Il laboratorio segnala un problema sul latte della cisterna C0471. Dove sono finiti i vasetti fatti con quel latte?",
+      "story": "Il latte della cisterna C0471 ha un problema. Bisogna bloccare tutti i vasetti fatti con quel latte, ovunque siano. Prima prova come si faceva senza EPCIS.",
+      "old": "PROVA COME UNA VOLTA",
+      "round1": "ROUND 1 · COME UNA VOLTA",
+      "round2": "ROUND 2 · CON EPCIS",
+      "steps": ["Telefono al caseificio: «vi richiamo domattina»", "Email al trasportatore: risposta automatica, fuori ufficio", "Apro lotti_DEF_v3_finale(2).xlsx", "Il supermercato di Monza non trova il documento di trasporto", "Per sicurezza: richiamo tutta la produzione della settimana"],
+      "tooLate": "Troppo tardi: quasi sette giorni per rispondere, e alla fine richiami tutto. Riprova con i tuoi poteri.",
+      "usePowers": "USA I SUPERPOTERI",
+      "q1": "Primo passo: in quali lotti di yogurt è finito il latte C0471?",
+      "opts1": [
+        { "t": "Cerco le trasformazioni con quel latte in input", "ok": true, "why": "Il superpotere ALBERO GENEALOGICO: dal latte risali ai lotti di yogurt." },
+        { "t": "Cerco solo il lotto L123", "why": "Così trovi L123, ma non sai se lo stesso latte è finito anche in altri lotti." },
+        { "t": "Chiamo il caseificio e aspetto", "why": "È la strada del round 1: giorni, non secondi." }
+      ],
+      "found": "Il latte C0471 è finito in due lotti: L123 e L124.",
+      "q2": "Secondo passo: dove sono adesso i vasetti? Quali lotti cerchi?",
+      "opts2": [
+        { "t": "Tutti i lotti di quel GTIN", "why": "Funzionerebbe, ma richiameresti anche i lotti sani. Il superpotere è il richiamo chirurgico." },
+        { "t": "Solo il lotto L123", "why": "E il lotto L124? È fatto con lo stesso latte." },
+        { "t": "I lotti L123 e L124", "ok": true, "why": "Proprio quelli. Invio la query." },
+        { "t": "Il lotto L132", "why": "Attenzione: L132 era l'errore di battitura corretto al CeDi." }
+      ],
+      "rows": [
+        { "sp": "cedi", "t": "CeDi di Bologna · in magazzino", "n": "96 + 288 PZ", "lot": "L123 + L124" },
+        { "sp": "truck", "t": "Camion · due cartoni verso Monza", "n": "48 PZ", "lot": "L123" },
+        { "sp": "store", "t": "Supermercato di Milano · a scaffale", "n": "72 PZ", "lot": "L123" },
+        { "sp": "store", "t": "Supermercato di Monza · in magazzino", "n": "48 PZ", "lot": "L123" },
+        { "sp": "person", "t": "Già venduti ai consumatori", "n": "24 PZ", "lot": "L123" }
+      ],
+      "summary": "576 vasetti trovati in cinque posizioni: 288 del lotto L123 e 288 del lotto L124.",
+      "block": "BLOCCA I LOTTI · RECALLED",
+      "blocked": "BLOCCATI",
+      "notice": "AVVISO",
+      "recap": "Bloccati 552 vasetti: 264 del lotto L123 e 288 del lotto L124. Per i 24 vasetti già venduti parte un avviso ai consumatori.",
+      "done": "SFIDA SUPERATA ▶",
+      "events": ["Richiamo al CeDi: lotti L123 e L124", "Richiamo sul camion: i due cartoni, letti con il loro SSCC", "Richiamo al supermercato di Milano", "Richiamo al supermercato di Monza"],
+      "fact": "Due domande al repository e un richiamo per ogni luogo: 264 vasetti di L123 bloccati più 24 avvisi fanno 288, il lotto intero. Il lotto L124, fatto con lo stesso latte, viene fermato prima ancora di uscire dal CeDi.",
+      "power": ["RICHIAMO CHIRURGICO", "Solo i lotti coinvolti, e sai dove sono adesso. Secondi, non giorni."],
+      "why": {
+        "benefit": "Richiami rapidi e mirati: si bloccano solo i prodotti coinvolti e si protegge chi li ha già comprati.",
+        "who": ["produttore", "distribuzione", "consumatore", "autorita"],
+        "case": "Al Leeds Teaching Hospitals NHS Trust il tempo medio per richiamare un prodotto è sceso da 8,33 giorni a meno di 35 minuti, grazie agli standard GS1 del programma Scan4Safety.",
+        "source": "GS1 UK, «A scan of the benefits: the Scan4Safety evidence report», 2020"
+      }
+    }
+  },
+  "codex": {
+    "heading": "CODEX EPCIS",
+    "sub": "Le carte si sbloccano giocando. {n} su {total} trovate.",
+    "locked": "???",
+    "lockedText": "Gioca il livello {id} per sbloccare questa carta.",
+    "example": "Nel gioco",
+    "useful": "Nella vita reale",
+    "back": "TORNA ALLA MAPPA",
+    "cards": [
+      { "id": "epcis", "unlock": "food-latte", "t": "EPCIS", "def": "Electronic Product Code Information Services: lo standard GS1 per registrare e condividere gli eventi di un prodotto.", "ex": "Ogni pagina del diario del lotto L123 è un evento EPCIS.", "use": "Fa parlare i sistemi di produttori, logistica e negozi con un linguaggio comune." },
+      { "id": "transformation", "unlock": "food-latte", "t": "TransformationEvent", "def": "Evento in cui degli input diventano un output nuovo, senza ritorno.", "ex": "Latte e fermenti diventano lo yogurt del lotto L123.", "use": "Risalire dagli ingredienti ai prodotti finiti, e viceversa." },
+      { "id": "gtin", "unlock": "food-nascita", "t": "GTIN", "def": "Global Trade Item Number: il codice GS1 che identifica un prodotto.", "ex": "09506000134352 è il vasetto di yogurt bianco 125 g.", "use": "È il numero sotto il barcode: lo leggono la cassa, il magazzino, l'e-commerce." },
+      { "id": "gln", "unlock": "food-nascita", "t": "GLN", "def": "Global Location Number: il codice GS1 di un luogo o di un'azienda.", "ex": "0614141007776 è il caseificio.", "use": "Dice con precisione dove è successo qualcosa e chi è coinvolto." },
+      { "id": "dimensions", "unlock": "food-nascita", "t": "Le dimensioni", "def": "COSA, QUANDO, DOVE, PERCHÉ e COME: le domande a cui risponde ogni evento.", "ex": "Il controllo qualità del lotto L123 sulla linea 2, alle 8:15.", "use": "Una struttura fissa che ogni partner sa leggere." },
+      { "id": "object", "unlock": "food-nascita", "t": "ObjectEvent", "def": "Evento che riguarda uno o più oggetti: visti, spediti, ricevuti, venduti.", "ex": "Il controllo qualità, la spedizione, il ricevimento.", "use": "È l'evento più comune della filiera." },
+      { "id": "action", "unlock": "food-nascita", "t": "action", "def": "ADD: qualcosa entra in gioco. OBSERVE: lo osservi. DELETE: esce di scena.", "ex": "ADD quando nasce il legame cartone-pallet, OBSERVE alla spedizione.", "use": "Dice ai sistemi se un oggetto o un legame inizia, continua o finisce." },
+      { "id": "sscc", "unlock": "food-raggi-x", "t": "SSCC", "def": "Serial Shipping Container Code: il codice GS1 di un'unità logistica, come un cartone o un pallet.", "ex": "106141411234567897 è il pallet del lotto L123.", "use": "Si legge sull'etichetta logistica e collega il pallet al suo contenuto." },
+      { "id": "aggregation", "unlock": "food-raggi-x", "t": "AggregationEvent", "def": "Evento che lega un contenuto a un contenitore. Si può disfare.", "ex": "24 vasetti in un cartone, 12 cartoni su un pallet.", "use": "Leggere un pallet e sapere cosa c'è dentro senza aprirlo." },
+      { "id": "cbv", "unlock": "food-cbv", "t": "CBV", "def": "Core Business Vocabulary: le parole standard per i passi di processo e gli stati.", "ex": "shipping, in_transit, receiving, recalled.", "use": "Evita che ogni azienda inventi il suo gergo." },
+      { "id": "association", "unlock": "food-freddo", "t": "AssociationEvent", "def": "Evento che lega un dispositivo o un bene a un oggetto. Novità di EPCIS 2.0.", "ex": "Il sensore di temperatura legato al pallet.", "use": "I dati dei sensori seguono l'oggetto giusto." },
+      { "id": "error", "unlock": "food-errore", "t": "errorDeclaration", "def": "Dichiarazione che un evento era sbagliato, con motivo e puntatore all'evento corretto.", "ex": "Il lotto L132 digitato per sbaglio al CeDi.", "use": "Correggere senza cancellare: la storia resta affidabile." },
+      { "id": "dpp", "unlock": "tessile-filo", "t": "DPP", "def": "Digital Product Passport (Passaporto Digitale di Prodotto): le informazioni su un prodotto lungo tutta la sua vita, previste dal regolamento europeo ESPR.", "ex": "La storia delle t-shirt dalla fibra al capo.", "use": "Sostenibilità, riparazione, riciclo e informazioni per chi compra." },
+      { "id": "epc", "unlock": "tessile-inventario", "t": "EPC", "def": "Electronic Product Code: l'identità unica di un oggetto, anche del singolo pezzo.", "ex": "La t-shirt TS-0001 ha il suo EPC, diverso dalla TS-0002.", "use": "Contare, tracciare e autenticare ogni singolo oggetto." },
+      { "id": "rfid", "unlock": "tessile-inventario", "t": "RAIN RFID", "def": "Tag radio che si leggono a distanza e in tanti insieme. Sono un mezzo per trasportare l'EPC.", "ex": "24 t-shirt lette con un solo comando.", "use": "Inventari veloci, varchi automatici, antitaccheggio." },
+      { "id": "repository", "unlock": "tessile-reso", "t": "Repository", "def": "L'archivio dove si salvano gli eventi EPCIS e dove si possono interrogare.", "ex": "La storia dei giubbotti JK-0457 e JK-9999.", "use": "Ogni partner chiede quello che gli serve, quando gli serve." },
+      { "id": "query", "unlock": "sfida-finale", "t": "Query", "def": "Una domanda al repository: quali eventi riguardano questo lotto, questo luogo, questo periodo?", "ex": "Dal latte C0471 ai lotti L123 e L124, poi dove sono adesso.", "use": "Richiami in secondi invece che in giorni." }
     ]
   }
 }

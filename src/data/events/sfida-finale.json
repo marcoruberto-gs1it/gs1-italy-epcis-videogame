@@ -1,17 +1,69 @@
-{
-  "type": "ObjectEvent",
-  "eventTime": "2026-11-02T18:00:00.000+01:00",
-  "eventTimeZoneOffset": "+01:00",
-  "action": "OBSERVE",
-  "bizStep": "holding",
-  "disposition": "recalled",
-  "quantityList": [
-    {
-      "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
-      "quantity": 264
+[
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-05T10:00:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "OBSERVE",
+    "bizStep": "holding",
+    "disposition": "recalled",
+    "quantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "quantity": 96
+      },
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134352/10/L124",
+        "quantity": 288
+      }
+    ],
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141001002"
     }
-  ],
-  "bizLocation": {
-    "id": "https://id.gs1.org/414/0614141007776"
+  },
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-05T10:00:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "OBSERVE",
+    "bizStep": "holding",
+    "disposition": "recalled",
+    "epcList": [
+      "https://id.gs1.org/00/106141411000000054",
+      "https://id.gs1.org/00/106141411000000061"
+    ]
+  },
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-05T10:02:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "OBSERVE",
+    "bizStep": "holding",
+    "disposition": "recalled",
+    "quantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "quantity": 72
+      }
+    ],
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141002009"
+    }
+  },
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-05T10:02:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "OBSERVE",
+    "bizStep": "holding",
+    "disposition": "recalled",
+    "quantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "quantity": 48
+      }
+    ],
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141003006"
+    }
   }
-}
+]

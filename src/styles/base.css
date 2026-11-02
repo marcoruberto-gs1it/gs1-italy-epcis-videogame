@@ -30,9 +30,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; font-family: var(--font-display); font-size: clamp(8px, .85vw, 12px); color: var(--gs1-blue-200); letter-spacing: .04em; }
 .foot b { color: var(--gs1-orange); font-weight: 400; }
 .foot .brand { display: inline-flex; align-items: center; gap: 12px; }
-.logo { height: clamp(22px, 2.6vw, 40px); width: auto; display: block; }
+/* Il logo GS1 Italy è blu: sul fondo scuro va su un riquadro bianco, con spazio di rispetto, senza alterarlo. */
+.logo { height: clamp(34px, 3vw, 48px); width: auto; display: block; background: var(--gs1-white); padding: 4px 8px; box-sizing: content-box; position: relative; z-index: 1; }
 .logo-ph { display: inline-grid; place-items: center; padding: 4px 10px; border: 2px dashed var(--gs1-blue-200); color: var(--gs1-blue-200); font-family: var(--font-display); font-size: 9px; letter-spacing: .06em; }
-.title .logo { height: clamp(40px, 5vw, 72px); }
+.title .logo { height: clamp(56px, 6vw, 96px); padding: 10px 16px; }
 
 .px { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: .03em; line-height: 1.35; }

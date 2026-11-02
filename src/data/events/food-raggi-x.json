@@ -1,18 +1,46 @@
-{
-  "type": "AggregationEvent",
-  "eventTime": "2026-11-02T09:40:00.000+01:00",
-  "eventTimeZoneOffset": "+01:00",
-  "action": "ADD",
-  "bizStep": "packing",
-  "disposition": "in_progress",
-  "parentID": "https://id.gs1.org/00/106141411234567897",
-  "childQuantityList": [
-    {
-      "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
-      "quantity": 288
+[
+  {
+    "type": "AggregationEvent",
+    "eventTime": "2026-11-02T09:20:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "ADD",
+    "bizStep": "packing",
+    "disposition": "in_progress",
+    "parentID": "https://id.gs1.org/00/106141411000000016",
+    "childQuantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "quantity": 24
+      }
+    ],
+    "readPoint": {
+      "id": "https://id.gs1.org/414/0614141007776/254/finelinea"
     }
-  ],
-  "readPoint": {
-    "id": "https://id.gs1.org/414/0614141007776/254/finelinea"
+  },
+  {
+    "type": "AggregationEvent",
+    "eventTime": "2026-11-02T09:40:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "ADD",
+    "bizStep": "packing",
+    "disposition": "in_progress",
+    "parentID": "https://id.gs1.org/00/106141411234567897",
+    "childEPCs": [
+      "https://id.gs1.org/00/106141411000000016",
+      "https://id.gs1.org/00/106141411000000023",
+      "https://id.gs1.org/00/106141411000000030",
+      "https://id.gs1.org/00/106141411000000047",
+      "https://id.gs1.org/00/106141411000000054",
+      "https://id.gs1.org/00/106141411000000061",
+      "https://id.gs1.org/00/106141411000000078",
+      "https://id.gs1.org/00/106141411000000085",
+      "https://id.gs1.org/00/106141411000000092",
+      "https://id.gs1.org/00/106141411000000108",
+      "https://id.gs1.org/00/106141411000000115",
+      "https://id.gs1.org/00/106141411000000122"
+    ],
+    "readPoint": {
+      "id": "https://id.gs1.org/414/0614141007776/254/finelinea"
+    }
   }
-}
+]

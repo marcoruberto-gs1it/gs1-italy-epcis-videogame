@@ -1,0 +1,90 @@
+[
+  {
+    "type": "TransformationEvent",
+    "eventTime": "2026-09-01T14:00:00.000+02:00",
+    "eventTimeZoneOffset": "+02:00",
+    "inputQuantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134406/10/CT-88",
+        "quantity": 120,
+        "uom": "KGM"
+      }
+    ],
+    "outputQuantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134413/10/FL-312",
+        "quantity": 110,
+        "uom": "KGM"
+      }
+    ],
+    "bizStep": "commissioning",
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141004003"
+    }
+  },
+  {
+    "type": "TransformationEvent",
+    "eventTime": "2026-09-08T10:00:00.000+02:00",
+    "eventTimeZoneOffset": "+02:00",
+    "inputQuantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134413/10/FL-312",
+        "quantity": 110,
+        "uom": "KGM"
+      }
+    ],
+    "outputQuantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134420/10/TX-907",
+        "quantity": 600,
+        "uom": "MTR"
+      }
+    ],
+    "bizStep": "commissioning",
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141005000"
+    }
+  },
+  {
+    "type": "TransformationEvent",
+    "eventTime": "2026-09-22T16:00:00.000+02:00",
+    "eventTimeZoneOffset": "+02:00",
+    "inputQuantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/09506000134420/10/TX-907",
+        "quantity": 36,
+        "uom": "MTR"
+      }
+    ],
+    "outputEPCList": [
+      "https://id.gs1.org/01/09506000134376/21/TS-0001",
+      "https://id.gs1.org/01/09506000134376/21/TS-0002",
+      "https://id.gs1.org/01/09506000134376/21/TS-0003",
+      "https://id.gs1.org/01/09506000134376/21/TS-0004",
+      "https://id.gs1.org/01/09506000134376/21/TS-0005",
+      "https://id.gs1.org/01/09506000134376/21/TS-0006",
+      "https://id.gs1.org/01/09506000134376/21/TS-0007",
+      "https://id.gs1.org/01/09506000134376/21/TS-0008",
+      "https://id.gs1.org/01/09506000134376/21/TS-0009",
+      "https://id.gs1.org/01/09506000134376/21/TS-0010",
+      "https://id.gs1.org/01/09506000134376/21/TS-0011",
+      "https://id.gs1.org/01/09506000134376/21/TS-0012",
+      "https://id.gs1.org/01/09506000134376/21/TS-0013",
+      "https://id.gs1.org/01/09506000134376/21/TS-0014",
+      "https://id.gs1.org/01/09506000134376/21/TS-0015",
+      "https://id.gs1.org/01/09506000134376/21/TS-0016",
+      "https://id.gs1.org/01/09506000134376/21/TS-0017",
+      "https://id.gs1.org/01/09506000134376/21/TS-0018",
+      "https://id.gs1.org/01/09506000134376/21/TS-0019",
+      "https://id.gs1.org/01/09506000134376/21/TS-0020",
+      "https://id.gs1.org/01/09506000134376/21/TS-0021",
+      "https://id.gs1.org/01/09506000134376/21/TS-0022",
+      "https://id.gs1.org/01/09506000134376/21/TS-0023",
+      "https://id.gs1.org/01/09506000134376/21/TS-0024"
+    ],
+    "bizStep": "commissioning",
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/0614141006007"
+    }
+  }
+]
