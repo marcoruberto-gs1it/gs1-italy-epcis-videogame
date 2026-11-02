@@ -3,7 +3,7 @@ import events from "../data/events/food-cbv.json";
 import { defineLevel } from "./define.js";
 
 export default defineLevel({
-  slug: "food-cbv", id: "1-4", world: "food", sp: "truck", events,
+  slug: "food-cbv", id: "1-4", world: "food", sp: "truck", scene: "caseificio", events,
 
   mount({ C, show, levelShell, ask, win, img, $, $$ }) {
     show(levelShell(this,

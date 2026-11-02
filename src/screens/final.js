@@ -2,9 +2,9 @@
 import { register, go } from "../engine/router.js";
 import { state, resetState } from "../engine/state.js";
 import { sfx } from "../engine/audio.js";
-import { bob } from "../anim/fx.js";
+import { bob, eyes, burst, introSequence } from "../anim/fx.js";
 import { t } from "../content/index.js";
-import { img } from "../render/two/sprites.js";
+import { img, sprite } from "../render/two/sprites.js";
 import { LEVELS } from "../levels/index.js";
 import { logoHtml } from "../ui/hud.js";
 import { $, show } from "../ui/dom.js";
@@ -38,7 +38,11 @@ register("final", () => {
       <button class="btn" data-primary id="again">${t("final.again")}</button>
     </div>
   </div>`);
-  bob($("#hero"));
+  bob($("#hero img"));
+  eyes($("#hero img"), sprite("jar"), sprite("jarBlink"));
+  introSequence($(".final"));
+  // Coriandoli in pixel con i colori di brand.
+  burst($("#hero"), ["var(--gs1-forest)", "var(--gs1-white)", "var(--gs1-orange)", "var(--gs1-blue-200)"], 28);
   $("#print").onclick = () => window.print();
   $("#toMap").onclick = () => go("map");
   $("#again").onclick = () => { resetState({ muted: state.muted }); go("title"); };

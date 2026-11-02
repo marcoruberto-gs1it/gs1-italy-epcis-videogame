@@ -1,7 +1,7 @@
 // HUD in alto (punteggio, vite, poteri, audio) e barra in basso con il logo.
 import { state, commit, onChange } from "../engine/state.js";
 import { t } from "../content/index.js";
-import { sprite } from "../render/two/sprites.js";
+import { sprite, img } from "../render/two/sprites.js";
 import { LEVELS } from "../levels/index.js";
 import { $ } from "./dom.js";
 
@@ -31,7 +31,12 @@ export function renderFoot() {
   $("#foot").innerHTML = `<span>${t("foot.keys")}</span><span class="brand">${t("foot.brand")} ${logoHtml()}</span>`;
 }
 
+export function renderMarquee() {
+  $("#marquee").innerHTML = `${img("jar", 30)}<span class="mq-title">${t("title.heading")}</span><span class="mq-sub">${t("marquee.sub")}</span>${img("bip", 30)}`;
+}
+
 export function initHud() {
+  renderMarquee();
   renderFoot();
   renderHud();
   onChange(renderHud);

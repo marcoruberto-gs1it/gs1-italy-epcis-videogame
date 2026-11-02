@@ -12,18 +12,22 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   const requests = [];
   page.on("request", r => { if (!r.url().startsWith("file:") && !r.url().startsWith("data:")) requests.push(r.url()); });
 
-  const shot = name => page.screenshot({ path: `docs/screenshots/${info.project.name}/${name}.png` });
-  const press = key => page.keyboard.press(key);
-  const pressOn = sel => page.locator(sel).press("Enter");
+
+  // Invio salta le animazioni in corso: per attivare un pulsante aspettiamo che siano finite.
+  const idle = () => page.waitForSelector("body:not([data-anim])", { state: "attached" });
+  const shot = async name => { await idle(); await page.screenshot({ path: `docs/screenshots/${info.project.name}/${name}.png` }); };
+  const press = async key => { if (key === "Enter") await idle(); await page.keyboard.press(key); };
+  const pressOn = async sel => { await idle(); await page.locator(sel).press("Enter"); };
   const seeWin = async name => {
     await expect(page.locator(".win")).toBeVisible();
-    await page.waitForTimeout(2800);
+    await idle();
+    await page.waitForTimeout(300);
     await shot(name);
   };
   const intro = async name => {
     await press("Enter");
     await expect(page.locator(".narrator")).toBeVisible();
-    if (name) await shot(name);
+    if (name) { await idle(); await shot(name); }
     await press("Enter");
   };
 
@@ -36,8 +40,28 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await expect(page.locator(".map")).toBeVisible();
   await shot("02-mappa");
 
+  // Invio durante l'intro animata la porta alla fine senza cambiare schermata.
+  await press("Enter");
+  await expect(page.locator(".narrator")).toBeVisible();
+  if (info.project.name === "desktop") {
+    // Con le animazioni attive, Invio porta l'intro alla fine e resta sulla stessa schermata.
+    await page.keyboard.press("Enter");
+    await idle();
+    await expect(page.locator("#go")).toBeVisible();
+  }
+  await expect(page.locator(".speech .txt")).toContainText("Si comincia dal latte.");
+  await shot("03-intro-1-1");
+  // Il tasto C spegne e riaccende l'effetto CRT.
+  // Con prefers-reduced-motion il CRT resta sempre spento.
+  if (info.project.name === "desktop") {
+    await expect(page.locator("#bezel.crt")).toHaveCount(1);
+    await page.keyboard.press("c");
+    await expect(page.locator("#bezel.crt")).toHaveCount(0);
+    await page.keyboard.press("c");
+  } else await expect(page.locator("#bezel.crt")).toHaveCount(0);
+  await press("Enter");
+
   // 1-1 Dal latte allo yogurt: prima un ingrediente sbagliato
-  await intro("03-intro-1-1");
   await press("2");
   await expect(page.locator("#msg")).toBeVisible();
   await press("1"); await press("3");

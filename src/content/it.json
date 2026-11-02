@@ -10,10 +10,11 @@
     "audioAria": "Attiva o disattiva l'audio"
   },
   "foot": {
-    "keys": "<b>1-9</b> SCEGLI · <b>INVIO</b> CONFERMA · <b>ESC</b> MAPPA · <b>G</b> CODEX · <b>M</b> AUDIO",
+    "keys": "<b>1-9</b> SCEGLI · <b>INVIO</b> CONFERMA · <b>ESC</b> MAPPA · <b>G</b> CODEX · <b>M</b> AUDIO · <b>C</b> CRT",
     "brand": "REVERSE COACHING EPCIS",
     "logoPlaceholder": "LOGO GS1 ITALY"
   },
+  "marquee": { "sub": "EPCIS ARCADE · GS1 ITALY" },
   "narrator": {
     "name": "BIP",
     "alt": "Bip, il lettore di barcode che ti fa da guida"
@@ -127,6 +128,7 @@
         { "id": "detergente", "t": "Detergente per la pulizia", "why": "Pulisce la vasca, ma non entra nel prodotto." }
       ],
       "tankFull": "Latte e fermenti sono nella vasca. Il lotto L123 sta nascendo!",
+      "born": "LOTTO L123 · 288 VASETTI",
       "q": "Latte e fermenti diventano yogurt. Che evento è?",
       "opts": [
         { "t": "Un'aggregazione", "why": "L'aggregazione mette oggetti in un contenitore e si può disfare: apri il cartone e i vasetti sono ancora lì." },
@@ -221,7 +223,7 @@
         { "t": "All'autista", "why": "L'autista finisce il turno, il pallet continua il viaggio." }
       ],
       "drive": "AVVIA IL VIAGGIO",
-      "linked": "SENSORE SENS042 ↔ PALLET 106141411234567897",
+      "linked": "SENSORE SENS042 SUL PALLET 106141411234567897",
       "cap": "SOGLIA YOGURT · MASSIMO 8 °C",
       "q2": "Il sensore ha registrato fino a 9 °C. Dove va questa informazione?",
       "opts2": [
@@ -365,6 +367,10 @@
         { "sp": "person", "t": "Già venduti ai consumatori", "n": "24 PZ", "lot": "L123" }
       ],
       "summary": "576 vasetti trovati in cinque posizioni: 288 del lotto L123 e 288 del lotto L124.",
+      "map": [{ "id": "caseificio", "t": "CASEIFICIO", "x": 8, "y": 52 }, { "id": "cedi", "t": "CeDi", "x": 36, "y": 52 }, { "id": "camion", "t": "CAMION", "x": 58, "y": 52 }, { "id": "milano", "t": "MILANO", "x": 78, "y": 22 }, { "id": "monza", "t": "MONZA", "x": 80, "y": 82 }, { "id": "casa", "t": "CASE", "x": 94, "y": 52 }],
+      "mapLit": ["cedi", "camion", "milano", "monza"],
+      "mapNotice": ["casa"],
+      "mapAria": "Mappa della filiera: si accendono i luoghi dove si trovano i lotti L123 e L124",
       "block": "BLOCCA I LOTTI · RECALLED",
       "blocked": "BLOCCATI",
       "notice": "AVVISO",

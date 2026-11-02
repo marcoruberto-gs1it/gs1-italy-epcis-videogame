@@ -3,7 +3,7 @@ import events from "../data/events/tessile-inventario.json";
 import { defineLevel } from "./define.js";
 
 export default defineLevel({
-  slug: "tessile-inventario", id: "2-2", world: "textile", sp: "reader", events,
+  slug: "tessile-inventario", id: "2-2", world: "textile", sp: "reader", scene: "negozio", events,
 
   mount({ C, show, levelShell, ask, setMsg, win, sfx, img, sprite, fx, later, reduced, $, $$ }) {
     const shirts = Array.from({ length: 24 }, (_, i) => `<button class="shirt" data-i="${i}" aria-label="T-shirt ${i + 1}"><img class="px" src="${sprite("shirt")}" alt=""></button>`).join("");

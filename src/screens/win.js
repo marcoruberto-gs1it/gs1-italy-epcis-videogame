@@ -2,7 +2,7 @@
 import { register, go } from "../engine/router.js";
 import { state, commit } from "../engine/state.js";
 import { sfx } from "../engine/audio.js";
-import { typeLines } from "../anim/fx.js";
+import { typeLines, popIn, burst, floatScore, pulse } from "../anim/fx.js";
 import { t } from "../content/index.js";
 import { byId, nextOf, codexOf } from "../levels/index.js";
 import { toDocument } from "../gs1/epcis.js";
@@ -22,9 +22,11 @@ export function whyCard(why) {
 register("win", id => {
   const level = byId(id);
   if (!level) return go("map");
+  let gained = 0;
   if (!state.done[id]) {
     state.done[id] = true;
-    state.score += 100 * state.lives + 50;
+    gained = 100 * state.lives + 50;
+    state.score += gained;
     if (!state.powers.includes(id)) state.powers.push(id);
   }
   state.level = id;
@@ -71,6 +73,11 @@ register("win", id => {
     $("#doc").textContent = docMode ? t("win.showEvents") : t("win.showDoc");
     docMode ? renderDoc() : renderEvents();
   };
+  // Il superpotere compare con un piccolo scoppio, i punti volano verso l'HUD.
+  popIn($(".power"), 0.2);
+  burst($(".power .pn"));
+  if (gained) floatScore($(".ok-title"), "+" + gained);
+  pulse(document.querySelectorAll(".hud .pw span")[state.powers.indexOf(id)], 2);
   $("#toMap").onclick = () => go("map");
   $("#next").onclick = () => (next ? go("intro", next.id) : go("final"));
 });

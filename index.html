@@ -7,9 +7,13 @@
 <meta name="description" content="Gioco arcade per spiegare EPCIS: il diario del lotto L123. GS1 Italy, Reverse Coaching.">
 </head>
 <body>
-<div class="app">
+<div class="app cabinet">
+  <header class="marquee" id="marquee" aria-hidden="true"></header>
   <div class="hud" id="hud"></div>
-  <main class="screen" id="screen" aria-live="polite"></main>
+  <div class="bezel crt" id="bezel">
+    <main class="screen" id="screen" aria-live="polite"></main>
+    <div class="curtain" id="curtain" aria-hidden="true"></div>
+  </div>
   <footer class="foot" id="foot"></footer>
 </div>
 <script type="module" src="/src/main.js"></script>

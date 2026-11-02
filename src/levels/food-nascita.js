@@ -3,7 +3,7 @@ import events from "../data/events/food-nascita.json";
 import { defineLevel } from "./define.js";
 
 export default defineLevel({
-  slug: "food-nascita", id: "1-2", world: "food", sp: "jar", events,
+  slug: "food-nascita", id: "1-2", world: "food", sp: "jar", scene: "caseificio", events,
 
   mount({ C, show, levelShell, fail, win, sfx, img, $, $$ }) {
     const rows = C.rows;

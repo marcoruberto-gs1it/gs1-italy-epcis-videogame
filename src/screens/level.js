@@ -19,11 +19,14 @@ register("intro", id => {
     <span class="tag">${finale ? t("intro.tagFinale") : t("intro.tag", { w: WORLDS[level.world], id })}</span>
     <div id="hero">${img(level.meta.sp, finale ? 96 : 120)}</div>
     <h1>${level.meta.t.toUpperCase()}</h1>
-    <div class="narrator">${img("reader", 44, "", t("narrator.alt"))}<p class="speech"><b>${t("narrator.name")}</b> ${level.intro}</p></div>
+    <div class="narrator">${img("bip", 56, "bip", t("narrator.alt"))}<p class="speech"><b>${t("narrator.name")}</b><span class="txt">${level.intro}</span></p></div>
     <span class="hi">${t("intro.concept", { c: level.meta.c.toUpperCase() })}</span>
     <button class="btn" data-primary id="go">${t("intro.go")}</button>
   </div></div>`);
-  if (finale) { fx.blink($("#hero")); sfx.alarm(); } else { fx.bob($("#hero")); sfx.sel(); }
+  if (finale) { fx.blink($("#hero img")); sfx.alarm(); } else { fx.bob($("#hero img")); sfx.sel(); }
+  if (level.meta.sp === "jar") fx.eyes($("#hero img"), sprite("jar"), sprite("jarBlink"));
+  fx.eyes($(".narrator .bip"), sprite("bip"), sprite("bipBlink"));
+  fx.introSequence($(".title .inner"));
   $("#go").onclick = () => go("level", id);
 });
 
@@ -37,6 +40,7 @@ register("level", id => {
       show(html);
       $$("[data-bob]").forEach(fx.bob);
       $$("[data-blink]").forEach(fx.blink);
+      $$("img[data-sprite=jar]").forEach(el => fx.eyes(el, sprite("jar"), sprite("jarBlink")));
     },
     levelShell, ask, fail, setMsg,
     win: () => go("win", id),

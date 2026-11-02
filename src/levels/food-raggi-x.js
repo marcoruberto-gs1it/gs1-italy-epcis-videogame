@@ -5,7 +5,7 @@ import { defineLevel } from "./define.js";
 const CARTONS = 12, PER_CARTON = 24;
 
 export default defineLevel({
-  slug: "food-raggi-x", id: "1-3", world: "food", sp: "carton", events,
+  slug: "food-raggi-x", id: "1-3", world: "food", sp: "carton", scene: "caseificio", events,
 
   mount({ C, show, levelShell, ask, setMsg, win, sfx, sprite, fx, $, $$ }) {
     const jars = Array.from({ length: PER_CARTON }, () => `<img class="px" src="${sprite("minijar")}" alt="">`).join("");
@@ -21,7 +21,9 @@ export default defineLevel({
     count();
     const stackOne = () => {
       if (stacked >= CARTONS) return;
-      $$(".carton")[stacked].hidden = false;
+      const box = $$(".carton")[stacked];
+      box.hidden = false;
+      fx.dropIn(box);
       stacked++; sfx.sel(); count();
       if (stacked === CARTONS) ready();
     };

@@ -2,6 +2,8 @@
 import { gsap } from "gsap";
 
 gsap.defaults({ duration: 0.4, ease: "power2.out" });
+// Niente "lag smoothing": dopo un fotogramma pesante le animazioni non rallentano, così nessuna dura più del previsto.
+gsap.ticker.lagSmoothing(0);
 
 const query = window.matchMedia("(prefers-reduced-motion: reduce)");
 

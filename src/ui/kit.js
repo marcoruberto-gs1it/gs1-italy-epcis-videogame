@@ -2,7 +2,8 @@
 import { state, commit } from "../engine/state.js";
 import { sfx } from "../engine/audio.js";
 import { later } from "../engine/router.js";
-import { shake } from "../anim/fx.js";
+import { shake, burst, pulse } from "../anim/fx.js";
+import { backdrop } from "../render/two/scenes.js";
 import { t } from "../content/index.js";
 import { $, $$, screenEl, setMsg } from "./dom.js";
 
@@ -11,7 +12,7 @@ export const levelCode = level => (level.id === "finale" ? t("level.codeFinale")
 export function levelShell(level, sceneHtml, bodyHtml) {
   const m = level.meta;
   return `<div class="lv-head"><span class="code">${levelCode(level)}</span><h2>${m.t.toUpperCase()}</h2><span class="tag">${m.place.toUpperCase()}</span></div>
-    <div class="lv"><div class="scene" id="scene">${sceneHtml}</div><div class="stack" id="body">${bodyHtml}<div class="msg" id="msg" role="status"></div></div></div>`;
+    <div class="lv"><div class="scene" id="scene">${backdrop(level.scene)}<div class="scene-content">${sceneHtml}</div></div><div class="stack" id="body">${bodyHtml}<div class="msg" id="msg" role="status"></div></div></div>`;
 }
 
 export function fail(why) {
@@ -30,7 +31,7 @@ export function continueScreen() {
   const timer = later.every(() => {
     n--;
     const cd = $("#cd");
-    if (cd) cd.textContent = Math.max(n, 0);
+    if (cd) { cd.textContent = Math.max(n, 0); pulse(cd); }
     sfx.tick();
     if (n <= 0) go();
   }, 900);
@@ -46,7 +47,7 @@ export function ask(container, opts, onOk) {
     if (o.ok) {
       $$(".opt", container).forEach(x => x.disabled = true);
       b.classList.add("ok"); b.onclick = null;
-      sfx.ok(); setMsg(o.why || "", true); onOk();
+      sfx.ok(); burst(b); setMsg(o.why || "", true); onOk();
     } else { b.classList.add("no"); b.disabled = true; fail(o.why); }
   });
 }

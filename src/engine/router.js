@@ -1,5 +1,7 @@
 // Router delle schermate. A ogni cambio di schermata ferma animazioni e timer della schermata precedente.
 import { gsap } from "../anim/gsap-setup.js";
+import { clearSkippable } from "../anim/skip.js";
+import { reveal } from "../anim/transitions.js";
 import { state, commit } from "./state.js";
 
 const screens = {};
@@ -11,13 +13,16 @@ export function register(name, render) { screens[name] = render; }
 export function go(name, arg) {
   if (!screens[name]) throw new Error("Schermata sconosciuta: " + name);
   scope.revert();
+  clearSkippable();
   timers.forEach(id => { clearInterval(id); clearTimeout(id); });
   timers.clear();
+  document.querySelectorAll(".fx-particle, .float-score").forEach(el => el.remove());
   scope = gsap.context(() => {});
   state.view = name;
   if (name !== "level" && name !== "intro" && name !== "win") state.level = null;
   commit();
   screens[name](arg);
+  reveal();
 }
 
 /** Registra animazioni GSAP nella schermata corrente, così vengono annullate quando si cambia schermata. */

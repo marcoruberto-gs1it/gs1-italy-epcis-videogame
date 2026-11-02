@@ -2,8 +2,10 @@
 @media print {
   :root { color-scheme: light; }
   body { background: var(--gs1-white); color: var(--gs1-dark-gray); font-size: 12pt; }
-  .hud, .foot, .btn, .final > :not(.benefits), .screen::after { display: none !important; }
-  .app { height: auto; padding: 0; }
+  .hud, .foot, .marquee, .curtain, .btn, .final > :not(.benefits), .screen::after { display: none !important; }
+  .app { height: auto; padding: 0; background: var(--gs1-white); }
+  .bezel { padding: 0; background: var(--gs1-white); box-shadow: none; }
+  .bezel.crt::after, .bezel.crt .screen::after { display: none; }
   .screen { border: 0; box-shadow: none; background: var(--gs1-white); overflow: visible; padding: 0; }
   .print-only { display: block; }
   .benefits h3, .rolecard h4 { color: var(--gs1-blue); }

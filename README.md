@@ -4,7 +4,7 @@ Gioco arcade per spiegare **EPCIS** in modo semplice, realizzato per il Reverse 
 
 Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filiera chi gioca scrive una pagina del suo "diario" (un evento EPCIS) e sblocca un superpotere. Alla fine arriva il richiamo del lotto.
 
-> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 2 · Contenuti** completata (grafica ancora in 2D).
+> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 3 · Grafica 2D e animazioni** completata. Il gioco è completo e presentabile in 2D; il 3D arriva nella Fase 4.
 
 ## Struttura del gioco
 
@@ -21,11 +21,12 @@ Apri `dist/index.html` con un doppio clic: è un unico file, funziona offline, s
 | Tasto | Azione |
 | --- | --- |
 | 1-9 | Scegli un'opzione |
-| Invio | Conferma / avanti |
+| Invio | Conferma / avanti. Durante un'animazione la porta subito alla fine |
 | Esc | Torna alla mappa |
 | G | Codex (dalla mappa e dalle schermate di riposo) |
 | D | Documento EPCIS completo (nella schermata dell'evento) |
 | M | Audio sì/no |
+| C | Effetto CRT sì/no (spento da solo con «riduci movimento») |
 
 I progressi restano salvati nel browser. Per ripartire da capo usa **Ricomincia da zero** nella mappa.
 
@@ -54,8 +55,8 @@ I test nel browser usano Microsoft Edge già installato sul PC (`channel: "msedg
 | `schemas/` | Schema JSON ufficiale di EPCIS 2.0, usato dai test |
 | `src/styles/tokens.css` | Unica fonte dei colori. `src/tokens.js` viene generato da qui |
 | `src/engine/` | Stato, salvataggio, router, tastiera, audio |
-| `src/anim/` | Configurazione di GSAP e animazioni |
-| `src/render/two/` | Sprite in pixel art |
+| `src/anim/` | GSAP: configurazione, effetti, intro animate, tendina tra le schermate, animazioni saltabili |
+| `src/render/two/` | Sprite in pixel art, sfondi a strati, effetto CRT |
 | `tests/` | Test unitari (`unit/`) e nel browser (`e2e/`) |
 
 Il logo ufficiale di GS1 Italy è in `assets/gs1-italy-logo.png` e viene incluso nel build in automatico. Sul fondo scuro compare su un riquadro bianco, senza modifiche al marchio. Se il file manca, compare un segnaposto.

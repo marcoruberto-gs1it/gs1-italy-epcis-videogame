@@ -2,8 +2,8 @@
 import { CONFIG } from "../config.js";
 import * as storage from "./save.js";
 
-const PERSISTED = ["score", "lives", "done", "powers", "muted", "view"];
-const fresh = () => ({ score: 0, lives: 3, done: {}, powers: [], muted: !CONFIG.audioOnStart, view: "title", level: null });
+const PERSISTED = ["score", "lives", "done", "powers", "muted", "crt", "view"];
+const fresh = () => ({ score: 0, lives: 3, done: {}, powers: [], muted: !CONFIG.audioOnStart, crt: true, view: "title", level: null });
 
 export const state = fresh();
 const listeners = new Set();
