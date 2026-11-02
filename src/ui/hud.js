@@ -5,6 +5,7 @@ import { sprite, img } from "../render/two/sprites.js";
 import { LEVELS } from "../levels/index.js";
 import { $ } from "./dom.js";
 import { render, onRender } from "../render/scene-host.js";
+import { teamsOn, onModes } from "../engine/modes.js";
 
 // Il logo si aggiunge in assets/gs1-italy-logo.png: se manca, compare un segnaposto.
 const logoFiles = import.meta.glob("/assets/gs1-italy-logo.png", { eager: true, query: "?url", import: "default" });
@@ -22,8 +23,17 @@ export function renderHud() {
     <span class="lotto">${t("hud.lot")}</span>
     <span><span class="lbl">${t("hud.lives")}</span><span class="hearts" aria-label="${t("hud.livesAria", { n: state.lives })}">${hearts}</span></span>
     <span><span class="lbl">${t("hud.powers")}</span><span class="pw">${pw}</span></span>
+    ${teamsHtml()}
     <button class="mute" id="mute" aria-label="${t("hud.audioAria")}">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</button>`;
   $("#mute").onclick = toggleMute;
+}
+
+function teamsHtml() {
+  if (!teamsOn()) return "";
+  const tm = state.teams;
+  const team = k => `<span class="team team-${k} ${tm.turn === k ? "turn" : ""}" aria-label="${t("teams.name" + k)}: ${t("teams.points", { n: tm[k] })}">${t("teams." + k)} ${tm[k]}</span>`;
+  const turn = tm.turn ? t("teams.turn", { t: t("teams." + tm.turn) }) : t("teams.noTurn");
+  return `<span class="teams" title="${turn}">${team("A")}${team("B")}</span><span class="sr-only" aria-live="polite">${turn}</span>`;
 }
 
 export function toggleMute() { state.muted = !state.muted; commit(); }
@@ -52,7 +62,15 @@ function fallbackNotice(r) {
   setTimeout(() => n.remove(), 4000);
 }
 
+function modeClasses() {
+  document.body.classList.toggle("mode-sala", state.mode === "sala");
+  document.body.classList.toggle("mode-solo", state.mode !== "sala");
+}
+
 export function initHud() {
+  modeClasses();
+  onModes(() => { modeClasses(); renderHud(); });
+  onChange(modeClasses);
   onRender(r => { renderMode(); fallbackNotice(r); });
   renderMarquee();
   renderFoot();

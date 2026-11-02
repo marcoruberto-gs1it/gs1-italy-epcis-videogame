@@ -4,7 +4,7 @@ Gioco arcade per spiegare **EPCIS** in modo semplice, realizzato per il Reverse 
 
 Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filiera chi gioca scrive una pagina del suo "diario" (un evento EPCIS) e sblocca un superpotere. Alla fine arriva il richiamo del lotto.
 
-> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 4 · Three.js** completata. Scene 3D low-poly con ritorno automatico al 2D.
+> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 5 · Modalità** completata: modalità sala (note e squadre) e modalità individuale.
 
 ## Struttura del gioco
 
@@ -13,6 +13,17 @@ Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filie
 - **Sfida finale**: il grande richiamo, prima "come una volta" e poi con due query EPCIS, dal latte ai lotti di yogurt e da lì ai luoghi.
 
 Ogni livello mostra le sue pagine del diario in EPCIS 2.0 JSON (anche dentro un EPCISDocument completo), un superpotere e una scheda "Perché conta". Il **Codex** raccoglie le carte dei concetti, che si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
+
+## Modalità
+
+Si sceglie nella schermata del titolo (tasti 1 e 2).
+
+- **Modalità sala** (predefinita), per la sessione dal vivo:
+  - `P` apre e chiude le **note per chi presenta**: domanda da fare alla sala, risposta attesa, cosa raccontare, collegamento con il lavoro di Industry Engagement e Key Account. Le note cambiano con la schermata.
+  - **Sfida a squadre** (tasto 3 nel titolo): Squadra Blue e Squadra Orange. Prima che la sala confermi una risposta, chi presenta preme `A` o `B` per scegliere chi risponde. Risposta giusta: un punto a quella squadra. Risposta sbagliata: nessun punto. La classifica compare nel finale.
+- **Modalità individuale**, per rigiocare da soli da PC o telefono: niente note, `H` mostra un suggerimento per il livello, i progressi restano salvati.
+
+`?` mostra in qualsiasi momento la tabella di tutti i comandi.
 
 ## Come si usa in sala
 
@@ -29,6 +40,10 @@ Apri `dist/index.html` con un doppio clic: è un unico file, funziona offline, s
 | C | Effetto CRT sì/no (spento da solo con «riduci movimento») |
 | R | Cambia renderer al volo: 3D o 2D, restando nello stesso punto |
 | X | Pixelatura leggera del 3D (non in qualità bassa) |
+| P | Note per chi presenta (modalità sala) |
+| A / B | Sceglie la squadra che risponde (modalità sala con squadre) |
+| H | Suggerimento (modalità individuale) |
+| ? | Tabella dei comandi |
 
 ### 3D o 2D
 
@@ -65,7 +80,8 @@ I test nel browser usano Microsoft Edge già installato sul PC (`channel: "msedg
 | `src/data/events/` | Gli eventi EPCIS mostrati nel gioco, un file per livello |
 | `schemas/` | Schema JSON ufficiale di EPCIS 2.0, usato dai test |
 | `src/styles/tokens.css` | Unica fonte dei colori. `src/tokens.js` viene generato da qui |
-| `src/engine/` | Stato, salvataggio, router, tastiera, audio |
+| `src/engine/` | Stato, salvataggio, router, tastiera, audio, modalità e squadre (`modes.js`) |
+| `src/ui/notes.js` | Note per chi presenta e tabella dei comandi |
 | `src/anim/` | GSAP: configurazione, effetti, intro animate, tendina tra le schermate, animazioni saltabili |
 | `src/render/two/` | Sprite in pixel art, sfondi a strati, effetto CRT |
 | `src/render/three/` | Three.js: stage (renderer, telecamera, luci, qualità), materiali di brand, oggetti low-poly, scene dei livelli e diorama della mappa |

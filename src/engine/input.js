@@ -6,6 +6,8 @@ import { screenEl } from "../ui/dom.js";
 import { skipAll } from "../anim/skip.js";
 import { toggleCrt } from "../render/two/crt.js";
 import { toggleRenderer, togglePixel } from "../render/scene-host.js";
+import { toggleNotes, setTurn, toggleHint } from "./modes.js";
+import { toggleHelp, isHelpOpen } from "../ui/notes.js";
 
 export function initInput() {
   document.addEventListener("keydown", e => {
@@ -14,7 +16,13 @@ export function initInput() {
     const onButton = document.activeElement && document.activeElement.tagName === "BUTTON";
     // Invio durante un'animazione la porta subito alla fine, senza attivare pulsanti.
     if (e.key === "Enter" && skipAll()) { e.preventDefault(); return; }
+    if (e.key === "?") { toggleHelp(); e.preventDefault(); return; }
+    if (isHelpOpen()) { if (e.key === "Escape" || e.key === "Enter") { toggleHelp(false); e.preventDefault(); } return; }
     if (e.key === "m" || e.key === "M") { toggleMute(); return; }
+    if (e.key === "p" || e.key === "P") { toggleNotes(); return; }
+    if (e.key === "a" || e.key === "A") { setTurn("A"); return; }
+    if (e.key === "b" || e.key === "B") { setTurn("B"); return; }
+    if (e.key === "h" || e.key === "H") { toggleHint(); return; }
     if (e.key === "c" || e.key === "C") { toggleCrt(); return; }
     if (e.key === "r" || e.key === "R") { toggleRenderer(); return; }
     if (e.key === "x" || e.key === "X") { togglePixel(); return; }

@@ -57,5 +57,5 @@ register("map", () => {
   $$(".node").forEach(b => b.onclick = () => { sfx.sel(); go("intro", b.dataset.lv); });
   $("#goNext").onclick = () => (next ? go("intro", next.id) : go("final"));
   $("#codex").onclick = () => go("codex");
-  $("#reset").onclick = () => { resetState({ muted: state.muted }); go("title"); };
+  $("#reset").onclick = () => { resetState(); go("title"); };
 });

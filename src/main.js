@@ -10,6 +10,7 @@ import { state, restore } from "./engine/state.js";
 import { go } from "./engine/router.js";
 import { initInput } from "./engine/input.js";
 import { initHud } from "./ui/hud.js";
+import { initNotes } from "./ui/notes.js";
 import { initCurtain } from "./anim/transitions.js";
 import { applyCrt } from "./render/two/crt.js";
 import "./screens/title.js";
@@ -22,6 +23,7 @@ import "./screens/codex.js";
 restore();
 initHud();
 initInput();
+initNotes();
 initCurtain(document.getElementById("curtain"));
 applyCrt();
 

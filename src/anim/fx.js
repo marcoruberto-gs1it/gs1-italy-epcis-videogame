@@ -9,10 +9,10 @@ export function bob(el) {
   anim(() => gsap.to(el, { y: -6, duration: 0.6, ease: "steps(1)", repeat: -1, yoyo: true }));
 }
 
-/** Lampeggio continuo (PREMI INVIO, allarme). */
+/** Lampeggio continuo (PREMI INVIO, allarme). Si attenua senza sparire, così il testo resta leggibile. */
 export function blink(el) {
   if (!el || reduced()) return;
-  anim(() => gsap.to(el, { autoAlpha: 0, duration: 0.5, ease: "steps(1)", repeat: -1, yoyo: true }));
+  anim(() => gsap.to(el, { opacity: 0.3, duration: 0.5, ease: "steps(1)", repeat: -1, yoyo: true }));
 }
 
 /** Scossone sugli errori. */

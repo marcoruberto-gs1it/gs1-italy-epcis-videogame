@@ -12,7 +12,7 @@ export default defineConfig({
   use: { channel: "msedge", headless: true },
   projects: [
     { name: "desktop-3d", metadata: { render: "3d" }, use: { viewport: { width: 1920, height: 1080 } } },
-    { name: "desktop-2d", metadata: { render: "2d" }, use: { viewport: { width: 1920, height: 1080 } }, testIgnore: /render\.spec/ },
-    { name: "mobile", metadata: { render: "3d" }, use: { viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: false, reducedMotion: "reduce" }, testIgnore: /render\.spec/ }
+    { name: "desktop-2d", metadata: { render: "2d" }, use: { viewport: { width: 1920, height: 1080 } }, testIgnore: /(render|modes)\.spec/ },
+    { name: "mobile", metadata: { render: "3d" }, use: { viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: false, reducedMotion: "reduce" }, testIgnore: /(render|modes)\.spec/ }
   ]
 });

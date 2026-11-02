@@ -5,7 +5,7 @@ import { defineLevel } from "./define.js";
 export default defineLevel({
   slug: "tessile-filo", id: "2-1", world: "textile", sp: "shirt", scene: "tessile", events,
 
-  mount({ C, hook, show, levelShell, fail, setMsg, win, sfx, img, fx, $, $$ }) {
+  mount({ C, hook, teamPoint, show, levelShell, fail, setMsg, win, sfx, img, fx, $, $$ }) {
     const chain = [];
     show(levelShell(this,
       `<div class="chain"><span class="cap">${C.chainTitle}</span><ol id="chain"><li class="empty">${C.chainEmpty}</li></ol></div><div class="row center">${img("spool", 44)}${img("fabric", 60)}${img("shirt", 52)}</div>`,
@@ -21,6 +21,7 @@ export default defineLevel({
       fx.popIn($("#chain li:last-child"));
       if (chain.length < C.steps.length) return;
       setMsg(C.done, true);
+      teamPoint(b);
       $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;
       $("#reg").onclick = () => win();
     });

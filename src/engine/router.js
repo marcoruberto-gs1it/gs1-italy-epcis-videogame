@@ -11,6 +11,10 @@ const timers = new Set();
 
 export function register(name, render) { screens[name] = render; }
 
+const routeListeners = new Set();
+/** Avvisa dopo ogni cambio di schermata (note per chi presenta, aiuto). */
+export const onRoute = fn => { routeListeners.add(fn); return () => routeListeners.delete(fn); };
+
 export function go(name, arg) {
   if (!screens[name]) throw new Error("Schermata sconosciuta: " + name);
   scope.revert();
@@ -25,6 +29,7 @@ export function go(name, arg) {
   commit();
   screens[name](arg);
   reveal();
+  routeListeners.forEach(fn => fn(name, arg));
 }
 
 /** Registra animazioni GSAP nella schermata corrente, così vengono annullate quando si cambia schermata. */
