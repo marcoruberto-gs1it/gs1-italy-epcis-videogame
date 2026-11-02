@@ -32,8 +32,8 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   };
 
   await page.goto(GAME + "?render=" + info.project.metadata.render);
-  await expect(page.locator("h1")).toHaveText("MISSIONE L123");
-  await expect(page.locator(".title img.logo")).toBeVisible();
+  await expect(page.locator("h1")).toHaveText("Missione L123");
+  await expect(page.locator(".topbar img.logo")).toBeVisible();
   await shot("01-titolo");
 
   await press("Enter");
@@ -51,14 +51,6 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   }
   await expect(page.locator(".speech .txt")).toContainText("Si comincia dal latte.");
   await shot("03-intro-1-1");
-  // Il tasto C spegne e riaccende l'effetto CRT.
-  // Con prefers-reduced-motion il CRT resta sempre spento.
-  if (info.project.name.startsWith("desktop")) {
-    await expect(page.locator("#bezel.crt")).toHaveCount(1);
-    await page.keyboard.press("c");
-    await expect(page.locator("#bezel.crt")).toHaveCount(0);
-    await page.keyboard.press("c");
-  } else await expect(page.locator("#bezel.crt")).toHaveCount(0);
   await press("Enter");
 
   // 1-1 Dal latte allo yogurt: prima un ingrediente sbagliato
@@ -83,7 +75,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
 
   // 1-2 Nasce il vasetto
   await intro();
-  for (const [r, j] of [[0, 1], [1, 2], [2, 0], [3, 1]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
+  for (const [r, j] of [[0, 1], [1, 0], [2, 1], [3, 1]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
   await pressOn("#reg");
   await seeWin("08-evento-1-2");
 
@@ -91,7 +83,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await intro();
   for (let i = 0; i < 12; i++) await press("Enter");
   await expect(page.locator("#cnt")).toContainText("12/12");
-  await press("2"); await press("Enter");
+  await press("1"); await press("Enter");
   await expect(page.locator("#pallet.xray")).toHaveCount(1);
   await page.waitForTimeout(1200);
   await shot("09-livello-1-3-raggi-x");
@@ -100,7 +92,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
 
   // 1-4 Le parole non si inventano
   await intro();
-  await press("3"); await press("Enter");
+  await press("2"); await press("Enter");
   await seeWin("11-evento-1-4");
 
   // 1-5 Catena del freddo
@@ -108,7 +100,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("1"); await press("Enter");
   await expect(page.locator("#opts2 .opt")).toHaveCount(3, { timeout: 15_000 });
   await shot("12-livello-1-5");
-  await press("2"); await press("Enter");
+  await press("1"); await press("Enter");
   await seeWin("13-evento-1-5");
 
   // 1-6 Ops, errore!
@@ -127,7 +119,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await intro();
   await press("Enter"); await press("Enter");
   await expect(page.locator("#opts .opt")).toHaveCount(3, { timeout: 15_000 });
-  await press("2"); await press("Enter");
+  await press("1"); await press("Enter");
   await seeWin("18-evento-2-2");
 
   // 2-3 Il reso sospetto
@@ -152,7 +144,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await seeWin("22-evento-sfida-finale");
 
   await press("Enter");
-  await expect(page.locator(".final h1")).toHaveText("MISSIONE COMPIUTA");
+  await expect(page.locator(".final h1")).toHaveText("Missione compiuta");
   await expect(page.locator(".pcell.on")).toHaveCount(10);
   await shot("23-finale");
   await page.locator(".benefits").scrollIntoViewIfNeeded();

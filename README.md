@@ -1,10 +1,10 @@
 # Missione L123
 
-Gioco arcade per spiegare **EPCIS** in modo semplice, realizzato per il Reverse Coaching interno di GS1 Italy.
+Gioco per spiegare **EPCIS** in modo semplice, realizzato per il Reverse Coaching interno di GS1 Italy.
 
 Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filiera chi gioca scrive una pagina del suo "diario" (un evento EPCIS) e sblocca un superpotere. Alla fine arriva il richiamo del lotto.
 
-> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 6 · Verifica** completata: accessibilità, prestazioni e stile dei testi controllati da test automatici.
+> **Versione 2 in lavorazione** (branch `v2`). Il piano completo è in [PLAN.md](PLAN.md). Stato attuale: **Fase 6 · Verifica** completata, più una revisione: grafica chiara in stile illustrazione isometrica vettoriale, interfaccia semplificata e domande più impegnative sui concetti e sui vantaggi di EPCIS.
 
 ## Struttura del gioco
 
@@ -37,7 +37,6 @@ Apri `dist/index.html` con un doppio clic: è un unico file, funziona offline, s
 | G | Codex (dalla mappa e dalle schermate di riposo) |
 | D | Documento EPCIS completo (nella schermata dell'evento) |
 | M | Audio sì/no |
-| C | Effetto CRT sì/no (spento da solo con «riduci movimento») |
 | R | Cambia renderer al volo: 3D o 2D, restando nello stesso punto |
 | X | Pixelatura leggera del 3D (non in qualità bassa) |
 | P | Note per chi presenta (modalità sala) |
@@ -83,8 +82,8 @@ I test nel browser usano Microsoft Edge già installato sul PC (`channel: "msedg
 | `src/engine/` | Stato, salvataggio, router, tastiera, audio, modalità e squadre (`modes.js`) |
 | `src/ui/notes.js` | Note per chi presenta e tabella dei comandi |
 | `src/anim/` | GSAP: configurazione, effetti, intro animate, tendina tra le schermate, animazioni saltabili |
-| `src/render/two/` | Sprite in pixel art, sfondi a strati, effetto CRT |
-| `src/render/three/` | Three.js: stage (renderer, telecamera, luci, qualità), materiali di brand, oggetti low-poly, scene dei livelli e diorama della mappa |
+| `src/render/two/` | Sprite in pixel art e sfondi del ripiego 2D |
+| `src/render/three/` | Three.js: stage (renderer, telecamera, luci tarate per i tre toni), materiali di brand, oggetti in stile isometrico vettoriale, scene dei livelli e mappa della filiera |
 | `src/render/scene-host.js` | Collega le schermate al renderer: agganci di scena (`hook`), cambio 3D/2D, ritorno automatico al 2D |
 | `tests/` | Test unitari (`unit/`) e nel browser (`e2e/`) |
 
@@ -105,6 +104,10 @@ Per chi usa un lettore di schermo: a ogni cambio di schermata il focus va sul ti
 
 **Non verificato in automatico:** i 60 fotogrammi al secondo in qualità media. I test girano senza scheda video; vanno provati sul portatile usato in sala.
 
+## Stile grafico
+
+Le scene sono illustrazioni isometriche vettoriali originali, costruite in 3D con forme semplici. Ogni oggetto ha tre toni piatti: la faccia superiore mostra esattamente il colore di brand, i due lati visibili sono più scuri (85% e 70%). Le parti ferme di ogni scena sono unite in poche geometrie, così anche le scene ricche restano leggere. Senza WebGL il gioco mostra la versione 2D in pixel art.
+
 ## Brand
 
 Colori, tinte derivate e regole sono in [docs/brand-tokens.md](docs/brand-tokens.md). Un test fallisce se nel codice compare un colore scritto a mano fuori dai token.
@@ -112,7 +115,6 @@ Colori, tinte derivate e regole sono in [docs/brand-tokens.md](docs/brand-tokens
 **Eccezioni da validare con il brand:**
 
 - `--state-error`, un rosso funzionale solo per vite perse e risposte sbagliate, sempre con l'icona ✕.
-- Il font pixel **Press Start 2P**, solo per titoli brevi, HUD, punteggi ed etichette.
 - **Verdana** non è incluso nel file perché la licenza Microsoft non lo permette: il gioco usa quello installato sul computer, con Arial come riserva.
 
 ## Licenze di terze parti
@@ -121,7 +123,6 @@ Colori, tinte derivate e regole sono in [docs/brand-tokens.md](docs/brand-tokens
 | --- | --- |
 | [Three.js](https://threejs.org) 0.186.1 | MIT |
 | [GSAP](https://gsap.com) 3.15.0 | Standard "no charge" license di GSAP (Webflow): uso gratuito anche commerciale, plugin inclusi. Non è una licenza open source: vieta, tra l'altro, l'uso in strumenti che fanno concorrenza a Webflow. Testo: https://gsap.com/standard-license |
-| Press Start 2P (via `@fontsource/press-start-2p`) | SIL Open Font License 1.1 |
 | Logo GS1 Italy (`assets/gs1-italy-logo.png`) | Marchio di GS1 Italy, preso dal sito ufficiale gs1it.org, usato senza modifiche |
 | Schema EPCIS 2.0 (`schemas/`) | © GS1 AISBL, solo per i test |
 | Vite, vite-plugin-singlefile, Vitest, Playwright, Ajv | MIT / Apache 2.0, solo per lo sviluppo, non inclusi nel gioco |

@@ -5,6 +5,7 @@ import { ui, onModes, isSala } from "../engine/modes.js";
 import { t } from "../content/index.js";
 import { byId } from "../levels/index.js";
 import { $ } from "./dom.js";
+import { setHelpHandler, rendererLabel } from "./hud.js";
 
 function notesFor() {
   const level = ["intro", "level", "win"].includes(state.view) && state.level ? byId(state.level) : null;
@@ -21,14 +22,14 @@ export function renderNotes() {
   document.body.classList.toggle("notes-open", open);
   if (!open) return;
   const n = notesFor();
-  el.innerHTML = `<h3>${t("notes.title")}${n.title ? " · " + n.title.toUpperCase() : ""}</h3>
+  el.innerHTML = `<h3>${t("notes.title")}${n.title ? " · " + n.title : ""}</h3>
     <dl>
       <dt>${t("notes.ask")}</dt><dd>${n.ask}</dd>
       <dt>${t("notes.answer")}</dt><dd>${n.answer}</dd>
       <dt>${t("notes.story")}</dt><dd>${n.story}</dd>
       <dt>${t("notes.link")}</dt><dd>${n.link}</dd>
     </dl>
-    <p class="close">${t("notes.close")}</p>`;
+    <p class="close">${t("help.renderer", { m: rendererLabel() })} · ${t("notes.close")}</p>`;
 }
 
 let helpOpen = false;
@@ -46,10 +47,12 @@ export function toggleHelp(force) {
   }
   el.innerHTML = `<div class="box"><h2>${t("help.title")}</h2>
     <table><tbody>${t("help.rows").map(([k, d]) => `<tr><th scope="row"><kbd>${k}</kbd></th><td>${d}</td></tr>`).join("")}</tbody></table>
+    <p class="mode-line">${t("help.renderer", { m: rendererLabel() })}</p>
     <p class="close">${t("help.close")}</p></div>`;
 }
 
 export function initNotes() {
+  setHelpHandler(() => toggleHelp());
   onRoute(renderNotes);
   onModes(renderNotes);
 }

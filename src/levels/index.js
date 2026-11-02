@@ -28,3 +28,6 @@ export const CODEX = t("codex.cards")
   .filter(card => card.level);
 
 export const codexOf = level => CODEX.filter(c => c.level === level);
+
+/** Tappe per la mappa 3D: mondo e stato di completamento. */
+export const mapNodes = done => LEVELS.map(l => ({ id: l.id, world: l.world, done: !!done[l.id] }));

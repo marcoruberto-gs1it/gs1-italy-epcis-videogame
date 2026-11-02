@@ -1,7 +1,7 @@
 // Stage Three.js: un solo renderer per tutto il gioco, che si sposta nel pannello della scena corrente.
 import {
   WebGLRenderer, Scene, OrthographicCamera, AmbientLight, DirectionalLight, Vector3, Vector2, Raycaster,
-  SRGBColorSpace, NoToneMapping, PCFShadowMap, ColorManagement
+  SRGBColorSpace, NoToneMapping, ColorManagement, Plane
 } from "three";
 import { gsap, reduced } from "../../anim/gsap-setup.js";
 import { lowerQuality } from "../detect.js";
@@ -9,13 +9,14 @@ import { lowerQuality } from "../detect.js";
 ColorManagement.enabled = true;
 
 export const QUALITY = {
-  alta: { dpr: 2, shadow: 1024 },
-  media: { dpr: 1.5, shadow: 512 },
-  bassa: { dpr: 1, shadow: 0 }
+  alta: { dpr: 2 },
+  media: { dpr: 1.5 },
+  bassa: { dpr: 1 }
 };
-// Ambiente + direzionale tarati perché una faccia rivolta in alto in piena luce valga 1,0:
-// i materiali Lambert/Toon dividono per π, quindi le intensità sono moltiplicate per π.
-const AMBIENT = 0.35;
+// Luci tarate per lo stile isometrico vettoriale (i materiali Lambert dividono per π, quindi le intensità sono × π):
+// ambiente 0,70 + luce dall'alto 0,30 = 1,0 sulle facce superiori (colore di brand esatto);
+// + luce frontale 0,15 = 0,85 sulle facce rivolte a destra; solo ambiente = 0,70 su quelle rivolte a sinistra.
+const AMBIENT = 0.70, TOP = 0.30, FRONT = 0.15;
 
 export class Stage {
   constructor({ quality = "media", onFail = () => {}, onQuality = () => {} } = {}) {
@@ -27,7 +28,6 @@ export class Stage {
     this.renderer.outputColorSpace = SRGBColorSpace;
     this.renderer.toneMapping = NoToneMapping;
     this.renderer.setClearColor(0x000000, 0);
-    this.renderer.shadowMap.type = PCFShadowMap;
     this.canvas = this.renderer.domElement;
     this.canvas.className = "stage3d";
     this.canvas.setAttribute("aria-hidden", "true");
@@ -38,6 +38,7 @@ export class Stage {
     this.dirty = true;
     this.fps = { frames: 0, time: 0, slow: 0 };
     this.raycaster = new Raycaster();
+    this.groundPlane = new Plane(new Vector3(0, 1, 0), 0);
     this.tick = this.tick.bind(this);
     this.resize = this.resize.bind(this);
     this.onPointer = this.onPointer.bind(this);
@@ -47,12 +48,7 @@ export class Stage {
   applyQuality() {
     const q = QUALITY[this.quality];
     this.renderer.setPixelRatio(this.pixelated ? 0.34 : Math.min(window.devicePixelRatio || 1, q.dpr));
-    this.renderer.shadowMap.enabled = q.shadow > 0;
-    if (this.light) {
-      this.light.castShadow = q.shadow > 0;
-      this.light.shadow.mapSize.set(q.shadow || 1, q.shadow || 1);
-      if (this.light.shadow.map) { this.light.shadow.map.dispose(); this.light.shadow.map = null; }
-    }
+    this.renderer.shadowMap.enabled = false;
     this.canvas.classList.toggle("pixelated", this.pixelated);
     this.resize();
   }
@@ -67,11 +63,9 @@ export class Stage {
     container.prepend(this.canvas);
     this.scene = new Scene();
     const amb = new AmbientLight(0xffffff, Math.PI * AMBIENT);
-    this.light = new DirectionalLight(0xffffff, Math.PI * (1 - AMBIENT));
-    this.light.position.set(3, 10, 4);
-    const s = this.light.shadow.camera;
-    s.left = s.bottom = -9; s.right = s.top = 9; s.near = 0.5; s.far = 40;
-    this.scene.add(amb, this.light, this.light.target);
+    this.light = new DirectionalLight(0xffffff, Math.PI * TOP);
+    this.front = new DirectionalLight(0xffffff, Math.PI * FRONT);
+    this.scene.add(amb, this.light, this.light.target, this.front, this.front.target);
     this.content = build(this.api());
     this.scene.add(this.content.root);
     if (this.content.view) Object.assign(this.view, this.content.view);
@@ -125,8 +119,11 @@ export class Stage {
     this.camera.position.set(target.x + 12, target.y + 11, target.z + 12);
     this.camera.lookAt(target);
     this.camera.updateProjectionMatrix();
+    // Luce dall'alto esattamente verticale e luce frontale lungo +z: tre toni piatti per oggetto.
     this.light.target.position.copy(target);
-    this.light.position.set(target.x + 3, target.y + 10, target.z + 4);
+    this.light.position.set(target.x, target.y + 10, target.z);
+    this.front.target.position.copy(target);
+    this.front.position.set(target.x, target.y, target.z + 10);
     this.dirty = true;
   }
 
@@ -139,11 +136,18 @@ export class Stage {
   }
 
   onPointer(e) {
-    const hits = this.content && this.content.clickables;
-    if (!hits || !hits.length) return;
+    if (!this.content) return;
     const r = this.canvas.getBoundingClientRect();
     const p = new Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     this.raycaster.setFromCamera(p, this.camera);
+    // Mappa: il clic sul terreno sceglie la tappa più vicina.
+    if (this.content.pick) {
+      const ground = new Vector3();
+      if (this.raycaster.ray.intersectPlane(this.groundPlane, ground)) this.content.pick(ground.x, ground.z);
+      return;
+    }
+    const hits = this.content.clickables;
+    if (!hits || !hits.length) return;
     const hit = this.raycaster.intersectObjects(hits, true)[0];
     if (!hit) return;
     let o = hit.object;
@@ -192,9 +196,8 @@ export class Stage {
         mats.forEach(m => { if (m.userData.own) m.dispose(); });
       });
     }
-    if (this.light && this.light.shadow.map) { this.light.shadow.map.dispose(); this.light.shadow.map = null; }
     this.renderer.renderLists.dispose();
-    this.scene = null; this.content = null; this.light = null;
+    this.scene = null; this.content = null; this.light = null; this.front = null;
     if (this.canvas.parentNode) this.canvas.remove();
     this.container = null;
   }

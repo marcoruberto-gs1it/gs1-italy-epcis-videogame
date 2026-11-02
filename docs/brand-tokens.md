@@ -26,9 +26,12 @@ Ogni tinta parte da un colore di brand convertito in **OKLCH**. Cambia solo la l
 | `--gs1-blue-800` | Blue | −0,05 | `#002154` | Riserva |
 | `--gs1-blue-700` | Blue | +0,06 | `#113D7E` | Bordi secondari, hover |
 | `--gs1-blue-600` | Blue | +0,12 | `#234E91` | Riserva |
-| `--gs1-blue-200` | Blue | +0,55 | `#B8D3FE` | Testo secondario su scuro |
+| `--gs1-blue-200` | Blue | +0,55 | `#B8D3FE` | Bordi dei pulsanti, testo nel blocco JSON |
+| `--gs1-blue-100` | Blue | +0,62 | `#DCE9FF` | Fondo delle scene illustrate |
+| `--gs1-blue-50` | Blue | +0,66 | `#F1F6FE` | Fondo della pagina |
 | `--gs1-orange-700` | Orange | −0,12 | `#C53E03` | Ombre degli sprite |
-| `--gs1-orange-300` | Orange | +0,10 | `#FE9575` | Hover dei pulsanti, testo Orange su GS1 Blue |
+| `--gs1-orange-300` | Orange | +0,10 | `#FE9575` | Hover dei pulsanti, numeri nel blocco JSON |
+| `--gs1-orange-100` | Orange | +0,22 | `#FFD0C2` | Alone della tappa successiva, muso delle mucche |
 | `--gs1-teal-700` | Teal | −0,20 | `#077977` | Riserva |
 | `--gs1-teal-300` | Teal | +0,12 | `#5AE3E0` | Sottotitoli, chiavi del JSON |
 | `--gs1-forest-900` | Forest | −0,40 | `#013311` | Fondo della risposta giusta |
@@ -41,7 +44,7 @@ Ogni tinta parte da un colore di brand convertito in **OKLCH**. Cambia solo la l
 
 | Token | Hex | Regola |
 |---|---|---|
-| `--state-error` | `#FF6B6B` | Solo vite perse e risposte sbagliate, sempre con l'icona ✕ |
+| `--state-error` | `#B42318` | Solo vite perse e risposte sbagliate, sempre con l'icona ✕. Rosso scuro perché il gioco è su fondo chiaro (6,6:1 su bianco) |
 
 ## Contrasti verificati (WCAG AA ≥ 4,5)
 

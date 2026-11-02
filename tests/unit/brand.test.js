@@ -37,12 +37,12 @@ describe("colori", () => {
   });
 
   it("i testi principali rispettano il contrasto WCAG AA", () => {
+    // Tema chiaro: testi su pagina, superfici bianche e pulsanti; blocco JSON scuro.
     const pairs = [
-      ["gs1-white", "gs1-blue-900"], ["gs1-white", "gs1-blue"], ["gs1-blue-200", "gs1-blue-900"], ["gs1-blue-200", "gs1-blue"],
-      ["gs1-teal", "gs1-blue-900"], ["gs1-teal-300", "gs1-blue-900"], ["gs1-forest-300", "gs1-blue-900"],
-      ["gs1-orange", "gs1-blue-900"], ["gs1-orange", "gs1-blue-950"], ["gs1-orange-300", "gs1-blue"],
-      ["gs1-blue-950", "gs1-orange"], ["gs1-blue-950", "gs1-teal"], ["gs1-blue-950", "gs1-forest"],
-      ["state-error", "gs1-blue-900"], ["gs1-blue-950", "state-error"]
+      ["gs1-dark-gray", "gs1-white"], ["gs1-dark-gray", "gs1-blue-50"], ["gs1-blue", "gs1-white"], ["gs1-blue", "gs1-blue-50"], ["gs1-blue", "gs1-blue-100"],
+      ["gs1-white", "gs1-blue"], ["gs1-white", "gs1-forest-700"], ["gs1-white", "state-error"], ["gs1-white", "gs1-orange-700"],
+      ["gs1-blue-950", "gs1-orange"], ["gs1-orange-700", "gs1-white"], ["gs1-teal-700", "gs1-white"], ["gs1-forest-700", "gs1-white"],
+      ["state-error", "gs1-white"], ["gs1-blue-200", "gs1-blue-950"], ["gs1-teal-300", "gs1-blue-950"], ["gs1-forest-300", "gs1-blue-950"], ["gs1-orange-300", "gs1-blue-950"]
     ];
     for (const [fg, bg] of pairs) expect(contrast(TOKENS[fg], TOKENS[bg]), `${fg} su ${bg}`).toBeGreaterThanOrEqual(4.5);
   });

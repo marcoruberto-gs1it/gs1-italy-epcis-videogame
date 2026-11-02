@@ -132,9 +132,10 @@ export function introSequence(root, { heroBounce = true } = {}) {
   const typed = { n: 0 };
   anim(() => {
     const tl = gsap.timeline();
-    tl.from(root.querySelector(".tag"), { autoAlpha: 0, y: -10, duration: 0.2, ease: "steps(2)" })
-      .from(root.querySelector("#hero"), heroBounce ? { y: -80, autoAlpha: 0, duration: 0.6, ease: "bounce.out" } : { autoAlpha: 0, duration: 0.3 }, "<")
-      .from(h1 ? h1.querySelectorAll(".ch") : [], { y: -24, autoAlpha: 0, duration: 0.15, stagger: 0.025, ease: "steps(3)" }, "-=0.2");
+    const tag = root.querySelector(".tag"), hero = root.querySelector("#hero");
+    if (tag) tl.from(tag, { autoAlpha: 0, y: -10, duration: 0.2, ease: "power1.out" });
+    if (hero) tl.from(hero, heroBounce ? { y: -80, autoAlpha: 0, duration: 0.6, ease: "bounce.out" } : { autoAlpha: 0, duration: 0.3 }, "<");
+    if (h1) tl.from(h1.querySelectorAll(".ch"), { y: -24, autoAlpha: 0, duration: 0.15, stagger: 0.02, ease: "power2.out" }, "-=0.2");
     const narrator = root.querySelector(".narrator");
     if (narrator) {
       tl.from(narrator, { x: -40, autoAlpha: 0, duration: 0.3, ease: "steps(4)" });
@@ -147,7 +148,8 @@ export function introSequence(root, { heroBounce = true } = {}) {
         });
       }
     }
-    tl.from(root.querySelectorAll(".hi, #go, [data-pop]"), { scale: 0.5, autoAlpha: 0, duration: 0.25, stagger: 0.1, ease: "back.out(2)" });
+    const pops = root.querySelectorAll(".hi, #go, [data-pop]");
+    if (pops.length) tl.from(pops, { scale: 0.5, autoAlpha: 0, duration: 0.25, stagger: 0.1, ease: "back.out(2)" });
     return skippable(tl);
   });
 }

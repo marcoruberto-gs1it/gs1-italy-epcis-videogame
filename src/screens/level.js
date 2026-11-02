@@ -21,18 +21,23 @@ register("intro", id => {
   if (!level) return go("map");
   state.level = id;
   const finale = id === "finale";
-  show(`<div class="title"><div class="inner">
-    <span class="tag">${finale ? t("intro.tagFinale") : t("intro.tag", { w: WORLDS[level.world], id })}</span>
-    <div id="hero">${img(level.meta.sp, finale ? 96 : 120)}</div>
-    <h1>${level.meta.t.toUpperCase()}</h1>
-    <div class="narrator">${img("bip", 56, "bip", t("narrator.alt"))}<p class="speech"><b>${t("narrator.name")}</b><span class="txt">${level.intro}</span></p></div>
-    <span class="hi">${t("intro.concept", { c: level.meta.c.toUpperCase() })}</span>
-    <button class="btn" data-primary id="go">${t("intro.go")}</button>
-  </div></div>`);
+  // La scena della tappa fa da sfondo (in 3D); sopra, il riquadro con il titolo e Bip.
+  show(`<div class="intro-layout">
+    <div class="scene-box intro-scene" id="introScene"><div class="fallback" id="hero">${img(level.meta.sp, finale ? 96 : 120)}</div></div>
+    <div class="title intro-card"><div class="inner">
+      <span class="tag">${finale ? t("intro.tagFinale") : t("intro.tag", { w: WORLDS[level.world], id })}</span>
+      <h1>${level.meta.t}</h1>
+      <div class="narrator">${img("bip", 56, "bip", t("narrator.alt"))}<p class="speech"><b>${t("narrator.name")}</b><span class="txt">${level.intro}</span></p></div>
+      <span class="hi">${t("intro.concept", { c: level.meta.c })}</span>
+      <button class="btn" data-primary id="go">${t("intro.go")}</button>
+    </div></div>
+  </div>`);
+  const preview = levelScene(level.slug);
+  mountScene($("#introScene"), preview && (api => preview(api, { clickHtml() {} })));
   if (finale) { fx.blink($("#hero img")); sfx.alarm(); } else { fx.bob($("#hero img")); sfx.sel(); }
   if (level.meta.sp === "jar") fx.eyes($("#hero img"), sprite("jar"), sprite("jarBlink"));
   fx.eyes($(".narrator .bip"), sprite("bip"), sprite("bipBlink"));
-  fx.introSequence($(".title .inner"));
+  fx.introSequence($(".intro-card .inner"));
   $("#go").onclick = () => go("level", id);
 });
 

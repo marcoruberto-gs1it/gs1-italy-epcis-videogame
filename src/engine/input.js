@@ -4,7 +4,6 @@ import { go } from "./router.js";
 import { toggleMute } from "../ui/hud.js";
 import { screenEl } from "../ui/dom.js";
 import { skipAll } from "../anim/skip.js";
-import { toggleCrt } from "../render/two/crt.js";
 import { toggleRenderer, togglePixel } from "../render/scene-host.js";
 import { toggleNotes, setTurn, toggleHint } from "./modes.js";
 import { toggleHelp, isHelpOpen } from "../ui/notes.js";
@@ -23,7 +22,6 @@ export function initInput() {
     if (e.key === "a" || e.key === "A") { setTurn("A"); return; }
     if (e.key === "b" || e.key === "B") { setTurn("B"); return; }
     if (e.key === "h" || e.key === "H") { toggleHint(); return; }
-    if (e.key === "c" || e.key === "C") { toggleCrt(); return; }
     if (e.key === "r" || e.key === "R") { toggleRenderer(); return; }
     if (e.key === "x" || e.key === "X") { togglePixel(); return; }
     if (e.key === "Escape") { if (state.view !== "title") go("map"); return; }

@@ -1,7 +1,6 @@
-// HUD in alto (punteggio, vite, poteri, audio) e barra in basso con il logo.
+// Barra in alto: logo e nome del gioco, tappe completate, vite, punti, squadre, audio e comandi.
 import { state, commit, onChange } from "../engine/state.js";
 import { t } from "../content/index.js";
-import { sprite, img } from "../render/two/sprites.js";
 import { LEVELS } from "../levels/index.js";
 import { $ } from "./dom.js";
 import { render, onRender } from "../render/scene-host.js";
@@ -13,19 +12,29 @@ const LOGO = Object.values(logoFiles)[0] || null;
 
 export const logoHtml = () => LOGO
   ? `<img class="logo" src="${LOGO}" alt="GS1 Italy">`
-  : `<span class="logo-ph" role="img" aria-label="GS1 Italy">${t("foot.logoPlaceholder")}</span>`;
+  : `<span class="logo-ph" role="img" aria-label="GS1 Italy">${t("hud.logoPlaceholder")}</span>`;
+
+let onHelp = () => {};
+/** Collega il pulsante «Comandi» alla schermata dei comandi (evita un import circolare con notes.js). */
+export const setHelpHandler = fn => { onHelp = fn; };
 
 export function renderHud() {
-  const hearts = [0, 1, 2].map(i => `<img class="px ${i < state.lives ? "" : "lost"}" src="${sprite("heart")}" alt="">`).join("");
-  const pw = LEVELS.map(l => `<span class="${state.powers.includes(l.id) ? "on" : ""}" title="${l.power[0]}"></span>`).join("");
+  const steps = LEVELS.map(l => `<i class="${state.done[l.id] ? "on" : ""}"></i>`).join("");
+  const hearts = [0, 1, 2].map(i => `<span class="${i < state.lives ? "" : "lost"}">♥</span>`).join("");
   $("#hud").innerHTML = `
-    <span><span class="lbl">${t("hud.events")}</span><span class="val">${String(state.score).padStart(5, "0")}</span></span>
-    <span class="lotto">${t("hud.lot")}</span>
-    <span><span class="lbl">${t("hud.lives")}</span><span class="hearts" role="img" aria-label="${t("hud.livesAria", { n: state.lives })}">${hearts}</span></span>
-    <span><span class="lbl">${t("hud.powers")}</span><span class="pw" role="img" aria-label="${t("hud.powersAria", { n: state.powers.length, total: LEVELS.length })}">${pw}</span></span>
-    ${teamsHtml()}
-    <button class="mute" id="mute" aria-label="${t("hud.audioAria")}">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</button>`;
+    <div class="brandbox">${logoHtml()}<span>${t("title.heading")}</span></div>
+    <div class="status">
+      <span class="steps" role="img" aria-label="${t("hud.powersAria", { n: Object.keys(state.done).length, total: LEVELS.length })}"><span class="lbl" aria-hidden="true">${t("hud.stepsLabel")}</span>${steps}</span>
+      <span class="hearts" role="img" aria-label="${t("hud.livesAria", { n: state.lives })}">${hearts}</span>
+      <span class="score">${state.score} ${t("hud.events").toLowerCase()}</span>
+      ${teamsHtml()}
+    </div>
+    <div class="tools">
+      <button class="tool" id="mute" aria-label="${t("hud.audioAria")}">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</button>
+      <button class="tool" id="helpBtn">${t("hud.help")}</button>
+    </div>`;
   $("#mute").onclick = toggleMute;
+  $("#helpBtn").onclick = () => onHelp();
 }
 
 function teamsHtml() {
@@ -38,26 +47,14 @@ function teamsHtml() {
 
 export function toggleMute() { state.muted = !state.muted; commit(); }
 
-export function renderFoot() {
-  $("#foot").innerHTML = `<span>${t("foot.keys")}</span><span class="rmode" id="rmode"></span><span class="brand">${t("foot.brand")} ${logoHtml()}</span>`;
-  renderMode();
-}
-
-export function renderMarquee() {
-  $("#marquee").innerHTML = `${img("jar", 30)}<span class="mq-title">${t("title.heading")}</span><span class="mq-sub">${t("marquee.sub")}</span>${img("bip", 30)}`;
-}
-
-/** Indicatore del renderer attivo (tasto R) e avviso quando il 3D passa da solo al 2D. */
-export function renderMode() {
-  const el = $("#rmode");
-  if (el) el.textContent = render.mode === "3d" ? t("foot.mode3d", { q: render.quality.toUpperCase() }) : t("foot.mode2d");
-}
+/** Nome del renderer attivo, mostrato nei comandi e nelle note per chi presenta. */
+export const rendererLabel = () => (render.mode === "3d" ? t("help.mode3d", { q: render.quality }) : t("help.mode2d"));
 
 function fallbackNotice(r) {
   if (r.mode !== "2d" || !r.reason || r.reason === "manual") return;
   const n = document.createElement("div");
   n.className = "toast"; n.setAttribute("role", "status");
-  n.textContent = t("foot.fallback");
+  n.textContent = t("hud.fallback");
   document.body.appendChild(n);
   setTimeout(() => n.remove(), 4000);
 }
@@ -71,9 +68,7 @@ export function initHud() {
   modeClasses();
   onModes(() => { modeClasses(); renderHud(); });
   onChange(modeClasses);
-  onRender(r => { renderMode(); fallbackNotice(r); });
-  renderMarquee();
-  renderFoot();
+  onRender(fallbackNotice);
   renderHud();
   onChange(renderHud);
 }

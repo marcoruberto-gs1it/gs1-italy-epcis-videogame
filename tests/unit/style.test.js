@@ -20,7 +20,7 @@ describe("stile di scrittura GS1 Italy", () => {
       for (const m of s.matchAll(/(^|[\s(])([1-9]|10)(?=[\s.,;:!?)]|$)/g)) {
         const before = s.slice(0, m.index + m[1].length);
         const after = s.slice(m.index + m[0].length);
-        if (/(vasca|linea|baia|round|Round|Ore|alle|livello)\s$/.test(before)) continue;
+        if (/(vasca|linea|baia|round|Round|Ore|alle|livello|Mondo|mondo|tappa|Tappa)\s$/.test(before)) continue;
         if (/^:\d|^\s?°C|^[,.]\d/.test(after) || /\(\d\)\.\w+$/.test(s)) continue;
         bad.push(`${path}: «${s.slice(0, 80)}»`);
       }

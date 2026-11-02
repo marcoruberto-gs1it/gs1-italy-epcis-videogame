@@ -12,7 +12,7 @@ async function start(page, query = "?render=3d") {
   const idle = () => page.waitForSelector("body:not([data-anim])", { state: "attached" });
   const press = async key => { if (key === "Enter") await idle(); await page.keyboard.press(key); };
   const openLevel = async id => {
-    await page.evaluate(id => document.querySelector(`.node[data-lv="${id}"]`).click(), id);
+    await page.evaluate(id => document.querySelector(`.stop[data-lv="${id}"]`).click(), id);
     await press("Enter");
     await expect(page.locator("#scene")).toBeVisible();
   };
@@ -45,7 +45,7 @@ test("se il contesto WebGL si perde a metà livello il gioco continua in 2D", as
   // Lo stato del livello è intatto: 5 cartoni già impilati, si prosegue fino all'evento registrato.
   await expect(page.locator("#cnt")).toContainText("5/12");
   for (let i = 0; i < 7; i++) await press("Enter");
-  await press("2"); await press("Enter"); await press("Enter");
+  await press("1"); await press("Enter"); await press("Enter");
   await expect(page.locator(".win")).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -66,7 +66,7 @@ test("il tasto R passa da 3D a 2D e ritorno senza perdere il punto", async ({ pa
 
 test("nessuna perdita di memoria dopo tre giri di tutte le scene", async ({ page }) => {
   const { errors, openLevel } = await start(page);
-  const ids = await page.$$eval(".node", els => els.map(e => e.dataset.lv));
+  const ids = await page.$$eval(".stop", els => els.map(e => e.dataset.lv));
   const round = async () => {
     for (const id of ids) { await openLevel(id); await page.keyboard.press("Escape"); await expect(page.locator(".map")).toBeVisible(); }
     // Misura a scena ferma, sempre nello stesso stato (mappa con il diorama già disegnato).
@@ -84,7 +84,7 @@ test("nessuna perdita di memoria dopo tre giri di tutte le scene", async ({ page
 
 test("prestazioni: meno di 150 draw call e 100.000 triangoli per scena, pixel ratio limitato", async ({ page }) => {
   const { errors, press, openLevel } = await start(page);
-  const ids = await page.$$eval(".node", els => els.map(e => e.dataset.lv));
+  const ids = await page.$$eval(".stop", els => els.map(e => e.dataset.lv));
   const report = [];
   const check = async label => {
     const st = await page.evaluate(() => window.missioneL123.stats());
@@ -98,7 +98,7 @@ test("prestazioni: meno di 150 draw call e 100.000 triangoli per scena, pixel ra
   // Il momento più pesante: raggi X con 12 cartoni e 288 vasetti visibili.
   await openLevel("1-3");
   for (let i = 0; i < 12; i++) await press("Enter");
-  await press("2"); await press("Enter");
+  await press("1"); await press("Enter");
   await expect(page.locator("#pallet.xray")).toHaveCount(1);
   await check("raggi X");
   console.log(report.join(" | "));

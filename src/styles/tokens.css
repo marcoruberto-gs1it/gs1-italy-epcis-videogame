@@ -22,10 +22,13 @@
   --gs1-blue-700: #113D7E; /* +0,06 */
   --gs1-blue-600: #234E91; /* +0,12 */
   --gs1-blue-200: #B8D3FE; /* +0,55 */
+  --gs1-blue-100: #DCE9FF; /* +0,62: fondo delle scene illustrate */
+  --gs1-blue-50: #F1F6FE;  /* +0,66: fondo della pagina */
 
   /* Tinte derivate dagli altri colori di brand */
   --gs1-orange-700: #C53E03; /* -0,12 */
   --gs1-orange-300: #FE9575; /* +0,10 */
+  --gs1-orange-100: #FFD0C2; /* +0,22 */
   --gs1-teal-700: #077977;   /* -0,20 */
   --gs1-teal-300: #5AE3E0;   /* +0,12 */
   --gs1-forest-900: #013311; /* -0,40 */
@@ -36,6 +39,7 @@
   --gs1-warm-400: #A9A8A4;   /* -0,25 */
   --gs1-warm-600: #767571;   /* -0,42 */
 
-  /* Colore funzionale per gli errori: DA VALIDARE CON IL BRAND. Sempre con icona ✕. */
-  --state-error: #FF6B6B;
+  /* Colore funzionale per gli errori: DA VALIDARE CON IL BRAND. Sempre con icona ✕.
+     Rosso scuro perché il gioco ora è su fondo chiaro (contrasto 6,6 su bianco). */
+  --state-error: #B42318;
 }

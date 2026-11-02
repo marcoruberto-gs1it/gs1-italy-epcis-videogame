@@ -1,145 +1,102 @@
-/* Cabinato arcade moderno: insegna, cornice con bisellature, schermo CRT, tendina, sfondi delle scene, effetti. */
+/* Scene (2D e 3D), narratore, effetti, note per chi presenta, comandi, modalità e squadre. */
 
-/* Corpo del cabinato */
-.cabinet { background: linear-gradient(to bottom, var(--gs1-blue-800), var(--gs1-blue-950) 70%); }
-.marquee { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 8px 16px; border: 3px solid var(--gs1-blue-600); border-radius: 6px; background: linear-gradient(to bottom, var(--gs1-blue), var(--gs1-blue-800)); box-shadow: inset 0 2px 0 var(--gs1-blue-600), inset 0 -3px 0 var(--gs1-blue-950); }
-.marquee img { width: 30px; }
-.mq-title { font-family: var(--font-display); font-size: clamp(14px, 1.6vw, 26px); color: var(--gs1-white); letter-spacing: .08em; text-shadow: 3px 3px 0 var(--gs1-blue-950); }
-.mq-sub { font-family: var(--font-display); font-size: clamp(8px, .7vw, 11px); color: var(--gs1-blue-200); letter-spacing: .1em; }
-@media (max-width: 700px), (max-height: 700px) { .marquee { display: none; } }
-
-/* Cornice dello schermo: bisellature chiare in alto a sinistra, scure in basso a destra */
-.bezel { flex: 1; min-height: 0; position: relative; padding: 10px; border-radius: 10px; background: var(--gs1-blue); box-shadow: inset 3px 3px 0 var(--gs1-blue-600), inset -3px -3px 0 var(--gs1-blue-950), 0 0 0 3px var(--gs1-blue-950); }
-@media (max-width: 560px) { .bezel { padding: 5px; } }
-
-/* Effetto CRT: scanline, vignettatura e un leggerissimo sfarfallio. Si spegne con il tasto C. */
-.bezel.crt .screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3; background: repeating-linear-gradient(to bottom, transparent 0 2px, color-mix(in srgb, var(--gs1-blue-950) 22%, transparent) 2px 4px); }
-.bezel.crt::after { content: ""; position: absolute; inset: 10px; pointer-events: none; z-index: 4; border-radius: 4px; background: radial-gradient(ellipse at center, transparent 62%, color-mix(in srgb, var(--gs1-blue-950) 55%, transparent) 100%); animation: crt-flicker 6s steps(1) infinite; }
-@keyframes crt-flicker { 0%, 100% { opacity: 1; } 47% { opacity: .92; } 48% { opacity: 1; } 81% { opacity: .95; } 82% { opacity: 1; } }
-@media (max-width: 560px) { .bezel.crt::after { inset: 5px; } }
-
-/* Tendina tra le schermate: stecche Blue che si aprono. Non riceve clic. */
-.curtain { position: absolute; inset: 10px; z-index: 5; pointer-events: none; display: flex; overflow: hidden; }
-.curtain span { flex: 1; background: var(--gs1-blue-800); border-right: 2px solid var(--gs1-blue-950); transform: scaleY(0); }
-@media (max-width: 560px) { .curtain { inset: 5px; } }
-
-/* Scena dei livelli con sfondo a strati */
-.scene { padding: 0; }
-.scene-content { position: relative; z-index: 2; width: 100%; min-height: 260px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+/* Contenuto della scena sopra lo sfondo e sopra il canvas 3D */
+.scene-content { position: relative; z-index: 2; width: 100%; min-height: 320px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
 .backdrop { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-.bd-sky { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--gs1-blue-950), var(--gs1-blue-900) 70%); }
-.bd-far { position: absolute; left: -64px; right: -64px; bottom: 22%; height: 40px; background-repeat: repeat-x; background-size: auto 40px; image-rendering: pixelated; opacity: .9; }
-.bd-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: var(--gs1-blue-800); border-top: 3px solid var(--gs1-blue-700); }
-.bd-ground.road { background: var(--gs1-dark-gray); border-top-color: var(--gs1-light-gray); }
-.bd-ground.road::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; background: repeating-linear-gradient(to right, var(--gs1-light-gray) 0 24px, transparent 24px 48px); background-size: 48px 4px; }
+.bd-sky { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--gs1-blue-100), var(--gs1-blue-50)); }
+.bd-far { position: absolute; left: -64px; right: -64px; bottom: 22%; height: 40px; background-repeat: repeat-x; background-size: auto 40px; image-rendering: pixelated; opacity: .25; }
+.bd-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: var(--gs1-light-gray); }
+.bd-ground.road { background: var(--gs1-dark-gray); }
+.bd-ground.road::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; background: repeating-linear-gradient(to right, var(--gs1-white) 0 24px, transparent 24px 48px); background-size: 48px 4px; }
 .road-moving .bd-ground.road::after { animation: road-scroll .6s steps(4) infinite; }
 @keyframes road-scroll { to { background-position: -48px 0; } }
 
-/* Mappa: sentiero tra le tappe e icona della tappa */
-.node .icon { width: 36px; align-self: flex-end; margin-top: auto; opacity: .9; }
-.node .here { right: auto; left: 12px; }
-
-/* Narratore */
-.narrator .bip { width: 56px; }
-
-/* Effetti: particelle, punti che volano, schermo che lampeggia */
-.fx-particle { position: fixed; width: 8px; height: 8px; z-index: 20; pointer-events: none; }
-.float-score { position: fixed; z-index: 20; pointer-events: none; font-family: var(--font-display); font-size: clamp(16px, 1.6vw, 26px); color: var(--gs1-forest-300); text-shadow: 3px 3px 0 var(--gs1-blue-950); }
-.title h1 .ch { display: inline-block; white-space: pre; }
-
-/* Livello 1-1: vasca, bolle e nascita del vasetto */
-.tank-wrap { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.bubble-fx { position: absolute; width: 6px; height: 6px; background: var(--gs1-white); pointer-events: none; }
-.born { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-
-/* Sfida finale: mini mappa della filiera che si accende dove sono i lotti */
-.minimap { position: relative; width: 100%; max-width: 380px; aspect-ratio: 16 / 9; border: 3px solid var(--gs1-blue-700); background: var(--gs1-blue-950); }
-.minimap .route { position: absolute; left: 8%; right: 8%; top: 52%; height: 3px; background: var(--gs1-blue-700); }
-.minimap .pt { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: var(--font-display); font-size: 10px; color: var(--gs1-blue-200); }
-.minimap .pt i { width: 14px; height: 14px; background: var(--gs1-blue-700); border: 2px solid var(--gs1-blue-950); display: block; }
-.minimap .pt.lit i { background: var(--gs1-orange); }
-.minimap .pt.lit { color: var(--gs1-white); }
-.minimap .pt.notice i { background: var(--gs1-white); }
-.minimap.dark { box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--gs1-blue-950) 40%, transparent); }
-
-@media (prefers-reduced-motion: reduce) {
-  .bezel.crt::after, .bezel.crt .screen::after { display: none; }
-  .curtain { display: none; }
-}
-
-/* Fase 4: scene 3D. Il canvas sta sotto il contenuto HTML, che resta leggibile e cliccabile. */
+/* Canvas 3D: sotto il contenuto HTML, sopra lo sfondo */
 .stage3d { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; }
 .stage3d.pixelated { image-rendering: pixelated; }
-.scene.r3d { min-height: 440px; }
+.scene.r3d { min-height: clamp(360px, 58vh, 640px); }
 .scene.r3d .bd-far, .scene.r3d .bd-ground { display: none; }
-.scene.r3d .scene-content { min-height: 440px; justify-content: space-between; align-items: center; gap: 8px; pointer-events: none; }
+.scene.r3d .scene-content { min-height: clamp(360px, 58vh, 640px); justify-content: space-between; align-items: center; gap: 8px; pointer-events: none; }
 .scene.r3d .scene-content > * { pointer-events: auto; }
 .scene.r3d .scene-content img.px, .scene.r3d .pallet, .scene.r3d .road, .scene.r3d .beam, .scene.r3d .born,
 .scene.r3d .minimap, .scene.r3d .wave, .scene.r3d [data-bob], .scene.r3d [data-blink] { display: none; }
-/* In 3D i riquadri informativi stanno negli angoli, il centro resta alla scena. */
-.scene.r3d .tank, .scene.r3d .chain { position: absolute; top: 10px; left: 10px; max-width: 42%; font-size: .72em; min-height: 0; padding: 8px; gap: 4px; background: color-mix(in srgb, var(--gs1-blue-900) 88%, transparent); }
-.scene.r3d .tank-wrap { position: static; }
-.scene.r3d .feed { font-size: .72em; margin-top: auto; }
-.scene.r3d .feed div { padding: 3px 8px; }
-.scene.r3d .bubble { font-size: .85em; align-self: flex-start; }
+.scene.r3d .shelf, .scene.r3d .shelf-plank { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.scene.r3d .tank, .scene.r3d .chain { position: absolute; top: 10px; left: 10px; max-width: 42%; font-size: .8em; }
+.scene.r3d .feed { font-size: .8em; margin-top: auto; }
+.scene.r3d .bubble { align-self: flex-start; }
 .scene.r3d .jackets { margin-top: auto; }
-.scene.r3d .jk { padding: 6px; }
-.scene.r3d .shelf, .scene.r3d .shelf-plank, .sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.scene.r3d .feed, .scene.r3d .req, .scene.r3d .temp, .scene.r3d .clock, .scene.r3d .counter, .scene.r3d .cap { background: color-mix(in srgb, var(--gs1-blue-950) 70%, transparent); padding: 2px 8px; }
-.scene.r3d .jk { background: color-mix(in srgb, var(--gs1-blue-950) 70%, transparent); }
 
-/* Diorama 3D della mappa (in 2D resta nascosto) */
-.diorama { display: none; }
-.diorama.r3d { display: block; position: relative; height: clamp(220px, 34vh, 380px); border: 3px solid var(--gs1-blue-700); background: linear-gradient(to bottom, var(--gs1-blue-950), var(--gs1-blue-900)); overflow: hidden; }
+/* Livello 1-1 e 2-1: elenco degli ingredienti nella vasca e della catena tessile */
+.tank, .chain { width: 100%; max-width: 420px; background: var(--surface); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 2px 0 var(--shadow); }
+.tank.over { box-shadow: inset 0 0 0 3px var(--gs1-blue); }
+.tank ul, .chain ol { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.tank li.empty, .chain li.empty { list-style: none; margin-left: -1.2em; color: var(--ink); font-style: italic; }
+.tank li, .chain li { color: var(--gs1-forest-700); }
+.tank-wrap { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.born { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 
-/* Indicatore del renderer e avviso di passaggio al 2D */
-.rmode { color: var(--gs1-teal-300); }
-.toast { position: fixed; left: 50%; bottom: 70px; transform: translateX(-50%); z-index: 30; background: var(--gs1-white); color: var(--gs1-blue-950); border: 3px solid var(--gs1-blue); padding: 10px 14px; max-width: 90vw; box-shadow: 4px 4px 0 var(--shadow); }
+/* Sfida finale in 2D: mini mappa che si accende */
+.minimap { position: relative; width: 100%; max-width: 380px; aspect-ratio: 16 / 9; border-radius: 10px; background: var(--surface); }
+.minimap .route { position: absolute; left: 8%; right: 8%; top: 52%; height: 3px; background: var(--gs1-light-gray); }
+.minimap .pt { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; color: var(--ink); }
+.minimap .pt i { width: 14px; height: 14px; border-radius: 50%; background: var(--gs1-light-gray); display: block; }
+.minimap .pt.lit i { background: var(--gs1-orange); }
+.minimap .pt.lit { color: var(--gs1-blue); font-weight: 700; }
+.minimap .pt.notice i { background: var(--gs1-blue); }
+.minimap.dark { background: var(--gs1-blue-100); }
 
-/* Fase 5: modalità, squadre, note per chi presenta, comandi, suggerimenti */
-.modes-box { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; width: min(720px, 100%); }
-.mode { display: flex; flex-direction: column; gap: 6px; text-align: left; background: var(--gs1-blue); border: 3px solid var(--gs1-blue-700); padding: 10px 12px; min-height: 44px; }
-.mode b { font-family: var(--font-display); font-weight: 400; font-size: clamp(10px, .9vw, 13px); color: var(--gs1-blue-200); }
-.mode span { font-size: .8em; color: var(--gs1-blue-200); }
-.mode.on { border-color: var(--gs1-white); background: var(--gs1-blue-700); }
-.mode.on b { color: var(--gs1-white); }
-.mode.on b::after { content: " ✓"; }
+/* Narratore */
+.narrator { display: flex; align-items: flex-end; gap: 14px; max-width: 60ch; text-align: left; }
+.narrator img { flex: none; }
+.narrator .bip { width: 56px; }
+.speech { background: var(--surface); padding: 12px 16px; border-radius: 14px 14px 14px 2px; box-shadow: 0 2px 0 var(--shadow); }
+.speech b { display: block; color: var(--gs1-blue); margin-bottom: 4px; }
 
-.teams { display: inline-flex; gap: 8px; }
-.team { font-family: var(--font-display); padding: 3px 7px; border: 2px solid currentColor; }
-.team-A { color: var(--gs1-blue-200); }
-.team-B { color: var(--gs1-orange-300); }
-.team.turn { background: var(--gs1-white); color: var(--gs1-blue-950); border-color: var(--gs1-white); }
-.team.turn::before { content: "▶ "; }
+/* Effetti: particelle e punti che volano */
+.fx-particle { position: fixed; width: 8px; height: 8px; border-radius: 2px; z-index: 20; pointer-events: none; }
+.float-score { position: fixed; z-index: 20; pointer-events: none; font-weight: 700; font-size: clamp(18px, 1.6vw, 26px); color: var(--gs1-forest-700); }
+.title h1 .ch { display: inline-block; white-space: pre; }
 
-.notes { position: fixed; right: 16px; bottom: 64px; width: min(460px, calc(100vw - 32px)); max-height: 60vh; overflow: auto; z-index: 25; background: var(--gs1-off-white); color: var(--gs1-dark-gray); border: 4px solid var(--gs1-blue); padding: 14px 16px; box-shadow: 6px 6px 0 var(--shadow); font-size: clamp(14px, .95vw, 18px); }
-.notes h3 { color: var(--gs1-blue); font-size: 12px; margin-bottom: 8px; }
+/* Note per chi presenta */
+.notes { position: fixed; right: 16px; bottom: 16px; width: min(460px, calc(100vw - 32px)); max-height: 60vh; overflow: auto; z-index: 25; background: var(--surface); color: var(--ink); border-radius: var(--radius); border-top: 6px solid var(--gs1-blue); padding: 14px 16px; box-shadow: 0 8px 24px var(--shadow); font-size: clamp(14px, .95vw, 18px); }
+.notes h3 { font-size: 1em; margin-bottom: 8px; }
 .notes dl { margin: 0; display: grid; gap: 4px; }
 .notes dt { font-weight: 700; color: var(--gs1-blue); margin-top: 6px; }
 .notes dd { margin: 0; }
-.notes .close, .help .close { font-size: .8em; color: var(--gs1-dark-gray); margin-top: 8px; }
+.notes .close, .help .close { font-size: .85em; margin-top: 8px; }
 
-.help { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: color-mix(in srgb, var(--gs1-blue-950) 85%, transparent); padding: 16px; }
-.help .box { background: var(--gs1-off-white); color: var(--gs1-dark-gray); border: 4px solid var(--gs1-blue); padding: 18px 22px; max-width: 640px; width: 100%; max-height: 90vh; overflow: auto; }
-.help h2 { color: var(--gs1-blue); margin-bottom: 12px; }
+/* Comandi */
+.help { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: color-mix(in srgb, var(--gs1-blue-950) 45%, transparent); padding: 16px; }
+.help .box { background: var(--surface); color: var(--ink); border-radius: var(--radius); padding: 18px 22px; max-width: 640px; width: 100%; max-height: 90vh; overflow: auto; }
+.help h2 { margin-bottom: 12px; }
 .help table { border-collapse: collapse; width: 100%; }
-.help th, .help td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--gs1-light-gray); vertical-align: top; }
-.help kbd { font-family: var(--font-display); font-size: 11px; background: var(--gs1-blue); color: var(--gs1-white); padding: 3px 6px; white-space: nowrap; }
+.help th, .help td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.help kbd { font-family: var(--font-body); font-weight: 700; font-size: .85em; background: var(--gs1-blue); color: var(--gs1-white); padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+.help .mode-line { margin-top: 10px; font-size: .85em; }
 
+/* Modalità e suggerimenti */
+.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; width: 100%; }
+.mode { display: flex; flex-direction: column; gap: 4px; text-align: left; background: var(--surface); border: 2px solid var(--gs1-blue-200); border-radius: var(--radius); padding: 10px 14px; min-height: 48px; }
+.mode b { color: var(--gs1-blue); }
+.mode span { font-size: .85em; }
+.mode.on { border-color: var(--gs1-blue); box-shadow: inset 0 0 0 1px var(--gs1-blue); }
+.mode.on b::after { content: " ✓"; }
+.modes-box { display: flex; flex-direction: column; gap: 10px; }
 .hint-box { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.hint { border-left: 4px solid var(--gs1-white); padding-left: 10px; color: var(--gs1-blue-200); }
+.hint { border-left: 4px solid var(--gs1-teal); padding-left: 10px; }
 
+/* Squadre */
+.teams { display: inline-flex; gap: 8px; }
+.team { font-weight: 700; padding: 2px 10px; border-radius: 999px; border: 2px solid currentColor; }
+.team-A { color: var(--gs1-blue); }
+.team-B { color: var(--gs1-orange-700); }
+.team.turn { background: currentColor; }
+.team.turn, .team.turn * { color: var(--gs1-white); }
+.team-A.turn { background: var(--gs1-blue); border-color: var(--gs1-blue); }
+.team-B.turn { background: var(--gs1-orange-700); border-color: var(--gs1-orange-700); }
 .ranking { display: grid; gap: 8px; width: min(520px, 100%); }
-.rank { display: flex; justify-content: space-between; align-items: center; border: 3px solid currentColor; padding: 8px 12px; font-family: var(--font-display); font-size: 13px; }
-.rank:first-child { background: color-mix(in srgb, var(--gs1-white) 8%, transparent); }
-.verdict { font-weight: 700; color: var(--gs1-white); }
+.rank { display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-radius: 10px; border-left: 6px solid currentColor; padding: 10px 14px; font-weight: 700; }
+.verdict { font-weight: 700; color: var(--gs1-blue); }
 
-/* L'indicatore del renderer si vede in modalità sala o con le note aperte */
-.rmode { display: none; }
-body.mode-sala .rmode, body.notes-open .rmode { display: inline; }
-
-/* Titolo compatto: logo, scelta della modalità e avvio stanno in uno schermo 1920×1080 */
-.title.home .inner { gap: 12px; }
-.title.home .logo { height: clamp(44px, 4.2vw, 68px); padding: 6px 12px; }
-.title.home h1 { font-size: clamp(22px, 3.4vw, 48px); }
+/* Avviso di passaggio al 2D */
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30; background: var(--gs1-blue); color: var(--gs1-white); border-radius: 10px; padding: 10px 16px; max-width: 90vw; box-shadow: 0 8px 24px var(--shadow); }
