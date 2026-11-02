@@ -48,9 +48,9 @@ Ogni tinta parte da un colore di brand convertito in **OKLCH**. Cambia solo la l
 
 ## Contrasti verificati (WCAG AA ≥ 4,5)
 
-Verificati da `tests/unit/brand.test.js`. Esempi: bianco su Blue 900 = 17,7; Blue 200 su Blue 900 = 11,6; Orange su Blue 900 = 5,6; Teal su Blue 900 = 7,6; Blue 950 su Orange = 6,0.
+Verificati da `tests/unit/brand.test.js` per il tema chiaro. Esempi: GS1 Blue su bianco = 13,3; Dark Gray su bianco = 8,9; Blue 950 sul pulsante Orange = 6,0; `--state-error` su bianco = 6,6.
 
-**Attenzione:** l'Orange come testo sul GS1 Blue pieno arriva a 4,19, sotto la soglia AA. Su fondo GS1 Blue usa `--gs1-orange-300` oppure testo grande.
+**Attenzione:** su fondo chiaro Teal, Forest e Orange pieni non bastano per il testo. Per il testo si usano le tinte scure `--gs1-teal-700`, `--gs1-forest-700` e `--gs1-orange-700`; i colori pieni restano per superfici, pulsanti e illustrazioni.
 
 ## Regole
 
