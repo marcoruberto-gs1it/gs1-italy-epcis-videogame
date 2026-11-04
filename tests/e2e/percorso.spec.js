@@ -40,16 +40,14 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await expect(page.locator(".map")).toBeVisible();
   await shot("02-mappa");
 
-  // Invio durante l'intro animata la porta alla fine senza cambiare schermata.
+  // L'intro si apre con titolo, testo del narratore e pulsante già completi e visibili.
   await press("Enter");
   await expect(page.locator(".narrator")).toBeVisible();
-  if (info.project.name.startsWith("desktop")) {
-    // Con le animazioni attive, Invio porta l'intro alla fine e resta sulla stessa schermata.
-    await page.keyboard.press("Enter");
-    await idle();
-    await expect(page.locator("#go")).toBeVisible();
-  }
-  await expect(page.locator(".speech .txt")).toContainText("Si comincia dal latte.");
+  const speech = await page.locator(".speech .txt").textContent();
+  expect(speech).toContain("Si comincia dal latte.");
+  expect(await page.locator(".intro-card h1 .ch").count()).toBe(0);
+  await expect(page.locator("#go")).toBeVisible();
+  expect(await page.locator("#screen").evaluate(el => getComputedStyle(el).opacity)).toBe("1");
   await shot("03-intro-1-1");
   await press("Enter");
 
@@ -75,7 +73,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
 
   // 1-2 Nasce il vasetto
   await intro();
-  for (const [r, j] of [[0, 2], [1, 1], [2, 0], [3, 2]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
+  for (const [r, j] of [[0, 0], [1, 1], [2, 2], [3, 1]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
   await pressOn("#reg");
   await seeWin("08-evento-1-2");
 

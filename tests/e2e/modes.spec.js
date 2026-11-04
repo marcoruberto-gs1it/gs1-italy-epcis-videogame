@@ -62,7 +62,7 @@ test("modalità individuale: niente note, suggerimento con H", async ({ page }) 
   await expect(page.locator("#hint")).toBeHidden();
   await press("h");
   await expect(page.locator("#hint")).toBeVisible();
-  await expect(page.locator("#hint")).toContainText("diventa yogurt");
+  await expect(page.locator("#hint")).toContainText("chiave GS1");
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/32-suggerimento.png" });
   await press("h");
   await expect(page.locator("#hint")).toBeHidden();

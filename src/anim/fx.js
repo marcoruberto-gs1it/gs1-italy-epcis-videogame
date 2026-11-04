@@ -1,7 +1,6 @@
 // Piccole animazioni arcade, tutte con GSAP e legate alla schermata corrente.
 import { gsap, reduced } from "./gsap-setup.js";
 import { anim } from "../engine/router.js";
-import { skippable } from "./skip.js";
 
 /** Saltello continuo a due passi (vasetto, indicatore "sei qui"). */
 export function bob(el) {
@@ -41,22 +40,11 @@ export function beam(el) {
   anim(() => gsap.fromTo(el, { top: "0%", autoAlpha: 0.9 }, { top: "100%", duration: 1, ease: "steps(10)", onComplete: () => gsap.set(el, { autoAlpha: 0 }) }));
 }
 
-/** Scrive le righe del JSON una alla volta (al massimo in 2,5 secondi). Con reduced-motion le mostra subito. */
+/** Mostra subito tutte le righe del JSON: il testo non dipende mai da un'animazione. */
 export function typeLines(pre, lines, onTick, onDone) {
-  if (reduced()) { pre.innerHTML = lines.join("\n"); if (onDone) onDone(); return; }
-  const p = { i: 0 };
-  let shown = 0;
-  pre.innerHTML = "";
-  anim(() => skippable(gsap.to(p, {
-    i: lines.length, duration: Math.min(2.5, lines.length * 0.045), ease: "none", onComplete: onDone,
-    onUpdate() {
-      const n = Math.ceil(p.i);
-      if (n === shown) return;
-      shown = n;
-      pre.innerHTML = lines.slice(0, n).join("\n");
-      if (n % 3 === 0 && onTick) onTick();
-    }
-  })));
+  pre.innerHTML = lines.join("\n");
+  if (onTick) onTick();
+  if (onDone) onDone();
 }
 
 /** Sostituisce a intervalli l'immagine di uno sprite (occhi che sbattono, ruote che girano). */
@@ -90,7 +78,7 @@ export function pulse(el, scale = 1.35) {
   anim(() => gsap.fromTo(el, { scale }, { scale: 1, duration: 0.35, ease: "steps(3)" }));
 }
 
-/** Testo "+N" che sale e sparisce sopra un elemento. */
+/** Testo "+N" che sale e sparisce sopra un elemento (decorativo: non blocca Invio). */
 export function floatScore(el, text) {
   if (!el || reduced()) return;
   const r = el.getBoundingClientRect();
@@ -98,60 +86,35 @@ export function floatScore(el, text) {
   f.className = "float-score"; f.textContent = text;
   f.style.left = r.left + "px"; f.style.top = r.top + "px";
   document.body.appendChild(f);
-  anim(() => skippable(gsap.fromTo(f, { y: 0, autoAlpha: 1 }, { y: -70, autoAlpha: 0, duration: 1.2, ease: "power1.out", onComplete: () => f.remove() })));
+  anim(() => gsap.fromTo(f, { y: 0, autoAlpha: 1 }, { y: -70, autoAlpha: 0, duration: 1.2, ease: "power1.out", onComplete: () => f.remove() }));
 }
 
-/** Entrata "a scatti" di un elemento: cade dall'alto. */
+/** Entrata "a scatti" di un elemento: cade dall'alto. Resta sempre visibile. */
 export function dropIn(el, delay = 0) {
   if (!el || reduced()) return;
-  anim(() => gsap.from(el, { y: -40, autoAlpha: 0, duration: 0.3, delay, ease: "steps(4)" }));
+  anim(() => gsap.from(el, { y: -40, duration: 0.3, delay, ease: "steps(4)" }));
 }
 
-/** Entrata di più elementi uno dopo l'altro. */
+/** Entrata di più elementi uno dopo l'altro: si spostano, ma il testo è visibile da subito. */
 export function staggerIn(els, from = { x: -20 }) {
   if (!els || !els.length || reduced()) return;
-  anim(() => skippable(gsap.from(els, { ...from, autoAlpha: 0, duration: 0.25, stagger: 0.08, ease: "steps(3)" })));
+  anim(() => gsap.from(els, { ...from, duration: 0.25, stagger: 0.08, ease: "steps(3)" }));
 }
 
-/** Comparsa con rimbalzo (vasetto appena nato, superpotere). */
+/** Comparsa con rimbalzo (vasetto appena nato, superpotere). Resta sempre visibile e leggibile. */
 export function popIn(el, delay = 0) {
   if (!el || reduced()) return;
-  anim(() => skippable(gsap.from(el, { scale: 0.4, autoAlpha: 0, duration: 0.45, delay, ease: "back.out(2)" })));
+  anim(() => gsap.from(el, { scale: 0.85, duration: 0.35, delay, ease: "back.out(2)" }));
 }
 
 /**
- * Sequenza d'ingresso di una schermata "titolo" (intro dei livelli, finale): lettere del titolo,
- * eroe che rimbalza, narratore, testo scritto a macchina, pulsante. Massimo circa 4 secondi, saltabile con Invio.
+ * Ingresso di una schermata "titolo" (intro dei livelli, titolo, finale). Titolo, narratore, testi
+ * e pulsanti sono visibili da subito e non cambiano: si muove solo l'immagine dell'eroe.
  */
 export function introSequence(root, { heroBounce = true } = {}) {
   if (!root || reduced()) return;
-  const h1 = root.querySelector("h1");
-  if (h1) h1.innerHTML = [...h1.textContent].map(c => `<span class="ch">${c}</span>`).join("");
-  const speech = root.querySelector(".speech .txt");
-  const full = speech ? speech.textContent : "";
-  const typed = { n: 0 };
-  anim(() => {
-    const tl = gsap.timeline();
-    const tag = root.querySelector(".tag"), hero = root.querySelector("#hero");
-    if (tag) tl.from(tag, { autoAlpha: 0, y: -10, duration: 0.2, ease: "power1.out" });
-    if (hero) tl.from(hero, heroBounce ? { y: -80, autoAlpha: 0, duration: 0.6, ease: "bounce.out" } : { autoAlpha: 0, duration: 0.3 }, "<");
-    if (h1) tl.from(h1.querySelectorAll(".ch"), { y: -24, autoAlpha: 0, duration: 0.15, stagger: 0.02, ease: "power2.out" }, "-=0.2");
-    const narrator = root.querySelector(".narrator");
-    if (narrator) {
-      tl.from(narrator, { x: -40, autoAlpha: 0, duration: 0.3, ease: "steps(4)" });
-      if (speech) {
-        tl.to(typed, {
-          n: full.length, duration: Math.min(2, full.length * 0.012), ease: "none",
-          onStart: () => { speech.textContent = ""; },
-          onUpdate: () => { speech.textContent = full.slice(0, Math.ceil(typed.n)); },
-          onComplete: () => { speech.textContent = full; }
-        });
-      }
-    }
-    const pops = root.querySelectorAll(".hi, #go, [data-pop]");
-    if (pops.length) tl.from(pops, { scale: 0.5, autoAlpha: 0, duration: 0.25, stagger: 0.1, ease: "back.out(2)" });
-    return skippable(tl);
-  });
+  const hero = root.querySelector("#hero") || root.closest(".intro-layout, .home, .final")?.querySelector("#hero");
+  if (hero && heroBounce) anim(() => gsap.from(hero, { y: -60, duration: 0.6, ease: "bounce.out" }));
 }
 
 /** Occhi che sbattono ogni tanto: per un attimo mostra lo sprite con gli occhi chiusi. */
