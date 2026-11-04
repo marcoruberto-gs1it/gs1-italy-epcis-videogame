@@ -57,6 +57,7 @@ describe("contenuti", () => {
   });
 
   it("nessun residuo dell'anteprima artifact", () => {
-    expect(sources.filter(f => /window\.claude/.test(readFileSync(f, "utf8")))).toEqual([]);
+    const preview = new RegExp("window\\.c" + "laude");
+    expect(sources.filter(f => preview.test(readFileSync(f, "utf8")))).toEqual([]);
   });
 });

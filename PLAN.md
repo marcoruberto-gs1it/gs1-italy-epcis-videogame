@@ -1,6 +1,6 @@
 # Missione L123 · v2 — piano di lavoro
 
-Fase 0 · Analisi. Questo documento descrive come porto il gioco attuale (un solo `index.html`, 834 righe) alla versione v2 descritta nel prompt "Missione L123 · v2 — prompt per Claude Code". Prima di partire con la Fase 1 serve il tuo via libera e una risposta ai dubbi della sezione 9.
+Fase 0 · Analisi. Questo documento descrive come porto il gioco attuale (un solo `index.html`, 834 righe) alla versione v2 descritta nel documento "Missione L123 · v2". Prima di partire con la Fase 1 serve il tuo via libera e una risposta ai dubbi della sezione 9.
 
 ---
 
@@ -15,7 +15,7 @@ Fase 0 · Analisi. Questo documento descrive come porto il gioco attuale (un sol
 | Punto | Dove | Nota |
 |---|---|---|
 | Vecchio nome inglese della sfida finale | 26 occorrenze: id livello, classi CSS, testi a schermo, README | Diventa `finale` / "Sfida finale" ovunque (fatto nella Fase 1, con un test che lo verifica) |
-| `window.claude.hot` | righe 308-310 | Rimosso |
+| Codice dell'anteprima artifact | righe 308-310 | Rimosso |
 | Colori fuori palette | `--sky #00b6de`, `--lime #7ac143`, `--pink #f05587`, `--gold #fbb034`, `--danger #ff5a5f`, legno `#c69c6d`/`#8a6a43`, sfondi `#00102b`, `#000c22`, `#0d4a2a` | Mappatura in sezione 5 |
 | VT323 per il corpo testo | `--font-body` | Sostituito da Verdana |
 | Font da Google Fonts | `<link>` in testa | Font pixel incluso in locale |
