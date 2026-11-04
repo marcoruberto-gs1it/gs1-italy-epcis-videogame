@@ -29,12 +29,12 @@ for (const render of ["3d", "2d"]) {
     await audit(page, "intro");
     await press("Enter");
     await press("1"); await press("3");
-    await expect(page.locator("#opts .opt")).toHaveCount(3);
+    await expect(page.locator("#opts .opt")).toHaveCount(4);
     await audit(page, "livello");
     await press("p");
     await audit(page, "note per chi presenta");
     await press("p");
-    await press("2"); await press("Enter");
+    await press("3"); await press("Enter");
     await expect(page.locator(".win")).toBeVisible();
     await audit(page, "evento registrato");
     await press("g");

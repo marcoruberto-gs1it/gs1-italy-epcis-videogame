@@ -45,7 +45,7 @@ test("se il contesto WebGL si perde a metà livello il gioco continua in 2D", as
   // Lo stato del livello è intatto: 5 cartoni già impilati, si prosegue fino all'evento registrato.
   await expect(page.locator("#cnt")).toContainText("5/12");
   for (let i = 0; i < 7; i++) await press("Enter");
-  await press("1"); await press("Enter"); await press("Enter");
+  await press("4"); await press("Enter"); await press("Enter");
   await expect(page.locator(".win")).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -98,7 +98,7 @@ test("prestazioni: meno di 150 draw call e 100.000 triangoli per scena, pixel ra
   // Il momento più pesante: raggi X con 12 cartoni e 288 vasetti visibili.
   await openLevel("1-3");
   for (let i = 0; i < 12; i++) await press("Enter");
-  await press("1"); await press("Enter");
+  await press("4"); await press("Enter");
   await expect(page.locator("#pallet.xray")).toHaveCount(1);
   await check("raggi X");
   console.log(report.join(" | "));

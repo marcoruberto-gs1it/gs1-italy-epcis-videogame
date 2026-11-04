@@ -20,7 +20,7 @@ async function toQuestion1(press, page) {
   await expect(page.locator(".map")).toBeVisible();
   await press("Enter"); await press("Enter");
   await press("1"); await press("3");
-  await expect(page.locator("#opts .opt")).toHaveCount(3);
+  await expect(page.locator("#opts .opt")).toHaveCount(4);
 }
 
 test("modalità sala: note con P e punti alla squadra con A e B", async ({ page }) => {
@@ -45,7 +45,7 @@ test("modalità sala: note con P e punti alla squadra con A e B", async ({ page 
   await expect(page.locator(".team-B")).toContainText("Orange 0");
   await expect(page.locator(".team.turn")).toHaveCount(0);
   await press("a");
-  await press("2");
+  await press("3");
   await expect(page.locator(".team-A")).toContainText("Blue 1");
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/31-squadre.png" });
   expect(errors).toEqual([]);

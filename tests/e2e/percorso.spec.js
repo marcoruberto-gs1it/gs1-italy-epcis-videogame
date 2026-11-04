@@ -57,9 +57,9 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("2");
   await expect(page.locator("#msg")).toBeVisible();
   await press("1"); await press("3");
-  await expect(page.locator("#opts .opt")).toHaveCount(3);
+  await expect(page.locator("#opts .opt")).toHaveCount(4);
   await shot("04-livello-1-1");
-  await press("2"); await press("Enter");
+  await press("3"); await press("Enter");
   await seeWin("05-evento-1-1");
 
   // Documento completo e Codex
@@ -75,7 +75,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
 
   // 1-2 Nasce il vasetto
   await intro();
-  for (const [r, j] of [[0, 1], [1, 0], [2, 1], [3, 1]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
+  for (const [r, j] of [[0, 2], [1, 1], [2, 0], [3, 2]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
   await pressOn("#reg");
   await seeWin("08-evento-1-2");
 
@@ -83,7 +83,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await intro();
   for (let i = 0; i < 12; i++) await press("Enter");
   await expect(page.locator("#cnt")).toContainText("12/12");
-  await press("1"); await press("Enter");
+  await press("4"); await press("Enter");
   await expect(page.locator("#pallet.xray")).toHaveCount(1);
   await page.waitForTimeout(1200);
   await shot("09-livello-1-3-raggi-x");
@@ -92,20 +92,20 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
 
   // 1-4 Le parole non si inventano
   await intro();
-  await press("2"); await press("Enter");
+  await press("1"); await press("Enter");
   await seeWin("11-evento-1-4");
 
   // 1-5 Catena del freddo
   await intro();
-  await press("1"); await press("Enter");
-  await expect(page.locator("#opts2 .opt")).toHaveCount(3, { timeout: 15_000 });
+  await press("2"); await press("Enter");
+  await expect(page.locator("#opts2 .opt")).toHaveCount(4, { timeout: 15_000 });
   await shot("12-livello-1-5");
-  await press("1"); await press("Enter");
+  await press("4"); await press("Enter");
   await seeWin("13-evento-1-5");
 
   // 1-6 Ops, errore!
   await intro();
-  await press("2"); await press("Enter");
+  await press("3"); await press("Enter");
   await seeWin("14-evento-1-6");
 
   // 2-1 Dal filo al capo
@@ -121,14 +121,14 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   // 2-2 Inventario lampo
   await intro();
   await press("Enter"); await press("Enter");
-  await expect(page.locator("#opts .opt")).toHaveCount(3, { timeout: 15_000 });
-  await press("1"); await press("Enter");
+  await expect(page.locator("#opts .opt")).toHaveCount(4, { timeout: 15_000 });
+  await press("2"); await press("Enter");
   await seeWin("18-evento-2-2");
 
   // 2-3 Il reso sospetto
   await intro();
   await press("8"); await press("9");
-  await press("1"); await press("Enter");
+  await press("4"); await press("Enter");
   await seeWin("19-evento-2-3");
 
   // Sfida finale
@@ -136,9 +136,9 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("Enter");
   await expect(page.locator("#new")).toBeVisible({ timeout: 20_000 });
   await press("Enter");
-  await press("1");
+  await press("2");
   await expect(page.locator("#opts2 .opt")).toHaveCount(4, { timeout: 10_000 });
-  await press("3");
+  await press("1");
   await expect(page.locator("#block")).toBeVisible({ timeout: 10_000 });
   await press("Enter");
   await expect(page.locator("#reg")).toBeVisible({ timeout: 10_000 });

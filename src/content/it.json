@@ -183,17 +183,21 @@
       "q": "Domani il laboratorio segnala un problema sulla cisterna C0471. Che cosa rende possibile l'evento che stai per registrare?",
       "opts": [
         {
-          "t": "Trovare i vasetti coinvolti, ma solo se ogni vasetto ha un numero di serie",
-          "why": "Non serve serializzare: la trasformazione lavora anche per lotti e quantità. Basta il legame tra lotto di latte e lotto di yogurt."
+          "t": "Passare dalla cisterna C0471 ai lotti di yogurt e viceversa, purché ogni vasetto abbia un numero di serie",
+          "why": "Non serve serializzare: input e output possono essere lotti con le loro quantità. Basta il legame tra C0471 e L123."
         },
         {
-          "t": "Passare dalla cisterna ai lotti di yogurt e viceversa, senza serializzare i vasetti",
+          "t": "Passare dalla cisterna C0471 ai lotti di yogurt, ma non risalire dai vasetti alla cisterna",
+          "why": "Il legame vale in tutte e due le direzioni: input e output stanno nello stesso evento, e lo leggi da entrambi i lati."
+        },
+        {
+          "t": "Passare dalla cisterna C0471 ai lotti di yogurt e viceversa, lavorando solo con lotti e quantità",
           "ok": true,
           "why": "Esatto. Input e output nello stesso evento danno la genealogia, in tutte e due le direzioni, anche a livello di lotto."
         },
         {
-          "t": "Ricostruire anche dove è andato lo yogurt, perché la trasformazione registra le spedizioni successive",
-          "why": "Ogni passo ha il suo evento. La trasformazione dà il legame tra lotti; il percorso lo raccontano gli eventi di spedizione e ricevimento."
+          "t": "Passare dalla cisterna C0471 ai lotti di yogurt e viceversa, perché l'evento registra anche le spedizioni dei vasetti",
+          "why": "Ogni passo ha il suo evento. La trasformazione dà il legame tra lotti; il percorso lo raccontano spedizione e ricevimento."
         }
       ],
       "events": [
@@ -233,41 +237,41 @@
         {
           "d": "COSA",
           "o": [
+            "Lotto L123",
             "GTIN 09506000134352",
-            "GTIN 09506000134352 + lotto L123",
-            "Codice interno del gestionale «L123-LINEA2»"
+            "GTIN 09506000134352 + lotto L123"
           ],
-          "ok": 1,
-          "why": "Al controllo osservi un lotto preciso: GTIN più lotto. Il solo GTIN non distingue i lotti; il codice interno lo capisce solo la tua azienda."
+          "ok": 2,
+          "why": "Al controllo osservi un lotto preciso: serve il GTIN più il lotto. Il solo GTIN non distingue i lotti; il solo lotto non dice di quale prodotto."
         },
         {
           "d": "QUANDO",
           "o": [
-            "2026-11-02T08:15:00+01:00",
             "2026-11-02T08:15:00, senza fuso orario",
-            "L'ora in cui l'evento arriva nel repository"
+            "2026-11-02T08:15:00+01:00",
+            "2026-11-02T08:15:00+01:00 come recordTime"
           ],
-          "ok": 0,
-          "why": "Serve l'istante del fatto, con il fuso orario. L'ora di arrivo nel repository è un altro campo (recordTime), che compila il sistema."
+          "ok": 1,
+          "why": "Serve l'istante del fatto, con il fuso orario: è l'eventTime. Il recordTime è l'ora di arrivo nel repository e lo compila il sistema."
         },
         {
           "d": "DOVE",
           "o": [
-            "GLN della sede legale del gruppo",
-            "GLN 0614141007776 con l'estensione «linea 2»",
-            "GLN del CeDi a cui è destinato il lotto"
+            "GLN del caseificio con l'estensione «linea 2»",
+            "GLN della sede legale con l'estensione «linea 2»",
+            "GLN del CeDi con l'estensione «baia 2»"
           ],
-          "ok": 1,
+          "ok": 0,
           "why": "Il DOVE è il luogo del fatto: il caseificio, con l'estensione della linea. La sede legale è un'anagrafica; il CeDi è la destinazione."
         },
         {
           "d": "PERCHÉ",
           "o": [
             "commissioning",
-            "inspecting",
-            "creating_class_instance"
+            "creating_class_instance",
+            "inspecting"
           ],
-          "ok": 1,
+          "ok": 2,
           "why": "Il lotto è già nato nella trasformazione: commissioning e creating_class_instance descrivono una nascita. Adesso lo stai controllando: inspecting."
         }
       ],
@@ -312,17 +316,21 @@
       "q": "Il CeDi legge un solo SSCC e conosce lotti e quantità del pallet. A quale condizione funziona davvero?",
       "opts": [
         {
-          "t": "Il caseificio condivide l'aggregazione e chi smonta il pallet registra la disaggregazione",
+          "t": "Il caseificio condivide l'aggregazione; se il pallet viene smontato, basta aggiornare il gestionale del CeDi",
+          "why": "Il contenuto vale finché nessuno lo cambia. Se lo smontaggio resta nel gestionale, per i partner il pallet è ancora pieno."
+        },
+        {
+          "t": "Il caseificio scrive GTIN e lotti dei cartoni dentro l'SSCC, e il CeDi li ricava dal codice",
+          "why": "L'SSCC è solo un numero seriale. Il contenuto viaggia nei dati dell'evento, non nel codice."
+        },
+        {
+          "t": "Il caseificio e il CeDi registrano gli eventi nello stesso repository, perché repository diversi non si parlano",
+          "why": "È proprio quello che lo standard evita: repository diversi si scambiano eventi e query perché parlano EPCIS."
+        },
+        {
+          "t": "Il caseificio condivide l'aggregazione e chi smonta o rifà il pallet registra a sua volta un evento",
           "ok": true,
           "why": "Esatto. Il contenuto vale finché nessuno lo cambia: ogni montaggio e smontaggio diventa un evento condiviso."
-        },
-        {
-          "t": "CeDi e caseificio usano lo stesso gestionale",
-          "why": "È proprio quello che lo standard evita: sistemi diversi si capiscono perché parlano EPCIS."
-        },
-        {
-          "t": "L'SSCC contiene già nel codice i GTIN dei cartoni",
-          "why": "L'SSCC è solo un numero seriale. Il contenuto viaggia nei dati dell'evento, non nel codice."
         }
       ],
       "scan": "Scansiona il pallet",
@@ -368,20 +376,20 @@
       "q": "Il gestionale chiama la spedizione «uscita_merce» e lo stato «in_viaggio». Che cosa cambia usando shipping e in_transit del CBV?",
       "opts": [
         {
-          "t": "Nulla nei sistemi dei partner: il CBV serve per la certificazione GS1",
-          "why": "Non esiste una certificazione legata al CBV. Il valore sta nell'interpretazione comune tra partner."
-        },
-        {
-          "t": "Ogni partner interpreta l'evento con le stesse regole, senza tabelle di conversione per fornitore",
+          "t": "Ogni partner interpreta passo e stato con le stesse regole, senza tabelle di conversione per fornitore",
           "ok": true,
           "why": "Esatto. Un vocabolario comune elimina le traduzioni da sistema a sistema: meno lavoro, meno errori."
         },
         {
-          "t": "L'evento diventa valido: con un valore aziendale verrebbe rifiutato",
+          "t": "Ogni partner interpreta passo e stato con le stesse regole, ma solo se ha la certificazione GS1 per il CBV",
+          "why": "Non esiste una certificazione legata al CBV. Il valore sta nell'interpretazione comune tra partner."
+        },
+        {
+          "t": "L'evento supera la validazione dello schema, che con valori aziendali scritti come URI fallirebbe",
           "why": "EPCIS accetta anche valori propri, scritti come URI. Il problema è che li capisce solo chi li ha inventati."
         },
         {
-          "t": "Il CBV sostituisce i dati anagrafici del prodotto scambiati con GDSN",
+          "t": "Ogni partner riceve con l'evento anche i dati anagrafici del prodotto, che il CBV porta con sé",
           "why": "Ambiti diversi: il CBV descrive i fatti, GDSN le caratteristiche del prodotto. Si completano."
         }
       ],
@@ -420,16 +428,20 @@
       "q1": "Il pallet cambierà camion al CeDi. Perché legare il sensore al pallet con un AssociationEvent?",
       "opts1": [
         {
+          "t": "Perché le letture dei sensori si possono registrare solo in un AssociationEvent",
+          "why": "Le letture (sensorElementList) possono stare in ogni tipo di evento. L'associazione serve a legare il dispositivo alla merce."
+        },
+        {
           "t": "Perché le misure restano riferite al pallet per tutto il viaggio, qualunque mezzo lo porti",
           "ok": true,
           "why": "Esatto. L'associazione dice a quale oggetto si riferiscono le misure. È una novità di EPCIS 2.0."
         },
         {
-          "t": "Perché solo l'AssociationEvent può contenere le letture dei sensori",
-          "why": "Le letture (sensorElementList) possono stare in ogni tipo di evento. L'associazione serve a legare il dispositivo alla merce."
+          "t": "Perché le misure restano riferite al camion, che le passa al pallet quando cambia mezzo",
+          "why": "Il sensore va legato alla merce, non al mezzo. Legato al camion, al cambio di mezzo il pallet perde le sue misure."
         },
         {
-          "t": "Perché così il sensore entra nell'identità del pallet, cioè nel suo SSCC",
+          "t": "Perché il numero del sensore entra nell'SSCC e resta nell'identità del pallet",
           "why": "L'SSCC non cambia. Il sensore ha la sua identità e l'evento le collega."
         }
       ],
@@ -439,17 +451,21 @@
       "q2": "Il sensore ha registrato 9 °C per 40 minuti. Che cosa aggiunge l'evento EPCIS rispetto al file del datalogger?",
       "opts2": [
         {
-          "t": "Il dato è legato a quel pallet, quel luogo e quel passo, e ogni partner lo interroga allo stesso modo",
-          "ok": true,
-          "why": "Esatto. Minimo, massimo e allarme diventano un fatto condiviso: la decisione è mirata su quel pallet."
-        },
-        {
-          "t": "La garanzia che il sensore fosse calibrato",
+          "t": "Il dato è legato a quel pallet, luogo e passo, e l'evento certifica che il sensore era calibrato",
           "why": "EPCIS registra le misure e chi le ha fatte, non certifica lo strumento. La calibrazione resta a carico delle aziende."
         },
         {
-          "t": "La decisione automatica: lo standard prescrive lo scarto sopra gli 8 °C",
+          "t": "Il dato è legato a quel pallet, luogo e passo, e lo standard impone lo scarto sopra gli 8 °C",
           "why": "EPCIS non decide. Soglie e azioni le stabiliscono le aziende e le norme di settore."
+        },
+        {
+          "t": "Il dato è legato a quel camion e a quel viaggio, e ogni partner lo interroga allo stesso modo",
+          "why": "Il camion cambia al CeDi: il dato utile è quello legato al pallet, che è la merce da valutare."
+        },
+        {
+          "t": "Il dato è legato a quel pallet, luogo e passo, e ogni partner lo interroga allo stesso modo",
+          "ok": true,
+          "why": "Esatto. Minimo, massimo e allarme diventano un fatto condiviso: la decisione è mirata su quel pallet."
         }
       ],
       "events": [
@@ -474,7 +490,7 @@
         "story": "EPCIS 2.0 ha portato i dati dei sensori dentro gli eventi: minimo, massimo, allarmi, con unità di misura standard.",
         "link": "Per il fresco e il surgelato è un tema concreto: la prova della catena del freddo viaggia con il prodotto."
       },
-      "hint": "Le letture dei sensori possono stare in qualunque evento. Allora a che cosa serve l'associazione?",
+      "hint": "Pensa a che cosa succede alle misure quando il pallet cambia mezzo.",
       "sceneDesc": "Scena: il camion in autostrada verso Bologna. La temperatura del sensore compare in alto."
     },
     "food-errore": {
@@ -490,8 +506,12 @@
       "q": "Tre partner hanno già letto l'evento con il lotto sbagliato. Come si corregge in EPCIS 2.0?",
       "opts": [
         {
-          "t": "Si ripubblica l'evento con lo stesso eventID e i dati giusti",
-          "why": "<b>Fine partita per la fiducia.</b> Due versioni con lo stesso ID: ogni partner avrebbe una storia diversa."
+          "t": "Si ripubblica l'evento con lo stesso eventID e il lotto giusto, così chi lo rilegge vede la versione corretta",
+          "why": "<b>Fine partita per la fiducia.</b> Due versioni diverse con lo stesso ID: ogni partner avrebbe una storia diversa."
+        },
+        {
+          "t": "Si pubblica un evento con action DELETE sul lotto sbagliato e poi un nuovo evento con il lotto giusto",
+          "why": "DELETE descrive un fatto fisico, come lo smontaggio di un pallet. Non annulla un evento."
         },
         {
           "t": "Si dichiara l'errore sull'evento originale, con il motivo, e lo si collega all'evento corretto",
@@ -499,8 +519,8 @@
           "why": "Esatto. La storia resta verificabile: chi ha letto l'evento sbagliato vede l'errore e la correzione."
         },
         {
-          "t": "Si pubblica un evento con action DELETE che annulla il precedente",
-          "why": "DELETE descrive un fatto fisico, come lo smontaggio di un pallet. Non annulla un evento."
+          "t": "Si dichiara l'errore sull'evento originale e si corregge il lotto nel repository, così resta un solo evento",
+          "why": "Nel repository gli eventi non si modificano: si aggiungono. La correzione è un evento nuovo, collegato all'errore."
         }
       ],
       "register": "Registra correzione",
@@ -527,7 +547,7 @@
         "story": "La dichiarazione di errore conserva l'ora e il motivo: anche la correzione diventa parte della storia.",
         "link": "È un argomento di fiducia: utile con chi teme che condividere dati esponga i propri errori."
       },
-      "hint": "In EPCIS la storia non si riscrive: si aggiunge qualcosa. E DELETE parla degli oggetti, non degli eventi.",
+      "hint": "In EPCIS la storia non si riscrive: si aggiunge qualcosa.",
       "sceneDesc": "Scena: il pallet appena arrivato davanti al CeDi di Bologna."
     },
     "tessile-filo": {
@@ -614,19 +634,23 @@
       "scan": "Lettura RAIN RFID",
       "counter": "Letti {n}/24 · 00:{s}",
       "result": "Con il barcode: {n} capi in {s} secondi. Con RAIN RFID: 24 capi in un secondo.",
-      "q3": "Il lettore RAIN RFID ha letto 48 tag in un secondo. Che cosa ha letto davvero, e perché conta?",
+      "q3": "Il lettore RAIN RFID ha letto 24 tag in un secondo. Che cosa ha letto davvero, e perché conta?",
       "opts": [
         {
-          "t": "Un EPC: la stessa identità GS1 che può stare in un Data Matrix o in un QR con GS1 Digital Link",
+          "t": "24 EPC, cioè GTIN e numero di serie: un'identità che vale solo finché resta nel tag RFID",
+          "why": "L'identità non dipende dal mezzo: lo stesso EPC può stare in un barcode o in un database."
+        },
+        {
+          "t": "24 EPC, cioè GTIN e numero di serie: la stessa identità può stare in un Data Matrix o in un QR",
           "ok": true,
           "why": "Esatto. L'identità non dipende dal mezzo: cambi tecnologia senza cambiare dati ed eventi."
         },
         {
-          "t": "Un codice del produttore del tag, da tradurre in GTIN",
+          "t": "24 codici del produttore del tag, che il lettore traduce in GTIN e numero di serie",
           "why": "Il tag contiene un EPC GS1 standard: nessuna traduzione, lo legge qualunque partner."
         },
         {
-          "t": "Il GTIN del modello: l'RFID riconosce il tipo di capo, non il singolo capo",
+          "t": "24 EPC con lo stesso GTIN: l'RFID riconosce il modello del capo, non il singolo capo",
           "why": "Il tag porta GTIN più numero di serie: ogni capo è unico. Per questo nessun capo viene contato due volte."
         }
       ],
@@ -699,17 +723,21 @@
       "historyB": "Zero eventi trovati. Nessuna fabbrica del marchio ha mai creato questo numero di serie.",
       "opts": [
         {
-          "t": "A ha una storia dalla produzione alla vendita; il numero di serie di B non è mai nato in una fabbrica del marchio",
-          "ok": true,
-          "why": "Esatto. Prodotto a Biella, venduto a Milano il 12/10: la storia verificabile vale più dello scontrino."
-        },
-        {
-          "t": "B è nuovo di fabbrica: nessun evento vuol dire che non è mai uscito dal magazzino",
+          "t": "A ha una storia completa fino alla vendita; B è nuovo, perché un capo in magazzino non genera eventi",
           "why": "Anche il magazzino genera eventi, e un capo vero nasce con un commissioning. Nessun evento è un campanello d'allarme."
         },
         {
-          "t": "Vanno accettati tutti e due: il numero di serie sull'etichetta prova l'origine",
+          "t": "A ha una storia completa fino alla vendita; B è autentico, perché il numero di serie sull'etichetta prova l'origine",
           "why": "Un'etichetta si copia. Una storia di eventi condivisa dai partner no."
+        },
+        {
+          "t": "A è sospetto, perché è stato venduto a Milano e reso a Roma; B va verificato con il fornitore",
+          "why": "Un reso in un altro negozio è normale. La storia di A è completa e verificabile: è B a non avere storia."
+        },
+        {
+          "t": "A ha una storia completa fino alla vendita; il numero di serie di B non è mai nato in una fabbrica del marchio",
+          "ok": true,
+          "why": "Esatto. Prodotto a Biella, venduto a Milano il 12/10: la storia verificabile vale più dello scontrino."
         }
       ],
       "register": "Registra il reso",
@@ -761,16 +789,20 @@
       "q1": "Il latte C0471 ha un problema. Quale query fai per prima al repository EPCIS?",
       "opts1": [
         {
-          "t": "Le trasformazioni che hanno C0471 tra gli input: dicono in quali lotti è finito",
+          "t": "Gli eventi del lotto L123, quello che stai seguendo: dicono dove si trova adesso",
+          "why": "Così trovi L123, ma non sai se lo stesso latte è finito anche in altri lotti."
+        },
+        {
+          "t": "Le trasformazioni con C0471 tra gli input: dicono in quali lotti di yogurt è finito",
           "ok": true,
           "why": "Il superpotere ALBERO GENEALOGICO: dal latte risali a tutti i lotti di yogurt che lo contengono."
         },
         {
-          "t": "Gli eventi del lotto L123, quello che stai seguendo",
-          "why": "Così trovi L123, ma non sai se lo stesso latte è finito anche in altri lotti."
+          "t": "Le trasformazioni con L123 tra gli output: dicono quale latte è entrato nel lotto",
+          "why": "È la direzione opposta: dal lotto risali al latte. Ti serve il contrario, dal latte a tutti i suoi lotti."
         },
         {
-          "t": "Le spedizioni del latte verso il caseificio",
+          "t": "Le spedizioni della cisterna C0471: dicono in quali caseifici è arrivato il latte",
           "why": "Ti dicono dove è arrivato il latte, non in quali prodotti è finito."
         }
       ],
@@ -778,21 +810,21 @@
       "q2": "Hai trovato i lotti L123 e L124. Che richiamo fai?",
       "opts2": [
         {
-          "t": "Tutti i lotti di quel GTIN, perché i dati potrebbero essere incompleti",
-          "why": "Richiameresti anche i lotti sani: più spreco, più costi, più danno d'immagine. Il superpotere è il richiamo chirurgico."
-        },
-        {
-          "t": "Solo i lotti ancora nella catena: quelli venduti sono fuori dalla visibilità EPCIS",
-          "why": "L'ultimo evento dice in quale negozio sono stati venduti: il negozio può avvisare chi li ha comprati."
-        },
-        {
-          "t": "L123 e L124, ovunque si trovino, avvisando anche chi li ha già comprati",
+          "t": "L123 e L124, ovunque si trovino, compresi i vasetti venduti: il negozio avvisa chi li ha comprati",
           "ok": true,
           "why": "Proprio così. Invio le query per sapere dove sono adesso."
         },
         {
-          "t": "Aspetti l'analisi del laboratorio su ogni lotto",
+          "t": "L123 e L124, ma solo dove sono ancora nella catena: quelli venduti escono dalla visibilità EPCIS",
+          "why": "L'ultimo evento dice in quale negozio sono stati venduti: il negozio può avvisare chi li ha comprati."
+        },
+        {
+          "t": "L123 e L124, ovunque si trovino, ma solo dopo l'analisi del laboratorio su ogni lotto",
           "why": "Per un rischio sulla sicurezza si agisce subito sui lotti coinvolti. Le analisi continuano, ma il prodotto si ferma."
+        },
+        {
+          "t": "Tutti i lotti di quel GTIN, ovunque si trovino, perché il latte potrebbe essere finito altrove",
+          "why": "Le trasformazioni dicono già dove è finito il latte. Richiamare i lotti sani è spreco: il superpotere è il richiamo chirurgico."
         }
       ],
       "rows": [
