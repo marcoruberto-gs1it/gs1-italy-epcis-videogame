@@ -6,6 +6,7 @@ import { sfx } from "../engine/audio.js";
 import { t } from "../content/index.js";
 import { LEVELS } from "../levels/index.js";
 import { $, $$ } from "./dom.js";
+import { icon } from "./icons.js";
 
 /** Tappe da mostrare: quelle della filiera della tappa. La sfida finale ripercorre la filiera food. */
 function chainOf(level) {
@@ -26,7 +27,7 @@ export function chainBar(level) {
       <span class="num" aria-hidden="true">${num}</span><span class="pl">${l.meta.short}</span><span class="sr-only"> · ${l.meta.t}${here ? ` · ${t("map.here")}` : ""}</span></button></li>`;
   };
   const arrow = (l, dir) => l
-    ? `<button class="cn-arrow" data-lv="${l.id}" aria-label="${t(`nav.${dir}`)}: ${l.meta.t}"><span aria-hidden="true">${dir === "prev" ? "‹" : "›"}</span></button>`
+    ? `<button class="cn-arrow" data-lv="${l.id}" aria-label="${t(`nav.${dir}`)}: ${l.meta.t}">${icon(dir)}</button>`
     : `<span class="cn-arrow off" aria-hidden="true"></span>`;
   return `<nav class="fbar" aria-label="${t("nav.chainAria", { w: name })}">
     <span class="cn-title" aria-hidden="true">${name}</span>

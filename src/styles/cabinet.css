@@ -1,4 +1,4 @@
-/* Scene (2D e 3D), narratore, effetti, note per chi presenta, comandi, modalità e squadre. */
+/* Scene (2D e 3D), narratore, effetti, comandi e suggerimenti. */
 
 /* Contenuto della scena sopra lo sfondo e sopra il canvas 3D */
 .scene-content { position: relative; z-index: 2; width: 100%; min-height: 320px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
@@ -57,15 +57,9 @@
 .float-score { position: fixed; z-index: 20; pointer-events: none; font-weight: 700; font-size: clamp(18px, 1.6vw, 26px); color: var(--gs1-forest-700); }
 .title h1 .ch { display: inline-block; white-space: pre; }
 
-/* Note per chi presenta */
-.notes { position: fixed; right: 16px; bottom: 16px; width: min(460px, calc(100vw - 32px)); max-height: 60vh; overflow: auto; z-index: 25; background: var(--surface); color: var(--ink); border-radius: var(--radius); border-top: 6px solid var(--gs1-blue); padding: 14px 16px; box-shadow: 0 8px 24px var(--shadow); font-size: clamp(14px, .95vw, 18px); }
-.notes h3 { font-size: 1em; margin-bottom: 8px; }
-.notes dl { margin: 0; display: grid; gap: 4px; }
-.notes dt { font-weight: 700; color: var(--gs1-blue); margin-top: 6px; }
-.notes dd { margin: 0; }
-.notes .close, .help .close { font-size: .85em; margin-top: 8px; }
-
 /* Comandi */
+.help .close { font-size: .85em; margin-top: 8px; }
+
 .help { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: color-mix(in srgb, var(--gs1-blue-950) 45%, transparent); padding: 16px; }
 .help .box { background: var(--surface); color: var(--ink); border-radius: var(--radius); padding: 18px 22px; max-width: 640px; width: 100%; max-height: 90vh; overflow: auto; }
 .help h2 { margin-bottom: 12px; }
@@ -74,29 +68,9 @@
 .help kbd { font-family: var(--font-body); font-weight: 700; font-size: .85em; background: var(--gs1-blue); color: var(--gs1-white); padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
 .help .mode-line { margin-top: 10px; font-size: .85em; }
 
-/* Modalità e suggerimenti */
-.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; width: 100%; }
-.mode { display: flex; flex-direction: column; gap: 4px; text-align: left; background: var(--surface); border: 2px solid var(--gs1-blue-200); border-radius: var(--radius); padding: 10px 14px; min-height: 48px; }
-.mode b { color: var(--gs1-blue); }
-.mode span { font-size: .85em; }
-.mode.on { border-color: var(--gs1-blue); box-shadow: inset 0 0 0 1px var(--gs1-blue); }
-.mode.on b::after { content: " ✓"; }
-.modes-box { display: flex; flex-direction: column; gap: 10px; }
+/* Suggerimenti */
 .hint-box { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .hint { border-left: 4px solid var(--gs1-teal); padding-left: 10px; }
-
-/* Squadre */
-.teams { display: inline-flex; gap: 8px; }
-.team { font-weight: 700; padding: 2px 10px; border-radius: 999px; border: 2px solid currentColor; }
-.team-A { color: var(--gs1-blue); }
-.team-B { color: var(--gs1-orange-700); }
-.team.turn { background: currentColor; }
-.team.turn, .team.turn * { color: var(--gs1-white); }
-.team-A.turn { background: var(--gs1-blue); border-color: var(--gs1-blue); }
-.team-B.turn { background: var(--gs1-orange-700); border-color: var(--gs1-orange-700); }
-.ranking { display: grid; gap: 8px; width: min(520px, 100%); }
-.rank { display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-radius: 10px; border-left: 6px solid currentColor; padding: 10px 14px; font-weight: 700; }
-.verdict { font-weight: 700; color: var(--gs1-blue); }
 
 /* Avviso di passaggio al 2D */
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30; background: var(--gs1-blue); color: var(--gs1-white); border-radius: 10px; padding: 10px 16px; max-width: 90vw; box-shadow: 0 8px 24px var(--shadow); }

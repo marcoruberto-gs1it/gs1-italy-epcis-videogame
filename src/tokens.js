@@ -26,7 +26,20 @@ export const TOKENS = {
   "gs1-forest-300": "#4CDF75",
   "gs1-warm-400": "#A9A8A4",
   "gs1-warm-600": "#767571",
-  "state-error": "#B42318"
+  "state-error": "#B42318",
+  "ui-bg": "#EEF2F8",
+  "ui-bg-deep": "#E3E9F3",
+  "ui-ink": "#0F2147",
+  "ui-muted": "#56657F",
+  "ui-mist": "#E8EDF5",
+  "ui-sky": "#DCE6F5",
+  "ui-peach": "#FDE4D8",
+  "ui-navy-2": "#1D4F9A",
+  "ui-orange-2": "#B5421C",
+  "ui-ok": "#0F7A52",
+  "ui-ok-bg": "#E1F3EA",
+  "ui-bad": "#C8283A",
+  "ui-bad-bg": "#FCE6E8"
 };
 
 /** Restituisce il colore esadecimale di un token, ad esempio color("gs1-blue"). */

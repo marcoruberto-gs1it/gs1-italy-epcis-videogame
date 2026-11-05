@@ -1,36 +1,7 @@
-// Note per chi presenta (tasto P, solo in modalità sala) e schermata dei comandi (tasto ?).
-import { state } from "../engine/state.js";
-import { onRoute } from "../engine/router.js";
-import { ui, onModes, isSala } from "../engine/modes.js";
+// Schermata dei comandi (tasto ? o pulsante «Comandi»).
 import { t } from "../content/index.js";
-import { byId } from "../levels/index.js";
 import { $ } from "./dom.js";
 import { setHelpHandler, rendererLabel } from "./hud.js";
-
-function notesFor() {
-  const level = ["intro", "level", "win"].includes(state.view) && state.level ? byId(state.level) : null;
-  if (level) return { title: level.meta.t, ...level.C.notes };
-  const key = state.view === "final" ? "final" : state.view === "title" ? "title" : "map";
-  return { title: "", ...t("notes.general." + key) };
-}
-
-export function renderNotes() {
-  const el = $("#notes");
-  if (!el) return;
-  const open = ui.notes && isSala();
-  el.hidden = !open;
-  document.body.classList.toggle("notes-open", open);
-  if (!open) return;
-  const n = notesFor();
-  el.innerHTML = `<h3>${t("notes.title")}${n.title ? " · " + n.title : ""}</h3>
-    <dl>
-      <dt>${t("notes.ask")}</dt><dd>${n.ask}</dd>
-      <dt>${t("notes.answer")}</dt><dd>${n.answer}</dd>
-      <dt>${t("notes.story")}</dt><dd>${n.story}</dd>
-      <dt>${t("notes.link")}</dt><dd>${n.link}</dd>
-    </dl>
-    <p class="close">${t("help.renderer", { m: rendererLabel() })} · ${t("notes.close")}</p>`;
-}
 
 let helpOpen = false;
 export const isHelpOpen = () => helpOpen;
@@ -53,6 +24,4 @@ export function toggleHelp(force) {
 
 export function initNotes() {
   setHelpHandler(() => toggleHelp());
-  onRoute(renderNotes);
-  onModes(renderNotes);
 }

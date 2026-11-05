@@ -6,8 +6,6 @@ export const CONFIG = {
   renderer: "auto",
   /** Qualità del 3D: "alta", "media" o "bassa". */
   quality: "media",
-  /** Modalità predefinita: "sala" (con chi presenta) o "individuale". */
-  mode: "sala",
   /** Audio attivo all'avvio. */
   audioOnStart: true
 };

@@ -217,12 +217,6 @@
           "autorita"
         ]
       },
-      "notes": {
-        "ask": "Se domani scoprite un problema su una cisterna di latte, quali prodotti finiti dovete fermare?",
-        "answer": "Tutti i lotti fatti con quel latte, e solo quelli. Senza il legame ingredienti-prodotto si ferma tutto per prudenza.",
-        "story": "Il TransformationEvent è il pezzo che manca a molti sistemi: registra cosa entra e cosa esce, quindi il legame si ritrova anche dopo mesi.",
-        "link": "Con le aziende di trasformazione è un buon aggancio. È il dato che serve per richiami mirati e per l'origine degli ingredienti."
-      },
       "hint": "Chiediti che cosa viene davvero consumato per fare lo yogurt.",
       "sceneDesc": "Scena: la vasca del caseificio. Intorno ci sono latte, fermenti, un pallet vuoto e un detergente. Quello che metti nella vasca compare nell'elenco.",
       "qCtx": "Il caseificio registra un TransformationEvent: un evento che elenca i materiali usati (input) e il prodotto ottenuto (output). Qui gli input sono il latte C0471 e i fermenti F2290; l'output è il lotto di yogurt L123. Domani questo evento sarà il legame scritto tra latte e yogurt."
@@ -297,12 +291,6 @@
           "distribuzione"
         ]
       },
-      "notes": {
-        "ask": "Se scrivo «Chiedi a Mario» come luogo, chi capisce dove è successo?",
-        "answer": "Solo chi conosce Mario. Un GLN invece lo leggono tutti i partner.",
-        "story": "Ogni evento risponde sempre alle stesse domande: COSA, QUANDO, DOVE, PERCHÉ. È la grammatica comune della filiera.",
-        "link": "Ricorda che GTIN e GLN sono già nei sistemi di molte aziende: EPCIS li riusa, non chiede codici nuovi."
-      },
       "hint": "Per ogni riga chiediti: un partner di un'altra azienda lo capirebbe? E descrive il fatto, o qualcos'altro?",
       "sceneDesc": "Scena: il caseificio e la linea 2, con il vasetto del lotto L123 sul nastro verso il controllo qualità."
     },
@@ -357,12 +345,6 @@
           "produttore"
         ]
       },
-      "notes": {
-        "ask": "Quanto tempo serve per controllare il contenuto di un pallet al ricevimento?",
-        "answer": "Aprendolo, minuti per pallet. Con l'aggregazione basta leggere l'SSCC sull'etichetta.",
-        "story": "L'aggregazione si può disfare: quando il CeDi apre il pallet si registra un evento con action DELETE, e i cartoni tornano liberi.",
-        "link": "Il ricevimento al CeDi è un punto in cui il vantaggio si vede subito: meno controlli manuali, meno contestazioni."
-      },
       "hint": "Che cosa sa davvero un numero SSCC? E che cosa succede ai dati quando il pallet viene smontato?",
       "sceneDesc": "Scena: un pallet su cui impilare 12 cartoni da 24 vasetti. Con lo scanner il pallet diventa trasparente e si vedono i 288 vasetti.",
       "qCtx": "Ogni pallet ha un'etichetta con un SSCC (Serial Shipping Container Code), il numero seriale dell'unità logistica. Il caseificio registra che cosa contiene: i vasetti nei cartoni, i cartoni sul pallet. Questo legame tra contenitore e contenuto si chiama aggregazione. Al CeDi qualcuno potrebbe smontare il pallet e spedire i cartoni a negozi diversi."
@@ -414,12 +396,6 @@
           "produttore",
           "distribuzione"
         ]
-      },
-      "notes": {
-        "ask": "Quante parole diverse usate in azienda per dire «spedito»?",
-        "answer": "Di solito più di una, e cambiano da sistema a sistema.",
-        "story": "Il CBV (Core Business Vocabulary) è il vocabolario di GS1: passi di processo come shipping e stati come in_transit sono uguali per tutti.",
-        "link": "Quando un'azienda dice «abbiamo già i dati», chiedete se usano parole standard: è lì che si perde l'interoperabilità."
       },
       "hint": "Pensa a chi riceve eventi da tanti fornitori, ognuno con le sue parole.",
       "sceneDesc": "Scena: la baia di carico del caseificio con il camion e il CeDi di Bologna sullo sfondo.",
@@ -493,12 +469,6 @@
           "consumatore"
         ]
       },
-      "notes": {
-        "ask": "Se un pallet cambia camion al CeDi, il dato della temperatura dove deve stare?",
-        "answer": "Legato al pallet, non al camion. Per questo serve l'AssociationEvent.",
-        "story": "EPCIS 2.0 ha portato i dati dei sensori dentro gli eventi: minimo, massimo, allarmi, con unità di misura standard.",
-        "link": "Per il fresco e il surgelato è un tema concreto: la prova della catena del freddo viaggia con il prodotto."
-      },
       "hint": "Pensa a che cosa succede alle misure quando il pallet cambia mezzo.",
       "sceneDesc": "Scena: il camion in autostrada verso Bologna. La temperatura del sensore compare in alto.",
       "q1Ctx": "Sul pallet c'è un sensore che misura la temperatura per tutto il viaggio. Al CeDi il pallet passerà su un altro camion, mentre il sensore resta attaccato al pallet. Un AssociationEvent registra a quale oggetto è legato un dispositivo, come un sensore.",
@@ -552,12 +522,6 @@
           "distribuzione",
           "autorita"
         ]
-      },
-      "notes": {
-        "ask": "Cosa succede se cancello un dato che un partner ha già letto?",
-        "answer": "Le due storie non tornano più. In EPCIS non si cancella: si dichiara l'errore e si pubblica la correzione.",
-        "story": "La dichiarazione di errore conserva l'ora e il motivo: anche la correzione diventa parte della storia.",
-        "link": "È un argomento di fiducia: utile con chi teme che condividere dati esponga i propri errori."
       },
       "hint": "In EPCIS la storia non si riscrive: si aggiunge qualcosa.",
       "sceneDesc": "Scena: il pallet appena arrivato davanti al CeDi di Bologna.",
@@ -625,12 +589,6 @@
         ],
         "source": "Regolamento (UE) 2024/1781 sulla progettazione ecocompatibile dei prodotti sostenibili (ESPR)"
       },
-      "notes": {
-        "ask": "Da dove viene il cotone della maglietta che indossate?",
-        "answer": "Quasi nessuno lo sa: le informazioni si perdono tra filatura, tessitura e confezione.",
-        "story": "Gli stessi TransformationEvent del latte funzionano per il tessile: ogni output diventa l'input del passaggio dopo.",
-        "link": "Il Passaporto Digitale di Prodotto previsto dal regolamento ESPR rende questo tema concreto per moda e tessile. Non citare scadenze: dipendono dagli atti delegati."
-      },
       "hint": "Chiediti: dopo questo passaggio esiste un prodotto che prima non c'era? Se no, non è una trasformazione.",
       "sceneDesc": "Scena: tre stazioni, filatura, tessitura e confezione. Ogni passaggio giusto si accende.",
       "qCtx": "Una trasformazione è un passaggio in cui da uno o più materiali nasce un prodotto nuovo, con una nuova identità. Spostare un prodotto o applicargli un'etichetta non lo trasforma."
@@ -687,12 +645,6 @@
         ],
         "case": "Decathlon applica un tag EPC/RFID al 100% dei suoi prodotti e usa oltre 50.000 lettori nel mondo. Dichiara un'efficienza dell'inventario cinque volte maggiore.",
         "source": "GS1 US, case study «Global Retail Sporting Goods Leader Finishes First with RFID»"
-      },
-      "notes": {
-        "ask": "Quanto ci mette un negozio a contare a mano tutti i capi?",
-        "answer": "Ore, spesso di notte o a negozio chiuso. Con RAIN RFID minuti.",
-        "story": "Il tag RFID è solo il mezzo: l'identità è l'EPC, la stessa che può stare in un barcode o in un database.",
-        "link": "Caso pubblico: Decathlon applica un tag EPC/RFID al 100% dei suoi prodotti (case study GS1 US, vedi SOURCES.md)."
       },
       "hint": "Separa il dato dal mezzo che lo trasporta. E chiediti se il dato identifica un modello o un capo.",
       "sceneDesc": "Scena: uno scaffale con 24 t-shirt e un lettore RFID. I capi letti si accendono, il contatore in basso dice quanti sono.",
@@ -774,12 +726,6 @@
           "produttore",
           "consumatore"
         ]
-      },
-      "notes": {
-        "ask": "Come capite oggi se un capo reso è davvero vostro?",
-        "answer": "Spesso non si può: da fuori due capi identici sono uguali.",
-        "story": "Un numero di serie senza storia nel repository è un campanello d'allarme: quel capo potrebbe non essere mai nato in fabbrica.",
-        "link": "Resi e contraffazione sono temi forti per i marchi: la storia degli eventi è una prova di autenticità."
       },
       "hint": "Interroga tutti e due i capi. Un capo vero può non avere nessun evento?",
       "sceneDesc": "Scena: due giubbotti identici sul bancone e la mappa dei passaggi del capo A.",
@@ -955,12 +901,6 @@
         "case": "Al Leeds Teaching Hospitals NHS Trust il tempo medio per richiamare un prodotto è sceso da 8,33 giorni a meno di 35 minuti. Il merito è degli standard GS1 del programma Scan4Safety.",
         "source": "GS1 UK, «A scan of the benefits: the Scan4Safety evidence report», 2020"
       },
-      "notes": {
-        "ask": "Nel round 1 quante telefonate avreste fatto voi?",
-        "answer": "Tante, e alla fine si richiama tutto per prudenza.",
-        "story": "Al Leeds Teaching Hospitals NHS Trust il tempo medio di richiamo è sceso da 8,33 giorni a meno di 35 minuti. Il programma Scan4Safety usa gli standard GS1 (vedi SOURCES.md).",
-        "link": "Il richiamo chirurgico è il messaggio da portare ai vertici: meno prodotto distrutto, meno danno di immagine, più tutela per chi compra."
-      },
       "hint": "Parti dal latte, non dal lotto che conosci. Poi cerca quei lotti, ovunque siano.",
       "sceneDesc": "Scena: la mappa della filiera. Nel round 2 si accendono solo i luoghi dove si trovano i lotti L123 e L124.",
       "q1Ctx": "Nel repository ci sono tutti gli eventi registrati dai partner: trasformazioni, spedizioni, ricevimenti, vendite. Una query è una domanda al repository. Per ora sai solo che il latte della cisterna C0471 ha un problema.",
@@ -1114,57 +1054,6 @@
       }
     ]
   },
-  "modes": {
-    "title": "Come si gioca?",
-    "sala": "Modalità sala",
-    "salaText": "Per la sessione dal vivo: note per chi presenta (P) e sfida a squadre.",
-    "solo": "Modalità individuale",
-    "soloText": "Per rigiocare da soli: suggerimenti a richiesta, progressi salvati.",
-    "teamsOn": "Squadre: sì",
-    "teamsOff": "Squadre: no",
-    "current": "Modalità scelta: {m}"
-  },
-  "teams": {
-    "A": "Blue",
-    "B": "Orange",
-    "nameA": "Squadra Blue",
-    "nameB": "Squadra Orange",
-    "turn": "Risponde: {t}",
-    "noTurn": "Premi A o B per scegliere chi risponde",
-    "point": "+1 {t}",
-    "rankTitle": "Classifica A squadre",
-    "winner": "Vince la {t}!",
-    "tie": "Pareggio: brave tutte e due!",
-    "points": "{n} punti"
-  },
-  "notes": {
-    "title": "Note per chi presenta",
-    "close": "P per chiudere",
-    "ask": "Chiedi alla sala",
-    "answer": "Risposta attesa",
-    "story": "Racconta",
-    "link": "Per Industry Engagement e Key Account",
-    "general": {
-      "title": {
-        "ask": "Chi di voi ha mai dovuto rintracciare un lotto? Quanto ci è voluto?",
-        "answer": "Di solito telefonate, email e fogli Excel: ore o giorni.",
-        "story": "Oggi vediamo come lo stesso lavoro si fa in secondi, se ogni passaggio è stato scritto bene.",
-        "link": "Lascia spazio alle domande dopo ogni livello: le schede «Perché conta» sono un buon punto di partenza."
-      },
-      "map": {
-        "ask": "Quale tappa della filiera vi sembra più critica?",
-        "answer": "Non c'è una risposta sola: ogni passaggio non registrato è un buco nella storia.",
-        "story": "Ogni isola della mappa è un'azienda diversa: EPCIS funziona solo se tutte parlano la stessa lingua.",
-        "link": "Usa la mappa per ricordare che EPCIS è uno standard di filiera, non di una singola azienda."
-      },
-      "final": {
-        "ask": "Quale superpotere vi servirebbe di più domani mattina?",
-        "answer": "Lascia rispondere: il richiamo chirurgico e la vista ai raggi X sono i più citati.",
-        "story": "Il promemoria stampabile riassume i vantaggi per produttore, distribuzione e consumatore.",
-        "link": "Chiudi chiedendo a ogni area un caso concreto in cui proporre EPCIS ai propri interlocutori."
-      }
-    }
-  },
   "hint": {
     "button": "Suggerimento (H)",
     "hide": "Nascondi suggerimento (H)"
@@ -1179,7 +1068,7 @@
       ],
       [
         "Invio",
-        "Conferma, avanti. Durante un'animazione la porta alla fine"
+        "Conferma, avanti"
       ],
       [
         "Esc",
@@ -1198,16 +1087,8 @@
         "Cambia renderer: 3D o 2D"
       ],
       [
-        "P",
-        "Note per chi presenta (modalità sala)"
-      ],
-      [
-        "A / B",
-        "Sceglie la squadra che risponde (modalità sala con squadre)"
-      ],
-      [
         "H",
-        "Suggerimento (modalità individuale)"
+        "Suggerimento"
       ],
       [
         "G",

@@ -83,7 +83,7 @@ export function floatScore(el, text) {
   if (!el || reduced()) return;
   const r = el.getBoundingClientRect();
   const f = document.createElement("span");
-  f.className = "float-score"; f.textContent = text;
+  f.className = "float-score"; f.dataset.t = text; f.setAttribute("aria-hidden", "true");
   f.style.left = r.left + "px"; f.style.top = r.top + "px";
   document.body.appendChild(f);
   anim(() => gsap.fromTo(f, { y: 0, autoAlpha: 1 }, { y: -70, autoAlpha: 0, duration: 1.2, ease: "power1.out", onComplete: () => f.remove() }));

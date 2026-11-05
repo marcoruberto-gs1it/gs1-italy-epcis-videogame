@@ -14,34 +14,32 @@ Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filie
 
 Ogni livello mostra le sue pagine del diario in EPCIS 2.0 JSON (anche dentro un EPCISDocument completo), un superpotere e una scheda "Perché conta". Il **Codex** raccoglie le carte dei concetti, che si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
 
-## Modalità
+## Come si gioca
 
-Si sceglie nella schermata del titolo (tasti 1 e 2).
+Il gioco è pensato per chi gioca da solo, da PC o da telefono.
 
-- **Modalità sala** (predefinita), per la sessione dal vivo:
-  - `P` apre e chiude le **note per chi presenta**: domanda da fare alla sala, risposta attesa, cosa raccontare, collegamento con il lavoro di Industry Engagement e Key Account. Le note cambiano con la schermata.
-  - **Sfida a squadre** (tasto 3 nel titolo): Squadra Blue e Squadra Orange. Prima che la sala confermi una risposta, chi presenta preme `A` o `B` per scegliere chi risponde. Risposta giusta: un punto a quella squadra. Risposta sbagliata: nessun punto. La classifica compare nel finale.
-- **Modalità individuale**, per rigiocare da soli da PC o telefono: niente note, `H` mostra un suggerimento per il livello, i progressi restano salvati.
+- **Home** e **Mappa** sono sempre nella barra in alto.
+- La barra **«La filiera»** mostra tutte le tappe: si clicca una tappa o si usano le frecce per la precedente e la successiva.
+- Prima di ogni domanda il riquadro **«Il contesto»** spiega la situazione; la scena 3D si avvicina al punto di cui si parla.
+- `H` (o il pulsante **Suggerimento**) mostra un aiuto per la tappa. I progressi restano salvati nel browser.
 
 `?` mostra in qualsiasi momento la tabella di tutti i comandi.
 
-## Come si usa in sala
+## Come si apre
 
 Apri `dist/index.html` con un doppio clic: è un unico file, funziona offline, senza server e senza connessione.
 
 | Tasto | Azione |
 | --- | --- |
 | 1-9 | Scegli un'opzione |
-| Invio | Conferma / avanti. Durante un'animazione la porta subito alla fine |
+| Invio | Conferma / avanti |
 | Esc | Torna alla mappa |
 | G | Codex (dalla mappa e dalle schermate di riposo) |
 | D | Documento EPCIS completo (nella schermata dell'evento) |
 | M | Audio sì/no |
 | R | Cambia renderer al volo: 3D o 2D, restando nello stesso punto |
 | X | Pixelatura leggera del 3D (non in qualità bassa) |
-| P | Note per chi presenta (modalità sala) |
-| A / B | Sceglie la squadra che risponde (modalità sala con squadre) |
-| H | Suggerimento (modalità individuale) |
+| H | Suggerimento |
 | ? | Tabella dei comandi |
 
 ### 3D o 2D
@@ -73,14 +71,14 @@ I test nel browser usano Microsoft Edge già installato sul PC (`channel: "msedg
 
 | Cartella | Contenuto |
 | --- | --- |
-| `src/config.js` | Mondi attivi, renderer, qualità, modalità, audio all'avvio |
+| `src/config.js` | Mondi attivi, renderer, qualità, audio all'avvio |
 | `src/content/it.json` | Tutti i testi visibili: interfaccia, livelli, Codex, finale |
 | `src/levels/` | Un file per livello: testi, superpotere e meccanica |
 | `src/data/events/` | Gli eventi EPCIS mostrati nel gioco, un file per livello |
 | `schemas/` | Schema JSON ufficiale di EPCIS 2.0, usato dai test |
 | `src/styles/tokens.css` | Unica fonte dei colori. `src/tokens.js` viene generato da qui |
-| `src/engine/` | Stato, salvataggio, router, tastiera, audio, modalità e squadre (`modes.js`) |
-| `src/ui/notes.js` | Note per chi presenta e tabella dei comandi |
+| `src/engine/` | Stato, salvataggio, router, tastiera, audio, suggerimento (`modes.js`) |
+| `src/ui/notes.js` | Tabella dei comandi |
 | `src/anim/` | GSAP: configurazione, effetti, intro animate, tendina tra le schermate, animazioni saltabili |
 | `src/render/two/` | Sprite in pixel art e sfondi del ripiego 2D |
 | `src/render/three/` | Three.js: stage (renderer, telecamera, luci tarate per i tre toni), materiali di brand, oggetti in stile isometrico vettoriale, scene dei livelli e mappa della filiera |
@@ -102,7 +100,7 @@ Il logo ufficiale di GS1 Italy è in `assets/gs1-italy-logo.png` e viene incluso
 
 Per chi usa un lettore di schermo: a ogni cambio di schermata il focus va sul titolo, ogni scena ha una descrizione testuale, il canvas 3D è nascosto alle tecnologie assistive e ogni oggetto 3D cliccabile ha il suo pulsante HTML.
 
-**Non verificato in automatico:** i 60 fotogrammi al secondo in qualità media. I test girano senza scheda video; vanno provati sul portatile usato in sala.
+**Non verificato in automatico:** i 60 fotogrammi al secondo in qualità media. I test girano senza scheda video; vanno provati su un portatile reale.
 
 ## Stile grafico
 
@@ -115,13 +113,14 @@ Colori, tinte derivate e regole sono in [docs/brand-tokens.md](docs/brand-tokens
 **Eccezioni da validare con il brand:**
 
 - `--state-error`, un rosso funzionale solo per vite perse e risposte sbagliate, sempre con l'icona ✕.
-- **Verdana** non è incluso nel file perché la licenza Microsoft non lo permette: il gioco usa quello installato sul computer, con Arial come riserva.
+- **Interfaccia** nello stile dell'app GS1 Italy «Verified by GS1»: font Montserrat e Spline Sans Mono (licenza SIL Open Font License 1.1), inclusi nel file del gioco; i colori dell'interfaccia sono i token `--ui-*` in `src/styles/tokens.css`.
 
 ## Licenze di terze parti
 
 | Componente | Licenza |
 | --- | --- |
 | [Three.js](https://threejs.org) 0.186.1 | MIT |
+| [Montserrat](https://github.com/JulietaUla/Montserrat) e [Spline Sans Mono](https://github.com/SorkinType/SplineSansMono), via Fontsource | SIL Open Font License 1.1 |
 | [GSAP](https://gsap.com) 3.15.0 | Standard "no charge" license di GSAP (Webflow): uso gratuito anche commerciale, plugin inclusi. Non è una licenza open source: vieta, tra l'altro, l'uso in strumenti che fanno concorrenza a Webflow. Testo: https://gsap.com/standard-license |
 | Logo GS1 Italy (`assets/gs1-italy-logo.png`) | Marchio di GS1 Italy, preso dal sito ufficiale gs1it.org, usato senza modifiche |
 | Schema EPCIS 2.0 (`schemas/`) | © GS1 AISBL, solo per i test |

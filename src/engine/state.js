@@ -2,11 +2,9 @@
 import { CONFIG } from "../config.js";
 import * as storage from "./save.js";
 
-const PERSISTED = ["score", "lives", "done", "powers", "muted", "mode", "teams", "view"];
+const PERSISTED = ["score", "lives", "done", "powers", "muted", "view"];
 const fresh = () => ({
   score: 0, lives: 3, done: {}, powers: [], muted: !CONFIG.audioOnStart,
-  mode: CONFIG.mode === "individuale" ? "individuale" : "sala",
-  teams: { on: false, A: 0, B: 0, turn: null },
   view: "title", level: null
 });
 
@@ -22,12 +20,12 @@ export function commit() {
 
 export function restore() {
   const saved = storage.load();
-  if (saved) Object.assign(state, saved);
+  if (saved) { delete saved.mode; delete saved.teams; Object.assign(state, saved); }
 }
 
-/** Azzera la partita. Restano le preferenze: audio, CRT, modalità e squadre sì/no (con i punteggi a zero). */
+/** Azzera la partita. Resta la preferenza dell'audio. */
 export function resetState() {
-  const keep = { muted: state.muted, mode: state.mode, teams: { on: state.teams.on, A: 0, B: 0, turn: null } };
+  const keep = { muted: state.muted };
   for (const k of Object.keys(state)) delete state[k];
   Object.assign(state, fresh(), keep);
   commit();

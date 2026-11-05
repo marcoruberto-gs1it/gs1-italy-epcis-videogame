@@ -1,11 +1,11 @@
-// Comandi da tastiera per chi presenta: 1-9 scelta, Invio conferma, Esc mappa, M audio.
+// Comandi da tastiera: 1-9 scelta, Invio conferma, Esc mappa, M audio.
 import { state } from "./state.js";
 import { go } from "./router.js";
 import { toggleMute } from "../ui/hud.js";
 import { screenEl } from "../ui/dom.js";
 import { skipAll } from "../anim/skip.js";
 import { toggleRenderer, togglePixel } from "../render/scene-host.js";
-import { toggleNotes, setTurn, toggleHint } from "./modes.js";
+import { toggleHint } from "./modes.js";
 import { toggleHelp, isHelpOpen } from "../ui/notes.js";
 
 export function initInput() {
@@ -18,9 +18,6 @@ export function initInput() {
     if (e.key === "?") { toggleHelp(); e.preventDefault(); return; }
     if (isHelpOpen()) { if (e.key === "Escape" || e.key === "Enter") { toggleHelp(false); e.preventDefault(); } return; }
     if (e.key === "m" || e.key === "M") { toggleMute(); return; }
-    if (e.key === "p" || e.key === "P") { toggleNotes(); return; }
-    if (e.key === "a" || e.key === "A") { setTurn("A"); return; }
-    if (e.key === "b" || e.key === "B") { setTurn("B"); return; }
     if (e.key === "h" || e.key === "H") { toggleHint(); return; }
     if (e.key === "r" || e.key === "R") { toggleRenderer(); return; }
     if (e.key === "x" || e.key === "X") { togglePixel(); return; }

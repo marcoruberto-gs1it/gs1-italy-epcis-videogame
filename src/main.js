@@ -1,8 +1,10 @@
 // Avvio di Missione L123.
 import "./styles/tokens.css";
+import "./styles/fonts.css";
 import "./styles/base.css";
 import "./styles/components.css";
 import "./styles/cabinet.css";
+import "./styles/theme.css";
 import "./styles/print.css";
 
 import { state, restore } from "./engine/state.js";

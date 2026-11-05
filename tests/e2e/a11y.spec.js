@@ -31,9 +31,6 @@ for (const render of ["3d", "2d"]) {
     await press("1"); await press("3");
     await expect(page.locator("#opts .opt")).toHaveCount(4);
     await audit(page, "livello");
-    await press("p");
-    await audit(page, "note per chi presenta");
-    await press("p");
     await press("3"); await press("Enter");
     await expect(page.locator(".win")).toBeVisible();
     await audit(page, "evento registrato");
@@ -50,12 +47,10 @@ test("finale accessibile", async ({ page }) => {
   await page.addInitScript(() => {
     const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "2-1", "2-2", "2-3", "finale"];
     localStorage.setItem("missione-l123", JSON.stringify({ v: 3, state: {
-      score: 2400, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true,
-      mode: "sala", teams: { on: true, A: 6, B: 4, turn: null }, view: "final"
+      score: 2400, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true, view: "final"
     } }));
   });
   await page.goto(GAME + "?render=2d");
   await expect(page.locator(".final h1")).toBeVisible();
-  await expect(page.locator(".ranking")).toBeVisible();
   await audit(page, "finale");
 });

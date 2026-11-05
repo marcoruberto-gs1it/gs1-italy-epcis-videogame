@@ -42,8 +42,12 @@ describe("colori", () => {
       ["gs1-dark-gray", "gs1-white"], ["gs1-dark-gray", "gs1-blue-50"], ["gs1-blue", "gs1-white"], ["gs1-blue", "gs1-blue-50"], ["gs1-blue", "gs1-blue-100"],
       ["gs1-white", "gs1-blue"], ["gs1-white", "gs1-forest-700"], ["gs1-white", "state-error"], ["gs1-white", "gs1-orange-700"],
       ["gs1-blue-950", "gs1-orange"], ["gs1-orange-700", "gs1-white"], ["gs1-teal-700", "gs1-white"], ["gs1-forest-700", "gs1-white"],
-      ["state-error", "gs1-white"], ["gs1-blue-200", "gs1-blue-950"], ["gs1-teal-300", "gs1-blue-950"], ["gs1-forest-300", "gs1-blue-950"], ["gs1-orange-300", "gs1-blue-950"]
+      ["state-error", "gs1-white"], ["gs1-blue-200", "gs1-blue-950"], ["gs1-teal-300", "gs1-blue-950"], ["gs1-forest-300", "gs1-blue-950"], ["gs1-orange-300", "gs1-blue-950"],
+      ["ui-ink", "ui-bg"], ["ui-muted", "ui-bg"], ["ui-muted", "gs1-white"], ["ui-ok", "ui-ok-bg"], ["ui-ok", "gs1-white"], ["ui-bad", "ui-bad-bg"],
+      ["ui-orange-2", "gs1-white"], ["ui-orange-2", "ui-peach"], ["ui-ink", "ui-sky"], ["ui-navy-2", "ui-sky"], ["gs1-white", "ui-navy-2"], ["gs1-blue", "ui-mist"]
     ];
+    // Bianco su arancio solo per il testo grande in grassetto dei pulsanti principali (WCAG: almeno 3:1).
+    expect(contrast(TOKENS["gs1-white"], TOKENS["gs1-orange"])).toBeGreaterThanOrEqual(3);
     for (const [fg, bg] of pairs) expect(contrast(TOKENS[fg], TOKENS[bg]), `${fg} su ${bg}`).toBeGreaterThanOrEqual(4.5);
   });
 });

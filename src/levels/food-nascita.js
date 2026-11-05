@@ -5,7 +5,7 @@ import { defineLevel } from "./define.js";
 export default defineLevel({
   slug: "food-nascita", id: "1-2", world: "food", sp: "jar", scene: "caseificio", events,
 
-  mount({ C, hook, teamPoint, show, levelShell, fail, win, sfx, img, later, reduced, $, $$ }) {
+  mount({ C, hook, show, levelShell, fail, win, sfx, img, later, reduced, $, $$ }) {
     const rows = C.rows;
     const pick = {};
     show(levelShell(this,
@@ -33,7 +33,6 @@ export default defineLevel({
       else {
         // Il vasetto passa il controllo qualità, poi si registra l'evento.
         hook("built");
-        teamPoint($("#reg"));
         $("#reg").disabled = true;
         later.after(win, reduced() ? 0 : 1500);
       }

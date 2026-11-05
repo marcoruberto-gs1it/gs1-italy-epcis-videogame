@@ -42,4 +42,18 @@
   /* Colore funzionale per gli errori: DA VALIDARE CON IL BRAND. Sempre con icona ✕.
      Rosso scuro perché il gioco ora è su fondo chiaro (contrasto 6,6 su bianco). */
   --state-error: #B42318;
+  /* Interfaccia moderna, come l'app GS1 Italy «Verified by GS1»: fondi, testi e stati */
+  --ui-bg: #EEF2F8;       /* fondo della pagina */
+  --ui-bg-deep: #E3E9F3;  /* fondo dietro le schede */
+  --ui-ink: #0F2147;      /* testo principale */
+  --ui-muted: #56657F;    /* testo secondario */
+  --ui-mist: #E8EDF5;     /* riquadri tenui, tasti numerati */
+  --ui-sky: #DCE6F5;      /* contesto delle domande */
+  --ui-peach: #FDE4D8;    /* evidenza calda (tappa corrente) */
+  --ui-navy-2: #1D4F9A;   /* sfumatura delle schede blu */
+  --ui-orange-2: #B5421C; /* testo arancio su fondi chiari */
+  --ui-ok: #0F7A52;
+  --ui-ok-bg: #E1F3EA;
+  --ui-bad: #C8283A;
+  --ui-bad-bg: #FCE6E8;
 }

@@ -8,15 +8,6 @@ import { img, sprite } from "../render/two/sprites.js";
 import { LEVELS } from "../levels/index.js";
 import { logoHtml } from "../ui/hud.js";
 import { $, show } from "../ui/dom.js";
-import { teamsOn } from "../engine/modes.js";
-
-function ranking() {
-  if (!teamsOn()) return "";
-  const { A, B } = state.teams;
-  const verdict = A === B ? t("teams.tie") : t("teams.winner", { t: t(A > B ? "teams.nameA" : "teams.nameB") });
-  const row = k => `<div class="rank team-${k}"><span>${t("teams.name" + k)}</span><b>${t("teams.points", { n: state.teams[k] })}</b></div>`;
-  return `<h3>${t("teams.rankTitle")}</h3><div class="ranking">${(A >= B ? ["A", "B"] : ["B", "A"]).map(row).join("")}</div><p class="verdict">${verdict}</p>`;
-}
 
 register("final", () => {
   sfx.power();
@@ -28,7 +19,6 @@ register("final", () => {
     <p class="sub">${t("final.sub")}</p>
     <span class="counter">${t("final.score", { n: String(state.score).padStart(5, "0") })}</span>
 
-    ${ranking()}
     <h3>${t("final.powersTitle")}</h3>
     <div class="pgrid">${LEVELS.map(l => `<div class="pcell ${state.powers.includes(l.id) ? "on" : ""}"><span class="pn">${state.powers.includes(l.id) ? "✓ " : ""}${l.power[0]}</span><span>${l.power[1]}</span></div>`).join("")}</div>
 
