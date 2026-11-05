@@ -156,8 +156,18 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("Enter");
   await seeWin("22-evento-ritiro-richiamo");
 
+  // Ultimo anello: chi compra inquadra il QR code GS1 del vasetto.
+  await press("Enter");
+  await expect(page.locator(".consumer h2")).toHaveText("Inquadra il vasetto");
+  const link = "https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/01/08000000001016/10/L123?15=261130";
+  await expect(page.locator(".consumer .qr-box")).toHaveAttribute("href", link);
+  await expect(page.locator(".consumer svg.qr path")).toHaveCount(1);
+  await expect(page.locator(".consumer .dl-parts .badge")).toHaveText(["www", "(01)", "(10)", "(15)"]);
+  await shot("22b-qr-code-vasetto");
+
   await press("Enter");
   await expect(page.locator(".final h1")).toHaveText("Missione compiuta");
+  await expect(page.locator(".final .final-qr .qr-box")).toHaveAttribute("href", link);
   await expect(page.locator(".pcell.on")).toHaveCount(8);
   await shot("23-finale");
   await page.locator(".benefits").scrollIntoViewIfNeeded();

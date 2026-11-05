@@ -3,7 +3,7 @@
   :root { color-scheme: light; }
   body { background: var(--gs1-white); color: var(--gs1-dark-gray); font-size: 12pt; }
   .fx-confetti, .fx-particle, .float-score { display: none !important; }
-  .topbar, .fbar, .help, .btn, .final > :not(.benefits), .screen::after { display: none !important; }
+  .topbar, .fbar, .help, .btn, .final > :not(.benefits):not(.final-qr), .screen::after { display: none !important; }
   .app { height: auto; padding: 0; background: var(--gs1-white); }
   .bezel { padding: 0; background: var(--gs1-white); box-shadow: none; }
   .bezel.crt::after, .bezel.crt .screen::after { display: none; }
@@ -11,4 +11,9 @@
   .print-only { display: block; }
   .benefits h3, .rolecard h4 { color: var(--gs1-blue); }
   .rolecard { border-color: var(--gs1-blue); break-inside: avoid; }
+}
+/* Il QR code del vasetto finisce anche sul promemoria: chi lo porta a casa può inquadrarlo. */
+@media print {
+  .final-qr { break-inside: avoid; border: 2px solid var(--gs1-blue); }
+  .final-qr .qr { width: 34mm; height: 34mm; }
 }

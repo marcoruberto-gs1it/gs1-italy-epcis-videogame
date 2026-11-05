@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import { writeTokens, TOKENS_CSS } from "./scripts/gen-tokens.js";
+import { writeConsumerPage } from "./scripts/consumer-page.js";
 
 // Rigenera src/tokens.js all'avvio e quando cambia tokens.css.
 const gs1Tokens = {
@@ -12,9 +13,16 @@ const gs1Tokens = {
   }
 };
 
+// Pagina del vasetto (QR code GS1 Digital Link): generata accanto al gioco, nel percorso /01/{GTIN}/10/{lotto}.
+const consumerPage = {
+  name: "consumer-page",
+  apply: "build",
+  closeBundle() { console.log("pagina del vasetto: " + writeConsumerPage("dist")); }
+};
+
 export default defineConfig({
   base: "./",
-  plugins: [gs1Tokens, viteSingleFile({ removeViteModuleLoader: true })],
+  plugins: [gs1Tokens, viteSingleFile({ removeViteModuleLoader: true }), consumerPage],
   build: {
     target: "es2020",
     assetsInlineLimit: 100_000_000,

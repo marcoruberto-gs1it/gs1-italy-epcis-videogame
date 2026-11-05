@@ -54,7 +54,7 @@
     "here": "Sei qui",
     "play": "Gioca la tappa {id}",
     "playFinale": "Gioca la tappa 1-8",
-    "seeEnd": "Vedi il finale",
+    "seeEnd": "Inquadra il vasetto",
     "codex": "Glossario del gioco (G)",
     "tabsAria": "Scegli la filiera",
     "progress": "{n} di {total}",
@@ -92,7 +92,7 @@
     "map": "Mappa",
     "next": "Tappa {id}",
     "nextFinale": "Ritiro e richiamo",
-    "end": "Vai al finale",
+    "end": "Ultimo anello: il vasetto",
     "glossary": "Glossario",
     "stamp": "Registrato"
   },
@@ -1449,5 +1449,106 @@
   },
   "voc": {
     "open": "{term}: definizione ufficiale nel GS1 Web Vocabulary (si apre in una nuova scheda)"
+  },
+  "consumer": {
+    "tag": "Ultimo anello · chi compra",
+    "heading": "Inquadra il vasetto",
+    "story": "Prima del ritiro, ventiquattro vasetti del lotto L123 sono già finiti nel carrello di qualcuno. Sul vasetto c'è un QR code GS1.",
+    "scan": "Inquadralo con lo smartphone: si apre la pagina del vasetto, con il richiamo in evidenza e tutta la storia che hai scritto giocando.",
+    "qrAria": "QR code del vasetto: GS1 Digital Link con prodotto, lotto L123 e data",
+    "label": "Etichetta del vasetto",
+    "product": "Yogurt bianco intero",
+    "linkTitle": "Dentro il QR code c'è un GS1 Digital Link",
+    "linkText": "È un indirizzo web che porta con sé i codici GS1. Il percorso contiene prodotto e lotto, la parte dopo il punto interrogativo contiene la data.",
+    "domain": [
+      "Dominio",
+      "Il sito di chi produce o vende. Qui è quello del gioco: lo sceglie la marca, non serve id.gs1.org."
+    ],
+    "ai15": [
+      "Da consumarsi preferibilmente entro",
+      "La data nel formato anno, mese, giorno: 261130 vuol dire 30 novembre 2026."
+    ],
+    "seeTitle": "Che cosa vede chi lo inquadra",
+    "see": [
+      "In alto, in rosso, il richiamo del lotto L123 e che cosa fare.",
+      "Il prodotto, il lotto e la data, letti dal QR code.",
+      "La storia del lotto, dalla stalla al ritiro, ricostruita dagli eventi EPCIS."
+    ],
+    "sunrise": "Entro la fine del 2027 le casse dei negozi si preparano a leggere anche i codici 2D come questo. È l'iniziativa GS1 «Sunrise 2027»: un solo codice per la cassa e per lo smartphone.",
+    "open": "Apri la pagina del vasetto",
+    "newTab": "si apre in una nuova scheda",
+    "next": "Vai al traguardo",
+    "finalTitle": "Il QR code del vasetto",
+    "finalText": "Inquadralo con lo smartphone: la storia del lotto L123 e il suo richiamo, come li vede chi compra."
+  },
+  "consumerPage": {
+    "title": "Yogurt bianco intero · lotto L123",
+    "demo": "Pagina dimostrativa del gioco Missione L123: prodotto, aziende e richiamo sono di fantasia.",
+    "recallTag": "Richiamo del prodotto",
+    "recallTitle": "Non mangiare lo yogurt di questo lotto",
+    "recallText": "Il laboratorio ha trovato un problema nel latte usato per questo lotto. Per sicurezza il lotto L123 è stato richiamato il {date}.",
+    "rows": {
+      "product": "Prodotto",
+      "lot": "Lotto",
+      "bestBefore": "Da consumarsi preferibilmente entro",
+      "reason": "Motivo",
+      "date": "Data del richiamo",
+      "gtin": "Codice prodotto (GTIN)"
+    },
+    "reason": "Problema nel latte crudo della cisterna C0471, usato per fare questo lotto",
+    "whatTitle": "Che cosa fare",
+    "what": [
+      "Non mangiare lo yogurt.",
+      "Riportalo nel negozio dove l'hai comprato: ti rimborsano anche senza scontrino.",
+      "Se l'hai già mangiato e non ti senti bene, chiama il tuo medico."
+    ],
+    "alsoL124": "Anche il lotto L124, fatto con lo stesso latte, è richiamato.",
+    "productTitle": "Il prodotto",
+    "maker": "Caseificio di fantasia del gioco Missione L123",
+    "storyTitle": "La storia di questo vasetto",
+    "storySub": "Ogni passaggio è un evento EPCIS, registrato da chi ha avuto in mano il lotto. Se hai giocato a Missione L123, li hai scritti tu.",
+    "steps": {
+      "stalla": [
+        "Alla stalla nasce il latte",
+        "Mungitura del mattino: 2.400 litri di latte crudo ricevono il codice di lotto C0471."
+      ],
+      "ricevimento": [
+        "Il latte arriva al caseificio",
+        "Il caseificio registra l'arrivo del lotto C0471 e la stalla da cui è partito."
+      ],
+      "vasca": [
+        "Il latte diventa yogurt",
+        "Nella vasca 1 latte e fermenti diventano 288 vasetti del lotto L123."
+      ],
+      "controllo": [
+        "Controllo qualità",
+        "Sulla linea 2 il lotto L123 passa il controllo di qualità."
+      ],
+      "pallet": [
+        "Cartoni e pallet",
+        "Dodici cartoni da ventiquattro vasetti salgono su un pallet, ognuno con il suo codice SSCC."
+      ],
+      "spedizione": [
+        "In viaggio verso Bologna",
+        "Il pallet parte per il Centro di Distribuzione, collegato all'ordine e all'avviso di spedizione."
+      ],
+      "freddo": [
+        "La catena del freddo",
+        "Un sensore misura la temperatura per tutto il viaggio: tra {min} e {max} °C. Sopra gli otto gradi scatta un allarme, registrato nell'evento."
+      ],
+      "cedi": [
+        "Arrivo al CeDi di Bologna",
+        "Il Centro di Distribuzione registra l'arrivo. Un errore di battitura nel lotto è stato corretto, senza cancellare nulla."
+      ],
+      "richiamo": [
+        "Ritiro e richiamo",
+        "Il lotto si ferma al CeDi, sul camion e nei supermercati di Milano e Monza. Chi l'ha già comprato riceve questo avviso."
+      ]
+    },
+    "dlTitle": "Come funziona questo QR code",
+    "gameTitle": "Hai giocato a Missione L123?",
+    "gameText": "Questa è la storia che hai costruito evento dopo evento. Nel gioco trovi anche il testo vero di ogni evento.",
+    "gameLink": "Gioca a Missione L123",
+    "footer": "Missione L123 · un gioco di GS1 Italy per capire la tracciabilità con EPCIS. Codici GS1, aziende e luoghi sono di fantasia."
   }
 }

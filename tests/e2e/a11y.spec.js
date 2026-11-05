@@ -61,3 +61,23 @@ test("finale accessibile", async ({ page }) => {
   await expect(page.locator(".final h1")).toBeVisible();
   await audit(page, "finale");
 });
+
+test("QR code del vasetto e pagina prodotto accessibili", async ({ page }) => {
+  await page.addInitScript(() => {
+    const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "finale"];
+    localStorage.setItem("missione-l123", JSON.stringify({ v: 4, state: {
+      score: 2400, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true, view: "consumer"
+    } }));
+  });
+  await page.goto(GAME + "?render=2d");
+  await expect(page.locator(".consumer .qr")).toBeVisible();
+  await audit(page, "qr code del vasetto");
+  // La pagina che si apre inquadrando il QR code: richiamo per primo, poi prodotto e storia del lotto.
+  await page.goto(pathToFileURL(resolve("dist/01/08000000001016/10/L123.html")).href + "?15=261130");
+  await expect(page.locator(".recall h1")).toHaveText("Non mangiare lo yogurt di questo lotto");
+  await expect(page.locator(".recall")).toContainText("30 novembre 2026");
+  await expect(page.locator(".story .step")).toHaveCount(9);
+  await expect(page.locator(".story .step.alert")).toContainText("recalled");
+  await page.screenshot({ path: `docs/screenshots/${test.info().project.name}/38-pagina-vasetto.png`, fullPage: true });
+  await audit(page, "pagina del vasetto");
+});

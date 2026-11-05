@@ -25,6 +25,14 @@ I codici GS1 della filiera alimentare (GTIN, GLN, SSCC, GDTI, GIAI) usano i pref
 
 Le informazioni fisse di un lotto (ILMD, Instance/Lot Master Data) usano i termini del [GS1 Web Vocabulary](https://ref.gs1.org/voc/) con il prefisso `gs1:`, già definito nel [contesto JSON-LD ufficiale di EPCIS 2.0](https://ref.gs1.org/standards/epcis/epcis-context.jsonld): `gs1:bestBeforeDate` per la scadenza dello yogurt, `gs1:productionDate` e `gs1:countryOfOrigin` (con `gs1:countryCode`) per il latte crudo. EPCIS 2.0 (sezione 7.3.8) ammette attributi ILMD definiti da altri standard.
 
+### Ultimo anello: il QR code del vasetto
+
+Dopo il ritiro e richiamo il gioco mostra **«Inquadra il vasetto»**: l'etichetta dello yogurt con un QR code GS1 vero, che contiene un **GS1 Digital Link** con GTIN, lotto e data «da consumarsi preferibilmente entro» (AI 15, la stessa data di `gs1:bestBeforeDate` nell'ILMD):
+
+`https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/01/08000000001016/10/L123?15=261130`
+
+Inquadrato con lo smartphone apre la **pagina del vasetto**, pensata per il telefono: in alto, in rosso, l'avviso di richiamo del lotto L123 (che cosa fare, motivo, data); poi il prodotto e la storia del lotto dalla stalla al richiamo, ricostruita dagli eventi EPCIS del gioco (date, luoghi, temperature del viaggio); infine il link scomposto pezzo per pezzo. La pagina è generata in fase di build da `scripts/consumer-page.js` (testi in `it.json` → `consumerPage`, colori da `tokens.css`) nel percorso `dist/01/08000000001016/10/L123.html`: GitHub Pages la serve anche senza `.html`. Lo stesso QR code compare nel finale e sul promemoria stampato. Prodotto, aziende e richiamo sono di fantasia, e la pagina lo dice.
+
 La filiera tessile è ancora nel codice ma è spenta: si riattiva aggiungendo `"textile"` in `worlds` dentro `src/config.js`.
 
 Ogni tappa mostra le sue pagine del diario nel formato EPCIS 2.0 (JSON), un superpotere e una scheda «Perché conta». Le voci del **glossario del gioco** si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
@@ -143,6 +151,7 @@ Colori, tinte derivate e regole sono in [docs/brand-tokens.md](docs/brand-tokens
 | --- | --- |
 | [Three.js](https://threejs.org) 0.186.1 | MIT |
 | [Montserrat](https://github.com/JulietaUla/Montserrat) e [Spline Sans Mono](https://github.com/SorkinType/SplineSansMono), via Fontsource | SIL Open Font License 1.1 |
+| [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) 1.4.4 | MIT |
 | [GSAP](https://gsap.com) 3.15.0 | Standard "no charge" license di GSAP (Webflow): uso gratuito anche commerciale, plugin inclusi. Non è una licenza open source: vieta, tra l'altro, l'uso in strumenti che fanno concorrenza a Webflow. Testo: https://gsap.com/standard-license |
 | Logo GS1 Italy (`assets/gs1-italy-logo.png`) | Marchio di GS1 Italy, preso dal sito ufficiale gs1it.org, usato senza modifiche |
 | Schema EPCIS 2.0 (`schemas/`) | © GS1 AISBL, solo per i test |

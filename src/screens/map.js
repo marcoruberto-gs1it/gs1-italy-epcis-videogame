@@ -82,7 +82,7 @@ register("map", () => {
   });
   $$(".stop").forEach(b => b.onclick = () => { sfx.sel(); go("intro", b.dataset.lv); });
   $$(".pin").forEach(p => p.onclick = () => $(`.stop[data-lv="${p.dataset.pin}"]`).click());
-  $$(".play").forEach(b => b.onclick = () => (b.dataset.go === "end" ? go("final") : go("intro", b.dataset.go)));
+  $$(".play").forEach(b => b.onclick = () => (b.dataset.go === "end" ? go("consumer") : go("intro", b.dataset.go)));
   $("#codex").onclick = () => go("codex");
   open(tab);
 });

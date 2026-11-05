@@ -22,6 +22,7 @@ import "./screens/title.js";
 import "./screens/map.js";
 import "./screens/level.js";
 import "./screens/win.js";
+import "./screens/consumer.js";
 import "./screens/final.js";
 import "./screens/codex.js";
 
@@ -36,6 +37,6 @@ setArchiveHandler(force => toggleArchive(force));
 setResetHandler(() => { toggleArchive(false); resetState(); resetMapView(); go("title"); });
 
 // Alla ripresa di una partita salvata si riparte dalla mappa (o dal finale, se era lì).
-if (state.view === "final") go("final");
+if (state.view === "final" || state.view === "consumer") go(state.view);
 else if (["map", "intro", "level", "win", "codex"].includes(state.view)) go("map");
 else go("title");
