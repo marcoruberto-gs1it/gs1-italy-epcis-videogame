@@ -150,7 +150,8 @@
       "meta": {
         "t": "Dal latte allo yogurt",
         "c": "TransformationEvent",
-        "place": "Caseificio · vasca 1"
+        "place": "Caseificio · vasca 1",
+        "short": "Vasca"
       },
       "intro": "Ciao, sono Bip! Ti guido nel diario del lotto L123. Ogni cosa che succede al prodotto diventa una pagina: un evento EPCIS (Electronic Product Code Information Services). Si comincia dal latte.",
       "story": "Nella vasca 1 nasce il lotto L123. Metti nella vasca solo quello che entra nello yogurt.",
@@ -230,7 +231,8 @@
       "meta": {
         "t": "Nasce il vasetto",
         "c": "Le dimensioni di un evento",
-        "place": "Caseificio · linea 2"
+        "place": "Caseificio · linea 2",
+        "short": "Controllo qualità"
       },
       "intro": "Il lotto L123 è nato nella vasca. Adesso passa il controllo qualità sulla linea 2. Scriviamo la sua carta d'identità.",
       "story": "Ogni evento EPCIS risponde a quattro domande. COSA: quale prodotto. QUANDO: data, ora e fuso orario. DOVE: il luogo, indicato con un GLN. PERCHÉ: la fase del processo. Il lotto L123 è al controllo qualità sulla linea 2: scegli una risposta per ogni riga.",
@@ -308,7 +310,8 @@
       "meta": {
         "t": "Vista ai raggi X",
         "c": "AggregationEvent",
-        "place": "Caseificio · fine linea"
+        "place": "Caseificio · fine linea",
+        "short": "Pallet"
       },
       "intro": "288 vasetti, 12 cartoni, un pallet. Al CeDi (Centro di Distribuzione) nessuno avrà voglia di aprirlo.",
       "story": "Ogni cartone contiene 24 vasetti. Impila i 12 cartoni sul pallet.",
@@ -368,7 +371,8 @@
       "meta": {
         "t": "Le parole non si inventano",
         "c": "Vocabolario comune (CBV)",
-        "place": "Caseificio · baia 3"
+        "place": "Caseificio · baia 3",
+        "short": "Spedizione"
       },
       "intro": "Il pallet parte per il CeDi di Bologna. Il sistema del CeDi deve capire cosa sta succedendo, senza telefonate.",
       "bubble": "Ciao, sono il CeDi di Bologna. Cosa mi state mandando?",
@@ -425,7 +429,8 @@
       "meta": {
         "t": "Catena del freddo",
         "c": "AssociationEvent · sensori",
-        "place": "In viaggio verso Bologna"
+        "place": "In viaggio verso Bologna",
+        "short": "Viaggio"
       },
       "intro": "Due ore di autostrada. Prima di partire, sul pallet viene montato un sensore di temperatura. Va collegato all'oggetto giusto.",
       "story": "Il sensore registra la temperatura per tutto il viaggio. Lo yogurt deve restare sotto gli 8 °C.",
@@ -503,7 +508,8 @@
       "meta": {
         "t": "Ops, errore!",
         "c": "Dichiarazione di errore",
-        "place": "CeDi di Bologna"
+        "place": "CeDi di Bologna",
+        "short": "CeDi"
       },
       "intro": "Il pallet arriva al CeDi. Una persona del magazzino, stanca, registra il ricevimento...",
       "req": "ricevimento · lotto <span class=\"bad\">L132</span> · 288 pezzi",
@@ -561,7 +567,8 @@
       "meta": {
         "t": "Dal filo al capo",
         "c": "TransformationEvent a più passaggi",
-        "place": "Filiera tessile"
+        "place": "Filiera tessile",
+        "short": "Filatura e confezione"
       },
       "intro": "Cambio di mondo: stesso standard, altro settore. Una t-shirt nasce da un tessuto, il tessuto da un filo, il filo da una fibra.",
       "story": "Cinque passaggi reali tra fibra e t-shirt. Solo alcuni creano un prodotto nuovo: sono loro a costruire la genealogia.",
@@ -632,7 +639,8 @@
       "meta": {
         "t": "Inventario lampo",
         "c": "EPC + RAIN RFID",
-        "place": "Negozio di Milano"
+        "place": "Negozio di Milano",
+        "short": "Negozio di Milano"
       },
       "intro": "Le 24 t-shirt sono arrivate in negozio a Milano. Ore 8:55: tra cinque minuti si apre.",
       "story": "Ogni t-shirt ha un cartellino con barcode e tag RAIN RFID (Radio Frequency Identification). Dentro c'è la stessa identità: l'EPC (Electronic Product Code) del capo.",
@@ -694,7 +702,8 @@
       "meta": {
         "t": "Il reso sospetto",
         "c": "Storia del capo · pedigree",
-        "place": "Negozio di Roma"
+        "place": "Negozio di Roma",
+        "short": "Negozio di Roma"
       },
       "intro": "Due persone riportano lo stesso modello di giubbotto. Nessuna delle due ha lo scontrino.",
       "story": "Negozio di Roma. Due giubbotti identici tornano indietro senza scontrino. Interroga il repository EPCIS, l'archivio degli eventi, e leggi la storia di ciascun numero di serie.",
@@ -780,7 +789,8 @@
       "meta": {
         "t": "Il grande richiamo",
         "c": "Query EPCIS e richiamo",
-        "place": "Tutta la filiera"
+        "place": "Tutta la filiera",
+        "short": "Richiamo"
       },
       "intro": "Allerta! Il laboratorio segnala un problema sul latte della cisterna C0471. Dove sono finiti i vasetti fatti con quel latte?",
       "story": "Il latte della cisterna C0471 ha un problema. Bisogna bloccare tutti i vasetti fatti con quel latte, ovunque siano. Prima prova come si faceva senza EPCIS.",
@@ -1215,5 +1225,13 @@
     "renderer": "Grafica attiva: {m}",
     "mode3d": "3D, qualità {q}",
     "mode2d": "2D"
+  },
+  "nav": {
+    "aria": "Navigazione",
+    "home": "Home",
+    "map": "Mappa",
+    "prev": "Tappa precedente",
+    "next": "Tappa successiva",
+    "chainAria": "Tappe della {w}"
   }
 }

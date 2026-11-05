@@ -10,7 +10,7 @@ export default defineLevel({
     show(levelShell(this,
       `<div class="bubble" id="bub">${C.bubble}</div>${img("person", 64)}${img("truck", 150)}<span class="cap">${C.cap}</span>`,
       `<p class="story">${C.story}</p>
-       ${question(C.q, C.qCtx)}
+       ${question(C.q, C.qCtx, "q")}
        <div class="opts" id="opts"></div><div class="row" id="after"></div>`));
     const confuse = () => { const b = $("#bub"); b.className = "bubble bad"; b.textContent = C.bubbleBad; hook("confused"); };
     const box = $("#opts");

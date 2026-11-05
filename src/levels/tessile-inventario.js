@@ -42,7 +42,7 @@ export default defineLevel({
         }, reduced() ? 0 : 40 * i));
         function after() {
           setMsg(C.result.replace("{n}", barRead).replace("{s}", barSec), true);
-          $("#qa").innerHTML = `${question(C.q3, C.q3Ctx)}<div class="opts" id="opts"></div><div class="row" id="after"></div>`;
+          $("#qa").innerHTML = `${question(C.q3, C.q3Ctx, "q3")}<div class="opts" id="opts"></div><div class="row" id="after"></div>`;
           ask($("#opts"), C.opts, () => {
             $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;
             $("#reg").onclick = () => win();

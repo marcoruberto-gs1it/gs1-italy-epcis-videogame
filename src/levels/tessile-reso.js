@@ -13,7 +13,7 @@ export default defineLevel({
          <div class="jk">${img("jacket", 64)}<span class="sn">${C.jacketB}</span><button class="btn alt" data-key="9" id="qb1">${C.query} (9)</button><div class="tl" id="tlB"></div></div>
        </div><span class="cap">${C.cap}</span>`,
       `<p class="story">${C.story}</p>
-       ${question(C.q, C.qCtx)}
+       ${question(C.q, C.qCtx, "q")}
        <div class="opts" id="opts"></div><div class="row" id="after"></div>`));
     const showA = () => {
       if ($("#tlA").children.length) return;

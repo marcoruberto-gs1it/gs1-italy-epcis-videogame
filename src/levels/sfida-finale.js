@@ -48,7 +48,7 @@ export default defineLevel({
       setMsg("");
       $("#ctl").innerHTML = ""; $("#feed").innerHTML = ""; $("#clock").textContent = "0,0 s"; $("#clock").classList.add("fast"); $("#fcap").textContent = C.round2;
       $("#minimap").classList.add("dark"); hook("dark");
-      $("#phase2").innerHTML = `${question(C.q1, C.q1Ctx)}<div class="opts" id="opts1"></div><div class="stack" id="out1"></div>`;
+      $("#phase2").innerHTML = `${question(C.q1, C.q1Ctx, "q1")}<div class="opts" id="opts1"></div><div class="stack" id="out1"></div>`;
       ask($("#opts1"), C.opts1, () => {
         $("#out1").innerHTML = `<div class="req">GET /events?MATCH_inputEPCClass=${MILK}</div>`;
         tick(6, () => {
@@ -56,7 +56,7 @@ export default defineLevel({
           $("#feed").innerHTML = `<div class="good">${C.found}</div>`;
           const origin = $('[data-pt="caseificio"]');
           origin.classList.add("notice"); fx.pulse(origin, 1.8); hook("found");
-          $("#phase2").insertAdjacentHTML("beforeend", `${question(C.q2, C.q2Ctx)}<div class="opts" id="opts2"></div><div class="stack" id="out2"></div>`);
+          $("#phase2").insertAdjacentHTML("beforeend", `${question(C.q2, C.q2Ctx, "q2")}<div class="opts" id="opts2"></div><div class="stack" id="out2"></div>`);
           ask($("#opts2"), C.opts2, run);
         });
       });

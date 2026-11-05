@@ -35,6 +35,9 @@ function flag(api, root, x, y, z, token = "gs1-forest") {
   return m;
 }
 
+/** Zoom sul punto che interessa la domanda: ogni scena indica dove guardare per ciascuna domanda. */
+const focusOn = (api, spots) => key => { const f = spots[key]; if (f) api.camTo({ duration: 1.1, ...f }); };
+
 const bobber = objs => (dt, time) => { objs.forEach((o, i) => { o.position.y = o.userData.baseY + Math.abs(Math.sin(time * 3 + i)) * 0.12; }); return true; };
 
 /** Fondale comune: lastra chiara su un prato, con qualche albero ai margini. */
@@ -75,6 +78,7 @@ const LEVELS = {
           api.tween(o.scale, { x: 0.001, y: 0.001, z: 0.001, duration: 0.3, delay: 0.55, onComplete: () => { o.visible = false; } });
         },
         reject(id) { const o = items[id]; api.tween(o.rotation, { z: 0.3, duration: 0.08, yoyo: true, repeat: 5 }); },
+        focus: focusOn(api, { q: { x: 0.6, y: 0.7, z: 0.5, size: 5.6 } }),
         born() {
           swarm(api, root, new Vector3(0.6, 1.8, -0.4), new Vector3(0.6, 0.4, 1.6), "gs1-white", 14);
           popIn(api, born, 1.5, 0.6);
@@ -144,6 +148,7 @@ const LEVELS = {
             onUpdate: () => { o.position.set(x, drop.y, z); o.scale.set(0.94, 0.6, 0.94); o.updateMatrix(); cartons.setMatrixAt(i, o.matrix); cartons.instanceMatrix.needsUpdate = true; }
           });
         },
+        focus: focusOn(api, { q: { x: 0, y: 0.9, z: 0, size: 5.4 } }),
         xray() {
           jars.visible = true; scan.visible = true;
           scan.position.set(0, 2, 0);
@@ -164,6 +169,7 @@ const LEVELS = {
     return {
       root: P.mergeStatic(root), view: { size: 9.8, target: new Vector3(0, 0.6, 0) },
       hooks: {
+        focus: focusOn(api, { q: { x: -2.4, y: 0.8, z: 0.8, size: 5.4 } }),
         confused() { api.tween(truck.position, { z: 1.45, duration: 0.06, yoyo: true, repeat: 5 }); },
         depart() {
           truck.userData.wheels.forEach(w => api.tween(w.rotation, { y: -Math.PI * 6, duration: 1.6, ease: "none" }));
@@ -196,7 +202,9 @@ const LEVELS = {
         return true;
       },
       hooks: {
+        focus: focusOn(api, { q1: { x: -2.6, y: 0.9, z: -0.7, size: 4.8 }, q2: { x: 0, y: 0.9, z: 0.5, size: 5.2 } }),
         link() {
+          api.camTo({ x: 0, y: 0.6, z: 0, size: 8.6 });
           api.tween(sens.position, { y: 0.3, duration: 0.4, ease: "bounce.out" });
           api.tween(pal.position, { x: -0.6, y: 0.4, z: 0.6, duration: 0.6, delay: 0.5 });
           api.tween(sens.position, { x: -0.6, y: 0.7, z: 0.6, duration: 0.6, delay: 0.5 });
@@ -216,7 +224,7 @@ const LEVELS = {
     root.add(pal);
     return {
       root: P.mergeStatic(root), view: { size: 8.6, target: new Vector3(0, 0.6, 0) },
-      hooks: { fixed() { flag(api, root, 0, 1.8, 1.4); } }
+      hooks: { focus: focusOn(api, { q: { x: 0, y: 0.6, z: 1.2, size: 5.2 } }), fixed() { flag(api, root, 0, 1.8, 1.4); } }
     };
   },
 
@@ -259,6 +267,7 @@ const LEVELS = {
     return {
       root: P.mergeStatic(root), view: { size: 8.6, target: new Vector3(0, 1, 0) }, clickables: [shirts],
       hooks: {
+        focus: focusOn(api, { q3: { x: 0, y: 1.3, z: -0.9, size: 6.2 } }),
         read(i) { paint(i, lit); },
         reset() { spots.forEach((_, i) => shirts.setColorAt(i, teal)); shirts.instanceColor.needsUpdate = true; api.invalidate(); },
         rfid() {
@@ -284,8 +293,9 @@ const LEVELS = {
     return {
       root: P.mergeStatic(root), view: { size: 9.8, target: new Vector3(0, 0.6, 0) },
       hooks: {
-        historyA() { path.forEach(([x, z], i) => { const m = dyn(hide(at(P.marker("gs1-forest"), x, 0.2, z))); root.add(m); popIn(api, m, 0.8, i * 0.15); }); },
-        historyB() { const m = dyn(at(P.marker("gs1-dark-gray"), -2.2, 2.8, 1.2)); root.add(m); api.tween(m.position, { y: 1.0, duration: 0.6, ease: "bounce.out" }); }
+        focus: focusOn(api, { q: { x: -3, y: 1, z: 1, size: 5.4 } }),
+        historyA() { api.camTo({ x: 2.2, y: 0.6, z: 0.4, size: 6.4 }); path.forEach(([x, z], i) => { const m = dyn(hide(at(P.marker("gs1-forest"), x, 0.2, z))); root.add(m); popIn(api, m, 0.8, i * 0.15); }); },
+        historyB() { api.camTo({ x: -2.6, y: 1, z: 1, size: 5.4 }); const m = dyn(at(P.marker("gs1-dark-gray"), -2.2, 2.8, 1.2)); root.add(m); api.tween(m.position, { y: 1.0, duration: 0.6, ease: "bounce.out" }); }
       }
     };
   },
@@ -308,6 +318,7 @@ const LEVELS = {
     return {
       root: P.mergeStatic(root), view: { size: 12.1, target: new Vector3(0, 0.5, 0) },
       hooks: {
+        focus: focusOn(api, { q1: { x: -4.6, y: 0.8, z: -1.4, size: 6.2 }, q2: { x: 0, y: 0.5, z: 0, size: 11.5 } }),
         dark() { api.tween(api.stage.scene.children[0], { intensity: Math.PI * 0.35, duration: 0.8 }); },
         found() { const p = places.caseificio.position; marks.caseificio = flag(api, root, p.x, 2.8, p.z, "gs1-white"); api.camTo({ x: -3, size: 9 }); },
         results(lit, notice) {

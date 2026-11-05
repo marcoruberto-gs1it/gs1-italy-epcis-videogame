@@ -33,7 +33,7 @@ export default defineLevel({
 
     function ready() {
       $("#ctl").innerHTML = "";
-      $("#qa").innerHTML = `${question(C.q, C.qCtx)}<div class="opts" id="opts"></div>`;
+      $("#qa").innerHTML = `${question(C.q, C.qCtx, "q")}<div class="opts" id="opts"></div>`;
       ask($("#opts"), C.opts, () => {
         $("#after").innerHTML = `<button class="btn" data-primary id="scan">${C.scan}</button>`;
         $("#scan").onclick = () => {

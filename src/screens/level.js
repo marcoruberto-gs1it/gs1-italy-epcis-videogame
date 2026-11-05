@@ -11,6 +11,7 @@ import { levelShell, ask, fail, teamPoint } from "../ui/kit.js";
 import { toggleHint } from "../engine/modes.js";
 import { $, $$, show, setMsg } from "../ui/dom.js";
 import { mountScene, hook } from "../render/scene-host.js";
+import { chainBar, wireChain } from "../ui/chain.js";
 import { levelScene } from "../render/three/scenes.js";
 
 // Gli oggetti 3D cliccabili hanno sempre un equivalente HTML: il clic sul 3D attiva il pulsante HTML.
@@ -22,7 +23,7 @@ register("intro", id => {
   state.level = id;
   const finale = id === "finale";
   // La scena della tappa fa da sfondo (in 3D); sopra, il riquadro con il titolo e Bip.
-  show(`<div class="intro-layout">
+  show(`${chainBar(level)}<div class="intro-layout">
     <div class="scene-box intro-scene" id="introScene"><div class="fallback" id="hero">${img(level.meta.sp, finale ? 96 : 120)}</div></div>
     <div class="title intro-card"><div class="inner">
       <span class="tag">${finale ? t("intro.tagFinale") : t("intro.tag", { w: t(`map.${level.world}.heading`), ...worldStep(level) })}</span>
@@ -38,6 +39,7 @@ register("intro", id => {
   if (level.meta.sp === "jar") fx.eyes($("#hero img"), sprite("jar"), sprite("jarBlink"));
   fx.eyes($(".narrator .bip"), sprite("bip"), sprite("bipBlink"));
   fx.introSequence($(".intro-card .inner"));
+  wireChain();
   $("#go").onclick = () => go("level", id);
 });
 
@@ -48,7 +50,8 @@ register("level", id => {
   level.mount({
     C: { register: t("level.register"), ...level.C },
     show(html) {
-      show(html);
+      show(chainBar(level) + html);
+      wireChain();
       $$("[data-bob]").forEach(fx.bob);
       $$("[data-blink]").forEach(fx.blink);
       $$("img[data-sprite=jar]").forEach(el => fx.eyes(el, sprite("jar"), sprite("jarBlink")));

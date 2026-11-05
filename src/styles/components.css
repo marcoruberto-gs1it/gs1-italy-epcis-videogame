@@ -244,3 +244,33 @@ pre.json .n { color: var(--gs1-orange-300); }
 .intro-card .inner { background: var(--surface); border-radius: var(--radius); box-shadow: 0 10px 30px color-mix(in srgb, var(--gs1-blue) 18%, transparent); padding: 26px 32px; }
 .intro-card .speech { line-height: 1.6; }
 .intro-scene:not(.r3d) + .intro-card .inner { background: transparent; box-shadow: none; }
+
+/* Barra «La filiera»: tutte le tappe in vista, la tappa corrente ingrandita */
+.fbar { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: 8px 10px; background: var(--surface); border-radius: var(--radius); padding: 8px 12px; margin-bottom: 12px; box-shadow: 0 2px 0 var(--shadow); }
+.cn-title { font-size: .85em; font-weight: 700; color: var(--gs1-blue); white-space: nowrap; padding-right: 4px; }
+.cn-list { list-style: none; margin: 0; padding: 8px 14px; display: flex; align-items: center; overflow-x: auto; scrollbar-width: thin; }
+.cn-list li { flex: 1 0 auto; display: flex; align-items: center; }
+.cn-list li + li::before { content: ""; flex: 1 0 18px; height: 3px; background: var(--gs1-blue-200); margin: 0 4px; border-radius: 2px; }
+.cn-stop { display: inline-flex; align-items: center; gap: 8px; border: 2px solid transparent; background: transparent; color: var(--ink); border-radius: 999px; padding: 4px 12px 4px 4px; min-height: 44px; white-space: nowrap; transition: transform .2s; }
+.cn-stop:hover { border-color: var(--gs1-blue-200); }
+.cn-stop .num { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--gs1-blue-100); color: var(--gs1-blue); font-weight: 700; font-size: .85em; }
+.cn-stop .pl { font-size: .85em; }
+.cn-stop.done .num { background: var(--gs1-forest-700); color: var(--gs1-white); }
+.cn-stop.here { transform: scale(1.12); border-color: var(--gs1-orange); background: var(--gs1-orange-100); color: var(--gs1-blue-950); font-weight: 700; margin: 0 8px; }
+.cn-stop.here .num { background: var(--gs1-orange); color: var(--gs1-blue-950); }
+.cn-arrow { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gs1-blue-200); background: var(--surface); color: var(--gs1-blue); font-size: 1.5em; line-height: 1; padding: 0 0 4px; }
+.cn-arrow:hover { border-color: var(--gs1-blue); }
+.cn-arrow.off { visibility: hidden; }
+@media (max-width: 640px) {
+  .fbar { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .cn-title { grid-column: 1 / -1; }
+  .cn-stop:not(.here) .pl { display: none; }
+  .cn-stop:not(.here) { padding-right: 4px; }
+}
+.fbar + .intro-layout { min-height: calc(100% - 80px); }
+
+/* Navigazione nella barra in alto */
+.mainnav { display: flex; gap: 8px; }
+.topbar .tools { flex-wrap: wrap; }
+.tool { white-space: nowrap; }
+.tool.nav { font-weight: 700; }

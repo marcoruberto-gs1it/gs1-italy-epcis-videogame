@@ -36,7 +36,7 @@ export default defineLevel({
       hook("born");
       fx.popIn($("#born"), 0.2);
       fx.burst($("#born"), ["var(--gs1-white)", "var(--gs1-forest-300)", "var(--gs1-blue-200)"], 18);
-      $("#qa").innerHTML = `${question(C.q, C.qCtx)}<div class="opts" id="opts"></div>`;
+      $("#qa").innerHTML = `${question(C.q, C.qCtx, "q")}<div class="opts" id="opts"></div>`;
       ask($("#opts"), C.opts, () => {
         $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;
         $("#reg").onclick = () => win();

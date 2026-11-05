@@ -5,6 +5,7 @@ import { LEVELS } from "../levels/index.js";
 import { $ } from "./dom.js";
 import { render, onRender } from "../render/scene-host.js";
 import { teamsOn, onModes } from "../engine/modes.js";
+import { go } from "../engine/router.js";
 
 // Il logo si aggiunge in assets/gs1-italy-logo.png: se manca, compare un segnaposto.
 const logoFiles = import.meta.glob("/assets/gs1-italy-logo.png", { eager: true, query: "?url", import: "default" });
@@ -32,11 +33,15 @@ export function renderHud() {
       ${teamsHtml()}
     </div>
     <div class="tools">
+      ${state.view && state.view !== "title" ? `<nav class="mainnav" aria-label="${t("nav.aria")}"><button class="tool nav" id="navHome">${t("nav.home")}</button>${state.view !== "map" ? `<button class="tool nav" id="navMap">${t("nav.map")}</button>` : ""}</nav>` : ""}
       <button class="tool" id="mute" aria-label="${t("hud.audioAria")}">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</button>
       <button class="tool" id="helpBtn">${t("hud.help")}</button>
     </div>`;
   $("#mute").onclick = toggleMute;
   $("#helpBtn").onclick = () => onHelp();
+  const home = $("#navHome"), map = $("#navMap");
+  if (home) home.onclick = () => go("title");
+  if (map) map.onclick = () => go("map");
 }
 
 function teamsHtml() {

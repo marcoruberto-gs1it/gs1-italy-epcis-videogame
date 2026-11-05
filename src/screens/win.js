@@ -8,6 +8,7 @@ import { byId, nextOf, codexOf } from "../levels/index.js";
 import { toDocument } from "../gs1/epcis.js";
 import { levelCode } from "../ui/kit.js";
 import { $, show, jsonLines } from "../ui/dom.js";
+import { chainBar, wireChain } from "../ui/chain.js";
 
 export function whyCard(why) {
   const who = why.who.map(r => `<span class="role">${t("roles." + r)}</span>`).join("");
@@ -36,7 +37,7 @@ register("win", id => {
   const nextLabel = !next ? t("win.end") : next.id === "finale" ? t("win.nextFinale") : t("win.next", { id: next.id });
   const cards = codexOf(level).map(c => c.t).join(", ");
   const many = level.events.length > 1;
-  show(`<div class="lv-head"><span class="code">${levelCode(level)}</span><h2 class="ok-title">${t("win.heading")}</h2></div>
+  show(`${chainBar(level)}<div class="lv-head"><span class="code">${levelCode(level)}</span><h2 class="ok-title">${t("win.heading")}</h2></div>
     <div class="win">
       <div class="stack">
         <div class="row between"><h3>${many ? t("win.diaryMany") : t("win.diary")}</h3><button class="btn alt small" id="doc">${t("win.showDoc")}</button></div>
@@ -78,6 +79,7 @@ register("win", id => {
   burst($(".power .pn"));
   if (gained) floatScore($(".ok-title"), "+" + gained);
   pulse(document.querySelectorAll(".hud .pw span")[state.powers.indexOf(id)], 2);
+  wireChain();
   $("#toMap").onclick = () => go("map");
   $("#next").onclick = () => (next ? go("intro", next.id) : go("final"));
 });

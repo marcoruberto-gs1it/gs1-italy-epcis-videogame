@@ -10,7 +10,7 @@ export default defineLevel({
     show(levelShell(this,
       `${img("cedi", 150)}<div class="req">${C.req}</div><span class="cap">${C.cap}</span>`,
       `<p class="story">${C.story}</p>
-       ${question(C.q, C.qCtx)}
+       ${question(C.q, C.qCtx, "q")}
        <div class="opts" id="opts"></div><div class="row" id="after"></div>`));
     ask($("#opts"), C.opts, () => {
       hook("fixed");

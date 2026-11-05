@@ -7,6 +7,7 @@ import { award, clearTurn, isSala, ui, onModes } from "../engine/modes.js";
 import { backdrop } from "../render/two/scenes.js";
 import { t } from "../content/index.js";
 import { $, $$, screenEl, setMsg } from "./dom.js";
+import { hook } from "../render/scene-host.js";
 
 export const levelCode = level => (level.id === "finale" ? t("level.codeFinale") : t("level.code", { id: level.id }));
 
@@ -77,7 +78,9 @@ export function ask(container, opts, onOk) {
 }
 
 /** Domanda con il suo contesto: prima la situazione e i termini che servono, poi la domanda. */
-export function question(q, ctx) {
+export function question(q, ctx, focus = "q") {
+  // Quando la domanda è sullo schermo, la scena 3D si avvicina al punto che interessa.
+  queueMicrotask(() => hook("focus", focus));
   const box = ctx ? `<div class="ctx"><span class="lbl">${t("level.context")}</span><p>${ctx}</p></div>` : "";
   return `<div class="qblock">${box}<p class="q">${q}</p></div>`;
 }
