@@ -1175,6 +1175,7 @@
   "help": {
     "title": "Comandi",
     "close": "Premi ? o Esc per chiudere",
+    "closeBtn": "Chiudi",
     "rows": [
       [
         "1-9",

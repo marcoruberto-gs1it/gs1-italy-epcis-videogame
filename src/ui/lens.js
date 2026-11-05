@@ -2,6 +2,7 @@
 import { t } from "../content/index.js";
 import { parseDigitalLink } from "../gs1/digitallink.js";
 import { $, esc } from "./dom.js";
+import { icon } from "./icons.js";
 
 let opener = null;
 export const isLensOpen = () => !!$("#lens");
@@ -32,6 +33,7 @@ export function openLens(uri, from) {
   el.id = "lens"; el.className = "help lens";
   el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "lensTitle");
   el.innerHTML = `<div class="box" tabindex="-1">
+    <button class="mclose" id="lensClose">${icon("close")}<span>${t("dl.close")}</span></button>
     <span class="tag">${t("dl.tag")}</span>
     <h2 id="lensTitle">${t("dl.heading")}</h2>
     <p class="dl-url" tabindex="0" role="group" aria-label="${esc(uri)}">${urlHtml(dl)}</p>
@@ -41,7 +43,6 @@ export function openLens(uri, from) {
       ${dl.parts.map(partHtml).join("")}
     </ol>
     <p class="note">${t("dl.qr")}</p>
-    <div class="row"><button class="btn alt small" id="lensClose">${t("dl.close")}</button></div>
   </div>`;
   el.addEventListener("click", e => { if (e.target === el) closeLens(); });
   document.body.appendChild(el);

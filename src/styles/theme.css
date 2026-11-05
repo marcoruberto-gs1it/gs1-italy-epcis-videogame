@@ -305,3 +305,16 @@ pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); out
   .dl-parts li { grid-template-columns: 1fr; gap: 6px; }
   .dl-parts .badge { justify-self: start; }
 }
+
+/* Chiusura delle finestre sovrapposte: sempre in alto a destra */
+.help .box { position: relative; }
+.help .box > h2, .lens .box > .tag { padding-right: 120px; }
+.mclose { position: absolute; top: 14px; right: 14px; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 12px 6px 10px; border: 0; border-radius: 12px; background: var(--ui-mist); color: var(--gs1-blue); font: inherit; font-size: .85em; font-weight: 700; cursor: pointer; }
+.mclose svg { width: 18px; height: 18px; }
+.mclose:hover { background: var(--ui-sky); }
+.mclose:focus-visible { outline: 3px solid var(--gs1-orange); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .help .box > h2, .lens .box > .tag { padding-right: 52px; }
+  .mclose span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .mclose { padding: 0; width: 40px; justify-content: center; }
+}

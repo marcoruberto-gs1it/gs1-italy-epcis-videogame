@@ -47,6 +47,10 @@ test("il tasto ? mostra i comandi e Esc li chiude senza cambiare schermata", asy
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/33-comandi.png" });
   await page.keyboard.press("Escape");
   await expect(page.locator(".help")).toHaveCount(0);
+  // Anche il pulsante «Chiudi» in alto a destra chiude i comandi.
+  await page.keyboard.press("?");
+  await page.locator("#helpClose").click();
+  await expect(page.locator(".help")).toHaveCount(0);
   await expect(page.locator(".map")).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -101,7 +105,12 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   const lineH = await url.evaluate(e => parseFloat(getComputedStyle(e).lineHeight));
   expect(box.height).toBeLessThan(lineH * 2);
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/34-lente-digital-link.png" });
-  await page.keyboard.press("Escape");
+  // Si chiude con «Chiudi» in alto a destra (o con Esc).
+  const close = lens.locator("#lensClose");
+  const cb = await close.boundingBox(), lb = await lens.locator(".box").boundingBox();
+  expect(cb.y - lb.y).toBeLessThan(40);
+  expect(lb.x + lb.width - (cb.x + cb.width)).toBeLessThan(40);
+  await close.click();
   await expect(lens).toHaveCount(0);
   await expect(arch).toBeVisible();
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/35-archivio-eventi.png" });
