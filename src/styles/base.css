@@ -12,7 +12,7 @@
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
-body { background: var(--page); color: var(--ink); font-family: var(--font-body); font-size: clamp(16px, 1.05vw, 21px); line-height: 1.45; }
+body { background: var(--page); color: var(--ink); font-family: var(--font-body); font-size: clamp(17px, 1.05vw, 21px); line-height: 1.55; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 button { font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 3px solid var(--gs1-teal); outline-offset: 3px; }
 h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
@@ -44,7 +44,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; margin: 0; 
 h1 { font-size: clamp(26px, 2.6vw, 44px); }
 h2 { font-size: clamp(20px, 1.7vw, 30px); }
 h3 { font-size: clamp(16px, 1.15vw, 21px); }
-p { margin: 0; max-width: 68ch; }
+p { margin: 0; max-width: 68ch; text-wrap: pretty; }
 code { font-family: Consolas, "Courier New", monospace; color: var(--gs1-blue); background: var(--gs1-blue-100); padding: 0 5px; border-radius: 4px; font-size: .9em; }
 .sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 

@@ -45,7 +45,7 @@ export function toggleHelp(force) {
     el.setAttribute("aria-label", t("help.title"));
     document.body.appendChild(el);
   }
-  el.innerHTML = `<div class="box"><h2>${t("help.title")}</h2>
+  el.innerHTML = `<div class="box" tabindex="0"><h2>${t("help.title")}</h2>
     <table><tbody>${t("help.rows").map(([k, d]) => `<tr><th scope="row"><kbd>${k}</kbd></th><td>${d}</td></tr>`).join("")}</tbody></table>
     <p class="mode-line">${t("help.renderer", { m: rendererLabel() })}</p>
     <p class="close">${t("help.close")}</p></div>`;
