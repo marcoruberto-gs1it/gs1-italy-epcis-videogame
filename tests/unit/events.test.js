@@ -22,6 +22,15 @@ describe("schema EPCIS 2.0", () => {
     expect(ok, JSON.stringify(validate.errors, null, 1)).toBe(true);
   });
 
+  // Il pulsante «Copia» dell'archivio copia sempre un documento: un oggetto JSON, mai una lista di eventi
+  // (OpenEPCIS rifiuta una lista alla radice). Vale anche per «Tutta la filiera», con tutti gli eventi insieme.
+  it("tutta la filiera in un solo EPCISDocument: oggetto JSON valido", () => {
+    const doc = toDocument(files.flatMap(load));
+    expect(Array.isArray(doc)).toBe(false);
+    expect(typeof doc).toBe("object");
+    expect(validate(doc), JSON.stringify(validate.errors, null, 1)).toBe(true);
+  });
+
   it.each(files)("%s: chiavi GS1 con cifra di controllo corretta", f => {
     for (const { ai, key } of digitalLinkKeys(readFileSync("src/data/events/" + f, "utf8"))) expect(isValidKey(key), `AI ${ai} ${key}`).toBe(true);
   });

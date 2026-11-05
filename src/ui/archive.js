@@ -74,7 +74,9 @@ function select(id, focus) {
   $("#archDoc").onclick = () => { docMode = !docMode; select(current.id); $("#archDoc").focus(); };
   $("#archCopy").onclick = async () => {
     const out = $("#archCopied");
-    const text = JSON.stringify(docMode ? toDocument(current.events) : current.events, null, 2);
+    // Si copia sempre un EPCISDocument completo (un oggetto, non una lista di eventi):
+    // è il formato che strumenti come OpenEPCIS si aspettano.
+    const text = JSON.stringify(toDocument(current.events), null, 2);
     try { await navigator.clipboard.writeText(text); out.textContent = t("archive.copied"); }
     catch { out.textContent = t("archive.copyFail"); }
   };
