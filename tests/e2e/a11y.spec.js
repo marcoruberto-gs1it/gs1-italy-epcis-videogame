@@ -52,7 +52,7 @@ for (const render of ["3d", "2d"]) {
 test("finale accessibile", async ({ page }) => {
   // Partita già completata: il gioco riparte dal finale.
   await page.addInitScript(() => {
-    const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "finale"];
+    const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "finale", "1-9"];
     localStorage.setItem("missione-l123", JSON.stringify({ v: 4, state: {
       score: 2400, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true, view: "final"
     } }));
@@ -62,16 +62,23 @@ test("finale accessibile", async ({ page }) => {
   await audit(page, "finale");
 });
 
-test("QR code del vasetto e pagina prodotto accessibili", async ({ page }) => {
+test("tappa 1-9 (QR code del vasetto) e pagina prodotto accessibili", async ({ page }) => {
   await page.addInitScript(() => {
     const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "finale"];
     localStorage.setItem("missione-l123", JSON.stringify({ v: 4, state: {
-      score: 2400, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true, view: "consumer"
+      score: 2400, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true, view: "map"
     } }));
   });
   await page.goto(GAME + "?render=2d");
-  await expect(page.locator(".consumer .qr")).toBeVisible();
-  await audit(page, "qr code del vasetto");
+  // Sulla mappa la tappa 1-9 è l'ultima della filiera, ed è quella da giocare.
+  await expect(page.locator(".stop").last()).toContainText("1-9");
+  await expect(page.locator(".stop.next")).toContainText("1-9");
+  await page.locator(".stop.next").click();
+  await page.locator("#go").click();
+  await expect(page.locator(".jar-scan .qr")).toBeVisible();
+  await page.keyboard.press("2");
+  await expect(page.locator("#link .dl-parts")).toBeVisible();
+  await audit(page, "tappa 1-9 qr code del vasetto");
   // La pagina che si apre inquadrando il QR code: richiamo per primo, poi prodotto e storia del lotto.
   await page.goto(pathToFileURL(resolve("dist/01/08000000001016/10/L123.html")).href + "?15=261130");
   await expect(page.locator(".recall h1")).toHaveText("Non mangiare lo yogurt di questo lotto");

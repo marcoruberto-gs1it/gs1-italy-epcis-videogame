@@ -39,7 +39,7 @@
   "map": {
     "food": {
       "heading": "Filiera alimentare",
-      "text": "Il viaggio di un vasetto di yogurt: dal latte della stalla allo scaffale, fino al ritiro e al richiamo."
+      "text": "Il viaggio di un vasetto di yogurt: dal latte della stalla allo scaffale, fino al ritiro, al richiamo e a chi lo ha comprato."
     },
     "textile": {
       "heading": "Filiera tessile",
@@ -54,7 +54,7 @@
     "here": "Sei qui",
     "play": "Gioca la tappa {id}",
     "playFinale": "Gioca la tappa 1-8",
-    "seeEnd": "Inquadra il vasetto",
+    "seeEnd": "Vedi il traguardo",
     "codex": "Glossario del gioco (G)",
     "tabsAria": "Scegli la filiera",
     "progress": "{n} di {total}",
@@ -66,7 +66,7 @@
   },
   "intro": {
     "tag": "{w} · tappa {n} di {total}",
-    "tagFinale": "Filiera alimentare · tappa 8 di otto",
+    "tagFinale": "Filiera alimentare · tappa 8 di nove",
     "concept": "Concetto: {c}",
     "go": "Inizia"
   },
@@ -92,7 +92,7 @@
     "map": "Mappa",
     "next": "Tappa {id}",
     "nextFinale": "Ritiro e richiamo",
-    "end": "Ultimo anello: il vasetto",
+    "end": "Vai al traguardo",
     "glossary": "Glossario",
     "stamp": "Registrato"
   },
@@ -1156,6 +1156,97 @@
           "Si avvisa chi ha già comprato il prodotto di non consumarlo e di riportarlo. Riguarda chi compra."
         ]
       ]
+    },
+    "food-consumatore": {
+      "meta": {
+        "t": "Il vasetto in mano a chi compra",
+        "c": "GS1 Digital Link e reso del lotto richiamato",
+        "place": "Casa e supermercato di Milano",
+        "short": "Chi compra"
+      },
+      "intro": "Ultima tappa. Un vasetto del lotto L123 è già sul tavolo di casa di qualcuno. Sopra c'è un QR code GS1: che cosa succede quando lo inquadra?",
+      "story": "Prima del ritiro, ventiquattro vasetti del lotto L123 sono stati venduti. Una persona ne ha uno a casa e inquadra il QR code con lo smartphone.",
+      "cap": "Lotto L123 · QR code GS1",
+      "scanNote": "Il QR code è vero: inquadralo anche tu con lo smartphone.",
+      "q": "Che cosa c'è dentro il QR code GS1 del vasetto?",
+      "qCtx": "Il QR code contiene un indirizzo web. Leggilo con calma: dopo il dominio ci sono dei numeri tra due barre, e una parte dopo il punto interrogativo.",
+      "opts": [
+        {
+          "t": "Solo il codice del prodotto, come nel codice a barre di sempre",
+          "why": "Il codice a barre classico porta solo il GTIN. Il QR code GS1 può portare anche lotto e data."
+        },
+        {
+          "t": "Un GS1 Digital Link: un indirizzo web con il codice del prodotto, il lotto e la data",
+          "ok": true,
+          "why": "Proprio così. Lo legge la cassa del negozio e lo apre lo smartphone: un solo codice per tutti e due."
+        },
+        {
+          "t": "Tutti gli eventi EPCIS del lotto, scritti dentro il codice",
+          "why": "Gli eventi restano negli archivi delle aziende. Il QR code porta il link: è la pagina a mostrare la storia, presa dagli eventi."
+        },
+        {
+          "t": "Un codice inventato dal supermercato, valido solo nel suo negozio",
+          "why": "I codici GS1 valgono ovunque: lo stesso QR code funziona in ogni negozio e in ogni Paese."
+        }
+      ],
+      "linkTitle": "Il link del QR code, pezzo per pezzo",
+      "q2Ctx": "La pagina del vasetto dice in rosso: lotto L123 richiamato, non mangiarlo e riportalo dove l'hai comprato. La persona torna al supermercato di Milano con il vasetto.",
+      "q2": "Il supermercato riprende il vasetto. Che cosa registra?",
+      "opts2": [
+        {
+          "t": "Niente: butta via il vasetto, il richiamo è già nell'archivio",
+          "why": "Senza un nuovo evento il caseificio non sa quanti vasetti richiamati sono davvero tornati."
+        },
+        {
+          "t": "Un evento di oggetto: un vasetto del lotto L123, passo receiving, stato returned",
+          "ok": true,
+          "why": "Esatto. L'evento dice che cosa è tornato, dove, quando e in che stato. Il richiamo si chiude con i numeri giusti."
+        },
+        {
+          "t": "Niente: l'evento lo registra la persona, dal suo smartphone",
+          "why": "Chi compra legge le informazioni, non scrive eventi. L'evento lo registra il negozio che riprende il vasetto."
+        },
+        {
+          "t": "Cancella dall'archivio gli eventi del lotto L123, che ormai è richiamato",
+          "why": "Negli archivi EPCIS non si cancella nulla. La storia del lotto resta, e si aggiunge una pagina nuova."
+        }
+      ],
+      "events": [
+        "Reso al supermercato di Milano: un vasetto del lotto L123 richiamato torna indietro"
+      ],
+      "fact": "Una pagina sola: un evento di oggetto con lo stato returned. Il resto lo ha fatto il QR code, con GTIN, lotto e data in un unico link.",
+      "power": [
+        "Filo diretto",
+        "Dal QR code del vasetto alla storia del lotto: chi compra sa subito se il suo prodotto è richiamato."
+      ],
+      "why": {
+        "benefit": "Chi compra scopre subito se il suo vasetto è richiamato, senza aspettare i cartelli in negozio. L'azienda sa quanti vasetti tornano indietro.",
+        "who": [
+          "consumatore",
+          "produttore",
+          "distribuzione"
+        ]
+      },
+      "hint": "Guarda il link del QR code: quanti codici GS1 riconosci, tra una barra e l'altra?",
+      "sceneDesc": "Scena: un vasetto di yogurt con il suo QR code GS1, uno smartphone che lo inquadra e il supermercato di Milano.",
+      "glossary": [
+        [
+          "QR code GS1",
+          "Un codice quadrato che contiene un GS1 Digital Link. Lo legge la cassa e lo apre lo smartphone."
+        ],
+        [
+          "GS1 Digital Link",
+          "Un indirizzo web che porta i codici GS1: per esempio prodotto, lotto e data."
+        ],
+        [
+          "Richiamo",
+          "L'avviso a chi ha già comprato un prodotto: non usarlo e riportalo."
+        ],
+        [
+          "Reso",
+          "Il prodotto che torna indietro al negozio. Il negozio lo registra con un evento."
+        ]
+      ]
     }
   },
   "codex": {
@@ -1302,6 +1393,14 @@
         "def": "Ritiro: il prodotto si toglie dalla filiera prima che arrivi a chi compra. Richiamo: si avvisa chi lo ha già comprato.",
         "ex": "552 vasetti ritirati, 24 richiamati.",
         "use": "Con EPCIS si ritira e si richiama solo quello che serve."
+      },
+      {
+        "id": "digitallink",
+        "unlock": "food-consumatore",
+        "t": "GS1 Digital Link",
+        "def": "Un indirizzo web che contiene i codici GS1, come GTIN, lotto e data. Si stampa in un QR code.",
+        "ex": "Il QR code del vasetto porta a …/01/08000000001016/10/L123?15=261130.",
+        "use": "Un solo codice per la cassa del negozio e per lo smartphone di chi compra."
       }
     ]
   },
@@ -1386,8 +1485,8 @@
     "close": "Torna al gioco",
     "closeHint": "Premi E o Esc per tornare al gioco, nel punto in cui eri.",
     "allTab": "Tutta la filiera",
-    "allTabMeta": "Dalla stalla al ritiro",
-    "allHeading": "Tutta la filiera, dalla stalla al ritiro",
+    "allTabMeta": "Dalla stalla a chi compra",
+    "allHeading": "Tutta la filiera, dalla stalla a chi compra",
     "allCount": "{n} eventi",
     "flowHint": "Clicca un evento sulla mappa per leggerne il testo qui sotto. Le frecce seguono il viaggio del latte e dello yogurt.",
     "flowAria": "Mappa degli eventi di tutta la filiera, tappa per tappa",
@@ -1451,14 +1550,8 @@
     "open": "{term}: definizione ufficiale nel GS1 Web Vocabulary (si apre in una nuova scheda)"
   },
   "consumer": {
-    "tag": "Ultimo anello · chi compra",
-    "heading": "Inquadra il vasetto",
-    "story": "Prima del ritiro, ventiquattro vasetti del lotto L123 sono già finiti nel carrello di qualcuno. Sul vasetto c'è un QR code GS1.",
-    "scan": "Inquadralo con lo smartphone: si apre la pagina del vasetto, con il richiamo in evidenza e tutta la storia che hai scritto giocando.",
     "qrAria": "QR code del vasetto: GS1 Digital Link con prodotto, lotto L123 e data",
-    "label": "Etichetta del vasetto",
     "product": "Yogurt bianco intero",
-    "linkTitle": "Dentro il QR code c'è un GS1 Digital Link",
     "linkText": "È un indirizzo web che porta con sé i codici GS1. Il percorso contiene prodotto e lotto, la parte dopo il punto interrogativo contiene la data.",
     "domain": [
       "Dominio",
@@ -1468,16 +1561,9 @@
       "Da consumarsi preferibilmente entro",
       "La data nel formato anno, mese, giorno: 261130 vuol dire 30 novembre 2026."
     ],
-    "seeTitle": "Che cosa vede chi lo inquadra",
-    "see": [
-      "In alto, in rosso, il richiamo del lotto L123 e che cosa fare.",
-      "Il prodotto, il lotto e la data, letti dal QR code.",
-      "La storia del lotto, dalla stalla al ritiro, ricostruita dagli eventi EPCIS."
-    ],
     "sunrise": "Entro la fine del 2027 le casse dei negozi si preparano a leggere anche i codici 2D come questo. È l'iniziativa GS1 «Sunrise 2027»: un solo codice per la cassa e per lo smartphone.",
     "open": "Apri la pagina del vasetto",
     "newTab": "si apre in una nuova scheda",
-    "next": "Vai al traguardo",
     "finalTitle": "Il QR code del vasetto",
     "finalText": "Inquadralo con lo smartphone: la storia del lotto L123 e il suo richiamo, come li vede chi compra."
   },

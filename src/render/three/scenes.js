@@ -364,6 +364,43 @@ const LEVELS = {
   }
 };
 
+// Tappa 1-9 · chi compra: a casa il vasetto con il QR code, la strada, il supermercato di Milano.
+LEVELS["food-consumatore"] = function (api) {
+  const root = new Group();
+  base(root, 13, 7);
+  root.add(at(P.road(10), 0, 0.06, 1.6));
+  root.add(scaled(P.house(-4.2, -1.2), 1.8), at(scaled(P.store(), 0.9), 4, 0.05, -1.6));
+  [[-6, 2.8], [-1.2, -2.6], [1.4, -2.8], [6, 2.6]].forEach(([x, z], i) => root.add(P.tree(x, z, 0.8 + (i % 2) * 0.2)));
+  // Il vasetto sul tavolo di casa, davanti alla porta.
+  const table = at(P.box("gs1-warm-600", 1.2, 0.5, 0.8), -2.2, 0.05, 0.2);
+  const jar = dyn(scaled(at(P.jar(), -2.2, 0.55, 0.2), 1.2));
+  root.add(table, jar);
+  // L'onda dello smartphone che legge il QR code.
+  const ring = dyn(new Mesh(new RingGeometry(0.5, 0.62, 40), new MeshBasicMaterial({ color: brandColor("gs1-teal"), transparent: true, opacity: 0.8, side: DoubleSide, depthWrite: false })));
+  ring.geometry.userData.own = true; ring.material.userData.own = true;
+  ring.rotation.x = -Math.PI / 2; ring.position.set(-2.2, 1.4, 0.2); ring.visible = false;
+  root.add(ring);
+  return {
+    root: P.mergeStatic(root), view: { size: 10, target: new Vector3(0, 0.6, 0) },
+    hooks: {
+      focus: focusOn(api, { q: { x: -2.6, y: 0.8, z: 0, size: 5.6 }, q2: { x: 2.4, y: 0.7, z: -0.4, size: 6.4 } }),
+      scan() {
+        ring.visible = true; ring.scale.setScalar(0.3); ring.material.opacity = 0.9;
+        api.tween(ring.scale, { x: 4, y: 4, z: 4, duration: 1, ease: "power1.out" });
+        api.tween(ring.material, { opacity: 0, duration: 1, onComplete: () => { ring.visible = false; } });
+        flag(api, root, -2.2, 2.4, 0.2, "gs1-orange");
+      },
+      returned() {
+        // Il vasetto torna al supermercato: il negozio registra il reso.
+        api.camTo({ x: 1, y: 0.6, z: 0, size: 8.4 });
+        api.tween(jar.position, { x: 3.4, z: 1.6, duration: 1.6, ease: "power1.inOut" });
+        api.tween(jar.position, { y: 0.06, duration: 0.4 });
+        api.tween({ t: 0 }, { t: 1, duration: 1.7, onComplete: () => flag(api, root, 4, 2.6, -1.6) });
+      }
+    }
+  };
+};
+
 /** Costruttore della scena 3D di un livello, oppure null se il livello non ne ha. */
 export const levelScene = slug => LEVELS[slug] || null;
 
@@ -381,7 +418,8 @@ const STOP_ART = {
   "2-1": () => group(at(scaled(P.factory(), 0.45), 0.2, 0, -0.1), at(P.spool(), -0.6, 0, 0.5)),
   "2-2": () => group(scaled(P.store("gs1-teal"), 0.5), at(P.reader(), 0.6, 0, 0.6)),
   "2-3": () => group(scaled(P.store("gs1-orange"), 0.5), at(P.garment("gs1-orange"), 0.6, 0, 0.6)),
-  finale: () => group(scaled(P.cedi(), 0.45), at(scaled(P.marker("gs1-orange"), 1.4), 0, 1.2, 0))
+  finale: () => group(scaled(P.cedi(), 0.45), at(scaled(P.marker("gs1-orange"), 1.4), 0, 1.2, 0)),
+  "1-9": () => group(scaled(P.store(), 0.45), at(scaled(P.jar(), 0.75), 0.75, 0, 0.75))
 };
 
 // La mappa è una striscia che scorre da sinistra a destra sullo schermo, come l'elenco delle tappe sotto.
@@ -394,7 +432,7 @@ const turned = o => { o.rotation.y = Math.PI / 4; return o; };
 // Disposizione di ogni filiera: tappe in fila lungo una strada, con il paesaggio intorno.
 const WORLD_MAP = {
   food: {
-    gap: 2.75, len: 22.6,
+    gap: 2.5, len: 22.8,
     decor: root => {
       for (let a = -9.6; a <= 9.6; a += 2.4) root.add(on(P.tree(), a, -2.7, 0.12));
       root.add(on(P.bush(), -2, 2.9, 0.12), on(P.bush(), 5, 2.9, 0.12));

@@ -10,7 +10,7 @@ import { img, sprite } from "../render/two/sprites.js";
 import { LEVELS } from "../levels/index.js";
 import { logoHtml } from "../ui/hud.js";
 import { $, show } from "../ui/dom.js";
-import { qrSvg } from "../ui/qr.js";
+import { jarQrHtml } from "../ui/jar.js";
 import { jarLink } from "../gs1/consumer.js";
 
 register("final", () => {
@@ -27,7 +27,7 @@ register("final", () => {
     <div class="pgrid">${LEVELS.map(l => `<div class="pcell ${state.powers.includes(l.id) ? "on" : ""}"><span class="pn">${state.powers.includes(l.id) ? "✓ " : ""}${l.power[0]}</span><span>${l.power[1]}</span></div>`).join("")}</div>
 
     <section class="final-qr">
-      <a class="qr-box" href="${jarLink()}" target="_blank" rel="noopener" aria-label="${t("consumer.open")} (${t("consumer.newTab")})">${qrSvg(jarLink(), { label: t("consumer.qrAria") })}</a>
+      ${jarQrHtml()}
       <div><h3>${t("consumer.finalTitle")}</h3><p>${t("consumer.finalText")}</p><p class="qr-url"><code>${jarLink()}</code></p></div>
     </section>
 

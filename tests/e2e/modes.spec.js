@@ -124,12 +124,12 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   // È una pagina, non una finestra sovrapposta: la schermata di gioco è sospesa e nascosta.
   await expect(arch).not.toHaveAttribute("role", "dialog");
   await expect(page.locator("#screen")).toBeHidden();
-  await expect(arch.locator(".tab")).toHaveCount(9);
-  // Tutta la filiera: tutti gli eventi, dalla stalla (nascita del lotto di latte) al richiamo.
+  await expect(arch.locator(".tab")).toHaveCount(10);
+  // Tutta la filiera: tutti gli eventi, dalla stalla (nascita del lotto di latte) al reso di chi compra.
   await arch.locator("#archTab-all").click();
   await expect(arch.locator("#archPanel h3")).toContainText("Tutta la filiera");
-  // Mappa della filiera: otto tappe, ogni evento è un riquadro cliccabile che mostra il suo testo.
-  await expect(arch.locator(".fstage")).toHaveCount(8);
+  // Mappa della filiera: nove tappe, ogni evento è un riquadro cliccabile che mostra il suo testo.
+  await expect(arch.locator(".fstage")).toHaveCount(9);
   const nodes = arch.locator(".fnode");
   const n = await nodes.count();
   expect(n).toBeGreaterThan(10);
@@ -140,8 +140,8 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   await nodes.last().click();
   await expect(nodes.last()).toHaveAttribute("aria-pressed", "true");
   await expect(nodes.first()).toHaveAttribute("aria-pressed", "false");
-  await expect(cap).toContainText("1-8");
-  await expect(json).toContainText("recalled");
+  await expect(cap).toContainText("1-9");
+  await expect(json).toContainText("returned");
   // Frecce della tastiera ed «Evento precedente»: si scorre lungo la filiera.
   await page.keyboard.press("ArrowLeft");
   await expect(nodes.nth(n - 2)).toHaveAttribute("aria-pressed", "true");

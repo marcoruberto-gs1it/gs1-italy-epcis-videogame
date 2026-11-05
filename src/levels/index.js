@@ -12,8 +12,9 @@ import filo from "./tessile-filo.js";
 import inventario from "./tessile-inventario.js";
 import reso from "./tessile-reso.js";
 import finale from "./sfida-finale.js";
+import consumatore from "./food-consumatore.js";
 
-const ALL = [stalla, latte, nascita, raggiX, cbv, freddo, errore, filo, inventario, reso, finale];
+const ALL = [stalla, latte, nascita, raggiX, cbv, freddo, errore, filo, inventario, reso, finale, consumatore];
 
 export const LEVELS = ALL.filter(l => l.world === "finale" || CONFIG.worlds.includes(l.world));
 

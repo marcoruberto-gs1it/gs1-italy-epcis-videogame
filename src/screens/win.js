@@ -88,5 +88,5 @@ register("win", id => {
   pulse(document.querySelectorAll(".hud .pw span")[state.powers.indexOf(id)], 2);
   wireChain();
   $("#toMap").onclick = () => go("map");
-  $("#next").onclick = () => (next ? go("intro", next.id) : go("consumer"));
+  $("#next").onclick = () => (next ? go("intro", next.id) : go("final"));
 });

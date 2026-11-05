@@ -10,7 +10,7 @@ Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filie
 
 Il gioco è pensato per chi parte da zero: testi in italiano semplice, una sola denominazione per ogni concetto e un **glossario** in fondo a ogni tappa.
 
-**Filiera alimentare**, otto tappe, dalla materia prima al ritiro:
+**Filiera alimentare**, nove tappe, dalla materia prima a chi compra:
 
 1. Alla stalla nasce il lotto: il latte crudo della mungitura riceve il lotto C0471 alla stalla (evento di oggetto, `commissioning`), poi il caseificio ne registra il ricevimento con la stalla come luogo di partenza (`receiving`).
 2. Dal latte allo yogurt: l'evento di trasformazione.
@@ -20,14 +20,15 @@ Il gioco è pensato per chi parte da zero: testi in italiano semplice, una sola 
 6. Catena del freddo: l'evento di associazione e i sensori.
 7. Ops, errore!: la dichiarazione di errore; dopo la correzione il CeDi manda l'avviso di ricevimento (RECADV).
 8. Ritiro e richiamo: prima «come una volta», poi con due ricerche nell'archivio degli eventi. Il **ritiro** toglie il prodotto dalla filiera; il **richiamo** avvisa chi lo ha già comprato.
+9. Il vasetto in mano a chi compra: un quiz sul QR code GS1 del vasetto (che cosa contiene il GS1 Digital Link) e sul reso. Chi compra riporta il vasetto e il supermercato di Milano registra un evento di oggetto (`receiving`, `returned`).
 
 I codici GS1 della filiera alimentare (GTIN, GLN, SSCC, GDTI, GIAI) usano i prefissi aziendali d'esempio della [guida al GLN di GS1 Italy](https://gs1it.org/files/sharing/1464192143/446/gs1-gln.pdf): **800000000** per il caseificio (con la sua stalla, `8000000000033`) e **803208900** per la distribuzione (CeDi di Bologna `8032089002028`, supermercati di Milano e Monza). Il caseificio è `8000000000026`. Non sono codici di aziende reali.
 
 Le informazioni fisse di un lotto (ILMD, Instance/Lot Master Data) usano i termini del [GS1 Web Vocabulary](https://ref.gs1.org/voc/) con il prefisso `gs1:`, già definito nel [contesto JSON-LD ufficiale di EPCIS 2.0](https://ref.gs1.org/standards/epcis/epcis-context.jsonld): `gs1:bestBeforeDate` per la scadenza dello yogurt, `gs1:productionDate` e `gs1:countryOfOrigin` (con `gs1:countryCode`) per il latte crudo. EPCIS 2.0 (sezione 7.3.8) ammette attributi ILMD definiti da altri standard.
 
-### Ultimo anello: il QR code del vasetto
+### Tappa 1-9: il QR code del vasetto
 
-Dopo il ritiro e richiamo il gioco mostra **«Inquadra il vasetto»**: l'etichetta dello yogurt con un QR code GS1 vero, che contiene un **GS1 Digital Link** con GTIN, lotto e data «da consumarsi preferibilmente entro» (AI 15, la stessa data di `gs1:bestBeforeDate` nell'ILMD):
+La tappa 1-9, ultima sulla mappa, mostra l'etichetta dello yogurt con un QR code GS1 vero, che contiene un **GS1 Digital Link** con GTIN, lotto e data «da consumarsi preferibilmente entro» (AI 15, la stessa data di `gs1:bestBeforeDate` nell'ILMD):
 
 `https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/01/08000000001016/10/L123?15=261130`
 
@@ -45,7 +46,7 @@ Il gioco è pensato per chi gioca da solo, da PC o da telefono.
 - La barra **«La filiera»** mostra tutte le tappe: si clicca una tappa o si usano le frecce per la precedente e la successiva.
 - Prima di ogni domanda il riquadro **«Il contesto»** spiega la situazione; la scena 3D si avvicina al punto di cui si parla.
 - `H` (o il pulsante **Suggerimento**) mostra un aiuto per la tappa. I progressi restano salvati nel browser.
-- `E` (o il pulsante **Eventi**) apre la pagina **archivio degli eventi** (non una finestra sovrapposta): il JSON-LD di tutte le tappe, anche quelle non ancora giocate, un evento alla volta o come documento EPCIS unico, con «Copia il documento EPCIS», che copia sempre un EPCISDocument completo (si importa così com'è nell'Event Data Designer di OpenEPCIS). La scheda **«Tutta la filiera»** è una mappa: le otto tappe in fila, collegate da frecce, e dentro ogni tappa i suoi eventi come riquadri cliccabili (tipo, azione, bizStep). Clicchi un evento e sotto compare il suo JSON; con le frecce della tastiera o «Evento precedente / successivo» si scorre la filiera. Nella barra in alto **Inizio · Mappa · Eventi** stanno insieme e la voce in cui ti trovi è accesa. La schermata di gioco resta sospesa: con «Torna al gioco» si riprende esattamente dove si era e i conti alla rovescia restano fermi.
+- `E` (o il pulsante **Eventi**) apre la pagina **archivio degli eventi** (non una finestra sovrapposta): il JSON-LD di tutte le tappe, anche quelle non ancora giocate, un evento alla volta o come documento EPCIS unico, con «Copia il documento EPCIS», che copia sempre un EPCISDocument completo (si importa così com'è nell'Event Data Designer di OpenEPCIS). La scheda **«Tutta la filiera»** è una mappa: le nove tappe in fila, collegate da frecce, e dentro ogni tappa i suoi eventi come riquadri cliccabili (tipo, azione, bizStep). Clicchi un evento e sotto compare il suo JSON; con le frecce della tastiera o «Evento precedente / successivo» si scorre la filiera. Nella barra in alto **Inizio · Mappa · Eventi** stanno insieme e la voce in cui ti trovi è accesa. La schermata di gioco resta sospesa: con «Torna al gioco» si riprende esattamente dove si era e i conti alla rovescia restano fermi.
 - Ogni **GS1 Digital Link** nel JSON (`https://id.gs1.org/...`) è cliccabile: la **lente** lo scompone in Application Identifier (01 GTIN, 10 lotto, 00 SSCC, 414 GLN del luogo, 254 punto nel luogo, 417 GLN dell'azienda, 253 GDTI, 8004 GIAI), con una spiegazione semplice e la cifra di controllo.
 
 - Nel JSON ogni termine del GS1 Web Vocabulary (`gs1:productionDate`, `gs1:bestBeforeDate`...) è un link alla sua definizione ufficiale su `https://ref.gs1.org/voc/` (si apre in una nuova scheda).

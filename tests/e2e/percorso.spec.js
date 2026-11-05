@@ -156,19 +156,25 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("Enter");
   await seeWin("22-evento-ritiro-richiamo");
 
-  // Ultimo anello: chi compra inquadra il QR code GS1 del vasetto.
-  await press("Enter");
-  await expect(page.locator(".consumer h2")).toHaveText("Inquadra il vasetto");
+  // 1-9 Chi compra: il QR code GS1 del vasetto (Digital Link) e il reso del lotto richiamato.
+  await intro("22b-intro-chi-compra");
   const link = "https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/01/08000000001016/10/L123?15=261130";
-  await expect(page.locator(".consumer .qr-box")).toHaveAttribute("href", link);
-  await expect(page.locator(".consumer svg.qr path")).toHaveCount(1);
-  await expect(page.locator(".consumer .dl-parts .badge")).toHaveText(["www", "(01)", "(10)", "(15)"]);
-  await shot("22b-qr-code-vasetto");
+  await expect(page.locator(".jar-scan .qr-box")).toHaveAttribute("href", link);
+  await expect(page.locator(".jar-scan svg.qr path")).toHaveCount(1);
+  await expect(page.locator("#opts .opt")).toHaveCount(4);
+  await shot("22c-qr-code-vasetto");
+  await press("2");
+  await expect(page.locator("#link .dl-parts .badge")).toHaveText(["www", "(01)", "(10)", "(15)"]);
+  await expect(page.locator("#opts2 .opt")).toHaveCount(4);
+  await press("2");
+  await press("Enter");
+  await seeWin("22d-evento-reso");
+  await expect(page.locator("#diary")).toContainText("returned");
 
   await press("Enter");
   await expect(page.locator(".final h1")).toHaveText("Missione compiuta");
   await expect(page.locator(".final .final-qr .qr-box")).toHaveAttribute("href", link);
-  await expect(page.locator(".pcell.on")).toHaveCount(8);
+  await expect(page.locator(".pcell.on")).toHaveCount(9);
   await shot("23-finale");
   await page.locator(".benefits").scrollIntoViewIfNeeded();
   await shot("24-finale-vantaggi");

@@ -91,7 +91,7 @@ code { font-family: var(--font-mono); font-weight: 500; background: var(--ui-mis
 .tab[aria-selected="true"] .meta { color: var(--gs1-blue-200); }
 .world-head p { color: var(--muted); font-weight: 600; }
 .diorama, .scene, .scene-box { border-radius: var(--radius-lg); background: linear-gradient(160deg, var(--ui-sky), var(--ui-bg)); box-shadow: var(--elev-sm); }
-.path { gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.path { gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .stop { border: 0; border-radius: 20px; background: var(--surface); box-shadow: var(--elev-sm); padding: 14px 16px; gap: 14px; transition: scale .14s ease, box-shadow .2s; }
 .stop:hover { box-shadow: var(--elev); }
 .stop:active { scale: .985; }
@@ -363,33 +363,31 @@ pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); out
 .req { display: block; white-space: nowrap; word-break: normal; overflow-x: auto; }
 pre.json { white-space: pre; }
 
-/* ───────── Ultimo anello: il QR code del vasetto ───────── */
-.consumer { display: flex; flex-direction: column; gap: 16px; }
-.consumer .lv-head h2 { margin: 0; }
-.consumer .lead { font-size: 1.1em; margin: 0; max-width: 70ch; }
-.cons-grid { display: grid; grid-template-columns: minmax(280px, 400px) minmax(0, 1fr); gap: 18px; align-items: start; }
-.jar-label { margin: 0; background: var(--surface); border-radius: var(--radius); box-shadow: var(--elev); padding: 18px; display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; }
-.jar-row { display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap; }
-.jar-pic { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.jar-lot { display: flex; flex-direction: column; font-size: .85em; }
+/* ───────── Tappa 1-9: il QR code del vasetto ───────── */
+.jar-scan { align-items: center; gap: 18px; }
 .qr-box { display: block; background: var(--gs1-white); color: var(--gs1-blue-950); border-radius: 16px; padding: 6px; box-shadow: 0 0 0 3px var(--gs1-blue), 0 6px 0 3px var(--gs1-orange); }
 .qr-box:focus-visible { outline: 3px solid var(--gs1-orange); outline-offset: 6px; }
-.qr { display: block; width: 240px; height: 240px; }
+.qr { display: block; width: 200px; height: 200px; }
 .qr .qr-bg { fill: var(--gs1-white); }
-.jar-label .scan { margin: 0; font-weight: 600; }
-.cons-info { gap: 12px; }
-.card-lite { background: var(--surface); border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
-.card-lite h3 { margin: 0; }
-.card-lite p { margin: 0; }
-.see { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
-.see li.alert { color: var(--ui-bad); font-weight: 700; }
-.consumer .note { margin: 0; font-size: .9em; color: var(--muted); border-left: 4px solid var(--gs1-teal); padding-left: 10px; }
+.scene.r3d .jar-scan { position: absolute; right: 14px; top: 14px; }
+.scene.r3d .qr { width: 170px; height: 170px; }
+.scan-note { font-weight: 600; color: var(--gs1-blue); }
+.jar-url { white-space: normal; overflow-wrap: anywhere; }
+#link { gap: 10px; }
+#link h3 { margin: 0; }
+#link .note { margin: 0; font-size: .9em; color: var(--muted); border-left: 4px solid var(--gs1-teal); padding-left: 10px; }
+#link .btn { align-self: flex-start; }
 .final-qr { display: flex; gap: 16px; align-items: center; text-align: left; background: var(--surface); border-radius: 20px; padding: 14px 16px; max-width: 640px; }
 .final-qr .qr { width: 140px; height: 140px; }
 .final-qr h3, .final-qr p { margin: 0 0 4px; }
 .final-qr .qr-url code { font-size: .72em; overflow-wrap: anywhere; }
 @media (max-width: 760px) {
-  .cons-grid { grid-template-columns: 1fr; }
   .final-qr { flex-direction: column; text-align: center; }
+  .qr { width: 170px; height: 170px; }
 }
-.consumer .dl-url { white-space: normal; overflow-wrap: anywhere; }
+
+/* Mappa: nove tappe su una riga negli schermi larghi. Numero sopra il testo, così le parole non si spezzano. */
+@media (min-width: 1500px) {
+  .path .stop { flex-direction: column; gap: 8px; padding: 12px; }
+}
+.path .stop .c, .path .stop .t { overflow-wrap: normal; word-break: normal; hyphens: manual; }
