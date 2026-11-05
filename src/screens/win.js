@@ -1,4 +1,4 @@
-// Evento registrato: le pagine del diario in JSON, il superpotere, la scheda "Perché conta" e le carte del Codex.
+// Evento registrato: le pagine del diario in JSON, il superpotere, la scheda "Perché conta" e le nuove voci del glossario.
 import { register, go } from "../engine/router.js";
 import { state, commit } from "../engine/state.js";
 import { sfx } from "../engine/audio.js";

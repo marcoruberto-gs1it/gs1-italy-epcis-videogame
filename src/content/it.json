@@ -16,7 +16,8 @@
       "food": "Tappe",
       "textile": "Tessile",
       "finale": "Finale"
-    }
+    },
+    "homeAria": "Missione L123: torna all'inizio"
   },
   "narrator": {
     "name": "Bip",
@@ -50,7 +51,7 @@
     "play": "Gioca la tappa {id}",
     "playFinale": "Gioca la tappa 1-7",
     "seeEnd": "Vedi il finale",
-    "codex": "Schede dei concetti (G)",
+    "codex": "Glossario del gioco (G)",
     "reset": "Ricomincia da zero",
     "tabsAria": "Scegli la filiera",
     "progress": "{n} di {total}",
@@ -84,7 +85,7 @@
     "whyTitle": "Perché conta",
     "who": "A chi serve",
     "source": "Fonte",
-    "codexNew": "Nuove schede dei concetti: {list}",
+    "codexNew": "Nuove voci nel glossario del gioco: {list}",
     "map": "Mappa",
     "next": "Tappa {id}",
     "nextFinale": "Ritiro e richiamo",
@@ -1028,10 +1029,10 @@
     }
   },
   "codex": {
-    "heading": "Schede dei concetti",
-    "sub": "Le carte si sbloccano giocando. {n} su {total} trovate.",
+    "heading": "Glossario del gioco",
+    "sub": "Le voci si sbloccano giocando: {n} su {total} trovate.",
     "locked": "Da scoprire",
-    "lockedText": "Gioca la tappa {id} per sbloccare questa scheda.",
+    "lockedText": "Gioca la tappa {id} per sbloccare questa voce.",
     "example": "Nel gioco",
     "useful": "Nella vita reale",
     "back": "Torna alla mappa",
@@ -1204,7 +1205,7 @@
       ],
       [
         "G",
-        "Schede dei concetti"
+        "Glossario del gioco"
       ],
       [
         "D",

@@ -1,4 +1,4 @@
-// Codex EPCIS: le carte dei concetti, che si sbloccano completando i livelli.
+// Glossario del gioco: le voci dei concetti, che si sbloccano completando le tappe.
 import { register, go } from "../engine/router.js";
 import { state } from "../engine/state.js";
 import { t } from "../content/index.js";

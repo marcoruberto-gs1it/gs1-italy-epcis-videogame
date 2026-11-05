@@ -193,7 +193,7 @@ pre.json { font-family: var(--font-mono); font-weight: 500; background: linear-g
 .float-score { color: var(--ui-ok); font-weight: 800; }
 .float-score::after { content: attr(data-t); }
 
-/* ───────── Finale e Codex ───────── */
+/* ───────── Finale e glossario del gioco ───────── */
 .final h1 { color: var(--gs1-blue); }
 .final .sub { color: var(--muted); }
 .final .counter { background: linear-gradient(135deg, var(--gs1-blue), var(--ui-navy-2)); color: var(--gs1-white); border-radius: 999px; padding: 8px 20px; font-weight: 800; }
@@ -250,3 +250,7 @@ pre.json { font-family: var(--font-mono); font-weight: 500; background: linear-g
 .gloss dt { font-weight: 800; color: var(--gs1-blue); }
 .gloss dd { margin: 0; color: var(--ink); line-height: 1.5; }
 @media (max-width: 640px) { .gloss dl > div { grid-template-columns: minmax(0, 1fr); } }
+
+/* Logo e nome del gioco: pulsante che torna all'inizio */
+button.brandbox { display: flex; align-items: center; border: 0; background: transparent; padding: 4px 8px 4px 0; border-radius: 14px; cursor: pointer; color: inherit; font: inherit; text-align: left; }
+button.brandbox:hover > span { color: var(--ui-navy-2); }

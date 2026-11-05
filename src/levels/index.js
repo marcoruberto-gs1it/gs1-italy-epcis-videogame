@@ -26,7 +26,7 @@ export function worldStep(level) {
 
 export const nextOf = id => LEVELS[LEVELS.findIndex(l => l.id === id) + 1];
 
-/** Carte del Codex dei livelli attivi, con il livello che le sblocca. */
+/** Voci del glossario del gioco per le tappe attive, con la tappa che le sblocca. */
 export const CODEX = t("codex.cards")
   .map(card => ({ ...card, level: LEVELS.find(l => l.slug === card.unlock) }))
   .filter(card => card.level);

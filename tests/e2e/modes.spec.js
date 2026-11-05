@@ -51,7 +51,7 @@ test("il tasto ? mostra i comandi e Esc li chiude senza cambiare schermata", asy
   expect(errors).toEqual([]);
 });
 
-test("Home e Mappa nella barra in alto, tappe cliccabili nella barra della filiera", async ({ page }) => {
+test("Inizio, Mappa e logo nella barra in alto, tappe cliccabili nella barra della filiera", async ({ page }) => {
   const { errors, press } = await start(page);
   await expect(page.locator("#navHome")).toHaveCount(0);
   await toQuestion1(press, page);
@@ -62,5 +62,11 @@ test("Home e Mappa nella barra in alto, tappe cliccabili nella barra della filie
   await expect(page.locator(".map")).toBeVisible();
   await page.locator("#navHome").click();
   await expect(page.locator("h1")).toHaveText("Missione L123");
+  // Anche il logo in alto a sinistra riporta all'inizio.
+  await page.keyboard.press("Enter");
+  await expect(page.locator(".map")).toBeVisible();
+  await page.locator("#brandHome").click();
+  await expect(page.locator("h1")).toHaveText("Missione L123");
+  await expect(page.locator("link[rel=icon]")).toHaveAttribute("href", /^data:image/png;base64,/);
   expect(errors).toEqual([]);
 });

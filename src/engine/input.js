@@ -23,7 +23,7 @@ export function initInput() {
     if (e.key === "x" || e.key === "X") { togglePixel(); return; }
     if (e.key === "Escape") { if (state.view !== "title") go("map"); return; }
     if (e.key === "g" || e.key === "G") {
-      // Il Codex si apre dalle schermate di riposo, mai a metà livello.
+      // Il glossario del gioco si apre dalle schermate di riposo, mai a metà tappa.
       if (state.view === "codex") go("map");
       else if (["title", "map", "win", "final"].includes(state.view)) go("codex");
       return;

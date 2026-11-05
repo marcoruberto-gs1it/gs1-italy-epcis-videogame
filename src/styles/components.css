@@ -220,7 +220,7 @@ pre.json .n { color: var(--gs1-orange-300); }
 .rolecard ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
 .print-only { display: none; }
 
-/* Codex */
+/* Glossario del gioco */
 .codex { display: flex; flex-direction: column; gap: 16px; }
 .codex .sub { color: var(--ink); }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }

@@ -25,7 +25,7 @@ export function renderHud() {
     .map(g => `<span class="grp"><span class="lbl" aria-hidden="true">${t(`hud.world.${g[0].world}`)}</span>${g.map(l => `<i class="${state.done[l.id] ? "on" : ""}"></i>`).join("")}</span>`).join("");
   const hearts = [0, 1, 2].map(i => `<span class="${i < state.lives ? "" : "lost"}">♥</span>`).join("");
   $("#hud").innerHTML = `
-    <div class="brandbox">${logoHtml()}<span>${t("title.heading")}</span></div>
+    <button class="brandbox" id="brandHome" aria-label="${t("hud.homeAria")}">${logoHtml()}<span aria-hidden="true">${t("title.heading")}</span></button>
     <div class="status">
       <span class="steps" role="img" aria-label="${t("hud.powersAria", { n: Object.keys(state.done).length, total: LEVELS.length })}">${steps}</span>
       <span class="hearts" role="img" aria-label="${t("hud.livesAria", { n: state.lives })}">${hearts}</span>
@@ -38,6 +38,7 @@ export function renderHud() {
     </div>`;
   $("#mute").onclick = toggleMute;
   $("#helpBtn").onclick = () => onHelp();
+  $("#brandHome").onclick = () => { if (state.view !== "title") go("title"); };
   const home = $("#navHome"), map = $("#navMap");
   if (home) home.onclick = () => go("title");
   if (map) map.onclick = () => go("map");

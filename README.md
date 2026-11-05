@@ -22,7 +22,7 @@ Il gioco è pensato per chi parte da zero: testi in italiano semplice, una sola 
 
 La filiera tessile è ancora nel codice ma è spenta: si riattiva aggiungendo `"textile"` in `worlds` dentro `src/config.js`.
 
-Ogni tappa mostra le sue pagine del diario nel formato EPCIS 2.0 (JSON), un superpotere e una scheda «Perché conta». Le **schede dei concetti** si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
+Ogni tappa mostra le sue pagine del diario nel formato EPCIS 2.0 (JSON), un superpotere e una scheda «Perché conta». Le voci del **glossario del gioco** si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
 
 ## Come si gioca
 
@@ -44,7 +44,7 @@ Apri `dist/index.html` con un doppio clic: è un unico file, funziona offline, s
 | 1-9 | Scegli un'opzione |
 | Invio | Conferma / avanti |
 | Esc | Torna alla mappa |
-| G | Schede dei concetti (dalla mappa e dalle schermate di riposo) |
+| G | Glossario del gioco (dalla mappa e dalle schermate di riposo) |
 | D | Documento EPCIS completo (nella schermata dell'evento) |
 | M | Audio sì/no |
 | R | Cambia grafica al volo: 3D o 2D, restando nello stesso punto |
@@ -82,7 +82,7 @@ I test nel browser usano Microsoft Edge già installato sul PC (`channel: "msedg
 | Cartella | Contenuto |
 | --- | --- |
 | `src/config.js` | Mondi attivi, renderer, qualità, audio all'avvio |
-| `src/content/it.json` | Tutti i testi visibili: interfaccia, tappe, glossari, schede dei concetti, finale |
+| `src/content/it.json` | Tutti i testi visibili: interfaccia, tappe, glossari, glossario del gioco, finale |
 | `src/levels/` | Un file per livello: testi, superpotere e meccanica |
 | `src/data/events/` | Gli eventi EPCIS mostrati nel gioco, un file per livello |
 | `schemas/` | Schema JSON ufficiale di EPCIS 2.0, usato dai test |
@@ -104,7 +104,7 @@ Il logo ufficiale di GS1 Italy è in `assets/gs1-italy-logo.png` e viene incluso
 | EPCIS | Ogni evento è valido contro lo schema JSON ufficiale EPCIS 2.0; cifre di controllo di GTIN, GLN, SSCC; quantità coerenti tra livelli e scene; uso corretto di `action` |
 | Percorso | Dal titolo al finale solo con la tastiera, in 3D, in 2D e su smartphone (390×844, movimento ridotto) |
 | 3D | GS1 Blue esatto a schermo; ritorno al 2D se il contesto WebGL si perde; tasto R; memoria stabile dopo tre giri; meno di 150 draw call e 100.000 triangoli per scena |
-| Accessibilità | axe-core (WCAG 2 A e AA) su titolo, mappa, tappa, evento, schede dei concetti, comandi e finale, in 3D, in 2D e su smartphone |
+| Accessibilità | axe-core (WCAG 2 A e AA) su titolo, mappa, tappa, evento, glossario del gioco, comandi e finale, in 3D, in 2D e su smartphone |
 | Brand | Nessun colore fuori dai token; contrasti AA; Orange e Teal mai a contatto negli sprite |
 | Testi | Stile GS1 Italy: numeri da uno a dieci in lettere, «barcode» e «standard» minuscoli, È accentata, plurali stranieri invariati, niente maschile generico, frasi brevi, sigle spiegate |
 
