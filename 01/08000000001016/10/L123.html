@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Richiamo del prodotto: Yogurt bianco intero · lotto L123</title>
+<meta name="description" content="Non mangiare lo yogurt di questo lotto. Pagina dimostrativa del gioco Missione L123: prodotto, aziende e richiamo sono di fantasia.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Spline+Sans+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/*
+ * Token di colore GS1 Italy: unica fonte dei colori del gioco.
+ * src/tokens.js viene generato da questo file (scripts/gen-tokens.js): non modificarlo a mano.
+ * Le tinte derivate sono calcolate in OKLCH cambiando solo la luminosità (L) del colore di brand,
+ * con tinta e croma invariati (vedi docs/brand-tokens.md e scripts/oklch.js).
+ */
+:root {
+  /* Colori di brand */
+  --gs1-blue: #002C6C;
+  --gs1-orange: #F26334;
+  --gs1-teal: #22BCB9;
+  --gs1-forest: #00B74F;
+  --gs1-white: #FFFFFF;
+  --gs1-off-white: #FAF9F5;
+  --gs1-light-gray: #E5E8EB;
+  --gs1-dark-gray: #4A4A4A;
+
+  /* Tinte derivate dal GS1 Blue (ΔL OKLCH) */
+  --gs1-blue-950: #000D2C; /* -0,14 */
+  --gs1-blue-900: #00163E; /* -0,10 */
+  --gs1-blue-800: #002154; /* -0,05 */
+  --gs1-blue-700: #113D7E; /* +0,06 */
+  --gs1-blue-600: #234E91; /* +0,12 */
+  --gs1-blue-200: #B8D3FE; /* +0,55 */
+  --gs1-blue-100: #DCE9FF; /* +0,62: fondo delle scene illustrate */
+  --gs1-blue-50: #F1F6FE;  /* +0,66: fondo della pagina */
+
+  /* Tinte derivate dagli altri colori di brand */
+  --gs1-orange-700: #C53E03; /* -0,12 */
+  --gs1-orange-300: #FE9575; /* +0,10 */
+  --gs1-orange-100: #FFD0C2; /* +0,22 */
+  --gs1-teal-700: #077977;   /* -0,20 */
+  --gs1-teal-300: #5AE3E0;   /* +0,12 */
+  --gs1-forest-900: #013311; /* -0,40 */
+  --gs1-forest-700: #058237; /* -0,15 */
+  --gs1-forest-300: #4CDF75; /* +0,12 */
+
+  /* Neutri caldi derivati dall'off-white: legno del pallet, cartone */
+  --gs1-warm-400: #A9A8A4;   /* -0,25 */
+  --gs1-warm-600: #767571;   /* -0,42 */
+
+  /* Colore funzionale per gli errori: DA VALIDARE CON IL BRAND. Sempre con icona ✕.
+     Rosso scuro perché il gioco ora è su fondo chiaro (contrasto 6,6 su bianco). */
+  --state-error: #B42318;
+  /* Interfaccia moderna, come l'app GS1 Italy «Verified by GS1»: fondi, testi e stati */
+  --ui-bg: #EEF2F8;       /* fondo della pagina */
+  --ui-bg-deep: #E3E9F3;  /* fondo dietro le schede */
+  --ui-ink: #0F2147;      /* testo principale */
+  --ui-muted: #56657F;    /* testo secondario */
+  --ui-mist: #E8EDF5;     /* riquadri tenui, tasti numerati */
+  --ui-sky: #DCE6F5;      /* contesto delle domande */
+  --ui-peach: #FDE4D8;    /* evidenza calda (tappa corrente) */
+  --ui-navy-2: #1D4F9A;   /* sfumatura delle schede blu */
+  --ui-orange-2: #B5421C; /* testo arancio su fondi chiari */
+  --ui-ok: #0F7A52;
+  --ui-ok-bg: #E1F3EA;
+  --ui-bad: #C8283A;
+  --ui-bad-bg: #FCE6E8;
+}
+
+:root { --font-body: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif; --font-mono: "Spline Sans Mono", ui-monospace, Consolas, monospace; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ui-bg); color: var(--ui-ink); font-family: var(--font-body); line-height: 1.5; font-size: 17px; }
+main { max-width: 680px; margin: 0 auto; padding: 16px 16px 40px; display: flex; flex-direction: column; gap: 16px; }
+h1, h2, h3 { color: var(--gs1-blue); line-height: 1.2; margin: 0; }
+h2 { font-size: 1.25em; }
+h3 { font-size: 1em; }
+p { margin: 0; }
+code { font-family: var(--font-mono); font-size: .82em; }
+.demo { font-size: .8em; color: var(--ui-muted); text-align: center; background: var(--gs1-white); border: 2px dashed var(--ui-sky); border-radius: 12px; padding: 6px 10px; }
+.card { background: var(--gs1-white); border-radius: 22px; padding: 18px; box-shadow: 0 6px 22px var(--ui-mist); display: flex; flex-direction: column; gap: 10px; }
+/* Richiamo: in evidenza, prima di tutto il resto */
+.recall { background: var(--ui-bad); color: var(--gs1-white); border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 8px 0 var(--gs1-orange-700); }
+.recall h1 { color: var(--gs1-white); font-size: 1.55em; }
+.recall .tag { align-self: flex-start; background: var(--gs1-white); color: var(--ui-bad); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: .78em; border-radius: 999px; padding: 4px 12px; display: inline-flex; gap: 6px; align-items: center; }
+.recall .tag::before { content: "!"; display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--ui-bad); color: var(--gs1-white); font-size: .9em; }
+.recall dl { margin: 4px 0 0; display: grid; grid-template-columns: 1fr; gap: 0; background: var(--gs1-white); color: var(--ui-ink); border-radius: 16px; padding: 12px 14px; }
+.recall dt { font-weight: 700; color: var(--gs1-blue); font-size: .8em; text-transform: uppercase; letter-spacing: .04em; }
+.recall dt:not(:first-child) { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gs1-light-gray); }
+.recall dd { margin: 0; font-weight: 600; }
+.recall .what { background: var(--gs1-white); color: var(--ui-ink); border-radius: 16px; padding: 12px 14px; }
+.recall .what h2 { color: var(--ui-bad); font-size: 1.05em; margin-bottom: 6px; }
+.recall .what ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; font-weight: 600; }
+.recall .also { font-weight: 700; }
+@media (prefers-reduced-motion: no-preference) {
+  .recall { animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
+  .recall .tag::before { animation: blink 1.4s ease-in-out infinite; }
+  @keyframes pop { from { transform: scale(.94); } }
+  @keyframes blink { 50% { transform: scale(1.25); } }
+}
+.product { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: center; }
+.jar { width: 96px; height: auto; }
+.jar .lid { fill: var(--gs1-orange); }
+.jar .cup { fill: var(--gs1-white); stroke: var(--gs1-blue); stroke-width: 4; }
+.jar .lbl { fill: var(--gs1-blue); }
+.jar .t1 { fill: var(--gs1-white); font: 800 11px var(--font-body); }
+.jar .t2 { fill: var(--gs1-orange-300); font: 700 13px var(--font-mono); }
+.product dl { margin: 6px 0 0; display: grid; grid-template-columns: 1fr; font-size: .9em; }
+.product dt:not(:first-child) { margin-top: 4px; }
+.product dt { color: var(--ui-muted); }
+.product dd { margin: 0; font-weight: 700; }
+.product .maker { font-size: .85em; color: var(--ui-muted); }
+/* Storia del lotto: una linea del tempo, un punto per evento */
+.story { list-style: none; margin: 0; padding: 0; }
+.step { position: relative; display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding-bottom: 14px; }
+.step:not(:last-child)::before { content: ""; position: absolute; left: 10px; top: 18px; bottom: 0; width: 3px; background: var(--ui-sky); }
+.dot { width: 22px; height: 22px; border-radius: 50%; background: var(--gs1-blue); border: 4px solid var(--gs1-blue-200); margin-top: 2px; }
+.step .sc { display: flex; flex-direction: column; gap: 2px; }
+.when { font-size: .8em; font-weight: 700; color: var(--gs1-orange-700); text-transform: uppercase; letter-spacing: .04em; }
+.ev { color: var(--ui-muted); }
+.step.alert .dot { background: var(--ui-bad); border-color: var(--ui-bad-bg); }
+.step.alert .sc { background: var(--ui-bad-bg); border-radius: 14px; padding: 8px 10px; }
+.step.alert h3, .step.alert .when { color: var(--ui-bad); }
+/* GS1 Digital Link scomposto */
+.url { font-family: var(--font-mono); font-size: .8em; background: var(--ui-mist); border-radius: 12px; padding: 8px 10px; overflow-wrap: anywhere; line-height: 2; }
+.url .seg { border-radius: 6px; padding: 2px 4px; }
+.url .dom { background: var(--ui-ok-bg); }
+.url .ai { background: var(--gs1-blue); color: var(--gs1-white); }
+.url .val { background: var(--ui-sky); }
+.url .sl { color: var(--ui-muted); }
+.parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.parts li { display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: start; background: var(--ui-mist); border-radius: 14px; padding: 8px 10px; font-size: .9em; }
+.parts .b { font-family: var(--font-mono); font-weight: 700; text-align: center; background: var(--gs1-white); border-radius: 8px; padding: 2px 4px; }
+.parts .v { font-family: var(--font-mono); font-weight: 700; }
+.btn { display: inline-block; align-self: flex-start; background: var(--gs1-blue); color: var(--gs1-white); text-decoration: none; font-weight: 700; border-radius: 999px; padding: 10px 18px; }
+.btn:hover { background: var(--ui-navy-2); }
+a:focus-visible { outline: 3px solid var(--gs1-orange); outline-offset: 3px; }
+footer { font-size: .8em; color: var(--ui-muted); text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <p class="demo">Pagina dimostrativa del gioco Missione L123: prodotto, aziende e richiamo sono di fantasia.</p>
+
+  <section class="recall" aria-labelledby="recallTitle">
+    <span class="tag">Richiamo del prodotto</span>
+    <h1 id="recallTitle">Non mangiare lo yogurt di questo lotto</h1>
+    <p>Il laboratorio ha trovato un problema nel latte usato per questo lotto. Per sicurezza il lotto L123 è stato richiamato il 5 novembre 2026.</p>
+    <dl>
+      <dt>Prodotto</dt><dd>Yogurt bianco intero</dd>
+      <dt>Lotto</dt><dd><strong>L123</strong></dd>
+      <dt>Da consumarsi preferibilmente entro</dt><dd>30 novembre 2026</dd>
+      <dt>Motivo</dt><dd>Problema nel latte crudo della cisterna C0471, usato per fare questo lotto</dd>
+      <dt>Data del richiamo</dt><dd>5 novembre 2026</dd>
+    </dl>
+    <div class="what">
+      <h2>Che cosa fare</h2>
+      <ol><li>Non mangiare lo yogurt.</li><li>Riportalo nel negozio dove l'hai comprato: ti rimborsano anche senza scontrino.</li><li>Se l'hai già mangiato e non ti senti bene, chiama il tuo medico.</li></ol>
+    </div>
+    <p class="also">Anche il lotto L124, fatto con lo stesso latte, è richiamato.</p>
+  </section>
+
+  <section class="card" aria-labelledby="productTitle">
+    <h2 id="productTitle">Il prodotto</h2>
+    <div class="product">
+      <svg class="jar" viewBox="0 0 120 130" aria-hidden="true">
+  <rect x="14" y="8" width="92" height="16" rx="6" class="lid"/>
+  <path d="M20 28h80l-8 92a8 8 0 0 1-8 7H36a8 8 0 0 1-8-7z" class="cup"/>
+  <rect x="26" y="52" width="68" height="40" rx="6" class="lbl"/>
+  <text x="60" y="70" text-anchor="middle" class="t1">YOGURT</text>
+  <text x="60" y="85" text-anchor="middle" class="t2">L123</text>
+</svg>
+      <div>
+        <p><strong>Yogurt bianco intero</strong></p>
+        <p class="maker">Caseificio di fantasia del gioco Missione L123</p>
+        <dl>
+          <dt>Codice prodotto (GTIN)</dt><dd><code>08000000001016</code></dd>
+          <dt>Lotto</dt><dd><code>L123</code></dd>
+          <dt>Da consumarsi preferibilmente entro</dt><dd>30 novembre 2026</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="storyTitle">
+    <h2 id="storyTitle">La storia di questo vasetto</h2>
+    <p>Ogni passaggio è un evento EPCIS, registrato da chi ha avuto in mano il lotto. Se hai giocato a Missione L123, li hai scritti tu.</p>
+    <ol class="story"><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-01T06:10:00.000+01:00">1 nov, 06:10</time></p>
+        <h3>Alla stalla nasce il latte</h3>
+        <p>Mungitura del mattino: 2.400 litri di latte crudo ricevono il codice di lotto C0471.</p>
+        <p class="ev"><code>ObjectEvent · commissioning · active</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-01T08:40:00.000+01:00">1 nov, 08:40</time></p>
+        <h3>Il latte arriva al caseificio</h3>
+        <p>Il caseificio registra l'arrivo del lotto C0471 e la stalla da cui è partito.</p>
+        <p class="ev"><code>ObjectEvent · receiving · in_progress</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T07:30:00.000+01:00">2 nov, 07:30</time></p>
+        <h3>Il latte diventa yogurt</h3>
+        <p>Nella vasca 1 latte e fermenti diventano 288 vasetti del lotto L123.</p>
+        <p class="ev"><code>TransformationEvent · commissioning · active</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T08:15:00.000+01:00">2 nov, 08:15</time></p>
+        <h3>Controllo qualità</h3>
+        <p>Sulla linea 2 il lotto L123 passa il controllo di qualità.</p>
+        <p class="ev"><code>ObjectEvent · inspecting · active</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T09:40:00.000+01:00">2 nov, 09:40</time></p>
+        <h3>Cartoni e pallet</h3>
+        <p>Dodici cartoni da ventiquattro vasetti salgono su un pallet, ognuno con il suo codice SSCC.</p>
+        <p class="ev"><code>AggregationEvent · packing · in_progress</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T11:05:00.000+01:00">2 nov, 11:05</time></p>
+        <h3>In viaggio verso Bologna</h3>
+        <p>Il pallet parte per il Centro di Distribuzione, collegato all'ordine e all'avviso di spedizione.</p>
+        <p class="ev"><code>ObjectEvent · shipping · in_transit</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T13:20:00.000+01:00">2 nov, 13:20</time></p>
+        <h3>La catena del freddo</h3>
+        <p>Un sensore misura la temperatura per tutto il viaggio: tra 4,1 e 9 °C. Sopra gli otto gradi scatta un allarme, registrato nell'evento.</p>
+        <p class="ev"><code>ObjectEvent · transporting · in_transit</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T16:30:00.000+01:00">2 nov, 16:30</time></p>
+        <h3>Arrivo al CeDi di Bologna</h3>
+        <p>Il Centro di Distribuzione registra l'arrivo. Un errore di battitura nel lotto è stato corretto, senza cancellare nulla.</p>
+        <p class="ev"><code>ObjectEvent · receiving · in_progress</code></p>
+      </div>
+    </li><li class="step alert">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-05T10:00:00.000+01:00">5 nov, 10:00</time></p>
+        <h3>Ritiro e richiamo</h3>
+        <p>Il lotto si ferma al CeDi, sul camion e nei supermercati di Milano e Monza. Chi l'ha già comprato riceve questo avviso.</p>
+        <p class="ev"><code>ObjectEvent · holding · recalled</code></p>
+      </div>
+    </li></ol>
+  </section>
+
+  <section class="card" aria-labelledby="dlTitle">
+    <h2 id="dlTitle">Come funziona questo QR code</h2>
+    <p>È un indirizzo web che porta con sé i codici GS1. Il percorso contiene prodotto e lotto, la parte dopo il punto interrogativo contiene la data.</p>
+    <p class="url" aria-label="https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/01/08000000001016/10/L123?15=261130"><span class="seg dom">marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame</span><span class="sl">/</span><span class="seg ai">01</span><span class="sl">/</span><span class="seg val">08000000001016</span><span class="sl">/</span><span class="seg ai">10</span><span class="sl">/</span><span class="seg val">L123</span><span class="sl">?</span><span class="seg ai">15</span><span class="sl">=</span><span class="seg val">261130</span></p>
+    <ul class="parts"><li><span class="b">www</span><div><p><strong>Dominio</strong> <span class="v">marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame</span></p><p>Il sito di chi produce o vende. Qui è quello del gioco: lo sceglie la marca, non serve id.gs1.org.</p></div></li><li><span class="b">(01)</span><div><p><strong>GTIN, il codice del prodotto</strong> <span class="v">08000000001016</span></p><p>Global Trade Item Number: identifica il tipo di prodotto, come lo yogurt o il latte. È lo stesso numero del codice a barre.</p></div></li><li><span class="b">(10)</span><div><p><strong>Lotto</strong> <span class="v">L123</span></p><p>Il numero del lotto di produzione, come L123. I vasetti prodotti insieme hanno lo stesso lotto: è il dato chiave per ritiri e richiami.</p></div></li><li><span class="b">(15)</span><div><p><strong>Da consumarsi preferibilmente entro</strong> <span class="v">261130</span></p><p>La data nel formato anno, mese, giorno: 261130 vuol dire 30 novembre 2026.</p></div></li></ul>
+  </section>
+
+  <section class="card" aria-labelledby="gameTitle">
+    <h2 id="gameTitle">Hai giocato a Missione L123?</h2>
+    <p>Questa è la storia che hai costruito evento dopo evento. Nel gioco trovi anche il testo vero di ogni evento.</p>
+    <a class="btn" href="https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/">Gioca a Missione L123</a>
+  </section>
+
+  <footer>Missione L123 · un gioco di GS1 Italy per capire la tracciabilità con EPCIS. Codici GS1, aziende e luoghi sono di fantasia.</footer>
+</main>
+</body>
+</html>
