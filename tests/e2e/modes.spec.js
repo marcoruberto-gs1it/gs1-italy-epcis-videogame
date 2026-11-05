@@ -67,6 +67,6 @@ test("Inizio, Mappa e logo nella barra in alto, tappe cliccabili nella barra del
   await expect(page.locator(".map")).toBeVisible();
   await page.locator("#brandHome").click();
   await expect(page.locator("h1")).toHaveText("Missione L123");
-  await expect(page.locator("link[rel=icon]")).toHaveAttribute("href", /^data:image/png;base64,/);
+  await expect(page.locator("link[rel=icon]")).toHaveAttribute("href", /^data:image\/png;base64,/);
   expect(errors).toEqual([]);
 });
