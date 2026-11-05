@@ -240,3 +240,13 @@ pre.json { font-family: var(--font-mono); font-weight: 500; background: linear-g
 @media (max-width: 640px) {
   .hero-scene { min-height: 240px; }
 }
+
+/* Glossario in fondo alla tappa e nella schermata dell'evento */
+.gloss { background: var(--ui-bg); border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.gloss h3 { font-size: .72em; text-transform: uppercase; letter-spacing: .06em; color: var(--ui-navy-2); }
+.gloss dl { margin: 0; display: grid; gap: 10px; }
+.gloss dl > div { display: grid; grid-template-columns: minmax(120px, 30%) minmax(0, 1fr); gap: 4px 14px; padding-top: 10px; border-top: 1px solid var(--line); }
+.gloss dl > div:first-child { border-top: 0; padding-top: 0; }
+.gloss dt { font-weight: 800; color: var(--gs1-blue); }
+.gloss dd { margin: 0; color: var(--ink); line-height: 1.5; }
+@media (max-width: 640px) { .gloss dl > div { grid-template-columns: minmax(0, 1fr); } }

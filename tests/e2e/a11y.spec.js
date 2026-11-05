@@ -45,7 +45,7 @@ for (const render of ["3d", "2d"]) {
 test("finale accessibile", async ({ page }) => {
   // Partita già completata: il gioco riparte dal finale.
   await page.addInitScript(() => {
-    const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "2-1", "2-2", "2-3", "finale"];
+    const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "finale"];
     localStorage.setItem("missione-l123", JSON.stringify({ v: 3, state: {
       score: 2400, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true, view: "final"
     } }));

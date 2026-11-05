@@ -6,7 +6,7 @@ import { typeLines, popIn, burst, floatScore, pulse } from "../anim/fx.js";
 import { t } from "../content/index.js";
 import { byId, nextOf, codexOf } from "../levels/index.js";
 import { toDocument } from "../gs1/epcis.js";
-import { levelCode } from "../ui/kit.js";
+import { levelCode, glossaryBox } from "../ui/kit.js";
 import { $, show, jsonLines } from "../ui/dom.js";
 import { chainBar, wireChain } from "../ui/chain.js";
 
@@ -47,6 +47,7 @@ register("win", id => {
         <div class="power"><span class="tag">${t("win.unlocked")}</span><span class="pn">${level.power[0]}</span><p>${level.power[1]}</p></div>
         <p class="fact">${level.fact}</p>
         ${whyCard(level.why)}
+        ${glossaryBox(level)}
         ${cards ? `<p class="codex-new">${t("win.codexNew", { list: cards })}</p>` : ""}
         <div class="row">
           <button class="btn alt" id="toMap">${t("win.map")}</button>

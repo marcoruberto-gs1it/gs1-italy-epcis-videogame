@@ -8,7 +8,7 @@ const MILK = `${DL}/09506000134314/10/C0471`;
 const lotUri = lot => `${DL}/09506000134352/10/${lot}`;
 
 export default defineLevel({
-  slug: "sfida-finale", id: "finale", world: "finale", sp: "alarm", scene: "allarme", events,
+  slug: "sfida-finale", id: "finale", world: "food", sp: "alarm", scene: "allarme", events,
 
   mount({ C, hook, show, levelShell, ask, setMsg, win, sfx, sprite, img, fx, later, reduced, state, commit, $ }) {
     show(levelShell(this,

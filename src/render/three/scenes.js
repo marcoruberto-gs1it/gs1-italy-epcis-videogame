@@ -364,7 +364,7 @@ const turned = o => { o.rotation.y = Math.PI / 4; return o; };
 // Disposizione di ogni filiera: tappe in fila lungo una strada, con il paesaggio intorno.
 const WORLD_MAP = {
   food: {
-    gap: 2.9, len: 20,
+    gap: 2.95, len: 22,
     decor: root => {
       for (let a = -9; a <= 9; a += 2.4) root.add(on(P.tree(), a, -2.7, 0.12));
       root.add(on(P.fence(2.4), -8.6, -1.7, 0.12), on(P.cow(0, 0, 0.3), -9.2, -0.4, 0.12), on(P.bush(), -2, 2.9, 0.12), on(P.bush(), 5, 2.9, 0.12));

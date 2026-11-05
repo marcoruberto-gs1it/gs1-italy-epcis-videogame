@@ -26,7 +26,7 @@ register("intro", id => {
   show(`${chainBar(level)}<div class="intro-layout">
     <div class="scene-box intro-scene" id="introScene"><div class="fallback" id="hero">${img(level.meta.sp, finale ? 96 : 120)}</div></div>
     <div class="title intro-card"><div class="inner">
-      <span class="tag">${finale ? t("intro.tagFinale") : t("intro.tag", { w: t(`map.${level.world}.heading`), ...worldStep(level) })}</span>
+      <span class="tag">${t("intro.tag", { w: t(`map.${level.world}.heading`), ...worldStep(level) })}</span>
       <h1>${level.meta.t}</h1>
       <div class="narrator">${img("bip", 56, "bip", t("narrator.alt"))}<p class="speech"><b>${t("narrator.name")}</b><span class="txt">${level.intro}</span></p></div>
       <span class="hi">${t("intro.concept", { c: level.meta.c })}</span>

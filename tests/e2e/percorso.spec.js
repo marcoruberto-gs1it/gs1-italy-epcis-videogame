@@ -106,31 +106,8 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("3"); await press("Enter");
   await seeWin("14-evento-1-6");
 
-  // 2-1 Dal filo al capo
-  await intro("15-intro-2-1");
-  // La spedizione non è una trasformazione: costa una vita.
-  await press("1");
-  await expect(page.locator("#msg")).toContainText("Cambia il luogo");
-  await press("3"); await press("2"); await press("5");
-  await shot("16-livello-2-1");
-  await press("Enter");
-  await seeWin("17-evento-2-1");
-
-  // 2-2 Inventario lampo
-  await intro();
-  await press("Enter"); await press("Enter");
-  await expect(page.locator("#opts .opt")).toHaveCount(4, { timeout: 15_000 });
-  await press("2"); await press("Enter");
-  await seeWin("18-evento-2-2");
-
-  // 2-3 Il reso sospetto
-  await intro();
-  await press("8"); await press("9");
-  await press("4"); await press("Enter");
-  await seeWin("19-evento-2-3");
-
-  // Sfida finale
-  await intro("20-intro-sfida-finale");
+  // 1-7 Ritiro e richiamo
+  await intro("20-intro-ritiro-richiamo");
   await press("Enter");
   await expect(page.locator("#new")).toBeVisible({ timeout: 20_000 });
   await press("Enter");
@@ -140,13 +117,13 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await expect(page.locator("#block")).toBeVisible({ timeout: 10_000 });
   await press("Enter");
   await expect(page.locator("#reg")).toBeVisible({ timeout: 10_000 });
-  await shot("21-sfida-finale-round-2");
+  await shot("21-ritiro-richiamo-seconda-prova");
   await press("Enter");
-  await seeWin("22-evento-sfida-finale");
+  await seeWin("22-evento-ritiro-richiamo");
 
   await press("Enter");
   await expect(page.locator(".final h1")).toHaveText("Missione compiuta");
-  await expect(page.locator(".pcell.on")).toHaveCount(10);
+  await expect(page.locator(".pcell.on")).toHaveCount(7);
   await shot("23-finale");
   await page.locator(".benefits").scrollIntoViewIfNeeded();
   await shot("24-finale-vantaggi");
