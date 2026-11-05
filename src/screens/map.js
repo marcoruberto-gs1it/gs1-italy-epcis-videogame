@@ -1,10 +1,10 @@
 // Mappa: una scheda per filiera (food, tessile, sfida finale). Ogni scheda ha il suo paesaggio 3D
 // con le tappe numerate e lo stesso percorso numerato in HTML, che funziona anche in 2D.
 import { register, go } from "../engine/router.js";
-import { state, resetState } from "../engine/state.js";
+import { state } from "../engine/state.js";
 import { sfx } from "../engine/audio.js";
 import { t } from "../content/index.js";
-import { staggerIn } from "../anim/fx.js";
+import { heartbeat, cascade } from "../anim/fx.js";
 import { LEVELS, mapNodes } from "../levels/index.js";
 import { $, $$, show } from "../ui/dom.js";
 import { mountScene } from "../render/scene-host.js";
@@ -14,6 +14,9 @@ const WORLD_KEYS = ["food", "textile", "finale"];
 // Scheda aperta e ultima tappa "sei qui" mostrata (serve per far saltare il segnaposto fino alla tappa nuova).
 let tab = null;
 let lastHere = null;
+
+/** Dopo «Ricomincia da zero»: la mappa riparte dalla prima filiera, senza salti del segnaposto. */
+export function resetMapView() { tab = null; lastHere = null; }
 
 register("map", () => {
   const next = LEVELS.find(l => !state.done[l.id]);
@@ -31,7 +34,7 @@ register("map", () => {
   show(`<div class="map">
     <div class="map-head">
       <div class="tabs" role="tablist" aria-label="${t("map.tabsAria")}">${worlds.map(w => `<button class="tab" role="tab" id="tab-${w.key}" data-world="${w.key}" aria-controls="panel-${w.key}" aria-selected="${w.key === tab}" tabindex="${w.key === tab ? 0 : -1}"><span class="name">${t(`map.${w.key}.heading`)}</span>${progress(w)}</button>`).join("")}</div>
-      <div class="row"><button class="btn alt small" id="codex">${t("map.codex")}</button><button class="btn alt small" id="reset">${t("map.reset")}</button></div>
+      <div class="row"><button class="btn alt small" id="codex">${t("map.codex")}</button></div>
     </div>
     ${worlds.map(w => `<section class="world" role="tabpanel" id="panel-${w.key}" aria-labelledby="tab-${w.key}" data-world="${w.key}" ${w.key === tab ? "" : "hidden"}>
       <div class="world-head"><p>${t(`map.${w.key}.text`)}</p>${playButton(w)}</div>
@@ -58,7 +61,9 @@ register("map", () => {
       p.querySelector(".play").toggleAttribute("data-primary", on);
     });
     const panel = $(`#panel-${key}`);
-    staggerIn($$(".stop", panel), { y: 10 });
+    // Le schede delle tappe entrano a cascata; il numero della tappa da giocare batte come un cuore.
+    cascade($$(".stop", panel), { y: 22 }, 0.06);
+    heartbeat($(".stop.next .num", panel));
     const nodes = mapNodes(state.done).filter(n => n.world === key);
     const here = nodes.find(n => !n.done);
     mountScene($(".diorama", panel), mapScene({ world: key, nodes, here: here && here.id, from: lastHere }, { clickHtml: sel => { const b = $(sel); if (b) b.click(); } }));
@@ -79,6 +84,5 @@ register("map", () => {
   $$(".pin").forEach(p => p.onclick = () => $(`.stop[data-lv="${p.dataset.pin}"]`).click());
   $$(".play").forEach(b => b.onclick = () => (b.dataset.go === "end" ? go("final") : go("intro", b.dataset.go)));
   $("#codex").onclick = () => go("codex");
-  $("#reset").onclick = () => { resetState(); tab = null; lastHere = null; go("title"); };
   open(tab);
 });

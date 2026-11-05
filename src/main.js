@@ -15,7 +15,9 @@ import { initNotes } from "./ui/notes.js";
 import { initLens } from "./ui/lens.js";
 import { initFitLines } from "./ui/dom.js";
 import { toggleArchive } from "./ui/archive.js";
-import { setArchiveHandler } from "./ui/hud.js";
+import { setArchiveHandler, setResetHandler } from "./ui/hud.js";
+import { resetState } from "./engine/state.js";
+import { resetMapView } from "./screens/map.js";
 import "./screens/title.js";
 import "./screens/map.js";
 import "./screens/level.js";
@@ -30,6 +32,8 @@ initNotes();
 initLens();
 initFitLines();
 setArchiveHandler(() => toggleArchive());
+// «Ricomincia da zero» nella barra in alto: azzera la partita (non l'audio) e torna all'inizio.
+setResetHandler(() => { toggleArchive(false); resetState(); resetMapView(); go("title"); });
 
 // Alla ripresa di una partita salvata si riparte dalla mappa (o dal finale, se era lì).
 if (state.view === "final") go("final");

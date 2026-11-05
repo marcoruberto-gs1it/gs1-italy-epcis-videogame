@@ -2,7 +2,8 @@
 import { state, commit, onChange } from "../engine/state.js";
 import { t } from "../content/index.js";
 import { LEVELS } from "../levels/index.js";
-import { $ } from "./dom.js";
+import { $, $$ } from "./dom.js";
+import { countUp, loseHeart, popDot, wobble } from "../anim/fx.js";
 import { render, onRender } from "../render/scene-host.js";
 import { go } from "../engine/router.js";
 import { icon } from "./icons.js";
@@ -17,6 +18,14 @@ export const logoHtml = () => LOGO
 
 let onHelp = () => {};
 let onArchive = () => {};
+let onReset = () => {};
+/** Collega il pulsante «Ricomincia da zero» (main.js: azzera la partita, la mappa e torna all'inizio). */
+export const setResetHandler = fn => { onReset = fn; };
+// Conferma in due tempi: il primo clic chiede «Sicuro?», il secondo (entro 4 secondi) azzera.
+let resetArmed = false;
+let resetTimer = null;
+// Valori mostrati l'ultima volta: servono per animare solo quello che cambia.
+let shown = null;
 /** Collega il pulsante «Eventi» all'archivio degli eventi (ui/archive.js). */
 export const setArchiveHandler = fn => { onArchive = fn; };
 /** Collega il pulsante «Comandi» alla schermata dei comandi (evita un import circolare con notes.js). */
@@ -39,7 +48,18 @@ export function renderHud() {
       <button class="tool" id="archBtn" aria-pressed="${!!document.getElementById("archive")}">${icon("doc")}<span class="lbl">${t("hud.archive")}</span></button>
       <button class="tool" id="mute" aria-pressed="${!state.muted}">${icon(state.muted ? "mute" : "sound")}<span class="lbl">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</span></button>
       <button class="tool" id="helpBtn">${icon("help")}<span class="lbl">${t("hud.help")}</span></button>
+      <button class="tool reset ${resetArmed ? "armed" : ""}" id="resetBtn" aria-label="${resetArmed ? t("hud.resetConfirm") : t("hud.resetAria")}">${icon("reset")}<span class="lbl">${resetArmed ? t("hud.resetConfirm") : t("hud.reset")}</span></button>
     </div>`;
+  $("#resetBtn").onclick = () => {
+    clearTimeout(resetTimer);
+    if (resetArmed) { resetArmed = false; onReset(); renderHud(); return; }
+    resetArmed = true;
+    renderHud();
+    wobble($("#resetBtn"));
+    $("#resetBtn").focus();
+    resetTimer = setTimeout(() => { resetArmed = false; renderHud(); }, 4000);
+  };
+  animateChanges();
   $("#mute").onclick = toggleMute;
   $("#helpBtn").onclick = () => onHelp();
   $("#archBtn").onclick = () => onArchive();
@@ -47,6 +67,19 @@ export function renderHud() {
   const home = $("#navHome"), map = $("#navMap");
   if (home) home.onclick = () => go("title");
   if (map) map.onclick = () => go("map");
+}
+
+/** Punti che contano fino al nuovo valore, cuore perso che cade, pallino della tappa appena fatta che scoppia. */
+function animateChanges() {
+  const now = { score: state.score, lives: state.lives, done: { ...state.done } };
+  const prev = shown;
+  shown = now;
+  if (!prev) return;
+  const score = $("#hud .score");
+  if (score && now.score > prev.score) countUp(score, prev.score, now.score, n => `${n} ${t("hud.events").toLowerCase()}`);
+  if (now.lives < prev.lives) loseHeart($$("#hud .hearts span")[now.lives]);
+  const dots = $$("#hud .steps i");
+  LEVELS.forEach((l, i) => { if (now.done[l.id] && !prev.done[l.id]) popDot(dots[i]); });
 }
 
 export function toggleMute() { state.muted = !state.muted; commit(); }

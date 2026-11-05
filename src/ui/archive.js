@@ -9,10 +9,12 @@ import { toDocument } from "../gs1/epcis.js";
 import { levelCode } from "./kit.js";
 import { $, $$, jsonLines } from "./dom.js";
 import { closeLens } from "./lens.js";
+import { gsap, reduced } from "../anim/gsap-setup.js";
 
 let current = null;
 let docMode = false;
 let opener = null;
+let prevTab = null;
 export const isArchiveOpen = () => !!$("#archive");
 
 /** Il pulsante «Eventi» della barra in alto indica se l'archivio è aperto. */
@@ -60,7 +62,15 @@ function select(id, focus) {
   });
   const panel = $("#archPanel");
   panel.setAttribute("aria-labelledby", "archTab-" + current.id);
+  const before = prevTab;
+  prevTab = current.id;
   panel.innerHTML = panelHtml(current);
+  // Cambio di tappa: il pannello scivola dal lato della tappa scelta e le pagine arrivano a cascata.
+  if (before && before !== current.id && !reduced()) {
+    const order = id => (id === "all" ? LEVELS.length : LEVELS.findIndex(l => l.id === id));
+    const dir = order(current.id) > order(before) ? 1 : -1;
+    gsap.from(panel.querySelectorAll(".arch-head, .page, pre.json"), { x: 40 * dir, duration: 0.45, stagger: 0.05, ease: "power3.out", clearProps: "transform" });
+  }
   $("#archDoc").onclick = () => { docMode = !docMode; select(current.id); $("#archDoc").focus(); };
   $("#archCopy").onclick = async () => {
     const out = $("#archCopied");
@@ -117,6 +127,9 @@ export function toggleArchive(force) {
       select(tabs[(i + d + tabs.length) % tabs.length].dataset.id, true);
     };
   });
+  prevTab = null;
   select(current.id);
   $("#archTitle").focus();
+  // Apertura: le schede delle tappe arrivano a cascata, come pagine di un raccoglitore.
+  if (!reduced()) gsap.from(tabs, { y: -18, rotation: () => (Math.random() - 0.5) * 6, duration: 0.5, stagger: 0.04, ease: "back.out(2.2)", clearProps: "transform" });
 }

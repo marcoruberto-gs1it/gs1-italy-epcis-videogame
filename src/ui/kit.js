@@ -2,7 +2,7 @@
 import { state, commit } from "../engine/state.js";
 import { sfx } from "../engine/audio.js";
 import { later } from "../engine/router.js";
-import { shake, burst, pulse } from "../anim/fx.js";
+import { shake, burst, pulse, celebrate, wobble, cascade } from "../anim/fx.js";
 import { ui, onModes } from "../engine/modes.js";
 import { backdrop } from "../render/two/scenes.js";
 import { t } from "../content/index.js";
@@ -72,9 +72,11 @@ export function ask(container, opts, onOk) {
     if (o.ok) {
       $$(".opt", container).forEach(x => x.disabled = true);
       b.classList.add("ok"); b.onclick = null;
-      sfx.ok(); burst(b); setMsg(o.why || "", true); onOk();
-    } else { b.classList.add("no"); b.disabled = true; fail(o.why); }
+      sfx.ok(); celebrate(b); setMsg(o.why || "", true); onOk();
+    } else { b.classList.add("no"); b.disabled = true; wobble(b); fail(o.why); }
   });
+  // Le opzioni entrano una dopo l'altra (sono leggibili da subito).
+  cascade($$(".opt", container), { x: -18 }, 0.05);
 }
 
 /** Domanda con il suo contesto: prima la situazione e i termini che servono, poi la domanda. */

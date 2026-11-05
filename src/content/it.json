@@ -18,7 +18,10 @@
       "finale": "Finale"
     },
     "homeAria": "Missione L123: torna all'inizio",
-    "archive": "Eventi (E)"
+    "archive": "Eventi (E)",
+    "reset": "Ricomincia da zero",
+    "resetConfirm": "Sicuro? Premi di nuovo",
+    "resetAria": "Ricomincia da zero: cancella i progressi"
   },
   "narrator": {
     "name": "Bip",
@@ -53,7 +56,6 @@
     "playFinale": "Gioca la tappa 1-8",
     "seeEnd": "Vedi il finale",
     "codex": "Glossario del gioco (G)",
-    "reset": "Ricomincia da zero",
     "tabsAria": "Scegli la filiera",
     "progress": "{n} di {total}",
     "goto": {
@@ -91,7 +93,8 @@
     "next": "Tappa {id}",
     "nextFinale": "Ritiro e richiamo",
     "end": "Vai al finale",
-    "glossary": "Glossario"
+    "glossary": "Glossario",
+    "stamp": "Registrato"
   },
   "roles": {
     "produttore": "Produttore",
@@ -1392,7 +1395,7 @@
     "tag": "GS1 Digital Link",
     "heading": "Come si legge questo link",
     "open": "Leggi il link pezzo per pezzo: {uri}",
-    "tip": "Tocca un link che inizia con id.gs1.org: lo scomponiamo pezzo per pezzo.",
+    "tip": "Tocca un link che inizia con id.gs1.org: lo scomponiamo pezzo per pezzo. Le parole che iniziano con gs1: portano alla loro definizione ufficiale nel GS1 Web Vocabulary.",
     "intro": "Un GS1 Digital Link è un indirizzo web che contiene i codici GS1. Si legge a coppie: un numero breve e poi il suo valore.",
     "aiWhat": "Il numero breve si chiama Application Identifier (AI). Dice che tipo di dato viene subito dopo.",
     "domainName": "Indirizzo web GS1",
@@ -1437,5 +1440,8 @@
         "Serial Shipping Container Code: identifica una singola unità logistica, come un pallet o un cartone. Ogni pallet ha un numero tutto suo."
       ]
     }
+  },
+  "voc": {
+    "open": "{term}: definizione ufficiale nel GS1 Web Vocabulary (si apre in una nuova scheda)"
   }
 }

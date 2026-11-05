@@ -51,6 +51,8 @@ code { font-family: var(--font-mono); font-weight: 500; background: var(--ui-mis
 .tool:hover { background: var(--ui-sky); }
 .tool:active { scale: .95; }
 .tool svg { width: 18px; height: 18px; flex: none; }
+/* «Ricomincia da zero» dopo il primo clic: chiede conferma in arancione. */
+.tool.reset.armed { background: var(--gs1-orange-700); color: var(--gs1-white); }
 .tool.nav { background: var(--gs1-blue); color: var(--gs1-white); }
 .tool.nav:hover { background: var(--ui-navy-2); }
 
@@ -276,6 +278,9 @@ button.brandbox:hover > span { color: var(--ui-navy-2); }
 
 /* Link GS1 Digital Link nel JSON: pulsanti che aprono la lente */
 pre.json button.dl { font: inherit; color: var(--gs1-forest-300); background: none; border: 0; padding: 0; text-align: left; text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; border-radius: 4px; }
+/* Termini del GS1 Web Vocabulary (gs1:...): link alla definizione su ref.gs1.org/voc. */
+pre.json a.voc { color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
+pre.json a.voc:hover, pre.json a.voc:focus-visible { text-decoration-style: solid; }
 pre.json button.dl:hover { color: var(--gs1-white); text-decoration-style: solid; }
 pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); outline-offset: 2px; }
 
@@ -288,6 +293,8 @@ pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); out
 .dl-url { font-family: var(--font-mono); font-weight: 600; font-size: clamp(13px, 1vw, 17px); line-height: 2.1; white-space: nowrap; overflow-x: auto; background: var(--ui-mist); border-radius: 14px; padding: 10px 14px; }
 .dl-url .seg { border-radius: 6px; padding: 2px 6px; color: var(--ui-ink); }
 .dl-url .sl { color: var(--muted); padding: 0 1px; }
+/* Pezzi dell'indirizzo in blocco: così l'animazione della lente può muoverli uno per uno. */
+.dl-url .seg, .dl-url .sl { display: inline-block; }
 .dl-url .dom { background: var(--ui-ok-bg); }
 .dl-url .key { background: var(--ui-sky); }
 .dl-url .qual { background: var(--ui-peach); }

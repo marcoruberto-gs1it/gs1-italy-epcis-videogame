@@ -74,6 +74,29 @@ test("Inizio, Mappa e logo nella barra in alto, tappe cliccabili nella barra del
   expect(errors).toEqual([]);
 });
 
+test("«Ricomincia da zero» sta in alto a destra e chiede conferma prima di azzerare", async ({ page }) => {
+  const { errors, press, idle } = await start(page);
+  await toQuestion1(press, page);
+  await press("2");
+  await expect(page.locator("#opts2 .opt")).toHaveCount(4);
+  await press("3"); await press("Enter");
+  await expect(page.locator(".win")).toBeVisible();
+  await expect(page.locator(".map #reset")).toHaveCount(0);
+  const reset = page.locator(".topbar .tools #resetBtn");
+  await expect(reset).toContainText("Ricomincia da zero");
+  // Primo clic: chiede conferma, non azzera.
+  await reset.click();
+  await expect(reset).toContainText("Sicuro?");
+  await expect(page.locator(".win")).toBeVisible();
+  await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/37-ricomincia-conferma.png" });
+  // Secondo clic: partita azzerata, si torna all'inizio.
+  await reset.click();
+  await expect(page.locator("h1")).toHaveText("Missione L123");
+  await expect(page.locator("#hud .steps i.on")).toHaveCount(0);
+  await expect(reset).toContainText("Ricomincia da zero");
+  expect(errors).toEqual([]);
+});
+
 test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digital Link, si torna alla domanda", async ({ page }) => {
   const { errors, press, idle } = await start(page);
   await toQuestion1(press, page);
@@ -95,6 +118,11 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/36-archivio-tutta-la-filiera.png" });
   await arch.locator("#archTab-1-1").click();
   await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-1");
+  // I termini del GS1 Web Vocabulary portano alla loro definizione ufficiale.
+  const voc = arch.locator('#archPanel a.voc', { hasText: "gs1:productionDate" });
+  await expect(voc).toHaveAttribute("href", "https://ref.gs1.org/voc/productionDate");
+  await expect(voc).toHaveAttribute("target", "_blank");
+  await expect(arch.locator('#archPanel a.voc', { hasText: "gs1:countryCode" })).toHaveAttribute("href", "https://ref.gs1.org/voc/countryCode");
   await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-1");
   // Anche le tappe non ancora giocate sono consultabili.
   await arch.locator(".tab").nth(3).click();

@@ -15,10 +15,17 @@ function jsonString(q) {
     : `<span class="s">${q}</span>`;
 }
 
+/** Termine del GS1 Web Vocabulary (gs1:xxx): diventa un link alla sua definizione ufficiale su ref.gs1.org/voc. */
+export const VOC = "https://ref.gs1.org/voc/";
+function vocLink(q) {
+  const m = /^&quot;gs1:([A-Za-z][A-Za-z0-9_-]*)&quot;$/.exec(q);
+  return m ? `<a class="voc" href="${VOC}${m[1]}" target="_blank" rel="noopener" aria-label="${esc(t("voc.open", { term: "gs1:" + m[1] }))}">${q}</a>` : q;
+}
+
 /** JSON con chiavi, stringhe e numeri evidenziati, già diviso in righe. */
 export function jsonLines(obj) {
   return esc(JSON.stringify(obj, null, 2))
-    .replace(/(&quot;[^&]*?&quot;)(\s*:)?/g, (m, a, b) => (b ? `<span class="k">${a}</span>${b}` : jsonString(a)))
+    .replace(/(&quot;[^&]*?&quot;)(\s*:)?/g, (m, a, b) => (b ? `<span class="k">${vocLink(a)}</span>${b}` : /^&quot;gs1:/.test(a) ? `<span class="s">${vocLink(a)}</span>` : jsonString(a)))
     .replace(/(:\s)(-?\d+(\.\d+)?)/g, '$1<span class="n">$2</span>')
     .split("\n");
 }

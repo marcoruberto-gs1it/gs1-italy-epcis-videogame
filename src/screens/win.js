@@ -2,7 +2,7 @@
 import { register, go } from "../engine/router.js";
 import { state, commit } from "../engine/state.js";
 import { sfx } from "../engine/audio.js";
-import { typeLines, popIn, burst, floatScore, pulse } from "../anim/fx.js";
+import { typeLines, popIn, floatScore, pulse, stamp, rain, cascade, confettiFrom } from "../anim/fx.js";
 import { t } from "../content/index.js";
 import { byId, nextOf, codexOf } from "../levels/index.js";
 import { toDocument } from "../gs1/epcis.js";
@@ -37,7 +37,7 @@ register("win", id => {
   const nextLabel = !next ? t("win.end") : next.id === "finale" ? t("win.nextFinale") : t("win.next", { id: next.id });
   const cards = codexOf(level).map(c => c.t).join(", ");
   const many = level.events.length > 1;
-  show(`${chainBar(level)}<div class="lv-head"><span class="code">${levelCode(level)}</span><h2 class="ok-title">${t("win.heading")}</h2></div>
+  show(`${chainBar(level)}<div class="lv-head"><span class="code">${levelCode(level)}</span><h2 class="ok-title">${t("win.heading")}</h2><span class="stamp" id="stamp" aria-hidden="true">✓ ${t("win.stamp")}</span></div>
     <div class="win">
       <div class="stack">
         <div class="row between"><h3>${many ? t("win.diaryMany") : t("win.diary")}</h3><button class="btn alt small" id="doc">${t("win.showDoc")}</button></div>
@@ -66,6 +66,8 @@ register("win", id => {
       typeLines(pre, jsonLines(level.events[i]), sfx.tick, () => typeFrom(i + 1));
     };
     typeFrom(0);
+    // Le pagine del diario entrano una dopo l'altra, già leggibili.
+    cascade(document.querySelectorAll("#diary .page"), { y: 24 }, 0.12);
   };
   const renderDoc = () => {
     $("#diary").innerHTML = `<p class="cap">${t("win.docNote")}</p><pre class="json" id="json0" tabindex="0">${jsonLines(toDocument(level.events)).join("\n")}</pre>`;
@@ -78,7 +80,10 @@ register("win", id => {
   };
   // Il superpotere compare con un piccolo scoppio, i punti volano verso l'HUD.
   popIn($(".power"), 0.2);
-  burst($(".power .pn"));
+  confettiFrom($(".power .pn"), 30, { spread: 300, rise: 180 });
+  // Il timbro «Registrato» cade sul diario; se la tappa è nuova piovono i coriandoli.
+  stamp($("#stamp"), $(".win"));
+  if (gained) rain(46);
   if (gained) floatScore($(".ok-title"), "+" + gained);
   pulse(document.querySelectorAll(".hud .pw span")[state.powers.indexOf(id)], 2);
   wireChain();

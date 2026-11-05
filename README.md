@@ -40,6 +40,10 @@ Il gioco è pensato per chi gioca da solo, da PC o da telefono.
 - `E` (o il pulsante **Eventi**) apre la pagina **archivio degli eventi** (non una finestra sovrapposta): il JSON-LD di tutte le tappe, anche quelle non ancora giocate, un evento alla volta o come documento EPCIS unico, con «Copia il testo». La scheda **«Tutta la filiera»** mostra in un colpo solo tutti gli eventi, dalla stalla al richiamo. La schermata di gioco resta sospesa: con «Torna al gioco» si riprende esattamente dove si era e i conti alla rovescia restano fermi.
 - Ogni **GS1 Digital Link** nel JSON (`https://id.gs1.org/...`) è cliccabile: la **lente** lo scompone in Application Identifier (01 GTIN, 10 lotto, 00 SSCC, 414 GLN del luogo, 254 punto nel luogo, 417 GLN dell'azienda, 253 GDTI, 8004 GIAI), con una spiegazione semplice e la cifra di controllo.
 
+- Nel JSON ogni termine del GS1 Web Vocabulary (`gs1:productionDate`, `gs1:bestBeforeDate`...) è un link alla sua definizione ufficiale su `https://ref.gs1.org/voc/` (si apre in una nuova scheda).
+- **Ricomincia da zero** è nella barra in alto, accanto ad Audio e Comandi: al primo clic chiede conferma («Sicuro? Premi di nuovo»), al secondo azzera i progressi.
+- **Animazioni GSAP**: coriandoli e numero che gira sulla risposta giusta, opzione che dondola su quella sbagliata, timbro «Registrato» e pioggia di coriandoli sull'evento nuovo, punti che contano, cuore perso che cade, lente che smonta il Digital Link pezzo per pezzo, archivio che scorre tra le tappe, festa nel finale. Sono solo decorative: il testo è sempre leggibile e con «riduci movimento» del sistema operativo non partono.
+
 `?` mostra in qualsiasi momento la tabella di tutti i comandi.
 
 ## Come si apre

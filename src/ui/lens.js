@@ -3,6 +3,7 @@ import { t } from "../content/index.js";
 import { parseDigitalLink } from "../gs1/digitallink.js";
 import { $, esc } from "./dom.js";
 import { icon } from "./icons.js";
+import { gsap, reduced } from "../anim/gsap-setup.js";
 
 let opener = null;
 export const isLensOpen = () => !!$("#lens");
@@ -49,6 +50,17 @@ export function openLens(uri, from) {
   $(".app")?.setAttribute("inert", "");
   $("#lensClose").onclick = closeLens;
   $(".box", el).focus();
+  animateLens(el);
+}
+
+/** La lente si apre con un piccolo balzo e l'indirizzo «si smonta» pezzo per pezzo, a colori. Tutto resta leggibile. */
+function animateLens(el) {
+  if (reduced()) return;
+  gsap.timeline()
+    .from($(".box", el), { scale: 0.92, y: 26, duration: 0.45, ease: "back.out(1.8)", clearProps: "transform" })
+    .from(el.querySelectorAll(".dl-url .seg"), { y: -16, rotation: () => (Math.random() - 0.5) * 16, duration: 0.5, stagger: 0.07, ease: "back.out(3)", clearProps: "transform" }, 0.15)
+    .from(el.querySelectorAll(".dl-parts > li"), { x: -24, duration: 0.45, stagger: 0.09, ease: "back.out(1.6)", clearProps: "transform" }, 0.3)
+    .from(el.querySelectorAll(".dl-parts .badge"), { scale: 0.4, duration: 0.5, stagger: 0.09, ease: "elastic.out(1.1, 0.45)", clearProps: "transform" }, 0.35);
 }
 
 export function closeLens() {
