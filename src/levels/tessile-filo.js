@@ -2,6 +2,7 @@
 // Tra i passaggi ci sono anche una spedizione e un'etichettatura: reali, ma non trasformazioni.
 import events from "../data/events/tessile-filo.json";
 import { defineLevel } from "./define.js";
+import { question } from "../ui/kit.js";
 
 export default defineLevel({
   slug: "tessile-filo", id: "2-1", world: "textile", sp: "shirt", scene: "tessile", events,
@@ -11,7 +12,7 @@ export default defineLevel({
     show(levelShell(this,
       `<div class="chain"><span class="cap">${C.chainTitle}</span><ol id="chain"><li class="empty">${C.chainEmpty}</li></ol></div><div class="row center">${img("spool", 44)}${img("fabric", 60)}${img("shirt", 52)}</div>`,
       `<p class="story">${C.story}</p>
-       <p class="q">${C.q}</p>
+       ${question(C.q, C.qCtx)}
        <div class="opts" id="steps">${C.steps.map((s, i) => `<button class="opt" data-key="${i + 1}" data-i="${i}"><span class="k">${i + 1}</span><span>${s.t}</span></button>`).join("")}</div>
        <div class="row" id="after"></div>`));
     $$("#steps .opt").forEach(b => b.onclick = () => {

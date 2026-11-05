@@ -1,6 +1,7 @@
 // Livello 1-4 · Le parole non si inventano: il vocabolario CBV.
 import events from "../data/events/food-cbv.json";
 import { defineLevel } from "./define.js";
+import { question } from "../ui/kit.js";
 
 export default defineLevel({
   slug: "food-cbv", id: "1-4", world: "food", sp: "truck", scene: "caseificio", events,
@@ -9,7 +10,7 @@ export default defineLevel({
     show(levelShell(this,
       `<div class="bubble" id="bub">${C.bubble}</div>${img("person", 64)}${img("truck", 150)}<span class="cap">${C.cap}</span>`,
       `<p class="story">${C.story}</p>
-       <p class="q">${C.q}</p>
+       ${question(C.q, C.qCtx)}
        <div class="opts" id="opts"></div><div class="row" id="after"></div>`));
     const confuse = () => { const b = $("#bub"); b.className = "bubble bad"; b.textContent = C.bubbleBad; hook("confused"); };
     const box = $("#opts");

@@ -75,3 +75,9 @@ export function ask(container, opts, onOk) {
     } else { b.classList.add("no"); b.disabled = true; fail(o.why); }
   });
 }
+
+/** Domanda con il suo contesto: prima la situazione e i termini che servono, poi la domanda. */
+export function question(q, ctx) {
+  const box = ctx ? `<div class="ctx"><span class="lbl">${t("level.context")}</span><p>${ctx}</p></div>` : "";
+  return `<div class="qblock">${box}<p class="q">${q}</p></div>`;
+}

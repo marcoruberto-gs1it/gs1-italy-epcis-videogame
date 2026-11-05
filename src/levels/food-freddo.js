@@ -1,6 +1,7 @@
 // Livello 1-5 · Catena del freddo: AssociationEvent sensore-pallet, poi i dati del sensore nel COME.
 import events from "../data/events/food-freddo.json";
 import { defineLevel } from "./define.js";
+import { question } from "../ui/kit.js";
 
 export default defineLevel({
   slug: "food-freddo", id: "1-5", world: "food", sp: "thermo", scene: "autostrada", events,
@@ -9,7 +10,7 @@ export default defineLevel({
     show(levelShell(this,
       `<div class="temp" id="temp">${img("thermo", 22)}<span id="tv">4,0 °C</span></div><div class="road" id="road">${img("truck", 110, "truck")}</div><span class="cap" id="link">${C.cap}</span>`,
       `<p class="story">${C.story}</p>
-       <p class="q">${C.q1}</p>
+       ${question(C.q1, C.q1Ctx)}
        <div class="opts" id="opts1"></div>
        <div class="row" id="pre"></div>
        <div class="stack" id="qa"></div>`));
@@ -33,7 +34,7 @@ export default defineLevel({
         if (t < end) return;
         later.stop(iv); sfx.alarm();
         $("#scene").classList.remove("road-moving"); hook("alarm");
-        $("#qa").innerHTML = `<p class="q">${C.q2}</p><div class="opts" id="opts2"></div><div class="row" id="after"></div>`;
+        $("#qa").innerHTML = `${question(C.q2, C.q2Ctx)}<div class="opts" id="opts2"></div><div class="row" id="after"></div>`;
         ask($("#opts2"), C.opts2, () => {
           $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;
           $("#reg").onclick = () => win();

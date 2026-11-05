@@ -1,6 +1,7 @@
 // Livello 2-3 · Il reso sospetto: la storia del capo (pedigree) interrogando il repository EPCIS.
 import events from "../data/events/tessile-reso.json";
 import { defineLevel } from "./define.js";
+import { question } from "../ui/kit.js";
 
 export default defineLevel({
   slug: "tessile-reso", id: "2-3", world: "textile", sp: "jacket", scene: "negozio", events,
@@ -12,7 +13,7 @@ export default defineLevel({
          <div class="jk">${img("jacket", 64)}<span class="sn">${C.jacketB}</span><button class="btn alt" data-key="9" id="qb1">${C.query} (9)</button><div class="tl" id="tlB"></div></div>
        </div><span class="cap">${C.cap}</span>`,
       `<p class="story">${C.story}</p>
-       <p class="q">${C.q}</p>
+       ${question(C.q, C.qCtx)}
        <div class="opts" id="opts"></div><div class="row" id="after"></div>`));
     const showA = () => {
       if ($("#tlA").children.length) return;

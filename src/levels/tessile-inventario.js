@@ -1,6 +1,7 @@
 // Livello 2-2 · Inventario lampo: stesso EPC, vettori diversi (barcode contro RAIN RFID).
 import events from "../data/events/tessile-inventario.json";
 import { defineLevel } from "./define.js";
+import { question } from "../ui/kit.js";
 
 export default defineLevel({
   slug: "tessile-inventario", id: "2-2", world: "textile", sp: "reader", scene: "negozio", events,
@@ -41,7 +42,7 @@ export default defineLevel({
         }, reduced() ? 0 : 40 * i));
         function after() {
           setMsg(C.result.replace("{n}", barRead).replace("{s}", barSec), true);
-          $("#qa").innerHTML = `<p class="q">${C.q3}</p><div class="opts" id="opts"></div><div class="row" id="after"></div>`;
+          $("#qa").innerHTML = `${question(C.q3, C.q3Ctx)}<div class="opts" id="opts"></div><div class="row" id="after"></div>`;
           ask($("#opts"), C.opts, () => {
             $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;
             $("#reg").onclick = () => win();

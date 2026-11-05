@@ -1,6 +1,7 @@
 // Livello 1-3 · Vista ai raggi X: vasetti nei cartoni, cartoni sul pallet (due AggregationEvent).
 import events from "../data/events/food-raggi-x.json";
 import { defineLevel } from "./define.js";
+import { question } from "../ui/kit.js";
 
 const CARTONS = 12, PER_CARTON = 24;
 
@@ -32,7 +33,7 @@ export default defineLevel({
 
     function ready() {
       $("#ctl").innerHTML = "";
-      $("#qa").innerHTML = `<p class="q">${C.q}</p><div class="opts" id="opts"></div>`;
+      $("#qa").innerHTML = `${question(C.q, C.qCtx)}<div class="opts" id="opts"></div>`;
       ask($("#opts"), C.opts, () => {
         $("#after").innerHTML = `<button class="btn" data-primary id="scan">${C.scan}</button>`;
         $("#scan").onclick = () => {

@@ -69,7 +69,8 @@
   "level": {
     "code": "Tappa {id}",
     "codeFinale": "Sfida finale",
-    "register": "Registra l'evento"
+    "register": "Registra l'evento",
+    "context": "Il contesto"
   },
   "win": {
     "heading": "Evento registrato",
@@ -222,7 +223,8 @@
         "link": "Con le aziende di trasformazione è un buon aggancio. È il dato che serve per richiami mirati e per l'origine degli ingredienti."
       },
       "hint": "Chiediti che cosa viene davvero consumato per fare lo yogurt.",
-      "sceneDesc": "Scena: la vasca del caseificio. Intorno ci sono latte, fermenti, un pallet vuoto e un detergente. Quello che metti nella vasca compare nell'elenco."
+      "sceneDesc": "Scena: la vasca del caseificio. Intorno ci sono latte, fermenti, un pallet vuoto e un detergente. Quello che metti nella vasca compare nell'elenco.",
+      "qCtx": "Il caseificio registra un TransformationEvent: un evento che elenca i materiali usati (input) e il prodotto ottenuto (output). Qui gli input sono il latte C0471 e i fermenti F2290; l'output è il lotto di yogurt L123. Domani questo evento sarà il legame scritto tra latte e yogurt."
     },
     "food-nascita": {
       "meta": {
@@ -231,7 +233,7 @@
         "place": "Caseificio · linea 2"
       },
       "intro": "Il lotto L123 è nato nella vasca. Adesso passa il controllo qualità sulla linea 2. Scriviamo la sua carta d'identità.",
-      "story": "Ogni evento EPCIS è una frase che risponde a poche domande. Componi questa pagina del diario: scegli una risposta per ogni riga.",
+      "story": "Ogni evento EPCIS risponde a quattro domande. COSA: quale prodotto. QUANDO: data, ora e fuso orario. DOVE: il luogo, indicato con un GLN. PERCHÉ: la fase del processo. Il lotto L123 è al controllo qualità sulla linea 2: scegli una risposta per ogni riga.",
       "cap": "Lotto L123 · 288 vasetti · scadenza 30/11",
       "rows": [
         {
@@ -267,12 +269,12 @@
         {
           "d": "PERCHÉ",
           "o": [
-            "commissioning",
-            "inspecting",
-            "creating_class_instance"
+            "Produzione del lotto",
+            "Controllo qualità del lotto",
+            "Preparazione del lotto per la spedizione"
           ],
           "ok": 1,
-          "why": "Il lotto è già nato nella trasformazione: commissioning e creating_class_instance descrivono una nascita. Adesso lo stai controllando: inspecting."
+          "why": "Il lotto è già nato nella vasca e non è ancora in partenza. Adesso lo stai controllando: è il controllo qualità."
         }
       ],
       "needAll": "Scegli una risposta per ogni riga.",
@@ -305,7 +307,7 @@
     "food-raggi-x": {
       "meta": {
         "t": "Vista ai raggi X",
-        "c": "AggregationEvent · packing",
+        "c": "AggregationEvent",
         "place": "Caseificio · fine linea"
       },
       "intro": "288 vasetti, 12 cartoni, un pallet. Al CeDi (Centro di Distribuzione) nessuno avrà voglia di aprirlo.",
@@ -359,12 +361,13 @@
         "link": "Il ricevimento al CeDi è un punto in cui il vantaggio si vede subito: meno controlli manuali, meno contestazioni."
       },
       "hint": "Che cosa sa davvero un numero SSCC? E che cosa succede ai dati quando il pallet viene smontato?",
-      "sceneDesc": "Scena: un pallet su cui impilare 12 cartoni da 24 vasetti. Con lo scanner il pallet diventa trasparente e si vedono i 288 vasetti."
+      "sceneDesc": "Scena: un pallet su cui impilare 12 cartoni da 24 vasetti. Con lo scanner il pallet diventa trasparente e si vedono i 288 vasetti.",
+      "qCtx": "Ogni pallet ha un'etichetta con un SSCC (Serial Shipping Container Code), il numero seriale dell'unità logistica. Il caseificio registra che cosa contiene: i vasetti nei cartoni, i cartoni sul pallet. Questo legame tra contenitore e contenuto si chiama aggregazione. Al CeDi qualcuno potrebbe smontare il pallet e spedire i cartoni a negozi diversi."
     },
     "food-cbv": {
       "meta": {
         "t": "Le parole non si inventano",
-        "c": "Vocabolario CBV · shipping",
+        "c": "Vocabolario comune (CBV)",
         "place": "Caseificio · baia 3"
       },
       "intro": "Il pallet parte per il CeDi di Bologna. Il sistema del CeDi deve capire cosa sta succedendo, senza telefonate.",
@@ -372,25 +375,25 @@
       "bubbleBad": "??? Non conosco questa parola.",
       "bubbleGood": "Ricevuto! Pallet in viaggio, ordine collegato. Vi aspetto.",
       "cap": "IL SISTEMA DEL CeDi ASCOLTA",
-      "story": "Il pallet sale sul camion. Ogni azienda ha il suo gergo, ma il sistema del CeDi capisce solo il CBV (Core Business Vocabulary), il vocabolario comune di GS1.",
-      "q": "Il gestionale chiama la spedizione «uscita_merce» e lo stato «in_viaggio». Che cosa cambia usando shipping e in_transit del CBV?",
+      "story": "Il pallet sale sul camion. Ogni azienda chiama i fatti a modo suo: «uscita_merce», «spedito», «DDT emesso». Il CeDi riceve ogni giorno eventi da decine di fornitori diversi.",
+      "q": "Il caseificio scrive «shipping» invece di «uscita_merce». Che cosa ci guadagna il CeDi che riceve l'evento?",
       "opts": [
         {
-          "t": "Ogni partner interpreta passo e stato con le stesse regole, senza tabelle di conversione per fornitore",
+          "t": "Capisce subito che è una spedizione, senza chiedere al caseificio che cosa vuol dire «uscita_merce»",
           "ok": true,
-          "why": "Esatto. Un vocabolario comune elimina le traduzioni da sistema a sistema: meno lavoro, meno errori."
+          "why": "Esatto. Con parole comuni ogni partner capisce l'evento allo stesso modo, senza tabelle di conversione per ogni fornitore."
         },
         {
-          "t": "Nulla di sostanziale: i sistemi EPCIS traducono da soli i termini aziendali in termini CBV",
-          "why": "Nessun sistema sa che cosa vuol dire «uscita_merce». Senza vocabolario comune serve una tabella per ogni partner."
+          "t": "Niente: il suo sistema avrebbe capito da solo anche «uscita_merce», come qualunque altra parola",
+          "why": "Nessun sistema sa che cosa vuol dire «uscita_merce». Senza parole comuni serve una tabella di conversione per ogni fornitore."
         },
         {
-          "t": "L'evento diventa valido: con termini aziendali il repository EPCIS lo rifiuterebbe",
-          "why": "EPCIS accetta anche valori propri, scritti come URI. Il problema è che li capisce solo chi li ha inventati."
+          "t": "L'evento diventa valido: con le parole del gestionale il sistema del CeDi lo rifiuterebbe",
+          "why": "EPCIS accetta anche parole proprie. Il problema è che le capisce solo chi le ha inventate."
         },
         {
-          "t": "Il CBV aggiunge all'evento le caratteristiche del prodotto, come peso e ingredienti",
-          "why": "Ambiti diversi: il CBV descrive i fatti, GDSN le caratteristiche del prodotto. Si completano."
+          "t": "Il CeDi riceve con l'evento anche le caratteristiche del prodotto, come peso e ingredienti",
+          "why": "Il vocabolario comune descrive i fatti, non il prodotto. Le caratteristiche del prodotto viaggiano con altri standard GS1, come GDSN."
         }
       ],
       "events": [
@@ -414,8 +417,9 @@
         "story": "Il CBV (Core Business Vocabulary) è il vocabolario di GS1: passi di processo come shipping e stati come in_transit sono uguali per tutti.",
         "link": "Quando un'azienda dice «abbiamo già i dati», chiedete se usano parole standard: è lì che si perde l'interoperabilità."
       },
-      "hint": "Un termine aziendale è vietato? No. Ma chi altro lo capisce senza una tabella di conversione?",
-      "sceneDesc": "Scena: la baia di carico del caseificio con il camion e il CeDi di Bologna sullo sfondo."
+      "hint": "Pensa a chi riceve eventi da tanti fornitori, ognuno con le sue parole.",
+      "sceneDesc": "Scena: la baia di carico del caseificio con il camion e il CeDi di Bologna sullo sfondo.",
+      "qCtx": "GS1 ha definito un elenco di parole comuni per descrivere i fatti della filiera: il CBV (Core Business Vocabulary). Per esempio, «shipping» vuol dire spedizione e «in_transit» merce in viaggio. Il gestionale del caseificio, invece, scrive «uscita_merce»."
     },
     "food-freddo": {
       "meta": {
@@ -491,7 +495,9 @@
         "link": "Per il fresco e il surgelato è un tema concreto: la prova della catena del freddo viaggia con il prodotto."
       },
       "hint": "Pensa a che cosa succede alle misure quando il pallet cambia mezzo.",
-      "sceneDesc": "Scena: il camion in autostrada verso Bologna. La temperatura del sensore compare in alto."
+      "sceneDesc": "Scena: il camion in autostrada verso Bologna. La temperatura del sensore compare in alto.",
+      "q1Ctx": "Sul pallet c'è un sensore che misura la temperatura per tutto il viaggio. Al CeDi il pallet passerà su un altro camion, mentre il sensore resta attaccato al pallet. Un AssociationEvent registra a quale oggetto è legato un dispositivo, come un sensore.",
+      "q2Ctx": "Le misure del sensore entrano nell'evento di trasporto del pallet: temperatura minima, massima e un allarme sopra gli 8 °C. Senza EPCIS resterebbero in un file del datalogger, scaricato da chi trasporta e inviato su richiesta."
     },
     "food-errore": {
       "meta": {
@@ -500,7 +506,7 @@
         "place": "CeDi di Bologna"
       },
       "intro": "Il pallet arriva al CeDi. Una persona del magazzino, stanca, registra il ricevimento...",
-      "req": "receiving · lotto <span class=\"bad\">L132</span> · 288 pezzi",
+      "req": "ricevimento · lotto <span class=\"bad\">L132</span> · 288 pezzi",
       "cap": "Evento già letto da tre partner",
       "story": "Chi registra il ricevimento digita <code>L132</code> invece di <code>L123</code>. L'evento è già stato letto dal caseificio, dall'azienda di trasporto e dalla sede.",
       "q": "Tre partner hanno già letto l'evento con il lotto sbagliato. Come si corregge in EPCIS 2.0?",
@@ -510,7 +516,7 @@
           "why": "<b>Fine partita per la fiducia.</b> Due versioni diverse con lo stesso ID: ogni partner avrebbe una storia diversa."
         },
         {
-          "t": "Si pubblica un evento con action DELETE che annulla il ricevimento, poi quello giusto",
+          "t": "Si pubblica un evento di cancellazione (DELETE) che annulla il ricevimento, poi quello giusto",
           "why": "DELETE descrive un fatto fisico, come lo smontaggio di un pallet. Non annulla un evento."
         },
         {
@@ -548,7 +554,8 @@
         "link": "È un argomento di fiducia: utile con chi teme che condividere dati esponga i propri errori."
       },
       "hint": "In EPCIS la storia non si riscrive: si aggiunge qualcosa.",
-      "sceneDesc": "Scena: il pallet appena arrivato davanti al CeDi di Bologna."
+      "sceneDesc": "Scena: il pallet appena arrivato davanti al CeDi di Bologna.",
+      "qCtx": "Un evento EPCIS pubblicato è condiviso: i partner lo hanno già letto e salvato nei loro sistemi. In questo ricevimento il lotto scritto è L132, ma quello vero è L123. La correzione deve essere chiara per tutti, anche per chi ha già letto l'errore."
     },
     "tessile-filo": {
       "meta": {
@@ -564,7 +571,7 @@
           "id": "spedizione",
           "t": "Spedizione · il filato va dalla filatura alla tessitura",
           "pos": -1,
-          "why": "Cambia il luogo, non il prodotto: è un ObjectEvent con shipping."
+          "why": "Cambia il luogo, non il prodotto: è una semplice spedizione."
         },
         {
           "id": "tessitura",
@@ -618,7 +625,8 @@
         "link": "Il Passaporto Digitale di Prodotto previsto dal regolamento ESPR rende questo tema concreto per moda e tessile. Non citare scadenze: dipendono dagli atti delegati."
       },
       "hint": "Chiediti: dopo questo passaggio esiste un prodotto che prima non c'era? Se no, non è una trasformazione.",
-      "sceneDesc": "Scena: tre stazioni, filatura, tessitura e confezione. Ogni passaggio giusto si accende."
+      "sceneDesc": "Scena: tre stazioni, filatura, tessitura e confezione. Ogni passaggio giusto si accende.",
+      "qCtx": "Una trasformazione è un passaggio in cui da uno o più materiali nasce un prodotto nuovo, con una nuova identità. Spostare un prodotto o applicargli un'etichetta non lo trasforma."
     },
     "tessile-inventario": {
       "meta": {
@@ -679,7 +687,8 @@
         "link": "Caso pubblico: Decathlon applica un tag EPC/RFID al 100% dei suoi prodotti (case study GS1 US, vedi SOURCES.md)."
       },
       "hint": "Separa il dato dal mezzo che lo trasporta. E chiediti se il dato identifica un modello o un capo.",
-      "sceneDesc": "Scena: uno scaffale con 24 t-shirt e un lettore RFID. I capi letti si accendono, il contatore in basso dice quanti sono."
+      "sceneDesc": "Scena: uno scaffale con 24 t-shirt e un lettore RFID. I capi letti si accendono, il contatore in basso dice quanti sono.",
+      "q3Ctx": "Ogni tag RAIN RFID ha un piccolo chip che il lettore legge via radio, anche senza vedere i capi. Nella memoria del chip c'è l'EPC, l'identità GS1 del capo."
     },
     "tessile-reso": {
       "meta": {
@@ -697,34 +706,34 @@
       "historyA": [
         [
           "03/09",
-          "commissioning · Fabbrica di Biella"
+          "Produzione · Fabbrica di Biella"
         ],
         [
           "10/09",
-          "shipping · Biella → CeDi"
+          "Spedizione · Biella → CeDi"
         ],
         [
           "11/09",
-          "receiving · CeDi di Piacenza"
+          "Ricevimento · CeDi di Piacenza"
         ],
         [
           "19/09",
-          "shipping · CeDi → negozio"
+          "Spedizione · CeDi → negozio"
         ],
         [
           "20/09",
-          "receiving · Negozio di Milano"
+          "Ricevimento · Negozio di Milano"
         ],
         [
           "12/10",
-          "retail_selling · Negozio di Milano"
+          "Vendita · Negozio di Milano"
         ]
       ],
       "historyB": "Zero eventi trovati. Nessuna fabbrica del marchio ha mai creato questo numero di serie.",
       "opts": [
         {
           "t": "A ha una storia completa; B è nuovo, perché un capo in magazzino non genera eventi",
-          "why": "Anche il magazzino genera eventi, e un capo vero nasce con un commissioning. Nessun evento è un campanello d'allarme."
+          "why": "Anche il magazzino genera eventi, e un capo vero nasce con un evento di produzione in fabbrica. Nessun evento è un campanello d'allarme."
         },
         {
           "t": "A ha una storia completa; B è autentico, perché il suo QR apre il sito del marchio",
@@ -764,12 +773,13 @@
         "link": "Resi e contraffazione sono temi forti per i marchi: la storia degli eventi è una prova di autenticità."
       },
       "hint": "Interroga tutti e due i capi. Un capo vero può non avere nessun evento?",
-      "sceneDesc": "Scena: due giubbotti identici sul bancone e la mappa dei passaggi del capo A."
+      "sceneDesc": "Scena: due giubbotti identici sul bancone e la mappa dei passaggi del capo A.",
+      "qCtx": "Il repository EPCIS conserva la storia di ogni capo con numero di serie: produzione, spedizioni, ricevimenti, vendita. Hai interrogato il repository per i due giubbotti: per A trovi sei eventi, per B nessuno."
     },
     "sfida-finale": {
       "meta": {
         "t": "Il grande richiamo",
-        "c": "Query EPCIS · recalled",
+        "c": "Query EPCIS e richiamo",
         "place": "Tutta la filiera"
       },
       "intro": "Allerta! Il laboratorio segnala un problema sul latte della cisterna C0471. Dove sono finiti i vasetti fatti con quel latte?",
@@ -908,7 +918,7 @@
         "casa"
       ],
       "mapAria": "Mappa della filiera: si accendono i luoghi dove si trovano i lotti L123 e L124",
-      "block": "Blocca i lotti · recalled",
+      "block": "Blocca i lotti (richiamo)",
       "blocked": "Bloccati",
       "notice": "Avviso",
       "recap": "Bloccati 552 vasetti: 264 del lotto L123 e 288 del lotto L124. Per i 24 vasetti già venduti parte un avviso a chi li ha comprati.",
@@ -942,7 +952,9 @@
         "link": "Il richiamo chirurgico è il messaggio da portare ai vertici: meno prodotto distrutto, meno danno di immagine, più tutela per chi compra."
       },
       "hint": "Parti dal latte, non dal lotto che conosci. Poi cerca quei lotti, ovunque siano.",
-      "sceneDesc": "Scena: la mappa della filiera. Nel round 2 si accendono solo i luoghi dove si trovano i lotti L123 e L124."
+      "sceneDesc": "Scena: la mappa della filiera. Nel round 2 si accendono solo i luoghi dove si trovano i lotti L123 e L124.",
+      "q1Ctx": "Nel repository ci sono tutti gli eventi registrati dai partner: trasformazioni, spedizioni, ricevimenti, vendite. Una query è una domanda al repository. Per ora sai solo che il latte della cisterna C0471 ha un problema.",
+      "q2Ctx": "La query ha trovato due lotti di yogurt fatti con il latte C0471: L123 e L124. Alcuni vasetti sono in magazzino, altri in viaggio, altri a scaffale, altri già venduti."
     }
   },
   "codex": {

@@ -1,6 +1,7 @@
 // Livello 1-1 · Dal latte allo yogurt: il TransformationEvent collega gli ingredienti al prodotto.
 import events from "../data/events/food-latte.json";
 import { defineLevel } from "./define.js";
+import { question } from "../ui/kit.js";
 
 export default defineLevel({
   slug: "food-latte", id: "1-1", world: "food", sp: "factory", scene: "caseificio", events,
@@ -35,7 +36,7 @@ export default defineLevel({
       hook("born");
       fx.popIn($("#born"), 0.2);
       fx.burst($("#born"), ["var(--gs1-white)", "var(--gs1-forest-300)", "var(--gs1-blue-200)"], 18);
-      $("#qa").innerHTML = `<p class="q">${C.q}</p><div class="opts" id="opts"></div>`;
+      $("#qa").innerHTML = `${question(C.q, C.qCtx)}<div class="opts" id="opts"></div>`;
       ask($("#opts"), C.opts, () => {
         $("#after").innerHTML = `<button class="btn" data-primary id="reg">${C.register}</button>`;
         $("#reg").onclick = () => win();
