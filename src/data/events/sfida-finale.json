@@ -8,16 +8,16 @@
     "disposition": "recalled",
     "quantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L123",
         "quantity": 96
       },
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L124",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L124",
         "quantity": 288
       }
     ],
     "bizLocation": {
-      "id": "https://id.gs1.org/414/0614141001002"
+      "id": "https://id.gs1.org/414/8032089002028"
     }
   },
   {
@@ -28,8 +28,8 @@
     "bizStep": "holding",
     "disposition": "recalled",
     "epcList": [
-      "https://id.gs1.org/00/106141411000000054",
-      "https://id.gs1.org/00/106141411000000061"
+      "https://id.gs1.org/00/180000000010000051",
+      "https://id.gs1.org/00/180000000010000068"
     ]
   },
   {
@@ -41,12 +41,12 @@
     "disposition": "recalled",
     "quantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L123",
         "quantity": 72
       }
     ],
     "bizLocation": {
-      "id": "https://id.gs1.org/414/0614141002009"
+      "id": "https://id.gs1.org/414/8032089003018"
     }
   },
   {
@@ -58,12 +58,12 @@
     "disposition": "recalled",
     "quantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L123",
         "quantity": 48
       }
     ],
     "bizLocation": {
-      "id": "https://id.gs1.org/414/0614141003006"
+      "id": "https://id.gs1.org/414/8032089003025"
     }
   }
 ]

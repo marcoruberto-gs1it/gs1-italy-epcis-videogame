@@ -8,21 +8,21 @@
     "bizStep": "receiving",
     "disposition": "in_progress",
     "epcList": [
-      "https://id.gs1.org/00/106141411234567897"
+      "https://id.gs1.org/00/180000000012345679"
     ],
     "quantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L132",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L132",
         "quantity": 288
       }
     ],
     "bizLocation": {
-      "id": "https://id.gs1.org/414/0614141001002"
+      "id": "https://id.gs1.org/414/8032089002028"
     },
     "bizTransactionList": [
       {
         "type": "desadv",
-        "bizTransaction": "https://id.gs1.org/253/06141410000294521"
+        "bizTransaction": "https://id.gs1.org/253/80000000002004521"
       }
     ],
     "errorDeclaration": {
@@ -42,25 +42,25 @@
     "bizStep": "receiving",
     "disposition": "in_progress",
     "epcList": [
-      "https://id.gs1.org/00/106141411234567897"
+      "https://id.gs1.org/00/180000000012345679"
     ],
     "quantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L123",
         "quantity": 288
       }
     ],
     "bizLocation": {
-      "id": "https://id.gs1.org/414/0614141001002"
+      "id": "https://id.gs1.org/414/8032089002028"
     },
     "bizTransactionList": [
       {
         "type": "desadv",
-        "bizTransaction": "https://id.gs1.org/253/06141410000294521"
+        "bizTransaction": "https://id.gs1.org/253/80000000002004521"
       },
       {
         "type": "recadv",
-        "bizTransaction": "https://id.gs1.org/253/06141410000437810"
+        "bizTransaction": "https://id.gs1.org/253/80320890003077810"
       }
     ]
   }

@@ -22,16 +22,17 @@ describe("cifra di controllo GS1", () => {
 
 import { parseDigitalLink, isDigitalLink } from "../../src/gs1/digitallink.js";
 
+// Codici costruiti sui prefissi d'esempio della guida GS1 Italy (800000000 caseificio, 803208900 distribuzione).
 describe("GS1 Digital Link", () => {
   it("scompone prodotto e lotto", () => {
-    const dl = parseDigitalLink("https://id.gs1.org/01/09506000134352/10/L123");
+    const dl = parseDigitalLink("https://id.gs1.org/01/08000000001016/10/L123");
     expect(dl.domain).toBe("https://id.gs1.org");
-    expect(dl.parts).toEqual([{ ai: "01", value: "09506000134352", check: "2" }, { ai: "10", value: "L123" }]);
+    expect(dl.parts).toEqual([{ ai: "01", value: "08000000001016", check: "6" }, { ai: "10", value: "L123" }]);
   });
   it("scompone luogo e parte del luogo, SSCC e bene aziendale", () => {
-    expect(parseDigitalLink("https://id.gs1.org/414/0614141007776/254/vasca1").parts.map(p => p.ai)).toEqual(["414", "254"]);
-    expect(parseDigitalLink("https://id.gs1.org/00/106141411234567897").parts[0].check).toBe("7");
-    expect(parseDigitalLink("https://id.gs1.org/8004/0614141SENS042").parts[0]).toEqual({ ai: "8004", value: "0614141SENS042" });
+    expect(parseDigitalLink("https://id.gs1.org/414/8000000000026/254/vasca1").parts.map(p => p.ai)).toEqual(["414", "254"]);
+    expect(parseDigitalLink("https://id.gs1.org/00/180000000012345679").parts[0].check).toBe("9");
+    expect(parseDigitalLink("https://id.gs1.org/8004/800000000SENS042").parts[0]).toEqual({ ai: "8004", value: "800000000SENS042" });
   });
   it("ignora testi che non sono Digital Link", () => {
     expect(isDigitalLink("https://ref.gs1.org/cbv/BizStep-commissioning")).toBe(false);

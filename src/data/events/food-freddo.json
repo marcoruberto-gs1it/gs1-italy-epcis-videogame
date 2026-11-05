@@ -5,12 +5,12 @@
     "eventTimeZoneOffset": "+01:00",
     "action": "ADD",
     "bizStep": "assembling",
-    "parentID": "https://id.gs1.org/00/106141411234567897",
+    "parentID": "https://id.gs1.org/00/180000000012345679",
     "childEPCs": [
-      "https://id.gs1.org/8004/0614141SENS042"
+      "https://id.gs1.org/8004/800000000SENS042"
     ],
     "readPoint": {
-      "id": "https://id.gs1.org/414/0614141007776/254/baia3"
+      "id": "https://id.gs1.org/414/8000000000026/254/baia3"
     }
   },
   {
@@ -21,13 +21,13 @@
     "bizStep": "transporting",
     "disposition": "in_transit",
     "epcList": [
-      "https://id.gs1.org/00/106141411234567897"
+      "https://id.gs1.org/00/180000000012345679"
     ],
     "sensorElementList": [
       {
         "sensorMetadata": {
           "time": "2026-11-02T13:20:00.000+01:00",
-          "deviceID": "https://id.gs1.org/8004/0614141SENS042",
+          "deviceID": "https://id.gs1.org/8004/800000000SENS042",
           "startTime": "2026-11-02T11:05:00.000+01:00",
           "endTime": "2026-11-02T13:20:00.000+01:00"
         },

@@ -5,29 +5,29 @@
     "eventTimeZoneOffset": "+01:00",
     "inputQuantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134314/10/C0471",
+        "epcClass": "https://id.gs1.org/01/08000000002013/10/C0471",
         "quantity": 36,
         "uom": "LTR"
       },
       {
-        "epcClass": "https://id.gs1.org/01/09506000134321/10/F2290",
+        "epcClass": "https://id.gs1.org/01/08000000002020/10/F2290",
         "quantity": 0.04,
         "uom": "KGM"
       }
     ],
     "outputQuantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L123",
         "quantity": 288
       }
     ],
     "bizStep": "commissioning",
     "disposition": "active",
     "readPoint": {
-      "id": "https://id.gs1.org/414/0614141007776/254/vasca1"
+      "id": "https://id.gs1.org/414/8000000000026/254/vasca1"
     },
     "bizLocation": {
-      "id": "https://id.gs1.org/414/0614141007776"
+      "id": "https://id.gs1.org/414/8000000000026"
     },
     "ilmd": {
       "cbvmda:bestBeforeDate": "2026-11-30"

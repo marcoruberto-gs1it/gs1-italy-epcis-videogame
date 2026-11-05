@@ -7,42 +7,42 @@
     "bizStep": "shipping",
     "disposition": "in_transit",
     "epcList": [
-      "https://id.gs1.org/00/106141411234567897"
+      "https://id.gs1.org/00/180000000012345679"
     ],
     "readPoint": {
-      "id": "https://id.gs1.org/414/0614141007776/254/baia3"
+      "id": "https://id.gs1.org/414/8000000000026/254/baia3"
     },
     "bizLocation": {
-      "id": "https://id.gs1.org/414/0614141007776"
+      "id": "https://id.gs1.org/414/8000000000026"
     },
     "bizTransactionList": [
       {
         "type": "po",
-        "bizTransaction": "https://id.gs1.org/253/06141410000122345"
+        "bizTransaction": "https://id.gs1.org/253/80320890001092345"
       },
       {
         "type": "desadv",
-        "bizTransaction": "https://id.gs1.org/253/06141410000294521"
+        "bizTransaction": "https://id.gs1.org/253/80000000002004521"
       }
     ],
     "sourceList": [
       {
         "type": "owning_party",
-        "source": "https://id.gs1.org/417/0614141000029"
+        "source": "https://id.gs1.org/417/8000000000002"
       },
       {
         "type": "location",
-        "source": "https://id.gs1.org/414/0614141007776"
+        "source": "https://id.gs1.org/414/8000000000026"
       }
     ],
     "destinationList": [
       {
         "type": "owning_party",
-        "destination": "https://id.gs1.org/417/0614141000036"
+        "destination": "https://id.gs1.org/417/8032089000000"
       },
       {
         "type": "location",
-        "destination": "https://id.gs1.org/414/0614141001002"
+        "destination": "https://id.gs1.org/414/8032089002028"
       }
     ]
   }

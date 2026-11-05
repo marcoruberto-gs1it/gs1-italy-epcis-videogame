@@ -20,6 +20,8 @@ Il gioco è pensato per chi parte da zero: testi in italiano semplice, una sola 
 6. Ops, errore!: la dichiarazione di errore; dopo la correzione il CeDi manda l'avviso di ricevimento (RECADV).
 7. Ritiro e richiamo: prima «come una volta», poi con due ricerche nell'archivio degli eventi. Il **ritiro** toglie il prodotto dalla filiera; il **richiamo** avvisa chi lo ha già comprato.
 
+I codici GS1 della filiera alimentare (GTIN, GLN, SSCC, GDTI, GIAI) usano i prefissi aziendali d'esempio della [guida al GLN di GS1 Italy](https://gs1it.org/files/sharing/1464192143/446/gs1-gln.pdf): **800000000** per il caseificio e **803208900** per la distribuzione (CeDi di Bologna `8032089002028`, supermercati di Milano e Monza). Il caseificio è `8000000000026`. Non sono codici di aziende reali.
+
 La filiera tessile è ancora nel codice ma è spenta: si riattiva aggiungendo `"textile"` in `worlds` dentro `src/config.js`.
 
 Ogni tappa mostra le sue pagine del diario nel formato EPCIS 2.0 (JSON), un superpotere e una scheda «Perché conta». Le voci del **glossario del gioco** si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.

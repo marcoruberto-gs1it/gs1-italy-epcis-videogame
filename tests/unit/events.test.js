@@ -40,7 +40,7 @@ describe("uso corretto di action", () => {
 });
 
 describe("coerenza delle quantità", () => {
-  const L123 = "https://id.gs1.org/01/09506000134352/10/L123";
+  const L123 = "https://id.gs1.org/01/08000000001016/10/L123";
 
   it("la trasformazione crea 288 vasetti del lotto L123", () => {
     expect(all["food-latte"][0].outputQuantityList).toEqual([{ epcClass: L123, quantity: 288 }]);

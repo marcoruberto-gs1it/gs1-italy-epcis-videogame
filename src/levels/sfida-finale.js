@@ -4,8 +4,8 @@ import { defineLevel } from "./define.js";
 import { question } from "../ui/kit.js";
 
 const DL = "https://id.gs1.org/01";
-const MILK = `${DL}/09506000134314/10/C0471`;
-const lotUri = lot => `${DL}/09506000134352/10/${lot}`;
+const MILK = `${DL}/08000000002013/10/C0471`;
+const lotUri = lot => `${DL}/08000000001016/10/${lot}`;
 
 export default defineLevel({
   slug: "sfida-finale", id: "finale", world: "food", sp: "alarm", scene: "allarme", events,

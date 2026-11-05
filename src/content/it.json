@@ -170,7 +170,7 @@
         },
         {
           "id": "pallet",
-          "t": "Pallet su cui sono arrivati i fermenti · codice SSCC 106141411900000017",
+          "t": "Pallet su cui sono arrivati i fermenti · codice SSCC 180000000090000019",
           "why": "L'SSCC è il codice del pallet, cioè dell'imballo per il trasporto. Nello yogurt entrano i fermenti, non il pallet."
         },
         {
@@ -261,8 +261,8 @@
         {
           "d": "COSA",
           "o": [
-            "GTIN 09506000134352 + lotto L123",
-            "Solo il GTIN 09506000134352",
+            "GTIN 08000000001016 + lotto L123",
+            "Solo il GTIN 08000000001016",
             "Solo il lotto L123"
           ],
           "ok": 0,
@@ -372,7 +372,7 @@
       ],
       "scan": "Leggi il codice del pallet",
       "scanned": "Una sola lettura del codice SSCC del pallet: 12 cartoni e 288 vasetti.",
-      "cap": "Pallet · SSCC 106141411234567897",
+      "cap": "Pallet · SSCC 180000000012345679",
       "events": [
         "Primo cartone: 24 vasetti del lotto L123 (lo stesso evento si ripete per tutti i 12 cartoni)",
         "Pallet: i 12 cartoni, ognuno con il suo SSCC"
@@ -536,7 +536,7 @@
         }
       ],
       "drive": "Avvia il viaggio",
-      "linked": "Sensore SENS042 sul pallet 106141411234567897",
+      "linked": "Sensore SENS042 sul pallet 180000000012345679",
       "cap": "Soglia yogurt · massimo 8 °C",
       "q2": "Il sensore ha registrato 9 °C per 40 minuti. Che cosa aggiunge l'evento EPCIS rispetto al file del registratore di temperatura?",
       "opts2": [
@@ -1092,7 +1092,7 @@
         "unlock": "food-nascita",
         "t": "GTIN",
         "def": "Global Trade Item Number: il codice GS1 che identifica un prodotto.",
-        "ex": "09506000134352 è il vasetto di yogurt bianco 125 g.",
+        "ex": "08000000001016 è il vasetto di yogurt bianco 125 g.",
         "use": "È il numero sotto il codice a barre: lo leggono la cassa, il magazzino, il negozio online."
       },
       {
@@ -1100,7 +1100,7 @@
         "unlock": "food-nascita",
         "t": "GLN",
         "def": "Global Location Number: il codice GS1 di un luogo o di un'azienda.",
-        "ex": "0614141007776 è il caseificio.",
+        "ex": "8000000000026 è il caseificio.",
         "use": "Dice con precisione dove è successo qualcosa e chi è coinvolto."
       },
       {
@@ -1116,7 +1116,7 @@
         "unlock": "food-raggi-x",
         "t": "SSCC",
         "def": "Serial Shipping Container Code: il codice GS1 di un'unità logistica, come un cartone o un pallet.",
-        "ex": "106141411234567897 è il pallet del lotto L123.",
+        "ex": "180000000012345679 è il pallet del lotto L123.",
         "use": "Si legge sull'etichetta logistica e collega il pallet al suo contenuto."
       },
       {

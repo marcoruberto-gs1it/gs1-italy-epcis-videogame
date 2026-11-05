@@ -8,15 +8,15 @@
     "disposition": "active",
     "quantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L123",
         "quantity": 288
       }
     ],
     "readPoint": {
-      "id": "https://id.gs1.org/414/0614141007776/254/linea2"
+      "id": "https://id.gs1.org/414/8000000000026/254/linea2"
     },
     "bizLocation": {
-      "id": "https://id.gs1.org/414/0614141007776"
+      "id": "https://id.gs1.org/414/8000000000026"
     }
   }
 ]

@@ -6,15 +6,15 @@
     "action": "ADD",
     "bizStep": "packing",
     "disposition": "in_progress",
-    "parentID": "https://id.gs1.org/00/106141411000000016",
+    "parentID": "https://id.gs1.org/00/180000000010000013",
     "childQuantityList": [
       {
-        "epcClass": "https://id.gs1.org/01/09506000134352/10/L123",
+        "epcClass": "https://id.gs1.org/01/08000000001016/10/L123",
         "quantity": 24
       }
     ],
     "readPoint": {
-      "id": "https://id.gs1.org/414/0614141007776/254/finelinea"
+      "id": "https://id.gs1.org/414/8000000000026/254/finelinea"
     }
   },
   {
@@ -24,23 +24,23 @@
     "action": "ADD",
     "bizStep": "packing",
     "disposition": "in_progress",
-    "parentID": "https://id.gs1.org/00/106141411234567897",
+    "parentID": "https://id.gs1.org/00/180000000012345679",
     "childEPCs": [
-      "https://id.gs1.org/00/106141411000000016",
-      "https://id.gs1.org/00/106141411000000023",
-      "https://id.gs1.org/00/106141411000000030",
-      "https://id.gs1.org/00/106141411000000047",
-      "https://id.gs1.org/00/106141411000000054",
-      "https://id.gs1.org/00/106141411000000061",
-      "https://id.gs1.org/00/106141411000000078",
-      "https://id.gs1.org/00/106141411000000085",
-      "https://id.gs1.org/00/106141411000000092",
-      "https://id.gs1.org/00/106141411000000108",
-      "https://id.gs1.org/00/106141411000000115",
-      "https://id.gs1.org/00/106141411000000122"
+      "https://id.gs1.org/00/180000000010000013",
+      "https://id.gs1.org/00/180000000010000020",
+      "https://id.gs1.org/00/180000000010000037",
+      "https://id.gs1.org/00/180000000010000044",
+      "https://id.gs1.org/00/180000000010000051",
+      "https://id.gs1.org/00/180000000010000068",
+      "https://id.gs1.org/00/180000000010000075",
+      "https://id.gs1.org/00/180000000010000082",
+      "https://id.gs1.org/00/180000000010000099",
+      "https://id.gs1.org/00/180000000010000105",
+      "https://id.gs1.org/00/180000000010000112",
+      "https://id.gs1.org/00/180000000010000129"
     ],
     "readPoint": {
-      "id": "https://id.gs1.org/414/0614141007776/254/finelinea"
+      "id": "https://id.gs1.org/414/8000000000026/254/finelinea"
     }
   }
 ]
