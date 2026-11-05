@@ -206,7 +206,7 @@
         "Nascita del lotto di latte crudo C0471 alla stalla: 2.400 litri",
         "Ricevimento del lotto C0471 al caseificio, con la stalla come luogo di partenza"
       ],
-      "fact": "L'evento di oggetto racconta un fatto su un prodotto o su un lotto. Qui il lotto C0471 nasce alla stalla e poi arriva al caseificio. Allo stesso modo anche i fermenti arrivano con il loro lotto, F2290.",
+      "fact": "L'evento di oggetto racconta un fatto su un prodotto o su un lotto. Qui il lotto C0471 nasce alla stalla e poi arriva al caseificio. Allo stesso modo anche i fermenti arrivano con il loro lotto, F2290. Con il lotto nascono anche la data di produzione e il Paese d'origine. Sono scritti con le parole comuni del GS1 Web Vocabulary.",
       "power": [
         "Radici",
         "Ogni lotto riceve il suo codice dove nasce, e lo tiene per tutta la filiera."

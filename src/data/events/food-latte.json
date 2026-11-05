@@ -30,7 +30,7 @@
       "id": "https://id.gs1.org/414/8000000000026"
     },
     "ilmd": {
-      "cbvmda:bestBeforeDate": "2026-11-30"
+      "gs1:bestBeforeDate": "2026-11-30"
     }
   }
 ]

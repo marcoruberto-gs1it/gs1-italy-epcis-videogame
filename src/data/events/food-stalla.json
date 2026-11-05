@@ -20,7 +20,10 @@
       "id": "https://id.gs1.org/414/8000000000033"
     },
     "ilmd": {
-      "cbvmda:countryOfOrigin": "IT"
+      "gs1:productionDate": "2026-11-01",
+      "gs1:countryOfOrigin": {
+        "gs1:countryCode": "IT"
+      }
     }
   },
   {

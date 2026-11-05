@@ -27,6 +27,25 @@ describe("schema EPCIS 2.0", () => {
   });
 });
 
+// Informazioni del lotto (ILMD): solo termini del GS1 Web Vocabulary (https://ref.gs1.org/voc/, v1.16),
+// con il prefisso gs1: definito nel contesto JSON-LD ufficiale di EPCIS 2.0. Niente più cbvmda:.
+describe("ILMD con il GS1 Web Vocabulary", () => {
+  const TERMS = { "gs1:bestBeforeDate": "date", "gs1:productionDate": "date", "gs1:countryOfOrigin": "country" };
+  for (const [name, events] of Object.entries(all)) {
+    it(name, () => {
+      for (const e of events) {
+        if (!e.ilmd) continue;
+        expect(e.type === "TransformationEvent" || e.action === "ADD", "ILMD solo alla nascita").toBe(true);
+        for (const [k, v] of Object.entries(e.ilmd)) {
+          expect(TERMS[k], `termine ${k}`).toBeDefined();
+          if (TERMS[k] === "date") expect(v).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+          if (TERMS[k] === "country") expect(v).toEqual({ "gs1:countryCode": expect.stringMatching(/^[A-Z]{2}$/) });
+        }
+      }
+    });
+  }
+});
+
 describe("uso corretto di action", () => {
   for (const [name, events] of Object.entries(all)) {
     it(name, () => {

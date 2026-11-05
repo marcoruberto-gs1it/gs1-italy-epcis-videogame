@@ -23,6 +23,8 @@ Il gioco è pensato per chi parte da zero: testi in italiano semplice, una sola 
 
 I codici GS1 della filiera alimentare (GTIN, GLN, SSCC, GDTI, GIAI) usano i prefissi aziendali d'esempio della [guida al GLN di GS1 Italy](https://gs1it.org/files/sharing/1464192143/446/gs1-gln.pdf): **800000000** per il caseificio (con la sua stalla, `8000000000033`) e **803208900** per la distribuzione (CeDi di Bologna `8032089002028`, supermercati di Milano e Monza). Il caseificio è `8000000000026`. Non sono codici di aziende reali.
 
+Le informazioni fisse di un lotto (ILMD, Instance/Lot Master Data) usano i termini del [GS1 Web Vocabulary](https://ref.gs1.org/voc/) con il prefisso `gs1:`, già definito nel [contesto JSON-LD ufficiale di EPCIS 2.0](https://ref.gs1.org/standards/epcis/epcis-context.jsonld): `gs1:bestBeforeDate` per la scadenza dello yogurt, `gs1:productionDate` e `gs1:countryOfOrigin` (con `gs1:countryCode`) per il latte crudo. EPCIS 2.0 (sezione 7.3.8) ammette attributi ILMD definiti da altri standard.
+
 La filiera tessile è ancora nel codice ma è spenta: si riattiva aggiungendo `"textile"` in `worlds` dentro `src/config.js`.
 
 Ogni tappa mostra le sue pagine del diario nel formato EPCIS 2.0 (JSON), un superpotere e una scheda «Perché conta». Le voci del **glossario del gioco** si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
