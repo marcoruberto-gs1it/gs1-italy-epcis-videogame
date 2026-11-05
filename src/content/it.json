@@ -1389,6 +1389,12 @@
     "allTabMeta": "Dalla stalla al ritiro",
     "allHeading": "Tutta la filiera, dalla stalla al ritiro",
     "allCount": "{n} eventi",
+    "flowHint": "Clicca un evento sulla mappa per leggerne il testo qui sotto. Le frecce seguono il viaggio del latte e dello yogurt.",
+    "flowAria": "Mappa degli eventi di tutta la filiera, tappa per tappa",
+    "flowPrev": "Evento precedente",
+    "flowNext": "Evento successivo",
+    "flowPos": "Evento {i} di {n}",
+    "flowError": "Corregge un errore",
     "allNote": "Tutti gli eventi del gioco, in ordine di tappa: è la storia completa del latte C0471 e dello yogurt L123. Seguendo i codici dei lotti passi da un evento al successivo."
   },
   "dl": {

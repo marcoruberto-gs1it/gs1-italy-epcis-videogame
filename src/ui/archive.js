@@ -7,7 +7,8 @@ import { setPaused, onRoute } from "../engine/router.js";
 import { LEVELS } from "../levels/index.js";
 import { toDocument } from "../gs1/epcis.js";
 import { levelCode } from "./kit.js";
-import { $, $$, jsonLines } from "./dom.js";
+import { $, $$, esc, jsonLines } from "./dom.js";
+import { markNav } from "./hud.js";
 import { closeLens } from "./lens.js";
 import { gsap, reduced } from "../anim/gsap-setup.js";
 
@@ -17,8 +18,8 @@ let opener = null;
 let prevTab = null;
 export const isArchiveOpen = () => !!$("#archive");
 
-/** Il pulsante «Eventi» della barra in alto indica se l'archivio è aperto. */
-function archBtn(on) { $("#archBtn")?.setAttribute("aria-pressed", on); }
+/** La barra in alto accende «Eventi» quando l'archivio è aperto, e la voce della schermata sotto quando si chiude. */
+const archBtn = () => markNav();
 
 // Inizio, Mappa o un'altra schermata chiudono l'archivio e mostrano la nuova schermata.
 onRoute(() => toggleArchive(false));
@@ -33,13 +34,68 @@ function wholeChain() {
   const levels = LEVELS.filter(l => l.world === "food" || l.world === "finale");
   const events = levels.flatMap(l => l.events);
   const captions = levels.flatMap(l => l.events.map((e, i) => `${levelCode(l)} · ${l.captions[i]}`));
-  return { id: "all", whole: true, events, captions, meta: { t: t("archive.allHeading"), c: t("archive.allCount", { n: events.length }) } };
+  let from = 0;
+  const stages = levels.map(l => { const s = { code: levelCode(l), name: l.meta.short, from, n: l.events.length, captions: l.captions }; from += s.n; return s; });
+  return { id: "all", whole: true, events, captions, stages, meta: { t: t("archive.allHeading"), c: t("archive.allCount", { n: events.length }) } };
+}
+
+// Evento scelto nella mappa di «Tutta la filiera».
+let flowSel = 0;
+
+/** Un riquadro cliccabile per evento: tipo, azione, passo e una riga in parole semplici. */
+function nodeHtml(e, i, caption) {
+  const step = e.bizStep ? `<span class="st">${esc(e.bizStep)}</span>` : "";
+  const err = e.errorDeclaration ? `<span class="er">${t("archive.flowError")}</span>` : "";
+  return `<button class="fnode ${e.type}" data-i="${i}" aria-pressed="${i === flowSel}">
+    <span class="ty">${e.type}${e.action ? ` · ${e.action}` : ""}</span>${err}
+    <span class="tx">${caption}</span>${step}</button>`;
+}
+
+/** Mappa di tutta la filiera: le tappe in fila, collegate da frecce, con dentro i loro eventi. */
+function flowHtml(level) {
+  return `<p class="flow-hint">${t("archive.flowHint")}</p>
+    <ol class="flow" aria-label="${t("archive.flowAria")}">${level.stages.map(s => `<li class="fstage">
+      <span class="fcode">${s.code}</span><span class="fname">${s.name}</span>
+      <div class="fnodes">${s.captions.map((c, k) => nodeHtml(level.events[s.from + k], s.from + k, c)).join("")}</div>
+    </li>`).join("")}</ol>
+    <div id="flowDetail" aria-live="polite">${detailHtml(level)}</div>`;
+}
+
+function detailHtml(level) {
+  const n = level.events.length, i = flowSel;
+  return `<div class="row between fnav">
+      <button class="btn alt small" id="flowPrev" ${i === 0 ? "disabled" : ""}>← ${t("archive.flowPrev")}</button>
+      <span class="fpos">${t("archive.flowPos", { i: i + 1, n })}</span>
+      <button class="btn alt small" id="flowNext" ${i === n - 1 ? "disabled" : ""}>${t("archive.flowNext")} →</button>
+    </div>
+    <div class="page"><span class="cap">${level.captions[i]}</span><pre class="json" tabindex="0">${jsonLines(level.events[i]).join("\n")}</pre></div>`;
+}
+
+/** Sceglie un evento nella mappa: il riquadro si accende e sotto compare il suo testo. */
+function pickEvent(i, focusNode) {
+  flowSel = Math.max(0, Math.min(current.events.length - 1, i));
+  $$("#archPanel .fnode").forEach(b => b.setAttribute("aria-pressed", Number(b.dataset.i) === flowSel));
+  $("#flowDetail").innerHTML = detailHtml(current);
+  wireDetail();
+  const node = $(`#archPanel .fnode[data-i="${flowSel}"]`);
+  if (focusNode) node?.focus();
+  node?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  if (!reduced()) {
+    gsap.fromTo(node, { scale: 1.12 }, { scale: 1, duration: 0.45, ease: "back.out(3)", clearProps: "transform" });
+    gsap.from("#flowDetail .page", { y: 18, duration: 0.4, ease: "power3.out", clearProps: "transform" });
+  }
+}
+
+function wireDetail() {
+  $("#flowPrev").onclick = () => pickEvent(flowSel - 1);
+  $("#flowNext").onclick = () => pickEvent(flowSel + 1);
 }
 
 function panelHtml(level) {
   const pages = docMode
     ? `<p class="cap">${t("archive.docNote")}</p><pre class="json" tabindex="0">${jsonLines(toDocument(level.events)).join("\n")}</pre>`
-    : level.events.map((e, i) => `<div class="page"><span class="cap">${level.whole ? "" : `${i + 1} · `}${level.captions[i]}</span><pre class="json" tabindex="0">${jsonLines(e).join("\n")}</pre></div>`).join("");
+    : level.whole ? flowHtml(level)
+    : level.events.map((e, i) => `<div class="page"><span class="cap">${i + 1} · ${level.captions[i]}</span><pre class="json" tabindex="0">${jsonLines(e).join("\n")}</pre></div>`).join("");
   return `<div class="arch-head">
       <h3>${level.meta.t} <span class="c">${level.meta.c}</span></h3>
       <div class="row">
@@ -70,6 +126,21 @@ function select(id, focus) {
     const order = id => (id === "all" ? LEVELS.length : LEVELS.findIndex(l => l.id === id));
     const dir = order(current.id) > order(before) ? 1 : -1;
     gsap.from(panel.querySelectorAll(".arch-head, .page, pre.json"), { x: 40 * dir, duration: 0.45, stagger: 0.05, ease: "power3.out", clearProps: "transform" });
+  }
+  if (current.whole && !docMode) {
+    wireDetail();
+    const nodes = $$("#archPanel .fnode");
+    nodes.forEach(b => {
+      b.onclick = () => pickEvent(Number(b.dataset.i));
+      // Frecce: evento precedente o successivo lungo la filiera.
+      b.onkeydown = e => {
+        const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+        if (!d) return;
+        e.preventDefault(); e.stopPropagation();
+        pickEvent(Number(b.dataset.i) + d, true);
+      };
+    });
+    if (!reduced()) gsap.from(nodes, { y: 20, scale: 0.85, duration: 0.45, stagger: 0.035, ease: "back.out(2)", clearProps: "transform" });
   }
   $("#archDoc").onclick = () => { docMode = !docMode; select(current.id); $("#archDoc").focus(); };
   $("#archCopy").onclick = async () => {

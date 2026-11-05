@@ -44,8 +44,11 @@ export function renderHud() {
       <span class="score">${state.score} ${t("hud.events").toLowerCase()}</span>
     </div>
     <div class="tools">
-      ${state.view && state.view !== "title" ? `<nav class="mainnav" aria-label="${t("nav.aria")}"><button class="tool nav" id="navHome">${icon("home")}<span class="lbl">${t("nav.home")}</span></button>${state.view !== "map" ? `<button class="tool nav" id="navMap">${icon("map")}<span class="lbl">${t("nav.map")}</span></button>` : ""}</nav>` : ""}
-      <button class="tool" id="archBtn" aria-pressed="${!!document.getElementById("archive")}">${icon("doc")}<span class="lbl">${t("hud.archive")}</span></button>
+      <nav class="mainnav" aria-label="${t("nav.aria")}">
+        <button class="tool nav" id="navHome" data-nav="home">${icon("home")}<span class="lbl">${t("nav.home")}</span></button>
+        <button class="tool nav" id="navMap" data-nav="map">${icon("map")}<span class="lbl">${t("nav.map")}</span></button>
+        <button class="tool nav" id="archBtn" data-nav="events">${icon("doc")}<span class="lbl">${t("hud.archive")}</span></button>
+      </nav>
       <button class="tool" id="mute" aria-pressed="${!state.muted}">${icon(state.muted ? "mute" : "sound")}<span class="lbl">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</span></button>
       <button class="tool" id="helpBtn">${icon("help")}<span class="lbl">${t("hud.help")}</span></button>
       <button class="tool reset ${resetArmed ? "armed" : ""}" id="resetBtn" aria-label="${resetArmed ? t("hud.resetConfirm") : t("hud.resetAria")}">${icon("reset")}<span class="lbl">${resetArmed ? t("hud.resetConfirm") : t("hud.reset")}</span></button>
@@ -63,10 +66,25 @@ export function renderHud() {
   $("#mute").onclick = toggleMute;
   $("#helpBtn").onclick = () => onHelp();
   $("#archBtn").onclick = () => onArchive();
-  $("#brandHome").onclick = () => { if (state.view !== "title") go("title"); };
-  const home = $("#navHome"), map = $("#navMap");
-  if (home) home.onclick = () => go("title");
-  if (map) map.onclick = () => go("map");
+  // Inizio e Mappa: se sei già lì sotto l'archivio, basta chiudere l'archivio.
+  const goTo = view => () => (state.view === view ? onArchive(false) : go(view));
+  $("#brandHome").onclick = goTo("title");
+  $("#navHome").onclick = goTo("title");
+  $("#navMap").onclick = goTo("map");
+  markNav();
+}
+
+/**
+ * «Sei qui»: accende la voce della barra in alto che corrisponde a ciò che vedi.
+ * Archivio aperto → Eventi; altrimenti Inizio o Mappa. Durante una tappa nessuna voce è accesa:
+ * la tappa si legge nella barra della filiera.
+ */
+export function markNav() {
+  const here = document.getElementById("archive") ? "events" : state.view === "title" ? "home" : state.view === "map" ? "map" : null;
+  $$("#hud .mainnav [data-nav]").forEach(b => {
+    if (b.dataset.nav === here) b.setAttribute("aria-current", "page");
+    else b.removeAttribute("aria-current");
+  });
 }
 
 /** Punti che contano fino al nuovo valore, cuore perso che cade, pallino della tappa appena fatta che scoppia. */

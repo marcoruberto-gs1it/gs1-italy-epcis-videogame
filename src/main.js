@@ -31,7 +31,7 @@ initInput();
 initNotes();
 initLens();
 initFitLines();
-setArchiveHandler(() => toggleArchive());
+setArchiveHandler(force => toggleArchive(force));
 // «Ricomincia da zero» nella barra in alto: azzera la partita (non l'audio) e torna all'inizio.
 setResetHandler(() => { toggleArchive(false); resetState(); resetMapView(); go("title"); });
 

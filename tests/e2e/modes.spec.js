@@ -56,8 +56,26 @@ test("il tasto ? mostra i comandi e Esc li chiude senza cambiare schermata", asy
 
 test("Inizio, Mappa e logo nella barra in alto, tappe cliccabili nella barra della filiera", async ({ page }) => {
   const { errors, press } = await start(page);
-  await expect(page.locator("#navHome")).toHaveCount(0);
+  // «Sei qui»: la voce della schermata in cui ti trovi è accesa, e una sola alla volta.
+  const current = page.locator("#hud .mainnav [aria-current=page]");
+  await expect(current).toHaveCount(1);
+  await expect(current).toHaveAttribute("id", "navHome");
+  await press("Enter");
+  await expect(page.locator(".map")).toBeVisible();
+  await expect(current).toHaveAttribute("id", "navMap");
+  await page.keyboard.press("e");
+  await expect(page.locator("#archive")).toBeVisible();
+  await expect(current).toHaveCount(1);
+  await expect(current).toHaveAttribute("id", "archBtn");
+  // «Mappa» dall'archivio aperto sopra la mappa: si chiude l'archivio e si accende di nuovo Mappa.
+  await page.locator("#navMap").click();
+  await expect(page.locator("#archive")).toHaveCount(0);
+  await expect(current).toHaveAttribute("id", "navMap");
+  await page.locator("#navHome").click();
+  await expect(page.locator("h1")).toHaveText("Missione L123");
   await toQuestion1(press, page);
+  // Durante una tappa nessuna voce è accesa: la tappa si legge nella barra della filiera.
+  await expect(current).toHaveCount(0);
   await expect(page.locator(".fbar .cn-stop.here")).toContainText("Stalla");
   await page.locator(".fbar .cn-arrow").last().click();
   await expect(page.locator(".fbar .cn-stop.here")).toContainText("Vasca");
@@ -110,12 +128,29 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   // Tutta la filiera: tutti gli eventi, dalla stalla (nascita del lotto di latte) al richiamo.
   await arch.locator("#archTab-all").click();
   await expect(arch.locator("#archPanel h3")).toContainText("Tutta la filiera");
-  const caps = arch.locator("#archPanel .page .cap");
-  await expect(caps.first()).toContainText("1-1");
-  await expect(caps.last()).toContainText("1-8");
-  await expect(arch.locator("#archPanel pre.json").first()).toContainText("commissioning");
-  await expect(arch.locator("#archPanel pre.json").last()).toContainText("recalled");
-  await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/36-archivio-tutta-la-filiera.png" });
+  // Mappa della filiera: otto tappe, ogni evento è un riquadro cliccabile che mostra il suo testo.
+  await expect(arch.locator(".fstage")).toHaveCount(8);
+  const nodes = arch.locator(".fnode");
+  const n = await nodes.count();
+  expect(n).toBeGreaterThan(10);
+  const cap = arch.locator("#flowDetail .page .cap"), json = arch.locator("#flowDetail pre.json");
+  await expect(nodes.first()).toHaveAttribute("aria-pressed", "true");
+  await expect(cap).toContainText("1-1");
+  await expect(json).toContainText("commissioning");
+  await nodes.last().click();
+  await expect(nodes.last()).toHaveAttribute("aria-pressed", "true");
+  await expect(nodes.first()).toHaveAttribute("aria-pressed", "false");
+  await expect(cap).toContainText("1-8");
+  await expect(json).toContainText("recalled");
+  // Frecce della tastiera ed «Evento precedente»: si scorre lungo la filiera.
+  await page.keyboard.press("ArrowLeft");
+  await expect(nodes.nth(n - 2)).toHaveAttribute("aria-pressed", "true");
+  await expect(nodes.nth(n - 2)).toBeFocused();
+  await arch.locator("#flowPrev").click();
+  await expect(nodes.nth(n - 3)).toHaveAttribute("aria-pressed", "true");
+  await arch.locator(".fnode.TransformationEvent").first().click();
+  await expect(json).toContainText("TransformationEvent");
+  await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/36-archivio-tutta-la-filiera.png", fullPage: true });
   await arch.locator("#archTab-1-1").click();
   await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-1");
   // I termini del GS1 Web Vocabulary portano alla loro definizione ufficiale.
