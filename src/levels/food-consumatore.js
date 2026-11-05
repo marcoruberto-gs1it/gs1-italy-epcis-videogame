@@ -1,4 +1,4 @@
-// Livello 1-9 · Il vasetto in mano a chi compra: il QR code GS1 (Digital Link con GTIN, lotto e data)
+// Livello 1-9 · Il consumatore inquadra il QR: il QR code GS1 (Digital Link con GTIN, lotto e data)
 // apre la pagina del vasetto con il richiamo in evidenza; chi compra riporta il vasetto e il negozio
 // registra il reso con un evento di oggetto (receiving, returned).
 import events from "../data/events/food-consumatore.json";

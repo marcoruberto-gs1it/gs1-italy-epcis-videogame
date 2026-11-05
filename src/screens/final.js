@@ -31,8 +31,6 @@ register("final", () => {
       <div><h3>${t("consumer.finalTitle")}</h3><p>${t("consumer.finalText")}</p><p class="qr-url"><code>${jarLink()}</code></p></div>
     </section>
 
-    <h3>${t("final.casesTitle")}</h3>
-    <div class="versus">${t("final.cases").map(c => `<div class="vs"><span class="tag">${c.tag}</span><span class="from">${c.from}</span><span class="to">${c.to}</span><small>${c.text}</small><small class="source">${t("win.source")}: ${c.source}</small></div>`).join("")}</div>
 
     <section class="benefits" id="benefits">
       <div class="print-only">${logoHtml()}</div>

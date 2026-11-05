@@ -112,28 +112,11 @@
     "sub": "EPCIS: se funziona, non sai che c'è.",
     "score": "Punteggio {n} eventi",
     "powersTitle": "I tuoi superpoteri",
-    "casesTitle": "Prima e dopo · casi reali",
     "benefitsTitle": "Cosa porti A casa",
     "benefitsSub": "I vantaggi principali emersi nel gioco, per chi produce, chi distribuisce e chi compra.",
     "print": "Stampa il promemoria",
     "map": "Mappa",
     "again": "Gioca ancora",
-    "cases": [
-      {
-        "tag": "NHS · SCAN4SAFETY",
-        "from": "8,33 giorni",
-        "to": "Meno di 35 minuti",
-        "text": "Tempo medio per ritirare un prodotto dai reparti del Leeds Teaching Hospitals NHS Trust, dopo l'introduzione degli standard GS1.",
-        "source": "GS1 UK, «A scan of the benefits: the Scan4Safety evidence report», 2020"
-      },
-      {
-        "tag": "Walmart · mango",
-        "from": "sei giorni e 18 ore",
-        "to": "2,2 secondi",
-        "text": "Tempo per risalire all'azienda agricola di un mango, in una prova del 2017 con un registro digitale condiviso. Non è un caso EPCIS: mostra il valore della tracciabilità con eventi digitali.",
-        "source": "Testimonianza di Frank Yiannas (Walmart) al Congresso USA, 14/02/2018; FDA, 2019"
-      }
-    ],
     "benefits": {
       "produttore": [
         "Ritiri mirati: fermi solo i lotti coinvolti",
@@ -1159,10 +1142,10 @@
     },
     "food-consumatore": {
       "meta": {
-        "t": "Il vasetto in mano a chi compra",
+        "t": "Il consumatore inquadra il QR",
         "c": "GS1 Digital Link e reso del lotto richiamato",
         "place": "Casa e supermercato di Milano",
-        "short": "Chi compra"
+        "short": "Consumatore"
       },
       "intro": "Ultima tappa. Un vasetto del lotto L123 è già sul tavolo di casa di qualcuno. Sopra c'è un QR code GS1: che cosa succede quando lo inquadra?",
       "story": "Prima del ritiro, ventiquattro vasetti del lotto L123 sono stati venduti. Una persona ne ha uno a casa e inquadra il QR code con lo smartphone.",
