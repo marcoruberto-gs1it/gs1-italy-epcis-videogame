@@ -13,6 +13,7 @@ import { initInput } from "./engine/input.js";
 import { initHud } from "./ui/hud.js";
 import { initNotes } from "./ui/notes.js";
 import { initLens } from "./ui/lens.js";
+import { initFitLines } from "./ui/dom.js";
 import { toggleArchive } from "./ui/archive.js";
 import { setArchiveHandler } from "./ui/hud.js";
 import "./screens/title.js";
@@ -27,6 +28,7 @@ initHud();
 initInput();
 initNotes();
 initLens();
+initFitLines();
 setArchiveHandler(() => toggleArchive());
 
 // Alla ripresa di una partita salvata si riparte dalla mappa (o dal finale, se era lì).

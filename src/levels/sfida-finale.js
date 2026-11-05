@@ -50,7 +50,7 @@ export default defineLevel({
       $("#minimap").classList.add("dark"); hook("dark");
       $("#phase2").innerHTML = `${question(C.q1, C.q1Ctx, "q1")}<div class="opts" id="opts1"></div><div class="stack" id="out1"></div>`;
       ask($("#opts1"), C.opts1, () => {
-        $("#out1").innerHTML = `<div class="req">GET /events?MATCH_inputEPCClass=${MILK}</div>`;
+        $("#out1").innerHTML = `<div class="req" tabindex="0">GET /events?MATCH_inputEPCClass=${MILK}</div>`;
         tick(6, () => {
           sfx.coin();
           $("#feed").innerHTML = `<div class="good">${C.found}</div>`;
@@ -63,7 +63,7 @@ export default defineLevel({
     }
 
     function run() {
-      $("#out2").innerHTML = `<div class="req">GET /events?MATCH_anyEPCClass=${lotUri("L123")}<br>GET /events?MATCH_anyEPCClass=${lotUri("L124")}</div><div class="results" id="res"></div><div class="row" id="ctl2"></div>`;
+      $("#out2").innerHTML = `<div class="req" tabindex="0">GET /events?MATCH_anyEPCClass=${lotUri("L123")}<br>GET /events?MATCH_anyEPCClass=${lotUri("L124")}</div><div class="results" id="res"></div><div class="row" id="ctl2"></div>`;
       tick(16, () => {
         sfx.coin();
         $("#res").innerHTML = C.rows.map((r, i) => `<div class="res" id="r${i}"><img class="px" src="${sprite(r.sp)}" alt=""><span>${r.t} · ${r.lot}</span><span class="n">${r.n}</span></div>`).join("");

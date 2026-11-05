@@ -92,6 +92,13 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   await expect(arch.locator("#archPanel pre.json").first()).toContainText("AggregationEvent");
   await arch.locator("#archDoc").click();
   await expect(arch.locator("#archPanel pre.json")).toContainText("EPCISDocument");
+  // Anche a 1280 px il documento si legge intero: nessuna riga tagliata.
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.waitForTimeout(200);
+  const pre = arch.locator("#archPanel pre.json");
+  const m = await pre.evaluate(e => ({ sw: e.scrollWidth, cw: e.clientWidth }));
+  expect(m.sw).toBeLessThanOrEqual(m.cw + 1);
+  await page.setViewportSize({ width: 1920, height: 1080 });
   // Lente: il link del lotto si scompone in (01) GTIN e (10) lotto.
   await arch.locator('button.dl[data-dl$="/10/L123"]').first().click();
   const lens = page.locator("#lens");

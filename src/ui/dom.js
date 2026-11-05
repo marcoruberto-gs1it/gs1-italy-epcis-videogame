@@ -35,3 +35,30 @@ export function setMsg(html, good) {
   m.className = "msg" + (good ? " good" : "");
   m.innerHTML = html;
 }
+
+// ---------- Righe che non vanno mai a capo (JSON, ricerche nell'archivio, indirizzi) ----------
+const FIT = "pre.json, .req";
+const DESKTOP = 900;
+
+/**
+ * Su desktop riduce il carattere quanto basta perché la riga più lunga stia tutta nel riquadro,
+ * senza andare a capo e senza scorrere (minimo 10 px). Su telefono le righe scorrono di lato.
+ */
+export function fitLines(el) {
+  el.style.fontSize = "";
+  if (innerWidth < DESKTOP || !el.clientWidth) return;
+  for (let i = 0; i < 3 && el.scrollWidth > el.clientWidth + 1; i++) {
+    const fs = parseFloat(getComputedStyle(el).fontSize);
+    el.style.fontSize = Math.max(10, Math.floor(fs * (el.clientWidth - 2) / el.scrollWidth * 10) / 10) + "px";
+  }
+}
+
+/** Adatta da solo ogni blocco nuovo o modificato, e tutti quando cambia la larghezza della finestra. */
+export function initFitLines() {
+  let queued = false;
+  const all = () => { queued = false; $$(FIT).forEach(fitLines); };
+  const later = () => { if (!queued) { queued = true; requestAnimationFrame(all); } };
+  new MutationObserver(later).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["hidden"] });
+  addEventListener("resize", later);
+  document.fonts?.ready.then(later);
+}

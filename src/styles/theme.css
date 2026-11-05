@@ -318,3 +318,7 @@ pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); out
   .mclose span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .mclose { padding: 0; width: 40px; justify-content: center; }
 }
+
+/* Ricerche nell'archivio e JSON: una riga resta una riga. Su desktop il testo si adatta (ui/dom.js, fitLines). */
+.req { display: block; white-space: nowrap; word-break: normal; overflow-x: auto; }
+pre.json { white-space: pre; }

@@ -124,6 +124,20 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("Enter");
   await expect(page.locator("#reg")).toBeVisible({ timeout: 10_000 });
   await shot("21-ritiro-richiamo-seconda-prova");
+  // Su desktop le ricerche nell'archivio stanno su una riga, intere: niente a capo e niente scorrimento.
+  if (info.project.name !== "mobile") {
+    for (const w of [1920, 1280]) {
+      await page.setViewportSize({ width: w, height: 1080 });
+      await page.waitForTimeout(200);
+      const req = page.locator("#out2 .req");
+      await expect(req).toContainText("MATCH_anyEPCClass=https://id.gs1.org/01/09506000134352/10/L123");
+      const m = await req.evaluate(e => ({ sw: e.scrollWidth, cw: e.clientWidth, h: e.clientHeight, lh: parseFloat(getComputedStyle(e).lineHeight) }));
+      expect(m.sw, `larghezza ${w}`).toBeLessThanOrEqual(m.cw + 1);
+      expect(m.h, `larghezza ${w}: due ricerche, due righe`).toBeLessThan(m.lh * 3 + 24);
+      await req.screenshot({ path: `docs/screenshots/${info.project.name}/21b-ricerche-${w}.png` });
+    }
+    await page.setViewportSize({ width: 1920, height: 1080 });
+  }
   await press("Enter");
   await seeWin("22-evento-ritiro-richiamo");
 
