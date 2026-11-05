@@ -82,7 +82,7 @@ I test nel browser usano Microsoft Edge già installato sul PC (`channel: "msedg
 | Cartella | Contenuto |
 | --- | --- |
 | `src/config.js` | Mondi attivi, renderer, qualità, audio all'avvio |
-| `src/content/it.json` | Tutti i testi visibili: interfaccia, livelli, Codex, finale |
+| `src/content/it.json` | Tutti i testi visibili: interfaccia, tappe, glossari, schede dei concetti, finale |
 | `src/levels/` | Un file per livello: testi, superpotere e meccanica |
 | `src/data/events/` | Gli eventi EPCIS mostrati nel gioco, un file per livello |
 | `schemas/` | Schema JSON ufficiale di EPCIS 2.0, usato dai test |
@@ -104,7 +104,7 @@ Il logo ufficiale di GS1 Italy è in `assets/gs1-italy-logo.png` e viene incluso
 | EPCIS | Ogni evento è valido contro lo schema JSON ufficiale EPCIS 2.0; cifre di controllo di GTIN, GLN, SSCC; quantità coerenti tra livelli e scene; uso corretto di `action` |
 | Percorso | Dal titolo al finale solo con la tastiera, in 3D, in 2D e su smartphone (390×844, movimento ridotto) |
 | 3D | GS1 Blue esatto a schermo; ritorno al 2D se il contesto WebGL si perde; tasto R; memoria stabile dopo tre giri; meno di 150 draw call e 100.000 triangoli per scena |
-| Accessibilità | axe-core (WCAG 2 A e AA) su titolo, mappa, livello, note, evento, Codex, comandi e finale, in 3D, in 2D e su smartphone |
+| Accessibilità | axe-core (WCAG 2 A e AA) su titolo, mappa, tappa, evento, schede dei concetti, comandi e finale, in 3D, in 2D e su smartphone |
 | Brand | Nessun colore fuori dai token; contrasti AA; Orange e Teal mai a contatto negli sprite |
 | Testi | Stile GS1 Italy: numeri da uno a dieci in lettere, «barcode» e «standard» minuscoli, È accentata, plurali stranieri invariati, niente maschile generico, frasi brevi, sigle spiegate |
 
