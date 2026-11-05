@@ -20,7 +20,7 @@ register("title", () => {
       <span class="hi">${t("title.record")}</span>
       <span class="credit">${t("title.credit")}</span>
     </div>
-    <div class="scene-box hero-scene" id="heroScene"><div class="fallback" id="hero">${img("jar", 120, "", t("title.jarAlt"))}</div></div>
+    <div class="scene-box hero-scene" id="heroScene"><div class="fallback" id="hero">${img("jar", 180, "", t("title.jarAlt"))}</div></div>
   </div>`);
   bob($("#hero img"));
   eyes($("#hero img"), sprite("jar"), sprite("jarBlink"));

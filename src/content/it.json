@@ -421,7 +421,7 @@
       "intro": "Il pallet parte per il CeDi di Bologna. Il sistema del CeDi deve capire cosa sta succedendo, senza telefonate.",
       "bubble": "Ciao, sono il CeDi di Bologna. Cosa mi state mandando?",
       "bubbleBad": "??? Non conosco questa parola.",
-      "bubbleGood": "Ricevuto! Pallet in viaggio, ordine collegato. Vi aspetto.",
+      "bubbleGood": "Ricevuto! Pallet in viaggio, collegato all'ordine e all'avviso di spedizione. Vi aspetto.",
       "cap": "IL SISTEMA DEL CeDi ASCOLTA",
       "story": "Il pallet sale sul camion. Ogni azienda chiama i fatti a modo suo: «uscita_merce», «spedito», «DDT emesso». Il CeDi riceve ogni giorno eventi da decine di fornitori diversi.",
       "q": "Il caseificio scrive «shipping» invece di «uscita_merce». Che cosa ci guadagna il CeDi che riceve l'evento?",
@@ -445,9 +445,9 @@
         }
       ],
       "events": [
-        "Spedizione del pallet dal caseificio al CeDi di Bologna"
+        "Spedizione del pallet al CeDi di Bologna, collegata all'ordine e all'avviso di spedizione"
       ],
-      "fact": "Il vocabolario comune dà le parole per le fasi, come «shipping» (spedizione), e per gli stati, come «in_transit» (in viaggio). Con l'evento viaggia anche il riferimento all'ordine: il CeDi sa chi spedisce, chi riceve e dove.",
+      "fact": "Il vocabolario comune dà le parole per le fasi, come «shipping» (spedizione), e per gli stati, come «in_transit» (in viaggio). Con l'evento viaggiano anche i riferimenti all'ordine e all'avviso di spedizione: il CeDi sa chi spedisce, chi riceve e che cosa.",
       "power": [
         "Parla con tutti",
         "Il vocabolario comune: le stesse parole per ogni sistema della filiera."
@@ -474,7 +474,36 @@
         [
           "Tabella di conversione",
           "L'elenco che traduce le parole di un'azienda in quelle di un'altra. Con il vocabolario comune non serve."
+        ],
+        [
+          "Avviso di spedizione",
+          "Il documento elettronico che il fornitore manda al cliente prima della partenza. Elenca i pallet in arrivo e il loro contenuto. Nei gestionali si chiama DESADV."
+        ],
+        [
+          "Ordine d'acquisto",
+          "Il documento con cui il cliente chiede la merce al fornitore: che cosa, quanto e per quando."
         ]
+      ],
+      "q2Ctx": "Prima che il camion parta, il caseificio manda al CeDi un avviso di spedizione. È un documento elettronico che passa da un gestionale all'altro. Elenca i pallet in arrivo e che cosa c'è sopra. L'evento di spedizione rimanda proprio a quell'avviso.",
+      "q2": "Il CeDi ha già ricevuto l'avviso di spedizione. Che cosa aggiunge l'evento di spedizione collegato all'avviso?",
+      "opts2": [
+        {
+          "t": "Prende il posto dell'avviso: dopo l'evento, il CeDi può eliminare l'avviso di spedizione ricevuto",
+          "why": "No: l'avviso serve al CeDi per prepararsi e controllare l'arrivo. L'evento non lo sostituisce, lo conferma."
+        },
+        {
+          "t": "Riporta i prezzi e le condizioni di pagamento dell'avviso, così il CeDi può preparare la fattura",
+          "why": "Prezzi e pagamenti stanno nell'ordine e nella fattura. L'evento dice che cosa è successo, dove e quando."
+        },
+        {
+          "t": "Conferma che proprio i pallet elencati nell'avviso sono partiti davvero, a che ora e da quale baia",
+          "ok": true,
+          "why": "Esatto. L'avviso annuncia che cosa arriverà, l'evento conferma che cosa è successo. Grazie al collegamento, il CeDi li ritrova insieme."
+        },
+        {
+          "t": "Conferma al caseificio che i pallet sono arrivati e controllati, al posto dell'avviso di ricevimento",
+          "why": "L'arrivo lo conferma il CeDi, quando riceve la merce, con l'avviso di ricevimento. La spedizione racconta solo la partenza."
+        }
       ]
     },
     "food-freddo": {
@@ -598,9 +627,9 @@
       "register": "Registra correzione",
       "events": [
         "L'evento sbagliato (lotto L132) con la dichiarazione di errore",
-        "L'evento corretto (lotto L123)"
+        "L'evento corretto (lotto L123), con l'avviso di ricevimento"
       ],
-      "fact": "Nel diario restano due pagine: l'evento sbagliato, con la sua dichiarazione di errore e il motivo, e l'evento corretto, collegato al primo. Niente sparisce, tutto si spiega.",
+      "fact": "Nel diario restano due pagine: l'evento sbagliato, con la sua dichiarazione di errore e il motivo, e l'evento corretto, collegato al primo. Niente sparisce, tutto si spiega. Solo dopo la correzione il CeDi manda al caseificio l'avviso di ricevimento: conferma che cosa è arrivato davvero.",
       "power": [
         "Memoria onesta",
         "Gli errori si correggono con una dichiarazione, mai cancellando."
@@ -628,6 +657,10 @@
         [
           "Aziende della filiera",
           "Chi legge gli stessi eventi: caseificio, trasportatore, CeDi, negozi."
+        ],
+        [
+          "Avviso di ricevimento",
+          "Il documento elettronico con cui chi riceve la merce conferma al fornitore che cosa è arrivato davvero. Nei gestionali si chiama RECADV."
         ]
       ]
     },
@@ -1271,7 +1304,7 @@
       ],
       "253": [
         "GDTI, il codice del documento",
-        "Global Document Type Identifier: identifica un documento, come un ordine d'acquisto o un documento di trasporto."
+        "Global Document Type Identifier: identifica un documento, come un ordine d'acquisto o un avviso di spedizione."
       ],
       "254": [
         "Punto preciso nel luogo",

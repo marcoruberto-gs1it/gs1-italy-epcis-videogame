@@ -18,7 +18,7 @@
 .scene.r3d .bd-far, .scene.r3d .bd-ground { display: none; }
 .scene.r3d .scene-content { min-height: clamp(360px, 58vh, 640px); justify-content: space-between; align-items: center; gap: 8px; pointer-events: none; }
 .scene.r3d .scene-content > * { pointer-events: auto; }
-.scene.r3d .scene-content img.px, .scene.r3d .pallet, .scene.r3d .road, .scene.r3d .beam, .scene.r3d .born,
+.scene.r3d .scene-content img.px, .scene.r3d .scene-content img.vec, .scene.r3d .pallet, .scene.r3d .road, .scene.r3d .beam, .scene.r3d .born,
 .scene.r3d .minimap, .scene.r3d .wave, .scene.r3d [data-bob], .scene.r3d [data-blink] { display: none; }
 .scene.r3d .shelf, .scene.r3d .shelf-plank { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .scene.r3d .tank, .scene.r3d .chain { position: absolute; top: 10px; left: 10px; max-width: 46%; font-size: .9em; }

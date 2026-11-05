@@ -73,6 +73,8 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
 
   // 1-2 Nasce il vasetto
   await intro();
+  await page.waitForTimeout(1500);
+  await shot("07b-livello-1-2-vasetto");
   for (const [r, j] of [[0, 0], [1, 1], [2, 2], [3, 1]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
   await pressOn("#reg");
   await seeWin("08-evento-1-2");
@@ -88,9 +90,13 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("Enter");
   await seeWin("10-evento-1-3");
 
-  // 1-4 Le parole non si inventano
+  // 1-4 Le parole non si inventano, poi l'avviso di spedizione collegato all'evento
   await intro();
-  await press("1"); await press("Enter");
+  await press("1");
+  await expect(page.locator("#opts2 .opt")).toHaveCount(4);
+  await expect(page.locator("#qa2")).toContainText("avviso di spedizione");
+  await shot("11b-livello-1-4-avviso-spedizione");
+  await press("3"); await press("Enter");
   await seeWin("11-evento-1-4");
 
   // 1-5 Catena del freddo

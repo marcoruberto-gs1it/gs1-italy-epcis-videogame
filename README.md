@@ -15,9 +15,9 @@ Il gioco è pensato per chi parte da zero: testi in italiano semplice, una sola 
 1. Dal latte allo yogurt: l'evento di trasformazione.
 2. Nasce il vasetto: le quattro domande di un evento (COSA, QUANDO, DOVE, PERCHÉ).
 3. Vista ai raggi X: l'evento di aggregazione.
-4. Le parole non si inventano: il vocabolario comune (CBV).
+4. Le parole non si inventano: il vocabolario comune (CBV) e l'avviso di spedizione (DESADV) collegato all'evento di spedizione.
 5. Catena del freddo: l'evento di associazione e i sensori.
-6. Ops, errore!: la dichiarazione di errore.
+6. Ops, errore!: la dichiarazione di errore; dopo la correzione il CeDi manda l'avviso di ricevimento (RECADV).
 7. Ritiro e richiamo: prima «come una volta», poi con due ricerche nell'archivio degli eventi. Il **ritiro** toglie il prodotto dalla filiera; il **richiamo** avvisa chi lo ha già comprato.
 
 La filiera tessile è ancora nel codice ma è spenta: si riattiva aggiungendo `"textile"` in `worlds` dentro `src/config.js`.

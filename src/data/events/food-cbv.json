@@ -19,6 +19,10 @@
       {
         "type": "po",
         "bizTransaction": "https://id.gs1.org/253/06141410000122345"
+      },
+      {
+        "type": "desadv",
+        "bizTransaction": "https://id.gs1.org/253/06141410000294521"
       }
     ],
     "sourceList": [

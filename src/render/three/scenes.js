@@ -95,8 +95,9 @@ const LEVELS = {
     root.add(at(P.factory(), -2.6, 0.05, -1.8), P.silo(-4.3, -1.9), at(P.conveyor(7), 0, 0.05, 1));
     root.add(group(P.box("gs1-blue-600", 0.15, 1.5, 0.15, 1.8, 0.05, 0.5), P.box("gs1-blue-600", 0.15, 1.5, 0.15, 1.8, 0.05, 1.5), P.box("gs1-teal", 0.15, 0.15, 1.15, 1.8, 1.55, 1)));
     // Vasetti già prodotti che scorrono sul nastro, e il vasetto protagonista.
-    const others = [-3.2, -1.2, 3.0].map(x => dyn(scaled(at(P.jar(), x, 0.62, 1), 0.7)));
-    const jar = dyn(at(P.jar(), -2.2, 0.62, 1));
+    const others = [-3.4, -0.7, 3.0].map(x => dyn(scaled(at(P.jar(), x, 0.62, 1), 0.7)));
+    // Il vasetto protagonista è un po' più grande degli altri: si riconosce subito.
+    const jar = dyn(scaled(at(P.jar(), -2.2, 0.62, 1), 1.3));
     jar.userData.baseY = 0.62;
     root.add(jar, ...others);
     let bob = true;

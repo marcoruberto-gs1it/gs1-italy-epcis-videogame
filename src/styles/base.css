@@ -40,6 +40,7 @@ h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
 .logo-ph { display: inline-grid; place-items: center; padding: 4px 10px; border: 2px dashed var(--gs1-blue-200); color: var(--gs1-blue); font-size: 11px; }
 
 .px { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+.vec { display: block; height: auto; filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--gs1-blue) 14%, transparent)); }
 h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; margin: 0; color: var(--gs1-blue); text-wrap: balance; line-height: 1.2; }
 h1 { font-size: clamp(26px, 2.6vw, 44px); }
 h2 { font-size: clamp(20px, 1.7vw, 30px); }

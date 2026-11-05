@@ -1,6 +1,7 @@
 // Sprite in pixel art generati da matrici di caratteri. Ogni carattere è un token di colore GS1 Italy.
 // Regola di brand: nessun pixel Orange tocca un pixel Teal (verificato da tests/unit/sprites.test.js).
 import { color } from "../../tokens.js";
+import { VECTOR } from "./jar-svg.js";
 
 export const PAL = {
   o: "gs1-orange", O: "gs1-orange-700", p: "gs1-orange-300",
@@ -14,8 +15,6 @@ export const ORANGES = new Set(["o", "O", "p"]);
 export const TEALS = new Set(["s", "t", "T"]);
 
 export const SPR = {
-  jar: ["...oooooo...", "..oppppppo..", ".oooooooooo.", ".OOOOOOOOOO.", "..wwwwwwwL..", "..wkwwwwkL..", "..wkwwwwkL..", "..wwwoowwL..", "..wwwwwwwL..", "..bbbbbbbd..", "..bwbwbbwd..", "..bwbwbbwd..", "..bbbbbbbd..", "..wwwwwwwL..", "...wwwwwL...", "....LLLL...."],
-  jarBlink: ["...oooooo...", "..oppppppo..", ".oooooooooo.", ".OOOOOOOOOO.", "..wwwwwwwL..", "..wwwwwwwL..", "..kkwwwkkL..", "..wwwoowwL..", "..wwwwwwwL..", "..bbbbbbbd..", "..bwbwbbwd..", "..bwbwbbwd..", "..bbbbbbbd..", "..wwwwwwwL..", "...wwwwwL...", "....LLLL...."],
   minijar: [".oooo.", "oooooo", ".wwww.", ".wkkw.", ".bbbb.", ".wwww."],
   bip: ["..bbbbbbbb..", ".bBBBBBBBBb.", ".bsttttttsd.", ".bstkttktsd.", ".bstkttktsd.", ".bsttttttsd.", ".bssssssssd.", ".bbbbbbbbbd.", "..dbbbbbbd..", "....bbbd....", "....bbbd....", "....bbbd....", "...dbbbbd...", "...dddddd..."],
   bipBlink: ["..bbbbbbbb..", ".bBBBBBBBBb.", ".bsttttttsd.", ".bsttttttsd.", ".bskkttkksd.", ".bsttttttsd.", ".bssssssssd.", ".bbbbbbbbbd.", "..dbbbbbbd..", "....bbbd....", "....bbbd....", "....bbbd....", "...dbbbbd...", "...dddddd..."],
@@ -55,11 +54,11 @@ export function drawMatrix(rows, scale = 4) {
 /** Restituisce lo sprite come data URL PNG, alla scala indicata. */
 export function sprite(name, scale = 4) {
   const key = name + scale;
-  return cache[key] || (cache[key] = drawMatrix(SPR[name], scale));
+  return cache[key] || (cache[key] = VECTOR[name] ? VECTOR[name]() : drawMatrix(SPR[name], scale));
 }
 
 /** HTML di un'immagine sprite larga w pixel. */
 export const img = (name, w, cls = "", alt = "") =>
-  `<img class="px ${cls}" src="${sprite(name)}" style="width:${w}px" alt="${alt}" data-sprite="${name}">`;
+  `<img class="${VECTOR[name] ? "vec" : "px"} ${cls}" src="${sprite(name)}" style="width:${w}px" alt="${alt}" data-sprite="${name}">`;
 
-export const SPRITE_NAMES = Object.keys(SPR);
+export const SPRITE_NAMES = [...Object.keys(SPR), ...Object.keys(VECTOR)];

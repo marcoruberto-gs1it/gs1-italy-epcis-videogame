@@ -2,7 +2,7 @@
 // Le geometrie condivise non si eliminano mai; quelle create per una scena hanno userData.own.
 import {
   Group, Mesh, BoxGeometry, CylinderGeometry, ConeGeometry, IcosahedronGeometry, SphereGeometry,
-  OctahedronGeometry, InstancedMesh, Object3D, Matrix4
+  OctahedronGeometry, InstancedMesh, Object3D, Matrix4, TorusGeometry
 } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { toon } from "./materials.js";
@@ -114,15 +114,41 @@ export function cow(x = 0, z = 0, ry = 0) {
 
 // ---------- Prodotti ----------
 
-/** Il vasetto di yogurt del lotto L123, con occhi. */
+// Vasetto: corpo un po' svasato (più largo in alto), come i vasetti di yogurt veri.
+const JAR_H = 0.62, JAR_RB = 0.24, JAR_RT = 0.3;
+const jarR = y => JAR_RB + (JAR_RT - JAR_RB) * (y / JAR_H);
+/** Geometria condivisa ottenuta unendo più pezzi dello stesso colore: una sola chiamata di disegno. */
+const merged = (key, parts) => geo(key, () => mergeGeometries(parts.map(([g, m]) => g.clone().applyMatrix4(m))));
+const place = (x, y, z, sx = 1, sy = sx, sz = sx, rx = 0) => {
+  const o = new Object3D(); o.position.set(x, y, z); o.scale.set(sx, sy, sz); o.rotation.x = rx; o.updateMatrix(); return o.matrix;
+};
+
+/** Il vasetto di yogurt del lotto L123: coperchio con linguetta, etichetta con codice a barre e una faccia simpatica. */
 export function jar() {
-  const g = group(
-    cyl("gs1-white", 0.3, 0.62),
-    cyl("gs1-blue", 0.305, 0.2, 0, 0.12),
-    cyl("gs1-orange", 0.33, 0.12, 0, 0.62),
-    box("gs1-blue-950", 0.06, 0.1, 0.02, -0.1, 0.4, 0.3),
-    box("gs1-blue-950", 0.06, 0.1, 0.02, 0.1, 0.4, 0.3)
-  );
+  const front = y => jarR(y) + 0.004;
+  const body = mesh(geo("jarBody", () => new CylinderGeometry(JAR_RT, JAR_RB, JAR_H, 28)), "gs1-white");
+  body.position.y = JAR_H / 2;
+  // Etichetta blu: una fascia che segue la forma del vasetto.
+  const band = mesh(geo("jarBand", () => new CylinderGeometry(jarR(0.3) + 0.006, jarR(0.07) + 0.006, 0.23, 28)), "gs1-blue");
+  band.position.y = 0.07 + 0.115;
+  // Codice a barre bianco sull'etichetta.
+  const bars = mesh(merged("jarBars", [0, 1, 2, 3, 4, 5, 6].map(i => [new BoxGeometry(1, 1, 1),
+    place(-0.075 + i * 0.025, 0.185, front(0.185) + 0.006, [0.012, 0.022, 0.008, 0.016, 0.01, 0.02, 0.012][i], 0.12, 0.01)])), "gs1-white");
+  // Coperchio arancione: bordo, foglio e linguetta da tirare.
+  const lid = mesh(merged("jarLid", [
+    [new CylinderGeometry(0.5, 0.5, 1, 28), place(0, JAR_H + 0.025, 0, 0.67, 0.05, 0.67)],
+    [new BoxGeometry(1, 1, 1), place(0.33, JAR_H + 0.035, 0.12, 0.1, 0.012, 0.09)]
+  ]), "gs1-orange");
+  const foil = mesh(geo("jarFoil", () => new CylinderGeometry(0.31, 0.31, 0.012, 28)), "gs1-orange-300");
+  foil.position.y = JAR_H + 0.056;
+  // Faccia: occhi con riflesso, guance e sorriso.
+  const eyes = mesh(merged("jarEyes", [-0.085, 0.085].map(x => [new SphereGeometry(0.5, 12, 10), place(x, 0.43, front(0.43) - 0.01, 0.06, 0.08, 0.04)])), "gs1-blue-950");
+  const glints = mesh(merged("jarGlints", [-0.085, 0.085].map(x => [new SphereGeometry(0.5, 8, 6), place(x + 0.012, 0.448, front(0.43) + 0.008, 0.022)])), "gs1-white");
+  const cheeks = mesh(merged("jarCheeks", [-0.15, 0.15].map(x => [new SphereGeometry(0.5, 10, 8), place(x, 0.375, front(0.375) - 0.025, 0.06, 0.035, 0.03)])), "gs1-orange-100");
+  const smile = mesh(geo("jarSmile", () => new TorusGeometry(0.04, 0.009, 6, 14, Math.PI)), "gs1-blue-950");
+  smile.position.set(0, 0.375, front(0.375) - 0.002);
+  smile.rotation.z = Math.PI;
+  const g = group(body, band, bars, lid, foil, eyes, glints, cheeks, smile);
   g.name = "jar";
   return g;
 }
