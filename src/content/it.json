@@ -683,11 +683,11 @@
         ],
         [
           "20/09",
-          "Ricevimento · Negozio di Milano"
+          "Ricevimento · Negozio di Roma"
         ],
         [
           "12/10",
-          "Vendita · Negozio di Milano"
+          "Vendita · Negozio di Roma"
         ]
       ],
       "historyB": "Zero eventi trovati. Nessuna fabbrica del marchio ha mai creato questo numero di serie.",
@@ -701,13 +701,13 @@
           "why": "Il QR si copia, e apre il sito anche con un numero di serie inventato. Una storia di eventi non si copia."
         },
         {
-          "t": "A è sospetto, perché è stato venduto a Milano e reso a Roma; B va verificato",
-          "why": "Un reso in un altro negozio è normale. La storia di A è completa e verificabile: è B a non avere storia."
+          "t": "A è sospetto, perché è stato venduto quasi un mese fa; B va verificato con il fornitore",
+          "why": "Il tempo passato dalla vendita non dice nulla sull'autenticità. La storia di A è completa e verificabile: è B a non avere storia."
         },
         {
           "t": "A ha una storia fino alla vendita; il numero di serie di B non è mai nato in fabbrica",
           "ok": true,
-          "why": "Esatto. Prodotto a Biella, venduto a Milano il 12/10: la storia verificabile vale più dello scontrino."
+          "why": "Esatto. Prodotto a Biella, venduto qui a Roma il 12/10: la storia verificabile vale più dello scontrino."
         }
       ],
       "register": "Registra il reso",
