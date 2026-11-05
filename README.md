@@ -8,17 +8,27 @@ Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filie
 
 ## Struttura del gioco
 
-- **Filiera food**: dal latte allo yogurt (trasformazione), le dimensioni di un evento, aggregazione (raggi X), vocabolario CBV, sensori e catena del freddo (AssociationEvent), dichiarazione di errore.
-- **Filiera tessile**: dal filo al capo (trasformazioni in fila, base del DPP), inventario con RAIN RFID (EPC e vettore), resi e storia del capo. Si può spegnere da `src/config.js`.
-- **Sfida finale**: il grande richiamo, prima "come una volta" e poi con due query EPCIS, dal latte ai lotti di yogurt e da lì ai luoghi.
+Il gioco è pensato per chi parte da zero: testi in italiano semplice, una sola denominazione per ogni concetto e un **glossario** in fondo a ogni tappa.
 
-Ogni livello mostra le sue pagine del diario in EPCIS 2.0 JSON (anche dentro un EPCISDocument completo), un superpotere e una scheda "Perché conta". Il **Codex** raccoglie le carte dei concetti, che si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
+**Filiera alimentare**, sette tappe:
+
+1. Dal latte allo yogurt: l'evento di trasformazione.
+2. Nasce il vasetto: le quattro domande di un evento (COSA, QUANDO, DOVE, PERCHÉ).
+3. Vista ai raggi X: l'evento di aggregazione.
+4. Le parole non si inventano: il vocabolario comune (CBV).
+5. Catena del freddo: l'evento di associazione e i sensori.
+6. Ops, errore!: la dichiarazione di errore.
+7. Ritiro e richiamo: prima «come una volta», poi con due ricerche nell'archivio degli eventi. Il **ritiro** toglie il prodotto dalla filiera; il **richiamo** avvisa chi lo ha già comprato.
+
+La filiera tessile è ancora nel codice ma è spenta: si riattiva aggiungendo `"textile"` in `worlds` dentro `src/config.js`.
+
+Ogni tappa mostra le sue pagine del diario nel formato EPCIS 2.0 (JSON), un superpotere e una scheda «Perché conta». Le **schede dei concetti** si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
 
 ## Come si gioca
 
 Il gioco è pensato per chi gioca da solo, da PC o da telefono.
 
-- **Home** e **Mappa** sono sempre nella barra in alto.
+- **Inizio** e **Mappa** sono sempre nella barra in alto.
 - La barra **«La filiera»** mostra tutte le tappe: si clicca una tappa o si usano le frecce per la precedente e la successiva.
 - Prima di ogni domanda il riquadro **«Il contesto»** spiega la situazione; la scena 3D si avvicina al punto di cui si parla.
 - `H` (o il pulsante **Suggerimento**) mostra un aiuto per la tappa. I progressi restano salvati nel browser.
@@ -34,11 +44,11 @@ Apri `dist/index.html` con un doppio clic: è un unico file, funziona offline, s
 | 1-9 | Scegli un'opzione |
 | Invio | Conferma / avanti |
 | Esc | Torna alla mappa |
-| G | Codex (dalla mappa e dalle schermate di riposo) |
+| G | Schede dei concetti (dalla mappa e dalle schermate di riposo) |
 | D | Documento EPCIS completo (nella schermata dell'evento) |
 | M | Audio sì/no |
-| R | Cambia renderer al volo: 3D o 2D, restando nello stesso punto |
-| X | Pixelatura leggera del 3D (non in qualità bassa) |
+| R | Cambia grafica al volo: 3D o 2D, restando nello stesso punto |
+| X | Effetto pixel della grafica 3D (non in qualità bassa) |
 | H | Suggerimento |
 | ? | Tabella dei comandi |
 
