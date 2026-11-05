@@ -47,10 +47,10 @@
       "text": "Un allarme sul latte del lotto L123. Si affronta dopo le due filiere, con tutti i superpoteri."
     },
     "level": "Tappa {id}",
-    "finaleNode": "Tappa 1-7",
+    "finaleNode": "Tappa 1-8",
     "here": "Sei qui",
     "play": "Gioca la tappa {id}",
-    "playFinale": "Gioca la tappa 1-7",
+    "playFinale": "Gioca la tappa 1-8",
     "seeEnd": "Vedi il finale",
     "codex": "Glossario del gioco (G)",
     "reset": "Ricomincia da zero",
@@ -64,13 +64,13 @@
   },
   "intro": {
     "tag": "{w} · tappa {n} di {total}",
-    "tagFinale": "Filiera alimentare · tappa 7 di sette",
+    "tagFinale": "Filiera alimentare · tappa 8 di otto",
     "concept": "Concetto: {c}",
     "go": "Inizia"
   },
   "level": {
     "code": "Tappa {id}",
-    "codeFinale": "Tappa 1-7",
+    "codeFinale": "Tappa 1-8",
     "register": "Registra l'evento",
     "context": "Il contesto",
     "glossary": "Glossario"
@@ -150,6 +150,99 @@
     }
   },
   "levels": {
+    "food-stalla": {
+      "meta": {
+        "t": "Alla stalla nasce il lotto",
+        "c": "Evento di oggetto",
+        "place": "Stalla del caseificio · cisterna",
+        "short": "Stalla"
+      },
+      "intro": "Ciao, sono Bip! Ti guido nel diario del lotto L123. Ogni fatto che riguarda il prodotto diventa una pagina del diario: un evento EPCIS. EPCIS (Electronic Product Code Information Services) è lo standard GS1 per raccontare la storia dei prodotti. Si comincia dal latte.",
+      "story": "Sono le sei del mattino. La mungitura riempie la cisterna della stalla: 2.400 litri di latte crudo. Prima di partire per il caseificio, quel latte riceve il suo codice di lotto: C0471.",
+      "cap": "Stalla · lotto C0471 · 2.400 litri",
+      "q": "Il latte appena munto è nella cisterna. Quando conviene dargli il suo lotto, C0471?",
+      "qCtx": "Un lotto è un gruppo di prodotto fatto insieme, nelle stesse condizioni. Qui è il latte di una mungitura, raccolto nella stessa cisterna. La stalla registra la nascita del lotto con un evento: che cosa, quanto, dove e quando.",
+      "opts": [
+        {
+          "t": "Al caseificio, quando il latte arriva: è lì che si decide come usarlo",
+          "why": "Al caseificio arriva latte da tante cisterne. Il lotto va dato dove il latte nasce, così resta legato alla stalla e alla mungitura."
+        },
+        {
+          "t": "Subito, alla stalla: il latte della stessa mungitura prende il lotto C0471 prima di partire",
+          "ok": true,
+          "why": "Esatto. Il lotto nasce dove nasce il latte. Da qui in poi ogni azienda della filiera usa lo stesso codice."
+        },
+        {
+          "t": "Nella vasca dello yogurt, insieme ai fermenti: prima non serve un codice",
+          "why": "Nella vasca il latte diventa yogurt. Per collegare latte e yogurt, il latte deve avere già il suo lotto."
+        },
+        {
+          "t": "Solo se il laboratorio trova un problema: il lotto serve soltanto per ritirare il latte",
+          "why": "Il lotto si dà sempre, prima che serva. Se un problema arriva, il legame deve essere già scritto."
+        }
+      ],
+      "q2Ctx": "L'autocisterna arriva al caseificio con il lotto C0471. Il caseificio registra un evento di ricevimento. Nell'evento indica anche il luogo di partenza, la stalla, con il suo codice di luogo GS1.",
+      "q2": "Il caseificio riceve il latte. Che cosa scrive nell'evento di ricevimento?",
+      "opts2": [
+        {
+          "t": "Un lotto nuovo, scelto dal caseificio, al posto di C0471",
+          "why": "Cambiare codice spezza il filo con la stalla. Il latte è lo stesso: il lotto resta C0471."
+        },
+        {
+          "t": "Solo la targa dell'autocisterna e l'ora di arrivo",
+          "why": "La targa dice quale mezzo è arrivato, non quale latte. L'evento parla del lotto C0471."
+        },
+        {
+          "t": "Il lotto C0471, la quantità ricevuta e la stalla come luogo di partenza",
+          "ok": true,
+          "why": "Esatto. Stesso lotto, quantità e luogo di partenza: chi legge l'evento risale dal caseificio alla stalla in un passo."
+        },
+        {
+          "t": "Niente: basta il documento di trasporto di carta che viaggia con il latte",
+          "why": "La carta resta nel camion e non si cerca. L'evento, invece, si ritrova subito quando serve."
+        }
+      ],
+      "events": [
+        "Nascita del lotto di latte crudo C0471 alla stalla: 2.400 litri",
+        "Ricevimento del lotto C0471 al caseificio, con la stalla come luogo di partenza"
+      ],
+      "fact": "L'evento di oggetto racconta un fatto su un prodotto o su un lotto. Qui il lotto C0471 nasce alla stalla e poi arriva al caseificio. Allo stesso modo anche i fermenti arrivano con il loro lotto, F2290.",
+      "power": [
+        "Radici",
+        "Ogni lotto riceve il suo codice dove nasce, e lo tiene per tutta la filiera."
+      ],
+      "why": {
+        "benefit": "Se il latte ha un problema, sai subito da quale stalla e da quale mungitura viene.",
+        "who": [
+          "produttore",
+          "autorita"
+        ]
+      },
+      "hint": "Chiediti dove nasce il latte, e chi lo conosce meglio.",
+      "sceneDesc": "Scena: la stalla con le mucche, la cisterna del latte e l'autocisterna che parte per il caseificio.",
+      "glossary": [
+        [
+          "Lotto",
+          "Gruppo di prodotto fatto insieme, nelle stesse condizioni. Ha un codice, qui C0471."
+        ],
+        [
+          "Evento",
+          "Una pagina del diario: dice che cosa è successo, quando, dove e perché."
+        ],
+        [
+          "EPCIS",
+          "Lo standard GS1 per registrare gli eventi di un prodotto e condividerli con le altre aziende della filiera."
+        ],
+        [
+          "Latte crudo",
+          "Il latte appena munto, non ancora trattato."
+        ],
+        [
+          "Ricevimento",
+          "Il momento in cui la merce arriva: chi la riceve lo registra."
+        ]
+      ]
+    },
     "food-latte": {
       "meta": {
         "t": "Dal latte allo yogurt",
@@ -157,7 +250,7 @@
         "place": "Caseificio · vasca 1",
         "short": "Vasca"
       },
-      "intro": "Ciao, sono Bip! Ti guido nel diario del lotto L123. Ogni fatto che riguarda il prodotto diventa una pagina del diario: un evento EPCIS. EPCIS (Electronic Product Code Information Services) è lo standard GS1 per raccontare la storia dei prodotti. Si comincia dal latte.",
+      "intro": "Il latte C0471 è arrivato dalla stalla. Ora, nella vasca 1, diventa yogurt: nasce il lotto L123.",
       "story": "Nella vasca 1 nasce il lotto L123. Metti nella vasca solo quello che entra nello yogurt.",
       "tankEmpty": "La vasca è vuota",
       "tankLabel": "Nella vasca",
@@ -1073,11 +1166,19 @@
     "cards": [
       {
         "id": "epcis",
-        "unlock": "food-latte",
+        "unlock": "food-stalla",
         "t": "EPCIS",
         "def": "Electronic Product Code Information Services: lo standard GS1 per registrare e condividere gli eventi di un prodotto.",
         "ex": "Ogni pagina del diario del lotto L123 è un evento EPCIS.",
         "use": "Fa parlare i sistemi di produttori, logistica e negozi con un linguaggio comune."
+      },
+      {
+        "id": "object",
+        "unlock": "food-stalla",
+        "t": "Evento di oggetto",
+        "def": "Evento che racconta un fatto su un prodotto o su un lotto: nasce, viene controllato, parte, arriva.",
+        "ex": "Il lotto di latte C0471 nasce alla stalla e arriva al caseificio.",
+        "use": "Seguire ogni lotto passo dopo passo, dalla materia prima in poi."
       },
       {
         "id": "transformation",
@@ -1269,8 +1370,8 @@
   },
   "archive": {
     "tag": "Archivio degli eventi",
-    "heading": "Tutti gli eventi del lotto L123",
-    "sub": "Qui trovi il testo vero di ogni evento, tappa per tappa. Il gioco resta in pausa. È scritto in JSON-LD: un formato di testo che i sistemi delle aziende si scambiano.",
+    "heading": "Tutti gli eventi della filiera",
+    "sub": "Qui trovi il testo vero di ogni evento, tappa per tappa, oppure tutta la filiera insieme. Il gioco resta in pausa. È scritto in JSON-LD: un formato di testo che i sistemi delle aziende si scambiano.",
     "tabsAria": "Tappe della filiera",
     "events": "Eventi di questa tappa",
     "showDoc": "Mostra come documento unico",
@@ -1280,7 +1381,12 @@
     "copied": "Testo copiato.",
     "copyFail": "Copia non riuscita: seleziona il testo a mano.",
     "close": "Torna al gioco",
-    "closeHint": "Premi E o Esc per tornare al gioco, nel punto in cui eri."
+    "closeHint": "Premi E o Esc per tornare al gioco, nel punto in cui eri.",
+    "allTab": "Tutta la filiera",
+    "allTabMeta": "Dalla stalla al ritiro",
+    "allHeading": "Tutta la filiera, dalla stalla al ritiro",
+    "allCount": "{n} eventi",
+    "allNote": "Tutti gli eventi del gioco, in ordine di tappa: è la storia completa del latte C0471 e dello yogurt L123. Seguendo i codici dei lotti passi da un evento al successivo."
   },
   "dl": {
     "tag": "GS1 Digital Link",

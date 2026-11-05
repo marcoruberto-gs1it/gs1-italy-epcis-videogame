@@ -23,10 +23,21 @@ onRoute(() => toggleArchive(false));
 
 const pick = () => LEVELS.find(l => l.id === state.level) || LEVELS.find(l => !state.done[l.id]) || LEVELS[0];
 
+/**
+ * Scheda «Tutta la filiera»: gli eventi di tutte le tappe alimentari e del ritiro, in ordine di tappa,
+ * dalla nascita del lotto di latte alla stalla fino al richiamo. Ogni pagina dice da quale tappa viene.
+ */
+function wholeChain() {
+  const levels = LEVELS.filter(l => l.world === "food" || l.world === "finale");
+  const events = levels.flatMap(l => l.events);
+  const captions = levels.flatMap(l => l.events.map((e, i) => `${levelCode(l)} · ${l.captions[i]}`));
+  return { id: "all", whole: true, events, captions, meta: { t: t("archive.allHeading"), c: t("archive.allCount", { n: events.length }) } };
+}
+
 function panelHtml(level) {
   const pages = docMode
     ? `<p class="cap">${t("archive.docNote")}</p><pre class="json" tabindex="0">${jsonLines(toDocument(level.events)).join("\n")}</pre>`
-    : level.events.map((e, i) => `<div class="page"><span class="cap">${i + 1} · ${level.captions[i]}</span><pre class="json" tabindex="0">${jsonLines(e).join("\n")}</pre></div>`).join("");
+    : level.events.map((e, i) => `<div class="page"><span class="cap">${level.whole ? "" : `${i + 1} · `}${level.captions[i]}</span><pre class="json" tabindex="0">${jsonLines(e).join("\n")}</pre></div>`).join("");
   return `<div class="arch-head">
       <h3>${level.meta.t} <span class="c">${level.meta.c}</span></h3>
       <div class="row">
@@ -35,12 +46,13 @@ function panelHtml(level) {
         <span class="copied" id="archCopied" role="status"></span>
       </div>
     </div>
+    ${level.whole ? `<p class="sub">${t("archive.allNote")}</p>` : ""}
     <p class="dl-tip">${t("dl.tip")}</p>
     <div class="stack">${pages}</div>`;
 }
 
 function select(id, focus) {
-  current = LEVELS.find(l => l.id === id) || current;
+  current = id === "all" ? wholeChain() : LEVELS.find(l => l.id === id) || current;
   $$("#archive .tab").forEach(b => {
     const on = b.dataset.id === current.id;
     b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1;
@@ -84,7 +96,7 @@ export function toggleArchive(force) {
     </div>
     <p class="sub">${t("archive.sub")}</p>
     <div class="tabs" role="tablist" aria-label="${t("archive.tabsAria")}">${LEVELS.map(l =>
-      `<button class="tab" role="tab" id="archTab-${l.id}" data-id="${l.id}" aria-controls="archPanel"><span class="name">${levelCode(l)}</span><span class="meta">${l.meta.short}</span></button>`).join("")}</div>
+      `<button class="tab" role="tab" id="archTab-${l.id}" data-id="${l.id}" aria-controls="archPanel"><span class="name">${levelCode(l)}</span><span class="meta">${l.meta.short}</span></button>`).join("")}<button class="tab all" role="tab" id="archTab-all" data-id="all" aria-controls="archPanel"><span class="name">${t("archive.allTab")}</span><span class="meta">${t("archive.allTabMeta")}</span></button></div>
     <section class="arch-panel" role="tabpanel" id="archPanel"></section>
     <p class="close">${t("archive.closeHint")}</p>
   </div>`;

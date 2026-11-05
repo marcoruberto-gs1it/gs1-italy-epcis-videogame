@@ -14,12 +14,11 @@ async function start(page) {
   return { errors, idle, press };
 }
 
-// Dal titolo al livello 1-1 con la vasca già piena (latte e fermenti).
+// Dal titolo alla prima domanda della tappa 1-1, la stalla.
 async function toQuestion1(press, page) {
   await press("Enter");
   await expect(page.locator(".map")).toBeVisible();
   await press("Enter"); await press("Enter");
-  await press("1"); await press("3");
   await expect(page.locator("#opts .opt")).toHaveCount(4);
 }
 
@@ -30,7 +29,7 @@ test("solo modalità individuale: niente scelta della modalità, suggerimento co
   await expect(page.locator("#hint")).toBeHidden();
   await press("h");
   await expect(page.locator("#hint")).toBeVisible();
-  await expect(page.locator("#hint")).toContainText("consumato");
+  await expect(page.locator("#hint")).toContainText("dove nasce il latte");
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/32-suggerimento.png" });
   await press("h");
   await expect(page.locator("#hint")).toBeHidden();
@@ -59,9 +58,9 @@ test("Inizio, Mappa e logo nella barra in alto, tappe cliccabili nella barra del
   const { errors, press } = await start(page);
   await expect(page.locator("#navHome")).toHaveCount(0);
   await toQuestion1(press, page);
-  await expect(page.locator(".fbar .cn-stop.here")).toContainText("Vasca");
+  await expect(page.locator(".fbar .cn-stop.here")).toContainText("Stalla");
   await page.locator(".fbar .cn-arrow").last().click();
-  await expect(page.locator(".fbar .cn-stop.here")).toContainText("Controllo qualità");
+  await expect(page.locator(".fbar .cn-stop.here")).toContainText("Vasca");
   await page.locator("#navMap").click();
   await expect(page.locator(".map")).toBeVisible();
   await page.locator("#navHome").click();
@@ -84,11 +83,22 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   // È una pagina, non una finestra sovrapposta: la schermata di gioco è sospesa e nascosta.
   await expect(arch).not.toHaveAttribute("role", "dialog");
   await expect(page.locator("#screen")).toBeHidden();
-  await expect(arch.locator(".tab")).toHaveCount(7);
+  await expect(arch.locator(".tab")).toHaveCount(9);
+  // Tutta la filiera: tutti gli eventi, dalla stalla (nascita del lotto di latte) al richiamo.
+  await arch.locator("#archTab-all").click();
+  await expect(arch.locator("#archPanel h3")).toContainText("Tutta la filiera");
+  const caps = arch.locator("#archPanel .page .cap");
+  await expect(caps.first()).toContainText("1-1");
+  await expect(caps.last()).toContainText("1-8");
+  await expect(arch.locator("#archPanel pre.json").first()).toContainText("commissioning");
+  await expect(arch.locator("#archPanel pre.json").last()).toContainText("recalled");
+  await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/36-archivio-tutta-la-filiera.png" });
+  await arch.locator("#archTab-1-1").click();
+  await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-1");
   await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-1");
   // Anche le tappe non ancora giocate sono consultabili.
-  await arch.locator(".tab").nth(2).click();
-  await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-3");
+  await arch.locator(".tab").nth(3).click();
+  await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-4");
   await expect(arch.locator("#archPanel pre.json").first()).toContainText("AggregationEvent");
   await arch.locator("#archDoc").click();
   await expect(arch.locator("#archPanel pre.json")).toContainText("EPCISDocument");

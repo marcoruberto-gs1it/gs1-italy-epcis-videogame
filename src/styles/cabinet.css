@@ -7,6 +7,7 @@
 .bd-far { position: absolute; left: -64px; right: -64px; bottom: 22%; height: 40px; background-repeat: repeat-x; background-size: auto 40px; image-rendering: pixelated; opacity: .25; }
 .bd-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: var(--gs1-light-gray); }
 .bd-ground.road { background: var(--gs1-dark-gray); }
+.bd-ground.grass { background: var(--gs1-forest-300); }
 .bd-ground.road::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; background: repeating-linear-gradient(to right, var(--gs1-white) 0 24px, transparent 24px 48px); background-size: 48px 4px; }
 .road-moving .bd-ground.road::after { animation: road-scroll .6s steps(4) infinite; }
 @keyframes road-scroll { to { background-position: -48px 0; } }
@@ -26,7 +27,7 @@
 .scene.r3d .bubble { align-self: flex-start; }
 .scene.r3d .jackets { margin-top: auto; }
 
-/* Livello 1-1 e 2-1: elenco degli ingredienti nella vasca e della catena tessile */
+/* Livello 1-2 e 2-1: elenco degli ingredienti nella vasca e della catena tessile */
 .tank, .chain { width: 100%; max-width: 420px; background: var(--surface); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 2px 0 var(--shadow); }
 .tank.over { box-shadow: inset 0 0 0 3px var(--gs1-blue); }
 .tank ul, .chain ol { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }

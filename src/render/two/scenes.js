@@ -11,6 +11,7 @@ export const TILES = {
 };
 
 const KINDS = {
+  stalla: { far: "hills", ground: "grass" },
   caseificio: { far: "silos", ground: "floor" },
   autostrada: { far: "hills", ground: "road" },
   cedi: { far: "racks", ground: "floor" },

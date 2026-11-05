@@ -1,10 +1,10 @@
-// Livello 1-5 · Catena del freddo: AssociationEvent sensore-pallet, poi i dati del sensore nel COME.
+// Livello 1-6 · Catena del freddo: AssociationEvent sensore-pallet, poi i dati del sensore nel COME.
 import events from "../data/events/food-freddo.json";
 import { defineLevel } from "./define.js";
 import { question } from "../ui/kit.js";
 
 export default defineLevel({
-  slug: "food-freddo", id: "1-5", world: "food", sp: "thermo", scene: "autostrada", events,
+  slug: "food-freddo", id: "1-6", world: "food", sp: "thermo", scene: "autostrada", events,
 
   mount({ C, hook, show, levelShell, ask, setMsg, win, sfx, img, sprite, fx, later, reduced, $ }) {
     show(levelShell(this,

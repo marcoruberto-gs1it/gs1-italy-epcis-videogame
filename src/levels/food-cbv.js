@@ -1,10 +1,10 @@
-// Livello 1-4 · Le parole non si inventano: il vocabolario CBV e l'avviso di spedizione collegato all'evento.
+// Livello 1-5 · Le parole non si inventano: il vocabolario CBV e l'avviso di spedizione collegato all'evento.
 import events from "../data/events/food-cbv.json";
 import { defineLevel } from "./define.js";
 import { question } from "../ui/kit.js";
 
 export default defineLevel({
-  slug: "food-cbv", id: "1-4", world: "food", sp: "truck", scene: "caseificio", events,
+  slug: "food-cbv", id: "1-5", world: "food", sp: "truck", scene: "caseificio", events,
 
   mount({ C, hook, show, levelShell, ask, win, img, $, $$ }) {
     show(levelShell(this,

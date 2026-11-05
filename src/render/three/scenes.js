@@ -51,6 +51,34 @@ function base(root, w, d, top = "gs1-off-white") {
 // ---------- Livelli ----------
 
 const LEVELS = {
+  "food-stalla"(api) {
+    const root = new Group();
+    root.add(P.grass(13, 7));
+    [[-6, -3], [-4.4, -3.2], [5.8, -3], [6, 2.6]].forEach(([x, z], i) => root.add(P.tree(x, z, 0.8 + (i % 2) * 0.2)));
+    // La stalla (a sinistra), il recinto con le mucche, la cisterna del latte e la strada verso il caseificio.
+    root.add(scaled(P.house(-1.9, -0.9), 2.0), P.fence(3.2, -2.6, 1.5), P.cow(-3.6, 0.9, 0.5), P.cow(-2.4, 1.0, -0.3), P.cow(-1.6, 0.5, 0.9));
+    root.add(at(scaled(P.tank(), 0.6), 0.2, 0.05, -1.4), at(P.road(9), 1.6, 0.06, 2.2), at(scaled(P.factory(), 0.7), 4.6, 0.05, -1.4));
+    const tanker = dyn(at(scaled(P.tanker(), 0.7), 0.4, 0.06, 2.2));
+    root.add(tanker);
+    // La mungitura: il latte va dalle mucche alla cisterna, poi nell'autocisterna.
+    const milk = () => {
+      swarm(api, root, new Vector3(-2.4, 0.6, 0.9), new Vector3(0.2, 1.2, -1.4), "gs1-white", 14);
+      api.tween({ t: 0 }, { t: 1, duration: 0.9, delay: 0.8, onComplete: () => swarm(api, root, new Vector3(0.2, 1.2, -1.4), new Vector3(0.2, 0.7, 2.2), "gs1-white", 10) });
+    };
+    if (!api.reduced) api.tween({ t: 0 }, { t: 1, duration: 0.6, onComplete: milk });
+    return {
+      root: P.mergeStatic(root), view: { size: 9.4, target: new Vector3(0.4, 0.6, 0.2) },
+      hooks: {
+        focus: focusOn(api, { q: { x: -1.2, y: 0.7, z: 0.2, size: 6.2 }, q2: { x: 3.2, y: 0.7, z: 0.4, size: 6.2 } }),
+        depart() {
+          tanker.userData.wheels.forEach(w => api.tween(w.rotation, { y: -Math.PI * 6, duration: 1.8, ease: "none" }));
+          api.tween(tanker.position, { x: 3.6, duration: 1.8, ease: "power1.inOut" });
+        },
+        arrived() { flag(api, root, 4.6, 2.2, -1.4); }
+      }
+    };
+  },
+
   "food-latte"(api, ctx) {
     const root = new Group();
     base(root, 9, 6);
@@ -343,12 +371,13 @@ export const levelScene = slug => LEVELS[slug] || null;
 
 // L'illustrazione di ogni tappa sulla mappa.
 const STOP_ART = {
-  "1-1": () => group(P.silo(-0.5, -0.3, 1.6), P.cow(0.4, 0.3, 0.5)),
-  "1-2": () => scaled(P.factory(), 0.5),
-  "1-3": () => group(P.pallet(1, 0.8), at(P.carton(), 0, 0.24, 0)),
-  "1-4": () => scaled(P.truck(), 0.45),
-  "1-5": () => group(scaled(P.tanker(), 0.45), at(P.sensor(), 0.5, 0, 0.4)),
-  "1-6": () => scaled(P.cedi(), 0.45),
+  "1-1": () => group(scaled(P.house(-0.3, -0.2), 1.1), P.cow(0.5, 0.4, 0.5)),
+  "1-2": () => group(P.silo(-0.6, -0.3, 1.6), at(scaled(P.tank(), 0.45), 0.4, 0, 0.2)),
+  "1-3": () => scaled(P.factory(), 0.5),
+  "1-4": () => group(P.pallet(1, 0.8), at(P.carton(), 0, 0.24, 0)),
+  "1-5": () => scaled(P.truck(), 0.45),
+  "1-6": () => group(scaled(P.tanker(), 0.45), at(P.sensor(), 0.5, 0, 0.4)),
+  "1-7": () => scaled(P.cedi(), 0.45),
   "2-1": () => group(at(scaled(P.factory(), 0.45), 0.2, 0, -0.1), at(P.spool(), -0.6, 0, 0.5)),
   "2-2": () => group(scaled(P.store("gs1-teal"), 0.5), at(P.reader(), 0.6, 0, 0.6)),
   "2-3": () => group(scaled(P.store("gs1-orange"), 0.5), at(P.garment("gs1-orange"), 0.6, 0, 0.6)),
@@ -365,10 +394,10 @@ const turned = o => { o.rotation.y = Math.PI / 4; return o; };
 // Disposizione di ogni filiera: tappe in fila lungo una strada, con il paesaggio intorno.
 const WORLD_MAP = {
   food: {
-    gap: 2.95, len: 22,
+    gap: 2.75, len: 22.6,
     decor: root => {
-      for (let a = -9; a <= 9; a += 2.4) root.add(on(P.tree(), a, -2.7, 0.12));
-      root.add(on(P.fence(2.4), -8.6, -1.7, 0.12), on(P.cow(0, 0, 0.3), -9.2, -0.4, 0.12), on(P.bush(), -2, 2.9, 0.12), on(P.bush(), 5, 2.9, 0.12));
+      for (let a = -9.6; a <= 9.6; a += 2.4) root.add(on(P.tree(), a, -2.7, 0.12));
+      root.add(on(P.bush(), -2, 2.9, 0.12), on(P.bush(), 5, 2.9, 0.12));
     }
   },
   textile: {
@@ -439,8 +468,8 @@ export function mapScene({ world = "food", nodes, here, from }, ctx) {
         if (best) ctx.clickHtml(`.stop[data-lv="${best.id}"]`);
       },
       update: (dt, t) => (!hopping && target && !api.reduced ? bobber([token])(dt, t) : false),
-      // Punto per il test del colore: il tetto in GS1 Blue del caseificio (tappa 1-2), in piena luce.
-      probe: () => { const p = pos(nodes[1] || nodes[0]); return new Vector3(p.x + 0.15, 0.12 + 1.45 * 0.5, p.z - 0.05); }
+      // Punto per il test del colore: il tetto in GS1 Blue del caseificio (tappa 1-3), in piena luce.
+      probe: () => { const p = pos(nodes[2] || nodes[0]); return new Vector3(p.x + 0.15, 0.12 + 1.45 * 0.5, p.z - 0.05); }
     };
   };
 }

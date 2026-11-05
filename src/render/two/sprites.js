@@ -33,6 +33,7 @@ export const SPR = {
   person: ["..LLLL..", ".LLLLLL.", ".wkwwkw.", ".wwwwww.", "..wwww..", ".bbbbbb.", "bbBbbbbb", "bbbbbbbd", ".bb..bd.", ".kk..kk."],
   alarm: ["...oo...", "..oooo..", ".oowwoo.", ".oowwoo.", ".oowwoo.", ".oooooo.", "ooowwooo", "OOOOOOOO"],
   tank: ["LLLLLLLLLLLLLLLL", "LwwwwwwwwwwwwwwL", "LWWWWWWWWWWWWWWL", "cLLLLLLLLLLLLLLc", "cLLLLLLLLLLLLLLc", "cLLLLLLLLLLLLLLc", "cLLLLLLLLLLLLLLc", "cccccccccccccccc", ".C..C......C..C.", ".C..C......C..C."],
+  cow: ["...........L..L.", "..........wwwwww", "Gwwwwwwwwwwkwwkw", ".wGGwwwwwGwwwwww", ".wGGGwwwGGwwpppp", ".wwGwwwwwGwwpkpk", ".wwwwwwwwwww.pp.", ".wwwwpwwwwww....", ".G.G....G.G.....", ".G.G....G.G....."],
   sensor: [".kkkk.", "kbbbbk", "kbffbk", "kbffbk", "kbbbbk", ".kkkk."],
   spool: ["CCCCCCCCCC", ".wwwwwwww.", ".WwwwwwwW.", ".wwwwwwww.", ".WwwwwwwW.", ".wwwwwwww.", "CCCCCCCCCC"],
   fabric: ["..LLLLLLLLLLLL", ".LwwwwwwwwwwwL", "LwWwwwwwwwwwwL", "LwwwwwwwwwwwwL", "LwWwwwwwwwwwwL", ".LwwwwwwwwwwwL", "..LLLLLLLLLLLL"]

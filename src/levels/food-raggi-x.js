@@ -1,4 +1,4 @@
-// Livello 1-3 · Vista ai raggi X: vasetti nei cartoni, cartoni sul pallet (due AggregationEvent).
+// Livello 1-4 · Vista ai raggi X: vasetti nei cartoni, cartoni sul pallet (due AggregationEvent).
 import events from "../data/events/food-raggi-x.json";
 import { defineLevel } from "./define.js";
 import { question } from "../ui/kit.js";
@@ -6,7 +6,7 @@ import { question } from "../ui/kit.js";
 const CARTONS = 12, PER_CARTON = 24;
 
 export default defineLevel({
-  slug: "food-raggi-x", id: "1-3", world: "food", sp: "carton", scene: "caseificio", events,
+  slug: "food-raggi-x", id: "1-4", world: "food", sp: "carton", scene: "caseificio", events,
 
   mount({ C, hook, show, levelShell, ask, setMsg, win, sfx, sprite, fx, $, $$ }) {
     const jars = Array.from({ length: PER_CARTON }, () => `<img class="px" src="${sprite("minijar")}" alt="">`).join("");

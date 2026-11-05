@@ -1,0 +1,59 @@
+[
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-01T06:10:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "ADD",
+    "bizStep": "commissioning",
+    "disposition": "active",
+    "quantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/08000000002013/10/C0471",
+        "quantity": 2400,
+        "uom": "LTR"
+      }
+    ],
+    "readPoint": {
+      "id": "https://id.gs1.org/414/8000000000033/254/cisterna"
+    },
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/8000000000033"
+    },
+    "ilmd": {
+      "cbvmda:countryOfOrigin": "IT"
+    }
+  },
+  {
+    "type": "ObjectEvent",
+    "eventTime": "2026-11-01T08:40:00.000+01:00",
+    "eventTimeZoneOffset": "+01:00",
+    "action": "OBSERVE",
+    "bizStep": "receiving",
+    "disposition": "in_progress",
+    "quantityList": [
+      {
+        "epcClass": "https://id.gs1.org/01/08000000002013/10/C0471",
+        "quantity": 2400,
+        "uom": "LTR"
+      }
+    ],
+    "readPoint": {
+      "id": "https://id.gs1.org/414/8000000000026/254/ricevimento"
+    },
+    "bizLocation": {
+      "id": "https://id.gs1.org/414/8000000000026"
+    },
+    "sourceList": [
+      {
+        "type": "location",
+        "source": "https://id.gs1.org/414/8000000000033"
+      }
+    ],
+    "destinationList": [
+      {
+        "type": "location",
+        "destination": "https://id.gs1.org/414/8000000000026"
+      }
+    ]
+  }
+]

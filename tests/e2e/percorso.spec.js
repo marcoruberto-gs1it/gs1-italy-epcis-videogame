@@ -51,14 +51,19 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await shot("03-intro-1-1");
   await press("Enter");
 
-  // 1-1 Dal latte allo yogurt: prima un ingrediente sbagliato
-  await press("2");
+  // 1-1 Alla stalla nasce il lotto del latte: prima una risposta sbagliata, poi il ricevimento al caseificio
+  await shot("04-livello-1-1-stalla");
+  await press("1");
   await expect(page.locator("#msg")).toBeVisible();
-  await press("1"); await press("3");
-  await expect(page.locator("#opts .opt")).toHaveCount(4);
-  await shot("04-livello-1-1");
+  await press("2");
+  await expect(page.locator("#opts2 .opt")).toHaveCount(4);
+  await expect(page.locator("#qa2")).toContainText("ricevimento");
+  await page.waitForTimeout(1200);
+  await shot("04b-livello-1-1-ricevimento");
   await press("3"); await press("Enter");
   await seeWin("05-evento-1-1");
+  await expect(page.locator("#diary")).toContainText("commissioning");
+  await expect(page.locator("#diary")).toContainText("8000000000033");
 
   // Documento completo e Codex
   await press("d");
@@ -71,48 +76,58 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("Escape");
   await expect(page.locator(".map")).toBeVisible();
 
-  // 1-2 Nasce il vasetto
+  // 1-2 Dal latte allo yogurt: prima un ingrediente sbagliato
+  await intro();
+  await press("2");
+  await expect(page.locator("#msg")).toBeVisible();
+  await press("1"); await press("3");
+  await expect(page.locator("#opts .opt")).toHaveCount(4);
+  await shot("07c-livello-1-2-vasca");
+  await press("3"); await press("Enter");
+  await seeWin("07d-evento-1-2");
+
+  // 1-3 Nasce il vasetto
   await intro();
   await page.waitForTimeout(1500);
-  await shot("07b-livello-1-2-vasetto");
+  await shot("07b-livello-1-3-vasetto");
   for (const [r, j] of [[0, 0], [1, 1], [2, 2], [3, 1]]) await pressOn(`.chip[data-r="${r}"][data-j="${j}"]`);
   await pressOn("#reg");
-  await seeWin("08-evento-1-2");
+  await seeWin("08-evento-1-3");
 
-  // 1-3 Vista ai raggi X: 12 cartoni da impilare
+  // 1-4 Vista ai raggi X: 12 cartoni da impilare
   await intro();
   for (let i = 0; i < 12; i++) await press("Enter");
   await expect(page.locator("#cnt")).toContainText("12/12");
   await press("4"); await press("Enter");
   await expect(page.locator("#pallet.xray")).toHaveCount(1);
   await page.waitForTimeout(1200);
-  await shot("09-livello-1-3-raggi-x");
+  await shot("09-livello-1-4-raggi-x");
   await press("Enter");
-  await seeWin("10-evento-1-3");
+  await seeWin("10-evento-1-4");
 
-  // 1-4 Le parole non si inventano, poi l'avviso di spedizione collegato all'evento
+  // 1-5 Le parole non si inventano, poi l'avviso di spedizione collegato all'evento
   await intro();
   await press("1");
   await expect(page.locator("#opts2 .opt")).toHaveCount(4);
   await expect(page.locator("#qa2")).toContainText("avviso di spedizione");
-  await shot("11b-livello-1-4-avviso-spedizione");
+  await shot("11b-livello-1-5-avviso-spedizione");
   await press("3"); await press("Enter");
-  await seeWin("11-evento-1-4");
+  await seeWin("11-evento-1-5");
 
-  // 1-5 Catena del freddo
+  // 1-6 Catena del freddo
   await intro();
   await press("2"); await press("Enter");
   await expect(page.locator("#opts2 .opt")).toHaveCount(4, { timeout: 15_000 });
-  await shot("12-livello-1-5");
+  await shot("12-livello-1-6");
   await press("4"); await press("Enter");
-  await seeWin("13-evento-1-5");
+  await seeWin("13-evento-1-6");
 
-  // 1-6 Ops, errore!
+  // 1-7 Ops, errore!
   await intro();
   await press("3"); await press("Enter");
-  await seeWin("14-evento-1-6");
+  await seeWin("14-evento-1-7");
 
-  // 1-7 Ritiro e richiamo
+  // 1-8 Ritiro e richiamo
   await intro("20-intro-ritiro-richiamo");
   await press("Enter");
   await expect(page.locator("#new")).toBeVisible({ timeout: 20_000 });
@@ -143,7 +158,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
 
   await press("Enter");
   await expect(page.locator(".final h1")).toHaveText("Missione compiuta");
-  await expect(page.locator(".pcell.on")).toHaveCount(7);
+  await expect(page.locator(".pcell.on")).toHaveCount(8);
   await shot("23-finale");
   await page.locator(".benefits").scrollIntoViewIfNeeded();
   await shot("24-finale-vantaggi");

@@ -1,9 +1,9 @@
-// Livello 1-2 · Nasce il vasetto: le dimensioni COSA, QUANDO, DOVE, PERCHÉ di un evento.
+// Livello 1-3 · Nasce il vasetto: le dimensioni COSA, QUANDO, DOVE, PERCHÉ di un evento.
 import events from "../data/events/food-nascita.json";
 import { defineLevel } from "./define.js";
 
 export default defineLevel({
-  slug: "food-nascita", id: "1-2", world: "food", sp: "jar", scene: "caseificio", events,
+  slug: "food-nascita", id: "1-3", world: "food", sp: "jar", scene: "caseificio", events,
 
   mount({ C, hook, show, levelShell, fail, win, sfx, img, later, reduced, $, $$ }) {
     const rows = C.rows;

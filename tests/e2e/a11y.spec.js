@@ -28,8 +28,9 @@ for (const render of ["3d", "2d"]) {
     await press("Enter");
     await audit(page, "intro");
     await press("Enter");
-    await press("1"); await press("3");
-    await expect(page.locator("#opts .opt")).toHaveCount(4);
+    // Tappa 1-1, la stalla: due domande, poi l'evento.
+    await press("2");
+    await expect(page.locator("#opts2 .opt")).toHaveCount(4);
     await audit(page, "livello");
     await press("3"); await press("Enter");
     await expect(page.locator(".win")).toBeVisible();
@@ -51,8 +52,8 @@ for (const render of ["3d", "2d"]) {
 test("finale accessibile", async ({ page }) => {
   // Partita già completata: il gioco riparte dal finale.
   await page.addInitScript(() => {
-    const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "finale"];
-    localStorage.setItem("missione-l123", JSON.stringify({ v: 3, state: {
+    const ids = ["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "finale"];
+    localStorage.setItem("missione-l123", JSON.stringify({ v: 4, state: {
       score: 2400, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true, view: "final"
     } }));
   });

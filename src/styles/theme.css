@@ -264,6 +264,8 @@ button.brandbox:hover > span { color: var(--ui-navy-2); }
 .archive .tabs { display: flex; flex-wrap: wrap; border-radius: 18px; }
 .archive .tab { flex-direction: column; align-items: center; gap: 0; padding: 8px 14px; border-radius: 14px; }
 .archive .tab .meta { font-size: .78em; }
+/* «Tutta la filiera»: separata dalle tappe, in fondo. */
+.archive .tab.all { margin-left: auto; outline: 2px dashed var(--ui-sky); outline-offset: -4px; }
 .arch-panel { display: flex; flex-direction: column; gap: 10px; }
 .arch-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .arch-head h3 { margin: 0; }

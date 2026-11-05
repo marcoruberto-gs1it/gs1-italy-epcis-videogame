@@ -35,7 +35,7 @@ test("il GS1 Blue in 3D resta #002C6C su una superficie in piena luce", async ({
 
 test("se il contesto WebGL si perde a metà livello il gioco continua in 2D", async ({ page }) => {
   const { errors, press, openLevel } = await start(page);
-  await openLevel("1-3");
+  await openLevel("1-4");
   await expect(page.locator("#scene.r3d")).toBeVisible();
   for (let i = 0; i < 5; i++) await press("Enter");
   expect(await page.evaluate(() => window.missioneL123.loseContext())).toBe(true);
@@ -52,7 +52,7 @@ test("se il contesto WebGL si perde a metà livello il gioco continua in 2D", as
 
 test("il tasto R passa da 3D a 2D e ritorno senza perdere il punto", async ({ page }) => {
   const { errors, press, openLevel } = await start(page);
-  await openLevel("1-3");
+  await openLevel("1-4");
   for (let i = 0; i < 3; i++) await press("Enter");
   await press("r");
   await expect(page.locator("#scene.r3d")).toHaveCount(0);
@@ -96,7 +96,7 @@ test("prestazioni: meno di 150 draw call e 100.000 triangoli per scena, pixel ra
   await check("mappa");
   for (const id of ids) { await openLevel(id); await check("livello " + id); await page.keyboard.press("Escape"); await expect(page.locator(".map")).toBeVisible(); }
   // Il momento più pesante: raggi X con 12 cartoni e 288 vasetti visibili.
-  await openLevel("1-3");
+  await openLevel("1-4");
   for (let i = 0; i < 12; i++) await press("Enter");
   await press("4"); await press("Enter");
   await expect(page.locator("#pallet.xray")).toHaveCount(1);

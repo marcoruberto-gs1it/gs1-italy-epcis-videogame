@@ -1,6 +1,6 @@
 // Salvataggio dei progressi in localStorage. Il gioco funziona anche se lo storage non è disponibile.
 const KEY = "missione-l123";
-const VERSION = 3;
+const VERSION = 4;
 
 export function load() {
   try {

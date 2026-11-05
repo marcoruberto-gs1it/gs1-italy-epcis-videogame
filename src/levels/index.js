@@ -1,6 +1,7 @@
 // Elenco dei livelli nell'ordine di gioco. I mondi spenti in config.js non compaiono.
 import { CONFIG } from "../config.js";
 import { t } from "../content/index.js";
+import stalla from "./food-stalla.js";
 import latte from "./food-latte.js";
 import nascita from "./food-nascita.js";
 import raggiX from "./food-raggi-x.js";
@@ -12,7 +13,7 @@ import inventario from "./tessile-inventario.js";
 import reso from "./tessile-reso.js";
 import finale from "./sfida-finale.js";
 
-const ALL = [latte, nascita, raggiX, cbv, freddo, errore, filo, inventario, reso, finale];
+const ALL = [stalla, latte, nascita, raggiX, cbv, freddo, errore, filo, inventario, reso, finale];
 
 export const LEVELS = ALL.filter(l => l.world === "finale" || CONFIG.worlds.includes(l.world));
 

@@ -1,10 +1,10 @@
-// Livello 1-1 · Dal latte allo yogurt: il TransformationEvent collega gli ingredienti al prodotto.
+// Livello 1-2 · Dal latte allo yogurt: il TransformationEvent collega gli ingredienti al prodotto.
 import events from "../data/events/food-latte.json";
 import { defineLevel } from "./define.js";
 import { question } from "../ui/kit.js";
 
 export default defineLevel({
-  slug: "food-latte", id: "1-1", world: "food", sp: "factory", scene: "caseificio", events,
+  slug: "food-latte", id: "1-2", world: "food", sp: "factory", scene: "caseificio", events,
 
   mount({ C, hook, show, levelShell, ask, fail, setMsg, win, sfx, img, fx, $, $$ }) {
     const inTank = [];

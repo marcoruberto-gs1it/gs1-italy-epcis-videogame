@@ -10,17 +10,18 @@ Il protagonista è un vasetto di yogurt del lotto L123: a ogni tappa della filie
 
 Il gioco è pensato per chi parte da zero: testi in italiano semplice, una sola denominazione per ogni concetto e un **glossario** in fondo a ogni tappa.
 
-**Filiera alimentare**, sette tappe:
+**Filiera alimentare**, otto tappe, dalla materia prima al ritiro:
 
-1. Dal latte allo yogurt: l'evento di trasformazione.
-2. Nasce il vasetto: le quattro domande di un evento (COSA, QUANDO, DOVE, PERCHÉ).
-3. Vista ai raggi X: l'evento di aggregazione.
-4. Le parole non si inventano: il vocabolario comune (CBV) e l'avviso di spedizione (DESADV) collegato all'evento di spedizione.
-5. Catena del freddo: l'evento di associazione e i sensori.
-6. Ops, errore!: la dichiarazione di errore; dopo la correzione il CeDi manda l'avviso di ricevimento (RECADV).
-7. Ritiro e richiamo: prima «come una volta», poi con due ricerche nell'archivio degli eventi. Il **ritiro** toglie il prodotto dalla filiera; il **richiamo** avvisa chi lo ha già comprato.
+1. Alla stalla nasce il lotto: il latte crudo della mungitura riceve il lotto C0471 alla stalla (evento di oggetto, `commissioning`), poi il caseificio ne registra il ricevimento con la stalla come luogo di partenza (`receiving`).
+2. Dal latte allo yogurt: l'evento di trasformazione.
+3. Nasce il vasetto: le quattro domande di un evento (COSA, QUANDO, DOVE, PERCHÉ).
+4. Vista ai raggi X: l'evento di aggregazione.
+5. Le parole non si inventano: il vocabolario comune (CBV) e l'avviso di spedizione (DESADV) collegato all'evento di spedizione.
+6. Catena del freddo: l'evento di associazione e i sensori.
+7. Ops, errore!: la dichiarazione di errore; dopo la correzione il CeDi manda l'avviso di ricevimento (RECADV).
+8. Ritiro e richiamo: prima «come una volta», poi con due ricerche nell'archivio degli eventi. Il **ritiro** toglie il prodotto dalla filiera; il **richiamo** avvisa chi lo ha già comprato.
 
-I codici GS1 della filiera alimentare (GTIN, GLN, SSCC, GDTI, GIAI) usano i prefissi aziendali d'esempio della [guida al GLN di GS1 Italy](https://gs1it.org/files/sharing/1464192143/446/gs1-gln.pdf): **800000000** per il caseificio e **803208900** per la distribuzione (CeDi di Bologna `8032089002028`, supermercati di Milano e Monza). Il caseificio è `8000000000026`. Non sono codici di aziende reali.
+I codici GS1 della filiera alimentare (GTIN, GLN, SSCC, GDTI, GIAI) usano i prefissi aziendali d'esempio della [guida al GLN di GS1 Italy](https://gs1it.org/files/sharing/1464192143/446/gs1-gln.pdf): **800000000** per il caseificio (con la sua stalla, `8000000000033`) e **803208900** per la distribuzione (CeDi di Bologna `8032089002028`, supermercati di Milano e Monza). Il caseificio è `8000000000026`. Non sono codici di aziende reali.
 
 La filiera tessile è ancora nel codice ma è spenta: si riattiva aggiungendo `"textile"` in `worlds` dentro `src/config.js`.
 
@@ -34,7 +35,7 @@ Il gioco è pensato per chi gioca da solo, da PC o da telefono.
 - La barra **«La filiera»** mostra tutte le tappe: si clicca una tappa o si usano le frecce per la precedente e la successiva.
 - Prima di ogni domanda il riquadro **«Il contesto»** spiega la situazione; la scena 3D si avvicina al punto di cui si parla.
 - `H` (o il pulsante **Suggerimento**) mostra un aiuto per la tappa. I progressi restano salvati nel browser.
-- `E` (o il pulsante **Eventi**) apre la pagina **archivio degli eventi** (non una finestra sovrapposta): il JSON-LD di tutte le tappe, anche quelle non ancora giocate, un evento alla volta o come documento EPCIS unico, con «Copia il testo». La schermata di gioco resta sospesa: con «Torna al gioco» si riprende esattamente dove si era e i conti alla rovescia restano fermi.
+- `E` (o il pulsante **Eventi**) apre la pagina **archivio degli eventi** (non una finestra sovrapposta): il JSON-LD di tutte le tappe, anche quelle non ancora giocate, un evento alla volta o come documento EPCIS unico, con «Copia il testo». La scheda **«Tutta la filiera»** mostra in un colpo solo tutti gli eventi, dalla stalla al richiamo. La schermata di gioco resta sospesa: con «Torna al gioco» si riprende esattamente dove si era e i conti alla rovescia restano fermi.
 - Ogni **GS1 Digital Link** nel JSON (`https://id.gs1.org/...`) è cliccabile: la **lente** lo scompone in Application Identifier (01 GTIN, 10 lotto, 00 SSCC, 414 GLN del luogo, 254 punto nel luogo, 417 GLN dell'azienda, 253 GDTI, 8004 GIAI), con una spiegazione semplice e la cifra di controllo.
 
 `?` mostra in qualsiasi momento la tabella di tutti i comandi.

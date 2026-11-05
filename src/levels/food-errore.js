@@ -1,10 +1,10 @@
-// Livello 1-6 · Ops, errore!: gli eventi non si cancellano, si correggono con una dichiarazione di errore.
+// Livello 1-7 · Ops, errore!: gli eventi non si cancellano, si correggono con una dichiarazione di errore.
 import events from "../data/events/food-errore.json";
 import { defineLevel } from "./define.js";
 import { question } from "../ui/kit.js";
 
 export default defineLevel({
-  slug: "food-errore", id: "1-6", world: "food", sp: "cedi", scene: "cedi", events,
+  slug: "food-errore", id: "1-7", world: "food", sp: "cedi", scene: "cedi", events,
 
   mount({ C, hook, show, levelShell, ask, win, img, $ }) {
     show(levelShell(this,
