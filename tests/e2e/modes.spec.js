@@ -77,6 +77,9 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   await page.keyboard.press("e");
   const arch = page.locator("#archive");
   await expect(arch).toBeVisible();
+  // È una pagina, non una finestra sovrapposta: la schermata di gioco è sospesa e nascosta.
+  await expect(arch).not.toHaveAttribute("role", "dialog");
+  await expect(page.locator("#screen")).toBeHidden();
   await expect(arch.locator(".tab")).toHaveCount(7);
   await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-1");
   // Anche le tappe non ancora giocate sono consultabili.
@@ -92,6 +95,11 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   await expect(lens.locator(".dl-parts .badge")).toHaveText(["id.gs1.org", "(01)", "(10)"]);
   await expect(lens).toContainText("Lotto");
   await expect(lens).toContainText("cifra di controllo");
+  // L'indirizzo scomposto resta su una sola riga.
+  const url = lens.locator(".dl-url");
+  const box = await url.boundingBox();
+  const lineH = await url.evaluate(e => parseFloat(getComputedStyle(e).lineHeight));
+  expect(box.height).toBeLessThan(lineH * 2);
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/34-lente-digital-link.png" });
   await page.keyboard.press("Escape");
   await expect(lens).toHaveCount(0);
@@ -105,5 +113,10 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   await expect(arch).toBeVisible();
   await arch.locator("#archClose").click();
   await expect(arch).toHaveCount(0);
+  // Anche Mappa chiude l'archivio e porta alla mappa.
+  await page.keyboard.press("e");
+  await page.locator("#navMap").click();
+  await expect(arch).toHaveCount(0);
+  await expect(page.locator(".map")).toBeVisible();
   expect(errors).toEqual([]);
 });

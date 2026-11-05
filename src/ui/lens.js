@@ -34,7 +34,7 @@ export function openLens(uri, from) {
   el.innerHTML = `<div class="box" tabindex="-1">
     <span class="tag">${t("dl.tag")}</span>
     <h2 id="lensTitle">${t("dl.heading")}</h2>
-    <p class="dl-url">${urlHtml(dl)}</p>
+    <p class="dl-url" tabindex="0" role="group" aria-label="${esc(uri)}">${urlHtml(dl)}</p>
     <p>${t("dl.intro")} ${t("dl.aiWhat")}</p>
     <ol class="dl-parts">
       <li class="dom"><span class="badge">id.gs1.org</span><div><p class="nm"><b>${t("dl.domainName")}</b></p><p>${t("dl.domainText")}</p></div></li>
@@ -45,7 +45,7 @@ export function openLens(uri, from) {
   </div>`;
   el.addEventListener("click", e => { if (e.target === el) closeLens(); });
   document.body.appendChild(el);
-  document.querySelectorAll(".app, #archive").forEach(n => n.setAttribute("inert", ""));
+  $(".app")?.setAttribute("inert", "");
   $("#lensClose").onclick = closeLens;
   $(".box", el).focus();
 }
@@ -54,9 +54,7 @@ export function closeLens() {
   const el = $("#lens");
   if (!el) return;
   el.remove();
-  // L'archivio, se aperto, resta il livello attivo; altrimenti torna attivo il gioco.
-  const arch = $("#archive");
-  if (arch) arch.removeAttribute("inert"); else $(".app")?.removeAttribute("inert");
+  $(".app")?.removeAttribute("inert");
   if (opener && opener.isConnected) opener.focus();
   opener = null;
 }

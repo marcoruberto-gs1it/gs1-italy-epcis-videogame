@@ -36,7 +36,7 @@ export function renderHud() {
     </div>
     <div class="tools">
       ${state.view && state.view !== "title" ? `<nav class="mainnav" aria-label="${t("nav.aria")}"><button class="tool nav" id="navHome">${icon("home")}<span class="lbl">${t("nav.home")}</span></button>${state.view !== "map" ? `<button class="tool nav" id="navMap">${icon("map")}<span class="lbl">${t("nav.map")}</span></button>` : ""}</nav>` : ""}
-      <button class="tool" id="archBtn">${icon("doc")}<span class="lbl">${t("hud.archive")}</span></button>
+      <button class="tool" id="archBtn" aria-pressed="${!!document.getElementById("archive")}">${icon("doc")}<span class="lbl">${t("hud.archive")}</span></button>
       <button class="tool" id="mute" aria-pressed="${!state.muted}">${icon(state.muted ? "mute" : "sound")}<span class="lbl">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</span></button>
       <button class="tool" id="helpBtn">${icon("help")}<span class="lbl">${t("hud.help")}</span></button>
     </div>`;

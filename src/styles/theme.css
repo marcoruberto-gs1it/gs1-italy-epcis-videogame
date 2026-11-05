@@ -256,8 +256,8 @@ button.brandbox { display: flex; align-items: center; border: 0; background: tra
 button.brandbox:hover > span { color: var(--ui-navy-2); }
 
 /* ───────── Archivio degli eventi ───────── */
-.archive { place-items: start center; overflow-y: auto; z-index: 45; }
-.archive .box { max-width: 1040px; max-height: none; overflow: visible; display: flex; flex-direction: column; gap: 14px; margin-block: 2vh; }
+.archive .box { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--elev); padding: clamp(18px, 2.4vw, 32px); display: flex; flex-direction: column; gap: 14px; }
+.archive .close { color: var(--muted); font-size: .85em; margin: 0; }
 .archive .top { align-items: flex-start; }
 .archive h2 { margin: 4px 0 0; }
 .archive .sub { color: var(--muted); margin: 0; }
@@ -279,10 +279,11 @@ pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); out
 
 /* ───────── Lente sul GS1 Digital Link ───────── */
 .lens { z-index: 50; }
-.lens .box { max-width: 720px; display: flex; flex-direction: column; gap: 12px; }
+.lens .box { max-width: 960px; width: 100%; display: flex; flex-direction: column; gap: 12px; }
 .lens h2 { margin: 0; }
 .lens p { margin: 0; }
-.dl-url { font-family: var(--font-mono); font-weight: 600; font-size: clamp(14px, 1.05vw, 18px); line-height: 2.1; overflow-wrap: anywhere; background: var(--ui-mist); border-radius: 14px; padding: 10px 14px; }
+/* URL e codici restano su una riga: se lo spazio non basta, scorrono di lato invece di andare a capo. */
+.dl-url { font-family: var(--font-mono); font-weight: 600; font-size: clamp(13px, 1vw, 17px); line-height: 2.1; white-space: nowrap; overflow-x: auto; background: var(--ui-mist); border-radius: 14px; padding: 10px 14px; }
 .dl-url .seg { border-radius: 6px; padding: 2px 6px; color: var(--ui-ink); }
 .dl-url .sl { color: var(--muted); padding: 0 1px; }
 .dl-url .dom { background: var(--ui-ok-bg); }
@@ -291,11 +292,11 @@ pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); out
 .dl-url .ai { box-shadow: inset 0 -3px 0 var(--gs1-blue); }
 .dl-url .ai.qual { box-shadow: inset 0 -3px 0 var(--gs1-orange); }
 .dl-parts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.dl-parts li { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 12px; align-items: start; border-radius: 16px; padding: 10px 12px; background: var(--ui-sky); }
+.dl-parts li { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 12px; align-items: start; border-radius: 16px; padding: 10px 12px; background: var(--ui-sky); }
 .dl-parts li.qual { background: var(--ui-peach); }
 .dl-parts li.dom { background: var(--ui-ok-bg); }
-.dl-parts .badge { font-family: var(--font-mono); font-weight: 600; text-align: center; background: var(--surface); color: var(--ui-ink); border-radius: 10px; padding: 4px 6px; font-size: .9em; overflow-wrap: anywhere; }
-.dl-parts .nm code { font-size: .9em; padding: 1px 6px; background: var(--surface); }
+.dl-parts .badge { font-family: var(--font-mono); font-weight: 600; text-align: center; background: var(--surface); color: var(--ui-ink); border-radius: 10px; padding: 4px 10px; font-size: .9em; white-space: nowrap; min-width: 4.5em; }
+.dl-parts .nm code { font-size: .9em; padding: 1px 6px; background: var(--surface); white-space: nowrap; }
 .dl-parts .chk { font-size: .85em; color: var(--muted); margin-top: 4px; }
 .lens .note { font-size: .9em; color: var(--muted); border-left: 4px solid var(--gs1-teal); padding-left: 10px; }
 

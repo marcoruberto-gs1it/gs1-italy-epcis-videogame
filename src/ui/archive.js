@@ -1,8 +1,9 @@
 // Archivio degli eventi (tasto E o pulsante «Eventi»): il JSON-LD di ogni tappa, consultabile in ogni momento.
-// Si apre sopra il gioco senza cambiare schermata: alla chiusura si torna esattamente dove si era.
+// È una pagina, non una finestra sovrapposta: prende il posto della schermata di gioco, che resta sospesa
+// (nascosta, non distrutta). Alla chiusura si torna esattamente dove si era.
 import { t } from "../content/index.js";
 import { state } from "../engine/state.js";
-import { setPaused } from "../engine/router.js";
+import { setPaused, onRoute } from "../engine/router.js";
 import { LEVELS } from "../levels/index.js";
 import { toDocument } from "../gs1/epcis.js";
 import { levelCode } from "./kit.js";
@@ -13,6 +14,12 @@ let current = null;
 let docMode = false;
 let opener = null;
 export const isArchiveOpen = () => !!$("#archive");
+
+/** Il pulsante «Eventi» della barra in alto indica se l'archivio è aperto. */
+function archBtn(on) { $("#archBtn")?.setAttribute("aria-pressed", on); }
+
+// Inizio, Mappa o un'altra schermata chiudono l'archivio e mostrano la nuova schermata.
+onRoute(() => toggleArchive(false));
 
 const pick = () => LEVELS.find(l => l.id === state.level) || LEVELS.find(l => !state.done[l.id]) || LEVELS[0];
 
@@ -55,9 +62,11 @@ export function toggleArchive(force) {
   const open = force ?? !isArchiveOpen();
   if (!open) {
     closeLens();
-    $("#archive")?.remove();
-    $(".app")?.removeAttribute("inert");
+    if (!isArchiveOpen()) return;
+    $("#archive").remove();
+    $("#screen").hidden = false;
     setPaused(false);
+    archBtn(false);
     if (opener && opener.isConnected) opener.focus();
     opener = null;
     return;
@@ -65,9 +74,9 @@ export function toggleArchive(force) {
   if (isArchiveOpen()) return;
   opener = document.activeElement;
   current = pick();
-  const el = document.createElement("div");
-  el.id = "archive"; el.className = "help archive";
-  el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "archTitle");
+  const el = document.createElement("section");
+  el.id = "archive"; el.className = "archive";
+  el.setAttribute("aria-labelledby", "archTitle");
   el.innerHTML = `<div class="box">
     <div class="row between top">
       <div><span class="tag">${t("archive.tag")}</span><h2 id="archTitle" tabindex="-1">${t("archive.heading")}</h2></div>
@@ -79,10 +88,12 @@ export function toggleArchive(force) {
     <section class="arch-panel" role="tabpanel" id="archPanel"></section>
     <p class="close">${t("archive.closeHint")}</p>
   </div>`;
-  el.addEventListener("click", e => { if (e.target === el) toggleArchive(false); });
-  document.body.appendChild(el);
-  $(".app")?.setAttribute("inert", "");
+  const screen = $("#screen");
+  screen.hidden = true;
+  screen.after(el);
   setPaused(true);
+  archBtn(true);
+  window.scrollTo(0, 0);
   $("#archClose").onclick = () => toggleArchive(false);
   const tabs = $$("#archive .tab");
   tabs.forEach((b, i) => {
