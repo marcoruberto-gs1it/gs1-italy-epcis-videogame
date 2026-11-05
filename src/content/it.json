@@ -17,7 +17,8 @@
       "textile": "Tessile",
       "finale": "Finale"
     },
-    "homeAria": "Missione L123: torna all'inizio"
+    "homeAria": "Missione L123: torna all'inizio",
+    "archive": "Eventi (E)"
   },
   "narrator": {
     "name": "Bip",
@@ -1212,6 +1213,10 @@
         "Documento EPCIS completo (schermata dell'evento)"
       ],
       [
+        "E",
+        "Archivio degli eventi: il testo di tutti gli eventi"
+      ],
+      [
         "?",
         "Questa schermata"
       ]
@@ -1227,5 +1232,70 @@
     "prev": "Tappa precedente",
     "next": "Tappa successiva",
     "chainAria": "Tappe della {w}"
+  },
+  "archive": {
+    "tag": "Archivio degli eventi",
+    "heading": "Tutti gli eventi del lotto L123",
+    "sub": "Qui trovi il testo vero di ogni evento, tappa per tappa. È scritto in JSON-LD: un formato di testo che i sistemi delle aziende si scambiano.",
+    "tabsAria": "Tappe della filiera",
+    "events": "Eventi di questa tappa",
+    "showDoc": "Mostra come documento unico",
+    "showEvents": "Mostra un evento alla volta",
+    "docNote": "Lo stesso contenuto, raccolto in un unico documento EPCIS: è così che viaggia tra due aziende.",
+    "copy": "Copia il testo",
+    "copied": "Testo copiato.",
+    "copyFail": "Copia non riuscita: seleziona il testo a mano.",
+    "close": "Chiudi",
+    "closeHint": "Premi E o Esc per chiudere e tornare dove eri."
+  },
+  "dl": {
+    "tag": "GS1 Digital Link",
+    "heading": "Come si legge questo link",
+    "open": "Leggi il link pezzo per pezzo: {uri}",
+    "tip": "Tocca un link che inizia con id.gs1.org: lo scomponiamo pezzo per pezzo.",
+    "intro": "Un GS1 Digital Link è un indirizzo web che contiene i codici GS1. Si legge a coppie: un numero breve e poi il suo valore.",
+    "aiWhat": "Il numero breve si chiama Application Identifier (AI). Dice che tipo di dato viene subito dopo.",
+    "domainName": "Indirizzo web GS1",
+    "domainText": "La parte iniziale è un normale indirizzo internet. Così lo stesso codice si apre con un telefono e si legge da un gestionale.",
+    "value": "Valore",
+    "check": "L'ultima cifra ({d}) è la cifra di controllo: serve a scoprire gli errori di battitura.",
+    "qr": "Lo stesso link può stare in un codice QR sull'etichetta. Negli eventi EPCIS dice con precisione di quale prodotto, luogo o collo si parla.",
+    "unknownName": "Application Identifier",
+    "unknownText": "Questo identificatore non compare nelle tappe del gioco.",
+    "close": "Chiudi",
+    "ai": {
+      "10": [
+        "Lotto",
+        "Il numero del lotto di produzione, come L123. I vasetti prodotti insieme hanno lo stesso lotto: è il dato chiave per ritiri e richiami."
+      ],
+      "253": [
+        "GDTI, il codice del documento",
+        "Global Document Type Identifier: identifica un documento, come un ordine d'acquisto o un documento di trasporto."
+      ],
+      "254": [
+        "Punto preciso nel luogo",
+        "Indica un punto dentro il luogo appena indicato, come la vasca 1 o la baia 3. Si usa sempre dopo un GLN del luogo."
+      ],
+      "414": [
+        "GLN del luogo",
+        "Global Location Number: identifica un luogo fisico, come un caseificio, un magazzino o un negozio."
+      ],
+      "417": [
+        "GLN dell'azienda",
+        "Identifica un'azienda, come chi vende o chi riceve la merce. Non indica un posto, ma chi ne è responsabile."
+      ],
+      "8004": [
+        "GIAI, il codice di un bene aziendale",
+        "Global Individual Asset Identifier: identifica un bene dell'azienda, come un sensore di temperatura o un carrello."
+      ],
+      "01": [
+        "GTIN, il codice del prodotto",
+        "Global Trade Item Number: identifica il tipo di prodotto, come lo yogurt o il latte. È lo stesso numero del codice a barre."
+      ],
+      "00": [
+        "SSCC, il codice del collo",
+        "Serial Shipping Container Code: identifica una singola unità logistica, come un pallet o un cartone. Ogni pallet ha un numero tutto suo."
+      ]
+    }
   }
 }

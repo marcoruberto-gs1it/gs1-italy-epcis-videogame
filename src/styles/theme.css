@@ -254,3 +254,53 @@ pre.json { font-family: var(--font-mono); font-weight: 500; background: linear-g
 /* Logo e nome del gioco: pulsante che torna all'inizio */
 button.brandbox { display: flex; align-items: center; border: 0; background: transparent; padding: 4px 8px 4px 0; border-radius: 14px; cursor: pointer; color: inherit; font: inherit; text-align: left; }
 button.brandbox:hover > span { color: var(--ui-navy-2); }
+
+/* ───────── Archivio degli eventi ───────── */
+.archive { place-items: start center; overflow-y: auto; z-index: 45; }
+.archive .box { max-width: 1040px; max-height: none; overflow: visible; display: flex; flex-direction: column; gap: 14px; margin-block: 2vh; }
+.archive .top { align-items: flex-start; }
+.archive h2 { margin: 4px 0 0; }
+.archive .sub { color: var(--muted); margin: 0; }
+.archive .tabs { display: flex; flex-wrap: wrap; border-radius: 18px; }
+.archive .tab { flex-direction: column; align-items: center; gap: 0; padding: 8px 14px; border-radius: 14px; }
+.archive .tab .meta { font-size: .78em; }
+.arch-panel { display: flex; flex-direction: column; gap: 10px; }
+.arch-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.arch-head h3 { margin: 0; }
+.arch-head .c { display: block; font-size: .78em; font-weight: 600; color: var(--muted); }
+.archive pre.json { max-height: none; }
+.copied { font-size: .85em; font-weight: 600; color: var(--ui-ok); }
+.dl-tip { margin: 0; font-size: .85em; color: var(--muted); }
+
+/* Link GS1 Digital Link nel JSON: pulsanti che aprono la lente */
+pre.json button.dl { font: inherit; color: var(--gs1-forest-300); background: none; border: 0; padding: 0; text-align: left; text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; border-radius: 4px; }
+pre.json button.dl:hover { color: var(--gs1-white); text-decoration-style: solid; }
+pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); outline-offset: 2px; }
+
+/* ───────── Lente sul GS1 Digital Link ───────── */
+.lens { z-index: 50; }
+.lens .box { max-width: 720px; display: flex; flex-direction: column; gap: 12px; }
+.lens h2 { margin: 0; }
+.lens p { margin: 0; }
+.dl-url { font-family: var(--font-mono); font-weight: 600; font-size: clamp(14px, 1.05vw, 18px); line-height: 2.1; overflow-wrap: anywhere; background: var(--ui-mist); border-radius: 14px; padding: 10px 14px; }
+.dl-url .seg { border-radius: 6px; padding: 2px 6px; color: var(--ui-ink); }
+.dl-url .sl { color: var(--muted); padding: 0 1px; }
+.dl-url .dom { background: var(--ui-ok-bg); }
+.dl-url .key { background: var(--ui-sky); }
+.dl-url .qual { background: var(--ui-peach); }
+.dl-url .ai { box-shadow: inset 0 -3px 0 var(--gs1-blue); }
+.dl-url .ai.qual { box-shadow: inset 0 -3px 0 var(--gs1-orange); }
+.dl-parts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.dl-parts li { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 12px; align-items: start; border-radius: 16px; padding: 10px 12px; background: var(--ui-sky); }
+.dl-parts li.qual { background: var(--ui-peach); }
+.dl-parts li.dom { background: var(--ui-ok-bg); }
+.dl-parts .badge { font-family: var(--font-mono); font-weight: 600; text-align: center; background: var(--surface); color: var(--ui-ink); border-radius: 10px; padding: 4px 6px; font-size: .9em; overflow-wrap: anywhere; }
+.dl-parts .nm code { font-size: .9em; padding: 1px 6px; background: var(--surface); }
+.dl-parts .chk { font-size: .85em; color: var(--muted); margin-top: 4px; }
+.lens .note { font-size: .9em; color: var(--muted); border-left: 4px solid var(--gs1-teal); padding-left: 10px; }
+
+@media (max-width: 640px) {
+  .archive .tab { flex: 1 1 28%; padding: 6px 4px; }
+  .dl-parts li { grid-template-columns: 1fr; gap: 6px; }
+  .dl-parts .badge { justify-self: start; }
+}

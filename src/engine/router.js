@@ -37,9 +37,13 @@ export function go(name, arg) {
 /** Registra animazioni GSAP nella schermata corrente, così vengono annullate quando si cambia schermata. */
 export const anim = fn => scope.add(fn);
 
+// In pausa (archivio degli eventi aperto) i conti alla rovescia non avanzano.
+let paused = false;
+export const setPaused = v => { paused = !!v; };
+
 /** Timer legati alla schermata corrente: si fermano da soli quando si cambia schermata. */
 export const later = {
-  every(fn, ms) { const id = setInterval(fn, ms); timers.add(id); return id; },
+  every(fn, ms) { const id = setInterval(() => { if (!paused) fn(); }, ms); timers.add(id); return id; },
   after(fn, ms) { const id = setTimeout(() => { timers.delete(id); fn(); }, ms); timers.add(id); return id; },
   stop(id) { clearInterval(id); clearTimeout(id); timers.delete(id); }
 };

@@ -1,4 +1,4 @@
-// Barra in alto: logo e nome del gioco, tappe completate, vite, punti, navigazione, audio e comandi.
+// Barra in alto: logo e nome del gioco, tappe completate, vite, punti, navigazione, archivio degli eventi, audio e comandi.
 import { state, commit, onChange } from "../engine/state.js";
 import { t } from "../content/index.js";
 import { LEVELS } from "../levels/index.js";
@@ -16,6 +16,9 @@ export const logoHtml = () => LOGO
   : `<span class="logo-ph" role="img" aria-label="GS1 Italy">${t("hud.logoPlaceholder")}</span>`;
 
 let onHelp = () => {};
+let onArchive = () => {};
+/** Collega il pulsante «Eventi» all'archivio degli eventi (ui/archive.js). */
+export const setArchiveHandler = fn => { onArchive = fn; };
 /** Collega il pulsante «Comandi» alla schermata dei comandi (evita un import circolare con notes.js). */
 export const setHelpHandler = fn => { onHelp = fn; };
 
@@ -33,11 +36,13 @@ export function renderHud() {
     </div>
     <div class="tools">
       ${state.view && state.view !== "title" ? `<nav class="mainnav" aria-label="${t("nav.aria")}"><button class="tool nav" id="navHome">${icon("home")}<span class="lbl">${t("nav.home")}</span></button>${state.view !== "map" ? `<button class="tool nav" id="navMap">${icon("map")}<span class="lbl">${t("nav.map")}</span></button>` : ""}</nav>` : ""}
+      <button class="tool" id="archBtn">${icon("doc")}<span class="lbl">${t("hud.archive")}</span></button>
       <button class="tool" id="mute" aria-pressed="${!state.muted}">${icon(state.muted ? "mute" : "sound")}<span class="lbl">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</span></button>
       <button class="tool" id="helpBtn">${icon("help")}<span class="lbl">${t("hud.help")}</span></button>
     </div>`;
   $("#mute").onclick = toggleMute;
   $("#helpBtn").onclick = () => onHelp();
+  $("#archBtn").onclick = () => onArchive();
   $("#brandHome").onclick = () => { if (state.view !== "title") go("title"); };
   const home = $("#navHome"), map = $("#navMap");
   if (home) home.onclick = () => go("title");

@@ -32,6 +32,8 @@ Il gioco è pensato per chi gioca da solo, da PC o da telefono.
 - La barra **«La filiera»** mostra tutte le tappe: si clicca una tappa o si usano le frecce per la precedente e la successiva.
 - Prima di ogni domanda il riquadro **«Il contesto»** spiega la situazione; la scena 3D si avvicina al punto di cui si parla.
 - `H` (o il pulsante **Suggerimento**) mostra un aiuto per la tappa. I progressi restano salvati nel browser.
+- `E` (o il pulsante **Eventi**) apre l'**archivio degli eventi**: il JSON-LD di tutte le tappe, anche quelle non ancora giocate, un evento alla volta o come documento EPCIS unico, con «Copia il testo». Si apre sopra il gioco: alla chiusura si torna esattamente dove si era e i conti alla rovescia restano fermi.
+- Ogni **GS1 Digital Link** nel JSON (`https://id.gs1.org/...`) è cliccabile: la **lente** lo scompone in Application Identifier (01 GTIN, 10 lotto, 00 SSCC, 414 GLN del luogo, 254 punto nel luogo, 417 GLN dell'azienda, 253 GDTI, 8004 GIAI), con una spiegazione semplice e la cifra di controllo.
 
 `?` mostra in qualsiasi momento la tabella di tutti i comandi.
 
@@ -46,6 +48,7 @@ Apri `dist/index.html` con un doppio clic: è un unico file, funziona offline, s
 | Esc | Torna alla mappa |
 | G | Glossario del gioco (dalla mappa e dalle schermate di riposo) |
 | D | Documento EPCIS completo (nella schermata dell'evento) |
+| E | Archivio degli eventi (in qualsiasi momento) |
 | M | Audio sì/no |
 | R | Cambia grafica al volo: 3D o 2D, restando nello stesso punto |
 | X | Effetto pixel della grafica 3D (non in qualità bassa) |

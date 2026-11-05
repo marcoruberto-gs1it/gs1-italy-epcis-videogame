@@ -41,6 +41,7 @@ register("win", id => {
     <div class="win">
       <div class="stack">
         <div class="row between"><h3>${many ? t("win.diaryMany") : t("win.diary")}</h3><button class="btn alt small" id="doc">${t("win.showDoc")}</button></div>
+        <p class="dl-tip">${t("dl.tip")}</p>
         <div class="stack" id="diary"></div>
       </div>
       <div class="stack">

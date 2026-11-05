@@ -11,13 +11,13 @@ export function checkDigit(digits) {
 /** true se l'ultima cifra del codice è la cifra di controllo corretta. */
 export const isValidKey = code => /^\d{8,18}$/.test(code) && checkDigit(code.slice(0, -1)) === Number(code.slice(-1));
 
-const LENGTH = { "01": 14, "414": 13, "417": 13, "00": 18, "253": 13 };
+export const KEY_LENGTH = { "01": 14, "414": 13, "417": 13, "00": 18, "253": 13 };
 
 /** Estrae dalle URI GS1 Digital Link di un testo le chiavi da verificare: { ai, key }. */
 export function digitalLinkKeys(text) {
   const out = [];
   for (const [, ai, value] of text.matchAll(/https:\/\/id\.gs1\.org\/(01|414|417|00|253)\/(\d+)/g)) {
-    out.push({ ai, key: value.slice(0, LENGTH[ai]) });
+    out.push({ ai, key: value.slice(0, KEY_LENGTH[ai]) });
   }
   return out;
 }

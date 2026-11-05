@@ -34,6 +34,12 @@ for (const render of ["3d", "2d"]) {
     await press("3"); await press("Enter");
     await expect(page.locator(".win")).toBeVisible();
     await audit(page, "evento registrato");
+    await page.locator('#diary button.dl').first().click();
+    await audit(page, "lente digital link");
+    await page.keyboard.press("Escape");
+    await press("e");
+    await audit(page, "archivio eventi");
+    await page.keyboard.press("Escape");
     await press("g");
     await audit(page, "codex");
     await page.keyboard.press("?");

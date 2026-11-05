@@ -43,7 +43,7 @@ test("il tasto ? mostra i comandi e Esc li chiude senza cambiare schermata", asy
   await expect(page.locator(".map")).toBeVisible();
   await page.keyboard.press("?");
   await expect(page.locator(".help")).toBeVisible();
-  await expect(page.locator(".help tr")).toHaveCount(10);
+  await expect(page.locator(".help tr")).toHaveCount(11);
   await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/33-comandi.png" });
   await page.keyboard.press("Escape");
   await expect(page.locator(".help")).toHaveCount(0);
@@ -68,5 +68,42 @@ test("Inizio, Mappa e logo nella barra in alto, tappe cliccabili nella barra del
   await page.locator("#brandHome").click();
   await expect(page.locator("h1")).toHaveText("Missione L123");
   await expect(page.locator("link[rel=icon]")).toHaveAttribute("href", /^data:image\/png;base64,/);
+  expect(errors).toEqual([]);
+});
+
+test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digital Link, si torna alla domanda", async ({ page }) => {
+  const { errors, press, idle } = await start(page);
+  await toQuestion1(press, page);
+  await page.keyboard.press("e");
+  const arch = page.locator("#archive");
+  await expect(arch).toBeVisible();
+  await expect(arch.locator(".tab")).toHaveCount(7);
+  await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-1");
+  // Anche le tappe non ancora giocate sono consultabili.
+  await arch.locator(".tab").nth(2).click();
+  await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-3");
+  await expect(arch.locator("#archPanel pre.json").first()).toContainText("AggregationEvent");
+  await arch.locator("#archDoc").click();
+  await expect(arch.locator("#archPanel pre.json")).toContainText("EPCISDocument");
+  // Lente: il link del lotto si scompone in (01) GTIN e (10) lotto.
+  await arch.locator('button.dl[data-dl$="/10/L123"]').first().click();
+  const lens = page.locator("#lens");
+  await expect(lens).toBeVisible();
+  await expect(lens.locator(".dl-parts .badge")).toHaveText(["id.gs1.org", "(01)", "(10)"]);
+  await expect(lens).toContainText("Lotto");
+  await expect(lens).toContainText("cifra di controllo");
+  await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/34-lente-digital-link.png" });
+  await page.keyboard.press("Escape");
+  await expect(lens).toHaveCount(0);
+  await expect(arch).toBeVisible();
+  await idle(); await page.screenshot({ path: "docs/screenshots/desktop-3d/35-archivio-eventi.png" });
+  await page.keyboard.press("Escape");
+  await expect(arch).toHaveCount(0);
+  // La domanda è ancora lì, con le stesse opzioni.
+  await expect(page.locator("#opts .opt")).toHaveCount(4);
+  await page.locator("#archBtn").click();
+  await expect(arch).toBeVisible();
+  await arch.locator("#archClose").click();
+  await expect(arch).toHaveCount(0);
   expect(errors).toEqual([]);
 });

@@ -1,4 +1,4 @@
-// Comandi da tastiera: 1-9 scelta, Invio conferma, Esc mappa, M audio.
+// Comandi da tastiera: 1-9 scelta, Invio conferma, Esc mappa, M audio, E archivio degli eventi.
 import { state } from "./state.js";
 import { go } from "./router.js";
 import { toggleMute } from "../ui/hud.js";
@@ -7,6 +7,8 @@ import { skipAll } from "../anim/skip.js";
 import { toggleRenderer, togglePixel } from "../render/scene-host.js";
 import { toggleHint } from "./modes.js";
 import { toggleHelp, isHelpOpen } from "../ui/notes.js";
+import { toggleArchive, isArchiveOpen } from "../ui/archive.js";
+import { closeLens, isLensOpen } from "../ui/lens.js";
 
 export function initInput() {
   document.addEventListener("keydown", e => {
@@ -15,6 +17,10 @@ export function initInput() {
     const onButton = document.activeElement && document.activeElement.tagName === "BUTTON";
     // Invio durante un'animazione la porta subito alla fine, senza attivare pulsanti.
     if (e.key === "Enter" && skipAll()) { e.preventDefault(); return; }
+    // Lente sul Digital Link e archivio degli eventi stanno sopra il gioco: finché sono aperti, il gioco non riceve tasti.
+    if (isLensOpen()) { if (e.key === "Escape") { closeLens(); e.preventDefault(); } return; }
+    if (isArchiveOpen()) { if (e.key === "Escape" || e.key === "e" || e.key === "E") { toggleArchive(false); e.preventDefault(); } return; }
+    if ((e.key === "e" || e.key === "E") && !isHelpOpen()) { toggleArchive(true); e.preventDefault(); return; }
     if (e.key === "?") { toggleHelp(); e.preventDefault(); return; }
     if (isHelpOpen()) { if (e.key === "Escape" || e.key === "Enter") { toggleHelp(false); e.preventDefault(); } return; }
     if (e.key === "m" || e.key === "M") { toggleMute(); return; }
