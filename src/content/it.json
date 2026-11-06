@@ -429,24 +429,24 @@
       "stack": "Impila un cartone",
       "stackAll": "Impila tutti",
       "count": "Cartoni {n}/12 · vasetti {j}/288",
-      "q": "Il CeDi legge solo il codice del pallet e conosce lotti e quantità che contiene. Che cosa lo rende possibile?",
+      "q": "Al CeDi leggono solo il codice SSCC del pallet. Come fanno a sapere che dentro ci sono 12 cartoni e 288 vasetti del lotto L123?",
       "opts": [
         {
-          "t": "Un evento che elenca pallet e vasetti insieme, registrato quando il pallet parte",
-          "why": "Dire che erano insieme non basta: serve dire che cosa contiene che cosa. È l'aggregazione."
+          "t": "Il codice SSCC contiene già l'elenco dei cartoni e dei vasetti",
+          "why": "No: l'SSCC è solo il numero di serie del pallet, come una targa. Il contenuto viaggia negli eventi, non nel codice."
         },
         {
-          "t": "Le informazioni sul contenuto scritte dentro il codice SSCC, che il CeDi legge con il lettore",
-          "why": "L'SSCC è solo il numero di serie del pallet. Il contenuto viaggia nei dati dell'evento, non nel codice."
+          "t": "Il caseificio registra un solo evento con il pallet e tutti i vasetti, elencati insieme",
+          "why": "Così sai che erano nello stesso posto, non che cosa contiene che cosa. Serve dire qual è il contenitore e qual è il contenuto."
         },
         {
-          "t": "Un'aggregazione registrata una volta: se il pallet viene smontato, basta aggiornare il gestionale",
-          "why": "Il contenuto vale finché nessuno lo cambia. Se lo smontaggio non diventa un evento, per le altre aziende il pallet è ancora pieno."
+          "t": "Il caseificio manda al CeDi un foglio di calcolo con il contenuto del pallet",
+          "why": "Il foglio resta fuori dall'archivio degli eventi. E se il pallet viene smontato, nessuno lo aggiorna."
         },
         {
-          "t": "Due aggregazioni condivise, vasetti nei cartoni e cartoni nel pallet, aggiornate a ogni smontaggio",
+          "t": "Il caseificio registra due aggregazioni: i vasetti dentro ogni cartone, i cartoni sopra il pallet",
           "ok": true,
-          "why": "Esatto. Il contenuto vale finché nessuno lo cambia: ogni montaggio e smontaggio diventa un evento condiviso."
+          "why": "Esatto. Ogni aggregazione dice contenitore e contenuto: dal pallet risali ai cartoni, dai cartoni ai vasetti. Se il pallet viene smontato, si registra un nuovo evento."
         }
       ],
       "scan": "Leggi il codice del pallet",
@@ -468,9 +468,9 @@
           "produttore"
         ]
       },
-      "hint": "Che cosa sa davvero un numero SSCC? E che cosa succede ai dati quando il pallet viene smontato?",
+      "hint": "Che cosa sa davvero un codice SSCC? E chi dice che cosa c'è dentro il pallet, e dentro ogni cartone?",
       "sceneDesc": "Scena: un pallet su cui impilare 12 cartoni da 24 vasetti. Con il lettore il pallet diventa trasparente e si vedono i 288 vasetti.",
-      "qCtx": "Ogni pallet ha un'etichetta con il suo codice SSCC. Il caseificio registra che cosa contiene: i vasetti nei cartoni, i cartoni sul pallet. Questo legame tra contenitore e contenuto si chiama aggregazione. Al CeDi qualcuno potrebbe smontare il pallet e spedire i cartoni a negozi diversi.",
+      "qCtx": "Il pallet ha un'etichetta con un codice SSCC. È solo un numero di serie, come la targa di un'auto: non dice che cosa c'è dentro. Al CeDi però vogliono saperlo senza aprire il pallet.",
       "glossary": [
         [
           "Pallet",
