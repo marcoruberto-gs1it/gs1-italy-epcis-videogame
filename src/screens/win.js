@@ -4,7 +4,7 @@ import { state, commit } from "../engine/state.js";
 import { sfx } from "../engine/audio.js";
 import { typeLines, popIn, floatScore, pulse, stamp, rain, cascade, confettiFrom } from "../anim/fx.js";
 import { t } from "../content/index.js";
-import { byId, nextOf, codexOf } from "../levels/index.js";
+import { LEVELS, byId, nextTodo, codexOf } from "../levels/index.js";
 import { toDocument } from "../gs1/epcis.js";
 import { levelCode, glossaryBox } from "../ui/kit.js";
 import { $, show, jsonLines } from "../ui/dom.js";
@@ -34,7 +34,9 @@ register("win", id => {
   state.level = id;
   commit();
   sfx.power();
-  const next = nextOf(id);
+  const next = nextTodo(id, state.done);
+  // Tappe saltate: la prossima da fare può stare prima di questa. Lo diciamo, così il traguardo non sorprende.
+  const missing = next && LEVELS.indexOf(next) < LEVELS.indexOf(level);
   const nextLabel = !next ? t("win.end") : next.id === "finale" ? t("win.nextFinale") : t("win.next", { id: next.id });
   const cards = codexOf(level).map(c => c.t).join(", ");
   const many = level.events.length > 1;
@@ -53,6 +55,7 @@ register("win", id => {
         ${whyCard(level.why)}
         ${glossaryBox(level)}
         ${cards ? `<p class="codex-new">${t("win.codexNew", { list: cards })}</p>` : ""}
+        ${missing ? `<p class="codex-new">${t("win.missing", { id: next.id === "finale" ? t("level.codeFinale") : t("level.code", { id: next.id }) })}</p>` : ""}
         <div class="row">
           <button class="btn alt" id="toMap">${t("win.map")}</button>
           <button class="btn" data-primary id="next">${nextLabel}</button>

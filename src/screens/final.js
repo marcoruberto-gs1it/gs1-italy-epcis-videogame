@@ -7,13 +7,14 @@ import { gsap, reduced } from "../anim/gsap-setup.js";
 import { anim } from "../engine/router.js";
 import { t } from "../content/index.js";
 import { img, sprite } from "../render/two/sprites.js";
-import { LEVELS } from "../levels/index.js";
+import { LEVELS, allDone } from "../levels/index.js";
 import { logoHtml } from "../ui/hud.js";
 import { $, show } from "../ui/dom.js";
 import { jarQrHtml } from "../ui/jar.js";
 import { jarLink } from "../gs1/consumer.js";
 
 register("final", () => {
+  if (!allDone(state.done)) return go("map");
   sfx.power();
   const benefits = t("final.benefits");
   show(`<div class="final">

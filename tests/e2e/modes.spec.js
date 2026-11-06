@@ -240,3 +240,35 @@ test("tappa su schermo largo: scena e quiz allineati in alto, la domanda si vede
   }
   expect(errors).toEqual([]);
 });
+
+test("la missione è compiuta solo completando tutte le tappe", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", e => errors.push(e.message));
+  // Partita con tutte le tappe tranne la 1-3, salvata sul traguardo: si riparte dalla mappa, non dal traguardo.
+  await page.addInitScript(() => {
+    if (sessionStorage.getItem("seeded")) return;
+    sessionStorage.setItem("seeded", "1");
+    const ids = ["1-1", "1-2", "1-4", "1-5", "1-6", "1-7", "finale"];
+    localStorage.setItem("missione-l123", JSON.stringify({ v: 4, state: {
+      score: 2000, lives: 3, done: Object.fromEntries(ids.map(i => [i, true])), powers: ids, muted: true, crt: true, view: "final"
+    } }));
+  });
+  await page.goto(GAME);
+  await expect(page.locator(".map")).toBeVisible();
+  await expect(page.locator(".final")).toHaveCount(0);
+  // Si gioca l'ultima tappa, la 1-9: alla fine il gioco manda alla 1-3, non al traguardo.
+  await page.locator('.stop[data-lv="1-9"]').click();
+  await page.locator("#go").click();
+  await page.keyboard.press("2");
+  await page.waitForSelector("body:not([data-anim])", { state: "attached" });
+  await page.locator("#reg").click();
+  await expect(page.locator(".win")).toBeVisible();
+  await expect(page.locator("#next")).toHaveText("Tappa 1-3");
+  await expect(page.locator(".win")).toContainText("ti manca ancora qualche tappa");
+  await page.locator("#next").click();
+  await expect(page.locator("h1")).toHaveText("Nasce il vasetto");
+  // Anche dalla mappa il traguardo non c'è finché manca una tappa.
+  await page.locator("#navMap").click();
+  await expect(page.locator('.play[data-go="end"]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});

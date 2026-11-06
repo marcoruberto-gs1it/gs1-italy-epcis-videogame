@@ -37,3 +37,12 @@ export const codexOf = level => CODEX.filter(c => c.level === level);
 
 /** Tappe per la mappa 3D: mondo e stato di completamento. */
 export const mapNodes = done => LEVELS.map(l => ({ id: l.id, world: l.world, done: !!done[l.id] }));
+
+/** La missione è compiuta solo quando tutte le tappe sono completate. */
+export const allDone = done => LEVELS.every(l => done[l.id]);
+
+/** Prossima tappa da fare dopo questa (poi si riparte dall'inizio), oppure undefined se sono finite tutte. */
+export function nextTodo(id, done) {
+  const i = LEVELS.findIndex(l => l.id === id);
+  return LEVELS.slice(i + 1).find(l => !done[l.id]) || LEVELS.find(l => !done[l.id]);
+}

@@ -96,7 +96,8 @@
     "glossary": "Glossario",
     "stamp": "Registrato",
     "noEvent": "Ecco il QR code del vasetto: inquadralo con lo smartphone e apri la pagina che vede chi compra.",
-    "headingDone": "Tappa completata"
+    "headingDone": "Tappa completata",
+    "missing": "Per arrivare al traguardo ti manca ancora qualche tappa. La prossima da fare: {id}."
   },
   "roles": {
     "produttore": "Produttore",

@@ -18,6 +18,7 @@ import { toggleArchive } from "./ui/archive.js";
 import { setArchiveHandler, setResetHandler } from "./ui/hud.js";
 import { resetState } from "./engine/state.js";
 import { resetMapView } from "./screens/map.js";
+import { allDone } from "./levels/index.js";
 import "./screens/title.js";
 import "./screens/map.js";
 import "./screens/level.js";
@@ -36,6 +37,6 @@ setArchiveHandler(force => toggleArchive(force));
 setResetHandler(() => { toggleArchive(false); resetState(); resetMapView(); go("title"); });
 
 // Alla ripresa di una partita salvata si riparte dalla mappa (o dal finale, se era lì).
-if (state.view === "final") go("final");
-else if (["map", "intro", "level", "win", "codex"].includes(state.view)) go("map");
+if (state.view === "final" && allDone(state.done)) go("final");
+else if (["map", "intro", "level", "win", "codex", "final"].includes(state.view)) go("map");
 else go("title");
