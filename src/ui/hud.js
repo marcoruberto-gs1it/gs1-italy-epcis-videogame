@@ -49,9 +49,9 @@ export function renderHud() {
         <button class="tool nav" id="navMap" data-nav="map">${icon("map")}<span class="lbl">${t("nav.map")}</span></button>
         <button class="tool nav" id="archBtn" data-nav="events">${icon("doc")}<span class="lbl">${t("hud.archive")}</span></button>
       </nav>
-      <button class="tool" id="mute" aria-pressed="${!state.muted}">${icon(state.muted ? "mute" : "sound")}<span class="lbl">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</span></button>
-      <button class="tool" id="helpBtn">${icon("help")}<span class="lbl">${t("hud.help")}</span></button>
-      <button class="tool reset ${resetArmed ? "armed" : ""}" id="resetBtn" aria-label="${resetArmed ? t("hud.resetConfirm") : t("hud.resetAria")}">${icon("reset")}<span class="lbl">${resetArmed ? t("hud.resetConfirm") : t("hud.reset")}</span></button>
+      <button class="tool" id="mute" aria-pressed="${!state.muted}" title="${state.muted ? t("hud.audioOff") : t("hud.audioOn")}">${icon(state.muted ? "mute" : "sound")}<span class="lbl">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</span></button>
+      <button class="tool" id="helpBtn" title="${t("hud.help")}">${icon("help")}<span class="lbl">${t("hud.help")}</span></button>
+      <button class="tool reset ${resetArmed ? "armed" : ""}" id="resetBtn" title="${resetArmed ? t("hud.resetConfirm") : t("hud.reset")}" aria-label="${resetArmed ? t("hud.resetConfirm") : t("hud.resetAria")}">${icon("reset")}<span class="lbl">${resetArmed ? t("hud.resetConfirm") : t("hud.reset")}</span></button>
     </div>`;
   $("#resetBtn").onclick = () => {
     clearTimeout(resetTimer);

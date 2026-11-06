@@ -218,3 +218,25 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   await expect(page.locator(".map")).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test("tappa su schermo largo: scena e quiz allineati in alto, la domanda si vede senza scorrere la pagina", async ({ page }, info) => {
+  test.skip(info.project.name === "mobile", "su telefono scena e quiz sono uno sotto l'altro");
+  const { errors, press } = await start(page);
+  for (const [w, h, all] of [[1920, 1080, true], [1280, 720, false]]) {
+    await page.setViewportSize({ width: w, height: h });
+    if (!(await page.locator("#opts").count())) await toQuestion1(press, page);
+    await page.waitForTimeout(300);
+    const m = await page.evaluate(() => {
+      const r = s => document.querySelector(s).getBoundingClientRect();
+      const sc = document.querySelector("#screen");
+      return { scene: r("#scene"), body: r("#body"), q: r("#body .q"), opts: [...document.querySelectorAll("#opts .opt")].map(o => o.getBoundingClientRect().bottom), scroll: sc.scrollHeight - sc.clientHeight };
+    });
+    expect(Math.abs(m.scene.top - m.body.top), `${w}×${h}: stessa altezza in alto`).toBeLessThanOrEqual(1);
+    expect(Math.abs(m.scene.bottom - m.body.bottom), `${w}×${h}: stessa altezza in basso`).toBeLessThanOrEqual(1);
+    expect(m.scroll, `${w}×${h}: la pagina non scorre`).toBeLessThanOrEqual(1);
+    expect(m.q.bottom, `${w}×${h}: domanda visibile`).toBeLessThanOrEqual(h);
+    if (all) expect(Math.max(...m.opts), `${w}×${h}: tutte le risposte visibili`).toBeLessThanOrEqual(m.body.bottom);
+    await page.screenshot({ path: `docs/screenshots/desktop-3d/39-quiz-allineato-${w}.png` });
+  }
+  expect(errors).toEqual([]);
+});

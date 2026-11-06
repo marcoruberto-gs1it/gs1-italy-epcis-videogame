@@ -389,3 +389,37 @@ pre.json { white-space: pre; }
   .path .stop { flex-direction: column; gap: 8px; padding: 12px; }
 }
 .path .stop .c, .path .stop .t { overflow-wrap: normal; word-break: normal; hyphens: manual; }
+
+/* Tappa su schermi larghi: scena 3D e quiz partono alla stessa altezza e occupano lo spazio visibile.
+   La pagina non scorre: se il quiz è lungo scorre solo la colonna destra, e la scena resta sempre in vista. */
+@media (min-width: 1100px) and (min-height: 640px) {
+  .screen:has(> .lv) { display: flex; flex-direction: column; overflow: hidden; }
+  .screen:has(> .lv) > .lv { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+  .lv > .scene, .lv > .scene.r3d { min-height: 0; height: 100%; }
+  .lv > .scene .scene-content, .lv > .scene.r3d .scene-content { min-height: 100%; height: 100%; }
+  .lv > #body { min-height: 0; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+}
+@media (min-width: 1100px) and (min-height: 640px) {
+  /* Sfumatura in fondo alla colonna: segnala che il quiz continua sotto. */
+  .lv > #body::after { content: ""; position: sticky; display: block; bottom: calc(-1 * clamp(18px, 1.6vw, 28px)); height: 28px; margin-top: -28px; background: linear-gradient(to bottom, transparent, var(--surface)); pointer-events: none; }
+}
+/* Schermi bassi (portatili, proiettori 1280×720): colonna del quiz più larga e più compatta. */
+@media (min-width: 1100px) and (min-height: 640px) and (max-height: 900px) {
+  .screen:has(> .lv) > .lv { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+  .screen:has(> .lv) > .lv-head { margin-bottom: 8px; }
+  .lv > #body { padding: 16px 18px; font-size: .94em; }
+  .lv > #body .story { line-height: 1.45; }
+  .lv > #body .ctx { padding: 8px 12px; line-height: 1.45; }
+  .lv > #body .opts { gap: 8px; }
+  .lv > #body .opt { padding: 8px 12px; min-height: 44px; line-height: 1.35; }
+}
+/* Portatili e proiettori: la barra in alto resta su una riga. Audio, Comandi e Ricomincia mostrano solo l'icona
+   (il nome resta per i lettori di schermo); Inizio, Mappa ed Eventi tengono il testo. */
+@media (min-width: 641px) and (max-width: 1500px) {
+  .topbar .tools > .tool:not(.nav) .lbl { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .topbar .tools > .tool:not(.nav) { padding: 0; width: 42px; justify-content: center; }
+}
+@media (min-width: 641px) and (max-width: 1500px) {
+  .topbar .tools > .tool.reset.armed { width: auto; padding: 8px 14px; }
+  .topbar .tools > .tool.reset.armed .lbl { position: static !important; width: auto; height: auto; overflow: visible; clip: auto; }
+}
