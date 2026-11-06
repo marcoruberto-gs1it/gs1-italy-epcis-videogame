@@ -110,3 +110,27 @@ describe("coerenza delle quantità", () => {
     expect(all["tessile-inventario"][0].epcList).toEqual(made);
   });
 });
+
+// Parole del Core Business Vocabulary: ogni valore CBV degli eventi ha il suo link verificato su ref.gs1.org/cbv.
+import { cbvUrl, CBV_TERMS, VOC_MEASURES } from "../../src/ui/dom.js";
+describe("valori CBV collegati alla definizione ufficiale", () => {
+  const seen = new Set();
+  const walk = (o, k) => {
+    if (Array.isArray(o)) o.forEach(x => walk(x, k));
+    else if (o && typeof o === "object") for (const [kk, v] of Object.entries(o)) walk(v, kk);
+    else if (typeof o === "string" && k in CBV_TERMS && !/Event$/.test(o) && !VOC_MEASURES.includes(o)) seen.add(`${k}=${o}`);
+  };
+  Object.values(all).forEach(ev => walk(ev, ""));
+  it.each([...seen])("%s", kv => {
+    const [k, v] = kv.split("=");
+    expect(cbvUrl(k, v), `${kv}: verifica il termine su ref.gs1.org/cbv e aggiungilo a CBV_TERMS`).toMatch(/^https:\/\/ref\.gs1\.org\/cbv\/(BizStep|Disp|ER|BTT|SDT)-[a-z_]+$/);
+  });
+  it("esempi", () => {
+    expect(cbvUrl("bizStep", "commissioning")).toBe("https://ref.gs1.org/cbv/BizStep-commissioning");
+    expect(cbvUrl("disposition", "recalled")).toBe("https://ref.gs1.org/cbv/Disp-recalled");
+    expect(cbvUrl("type", "desadv")).toBe("https://ref.gs1.org/cbv/BTT-desadv");
+    expect(cbvUrl("type", "owning_party")).toBe("https://ref.gs1.org/cbv/SDT-owning_party");
+    expect(cbvUrl("reason", "incorrect_data")).toBe("https://ref.gs1.org/cbv/ER-incorrect_data");
+    expect(cbvUrl("type", "ObjectEvent")).toBeNull();
+  });
+});

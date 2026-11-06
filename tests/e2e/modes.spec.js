@@ -158,6 +158,15 @@ test("archivio degli eventi a metà tappa: tutte le tappe aperte, lente sul Digi
   await expect(voc).toHaveAttribute("href", "https://ref.gs1.org/voc/productionDate");
   await expect(voc).toHaveAttribute("target", "_blank");
   await expect(arch.locator('#archPanel a.voc', { hasText: "gs1:countryCode" })).toHaveAttribute("href", "https://ref.gs1.org/voc/countryCode");
+  // Le parole del Core Business Vocabulary portano alla loro definizione su ref.gs1.org/cbv.
+  const cbv = arch.locator("#archPanel a.cbv", { hasText: "commissioning" });
+  await expect(cbv).toHaveAttribute("href", "https://ref.gs1.org/cbv/BizStep-commissioning");
+  await expect(cbv).toHaveAttribute("target", "_blank");
+  await expect(arch.locator("#archPanel a.cbv", { hasText: "location" }).first()).toHaveAttribute("href", "https://ref.gs1.org/cbv/SDT-location");
+  await arch.locator("#archTab-1-6").click();
+  await expect(arch.locator("#archPanel a.voc", { hasText: "Temperature" })).toHaveAttribute("href", "https://ref.gs1.org/voc/Temperature");
+  await expect(arch.locator("#archPanel a.cbv", { hasText: "in_transit" }).first()).toHaveAttribute("href", "https://ref.gs1.org/cbv/Disp-in_transit");
+  await arch.locator("#archTab-1-1").click();
   await expect(arch.locator(".tab[aria-selected=true]")).toContainText("1-1");
   // Anche le tappe non ancora giocate sono consultabili.
   await arch.locator(".tab").nth(3).click();

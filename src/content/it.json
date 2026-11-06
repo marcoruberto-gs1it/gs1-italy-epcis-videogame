@@ -1483,7 +1483,7 @@
     "tag": "GS1 Digital Link",
     "heading": "Come si legge questo link",
     "open": "Leggi il link pezzo per pezzo: {uri}",
-    "tip": "Tocca un link che inizia con id.gs1.org: lo scomponiamo pezzo per pezzo. Le parole che iniziano con gs1: portano alla loro definizione ufficiale nel GS1 Web Vocabulary.",
+    "tip": "Tocca un link che inizia con id.gs1.org: lo scomponiamo pezzo per pezzo. Le parole sottolineate, come commissioning o gs1:bestBeforeDate, portano alla loro definizione ufficiale GS1.",
     "intro": "Un GS1 Digital Link è un indirizzo web che contiene i codici GS1. Si legge a coppie: un numero breve e poi il suo valore.",
     "aiWhat": "Il numero breve si chiama Application Identifier (AI). Dice che tipo di dato viene subito dopo.",
     "domainName": "Indirizzo web GS1",
@@ -1619,5 +1619,8 @@
     "gameText": "Questa è la storia che hai costruito evento dopo evento. Nel gioco trovi anche il testo vero di ogni evento.",
     "gameLink": "Gioca a Missione L123",
     "footer": "Missione L123 · un gioco di GS1 Italy per capire la tracciabilità con EPCIS. Codici GS1, aziende e luoghi sono di fantasia."
+  },
+  "cbv": {
+    "open": "{term}: definizione ufficiale nel Core Business Vocabulary GS1 (si apre in una nuova scheda)"
   }
 }

@@ -22,10 +22,50 @@ function vocLink(q) {
   return m ? `<a class="voc" href="${VOC}${m[1]}" target="_blank" rel="noopener" aria-label="${esc(t("voc.open", { term: "gs1:" + m[1] }))}">${q}</a>` : q;
 }
 
+/**
+ * Valori del Core Business Vocabulary (CBV) usati negli eventi del gioco, con la loro lista di codici.
+ * Ognuno è verificato sulla definizione ufficiale (https://ref.gs1.org/cbv/?show=codelistvalues):
+ * il link è https://ref.gs1.org/cbv/{Lista}-{valore}. Un test controlla che ogni valore CBV degli eventi sia qui.
+ */
+export const CBV = "https://ref.gs1.org/cbv/";
+export const CBV_TERMS = {
+  bizStep: { list: "BizStep", values: ["assembling", "commissioning", "cycle_counting", "holding", "inspecting", "packing", "receiving", "shipping", "transporting"] },
+  disposition: { list: "Disp", values: ["active", "in_progress", "in_transit", "recalled", "returned", "sellable_accessible"] },
+  reason: { list: "ER", values: ["incorrect_data"] },
+  // "type" serve a più liste: tipo di transazione (bizTransactionList) e tipo di origine o destinazione.
+  type: { list: v => (["po", "desadv", "recadv"].includes(v) ? "BTT" : "SDT"), values: ["po", "desadv", "recadv", "owning_party", "location"] }
+};
+
+/** URL della definizione CBV di un valore, oppure null se il campo non è CBV o il valore non è verificato. */
+export function cbvUrl(key, value) {
+  const d = CBV_TERMS[key];
+  if (!d || !d.values.includes(value)) return null;
+  return `${CBV}${typeof d.list === "function" ? d.list(value) : d.list}-${value}`;
+}
+
+/**
+ * Tipi di misura dei sensori (sensorReport.type): nel contesto JSON-LD di EPCIS 2.0 sono termini del
+ * GS1 Web Vocabulary, come gs1:Temperature (gs1:MeasurementType, v1.16). Verificati uno per uno.
+ */
+export const VOC_MEASURES = ["Temperature"];
+
+function cbvLink(q, key) {
+  const v = q.slice(6, -6);
+  if (key === "type" && VOC_MEASURES.includes(v)) return `<span class="s"><a class="voc" href="${VOC}${v}" target="_blank" rel="noopener" aria-label="${esc(t("voc.open", { term: "gs1:" + v }))}">${q}</a></span>`;
+  const url = cbvUrl(key, v);
+  return url && `<span class="s"><a class="cbv" href="${url}" target="_blank" rel="noopener" aria-label="${esc(t("cbv.open", { term: q.slice(6, -6) }))}">${q}</a></span>`;
+}
+
 /** JSON con chiavi, stringhe e numeri evidenziati, già diviso in righe. */
 export function jsonLines(obj) {
+  // La chiave appena letta dice se il valore che segue è una parola del CBV (bizStep, disposition...).
+  let key = null;
   return esc(JSON.stringify(obj, null, 2))
-    .replace(/(&quot;[^&]*?&quot;)(\s*:)?/g, (m, a, b) => (b ? `<span class="k">${vocLink(a)}</span>${b}` : /^&quot;gs1:/.test(a) ? `<span class="s">${vocLink(a)}</span>` : jsonString(a)))
+    .replace(/(&quot;[^&]*?&quot;)(\s*:)?/g, (m, a, b) => {
+      if (b) { key = a.slice(6, -6); return `<span class="k">${vocLink(a)}</span>${b}`; }
+      if (/^&quot;gs1:/.test(a)) return `<span class="s">${vocLink(a)}</span>`;
+      return cbvLink(a, key) || jsonString(a);
+    })
     .replace(/(:\s)(-?\d+(\.\d+)?)/g, '$1<span class="n">$2</span>')
     .split("\n");
 }

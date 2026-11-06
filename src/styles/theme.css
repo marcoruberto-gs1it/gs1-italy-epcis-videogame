@@ -281,8 +281,8 @@ button.brandbox:hover > span { color: var(--ui-navy-2); }
 /* Link GS1 Digital Link nel JSON: pulsanti che aprono la lente */
 pre.json button.dl { font: inherit; color: var(--gs1-forest-300); background: none; border: 0; padding: 0; text-align: left; text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; border-radius: 4px; }
 /* Termini del GS1 Web Vocabulary (gs1:...): link alla definizione su ref.gs1.org/voc. */
-pre.json a.voc { color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
-pre.json a.voc:hover, pre.json a.voc:focus-visible { text-decoration-style: solid; }
+pre.json a.voc, pre.json a.cbv { color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
+pre.json a.voc:hover, pre.json a.voc:focus-visible, pre.json a.cbv:hover, pre.json a.cbv:focus-visible { text-decoration-style: solid; }
 pre.json button.dl:hover { color: var(--gs1-white); text-decoration-style: solid; }
 pre.json button.dl:focus-visible { outline: 2px solid var(--gs1-orange-300); outline-offset: 2px; }
 
