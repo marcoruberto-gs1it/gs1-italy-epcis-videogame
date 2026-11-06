@@ -503,7 +503,7 @@
       "bubbleGood": "Ricevuto! Pallet in viaggio, collegato all'ordine e all'avviso di spedizione. Vi aspetto.",
       "cap": "IL SISTEMA DEL CeDi ASCOLTA",
       "story": "Il pallet sale sul camion. Ogni azienda chiama i fatti a modo suo: «uscita_merce», «spedito», «DDT emesso». Il CeDi riceve ogni giorno eventi da decine di fornitori diversi.",
-      "q": "Il caseificio scrive «shipping» invece di «uscita_merce». Che cosa ci guadagna il CeDi che riceve l'evento?",
+      "q": "Nell'evento che manda al CeDi, il caseificio non usa il suo nome interno «uscita_merce», ma la parola comune «shipping». Che cosa ci guadagna il CeDi?",
       "opts": [
         {
           "t": "Capisce subito che è una spedizione, senza chiedere al caseificio che cosa vuol dire «uscita_merce»",
@@ -540,7 +540,7 @@
       },
       "hint": "Pensa a chi riceve eventi da tanti fornitori, ognuno con le sue parole.",
       "sceneDesc": "Scena: la baia di carico del caseificio con il camion e il CeDi di Bologna sullo sfondo.",
-      "qCtx": "GS1 ha definito un elenco di parole comuni per descrivere i fatti della filiera: il CBV (Core Business Vocabulary). Le parole sono in inglese e uguali in tutto il mondo: «shipping» vuol dire spedizione, «in_transit» merce in viaggio. Il gestionale del caseificio, invece, scrive «uscita_merce».",
+      "qCtx": "Dentro il suo gestionale, il caseificio chiama questa fase «uscita_merce»: è un nome interno, che conosce solo lui. Per i fatti della filiera GS1 ha definito un elenco di parole comuni: il CBV (Core Business Vocabulary). Sono in inglese e uguali in tutto il mondo: la spedizione si chiama «shipping».",
       "glossary": [
         [
           "CBV",
