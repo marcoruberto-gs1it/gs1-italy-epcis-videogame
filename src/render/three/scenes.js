@@ -364,7 +364,7 @@ const LEVELS = {
   }
 };
 
-// Tappa 1-9 · chi compra: a casa il vasetto con il QR code, la strada, il supermercato di Milano.
+// Tappa 1-9 · chi compra: a casa il vasetto con il QR code; sullo sfondo la strada e il supermercato dove è stato comprato.
 LEVELS["food-consumatore"] = function (api) {
   const root = new Group();
   base(root, 13, 7);
@@ -383,19 +383,12 @@ LEVELS["food-consumatore"] = function (api) {
   return {
     root: P.mergeStatic(root), view: { size: 10, target: new Vector3(0, 0.6, 0) },
     hooks: {
-      focus: focusOn(api, { q: { x: -2.6, y: 0.8, z: 0, size: 5.6 }, q2: { x: 2.4, y: 0.7, z: -0.4, size: 6.4 } }),
+      focus: focusOn(api, { q: { x: -2.6, y: 0.8, z: 0, size: 5.6 } }),
       scan() {
         ring.visible = true; ring.scale.setScalar(0.3); ring.material.opacity = 0.9;
         api.tween(ring.scale, { x: 4, y: 4, z: 4, duration: 1, ease: "power1.out" });
         api.tween(ring.material, { opacity: 0, duration: 1, onComplete: () => { ring.visible = false; } });
         flag(api, root, -2.2, 2.4, 0.2, "gs1-orange");
-      },
-      returned() {
-        // Il vasetto torna al supermercato: il negozio registra il reso.
-        api.camTo({ x: 1, y: 0.6, z: 0, size: 8.4 });
-        api.tween(jar.position, { x: 3.4, z: 1.6, duration: 1.6, ease: "power1.inOut" });
-        api.tween(jar.position, { y: 0.06, duration: 0.4 });
-        api.tween({ t: 0 }, { t: 1, duration: 1.7, onComplete: () => flag(api, root, 4, 2.6, -1.6) });
       }
     }
   };

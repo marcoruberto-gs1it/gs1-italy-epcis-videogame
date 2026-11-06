@@ -156,7 +156,7 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await press("Enter");
   await seeWin("22-evento-ritiro-richiamo");
 
-  // 1-9 Chi compra: il QR code GS1 del vasetto (Digital Link) e il reso del lotto richiamato.
+  // 1-9 Il consumatore inquadra il QR: il QR code GS1 del vasetto (Digital Link). Nessun evento nuovo.
   await intro("22b-intro-chi-compra");
   const link = "https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/01/08000000001016/10/L123?15=261130";
   await expect(page.locator(".jar-scan .qr-box")).toHaveAttribute("href", link);
@@ -165,11 +165,13 @@ test("dal titolo al finale con la tastiera", async ({ page }, info) => {
   await shot("22c-qr-code-vasetto");
   await press("2");
   await expect(page.locator("#link .dl-parts .badge")).toHaveText(["www", "(01)", "(10)", "(15)"]);
-  await expect(page.locator("#opts2 .opt")).toHaveCount(4);
-  await press("2");
+  await expect(page.locator("#opts2")).toHaveCount(0);
   await press("Enter");
-  await seeWin("22d-evento-reso");
-  await expect(page.locator("#diary")).toContainText("returned");
+  await seeWin("22d-tappa-1-9-completata");
+  await expect(page.locator(".ok-title")).toHaveText("Tappa completata");
+  // Chi compra legge, non scrive: niente diario e niente timbro «Registrato», al loro posto il QR code.
+  await expect(page.locator("#diary, #stamp")).toHaveCount(0);
+  await expect(page.locator(".win .qr-box")).toHaveAttribute("href", link);
 
   await press("Enter");
   await expect(page.locator(".final h1")).toHaveText("Missione compiuta");

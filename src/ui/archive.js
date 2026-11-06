@@ -24,14 +24,16 @@ const archBtn = () => markNav();
 // Inizio, Mappa o un'altra schermata chiudono l'archivio e mostrano la nuova schermata.
 onRoute(() => toggleArchive(false));
 
-const pick = () => LEVELS.find(l => l.id === state.level) || LEVELS.find(l => !state.done[l.id]) || LEVELS[0];
+// Solo le tappe con eventi hanno pagine nell'archivio (la 1-9, chi compra, legge e non scrive).
+const WITH_EVENTS = () => LEVELS.filter(l => l.events.length);
+const pick = () => WITH_EVENTS().find(l => l.id === state.level) || WITH_EVENTS().find(l => !state.done[l.id]) || WITH_EVENTS()[0];
 
 /**
  * Scheda «Tutta la filiera»: gli eventi di tutte le tappe alimentari e del ritiro, in ordine di tappa,
  * dalla nascita del lotto di latte alla stalla fino al richiamo. Ogni pagina dice da quale tappa viene.
  */
 function wholeChain() {
-  const levels = LEVELS.filter(l => l.world === "food" || l.world === "finale");
+  const levels = WITH_EVENTS().filter(l => l.world === "food" || l.world === "finale");
   const events = levels.flatMap(l => l.events);
   const captions = levels.flatMap(l => l.events.map((e, i) => `${levelCode(l)} · ${l.captions[i]}`));
   let from = 0;
@@ -178,7 +180,7 @@ export function toggleArchive(force) {
       <button class="btn alt small" id="archClose">${t("archive.close")}</button>
     </div>
     <p class="sub">${t("archive.sub")}</p>
-    <div class="tabs" role="tablist" aria-label="${t("archive.tabsAria")}">${LEVELS.map(l =>
+    <div class="tabs" role="tablist" aria-label="${t("archive.tabsAria")}">${WITH_EVENTS().map(l =>
       `<button class="tab" role="tab" id="archTab-${l.id}" data-id="${l.id}" aria-controls="archPanel"><span class="name">${levelCode(l)}</span><span class="meta">${l.meta.short}</span></button>`).join("")}<button class="tab all" role="tab" id="archTab-all" data-id="all" aria-controls="archPanel"><span class="name">${t("archive.allTab")}</span><span class="meta">${t("archive.allTabMeta")}</span></button></div>
     <section class="arch-panel" role="tabpanel" id="archPanel"></section>
     <p class="close">${t("archive.closeHint")}</p>

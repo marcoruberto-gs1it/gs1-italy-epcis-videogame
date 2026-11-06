@@ -94,7 +94,9 @@
     "nextFinale": "Ritiro e richiamo",
     "end": "Vai al traguardo",
     "glossary": "Glossario",
-    "stamp": "Registrato"
+    "stamp": "Registrato",
+    "noEvent": "Ecco il QR code del vasetto: inquadralo con lo smartphone e apri la pagina che vede chi compra.",
+    "headingDone": "Tappa completata"
   },
   "roles": {
     "produttore": "Produttore",
@@ -1143,8 +1145,8 @@
     "food-consumatore": {
       "meta": {
         "t": "Il consumatore inquadra il QR",
-        "c": "GS1 Digital Link e reso del lotto richiamato",
-        "place": "Casa e supermercato di Milano",
+        "c": "GS1 Digital Link e QR code GS1",
+        "place": "A casa di chi ha comprato il vasetto",
         "short": "Consumatore"
       },
       "intro": "Ultima tappa. Un vasetto del lotto L123 è già sul tavolo di casa di qualcuno. Sopra c'è un QR code GS1: che cosa succede quando lo inquadra?",
@@ -1173,37 +1175,14 @@
         }
       ],
       "linkTitle": "Il link del QR code, pezzo per pezzo",
-      "q2Ctx": "La pagina del vasetto dice in rosso: lotto L123 richiamato, non mangiarlo e riportalo dove l'hai comprato. La persona torna al supermercato di Milano con il vasetto.",
-      "q2": "Il supermercato riprende il vasetto. Che cosa registra?",
-      "opts2": [
-        {
-          "t": "Niente: butta via il vasetto, il richiamo è già nell'archivio",
-          "why": "Senza un nuovo evento il caseificio non sa quanti vasetti richiamati sono davvero tornati."
-        },
-        {
-          "t": "Un evento di oggetto: un vasetto del lotto L123, passo receiving, stato returned",
-          "ok": true,
-          "why": "Esatto. L'evento dice che cosa è tornato, dove, quando e in che stato. Il richiamo si chiude con i numeri giusti."
-        },
-        {
-          "t": "Niente: l'evento lo registra la persona, dal suo smartphone",
-          "why": "Chi compra legge le informazioni, non scrive eventi. L'evento lo registra il negozio che riprende il vasetto."
-        },
-        {
-          "t": "Cancella dall'archivio gli eventi del lotto L123, che ormai è richiamato",
-          "why": "Negli archivi EPCIS non si cancella nulla. La storia del lotto resta, e si aggiunge una pagina nuova."
-        }
-      ],
-      "events": [
-        "Reso al supermercato di Milano: un vasetto del lotto L123 richiamato torna indietro"
-      ],
-      "fact": "Una pagina sola: un evento di oggetto con lo stato returned. Il resto lo ha fatto il QR code, con GTIN, lotto e data in un unico link.",
+      "events": [],
+      "fact": "Nessuna pagina nuova nel diario: chi compra legge la storia del lotto, non la scrive. Il QR code GS1 porta GTIN, lotto e data in un unico link. Da lì si arriva al richiamo e alla storia del lotto.",
       "power": [
         "Filo diretto",
         "Dal QR code del vasetto alla storia del lotto: chi compra sa subito se il suo prodotto è richiamato."
       ],
       "why": {
-        "benefit": "Chi compra scopre subito se il suo vasetto è richiamato, senza aspettare i cartelli in negozio. L'azienda sa quanti vasetti tornano indietro.",
+        "benefit": "Chi compra scopre subito se il suo vasetto è richiamato, senza aspettare i cartelli in negozio. Lo stesso codice serve alla cassa e allo smartphone.",
         "who": [
           "consumatore",
           "produttore",
@@ -1211,7 +1190,7 @@
         ]
       },
       "hint": "Guarda il link del QR code: quanti codici GS1 riconosci, tra una barra e l'altra?",
-      "sceneDesc": "Scena: un vasetto di yogurt con il suo QR code GS1, uno smartphone che lo inquadra e il supermercato di Milano.",
+      "sceneDesc": "Scena: un vasetto di yogurt sul tavolo di casa, con il suo QR code GS1, e lo smartphone che lo inquadra.",
       "glossary": [
         [
           "QR code GS1",
@@ -1224,12 +1203,9 @@
         [
           "Richiamo",
           "L'avviso a chi ha già comprato un prodotto: non usarlo e riportalo."
-        ],
-        [
-          "Reso",
-          "Il prodotto che torna indietro al negozio. Il negozio lo registra con un evento."
         ]
-      ]
+      ],
+      "done": "Completa la tappa"
     }
   },
   "codex": {
@@ -1468,8 +1444,8 @@
     "close": "Torna al gioco",
     "closeHint": "Premi E o Esc per tornare al gioco, nel punto in cui eri.",
     "allTab": "Tutta la filiera",
-    "allTabMeta": "Dalla stalla a chi compra",
-    "allHeading": "Tutta la filiera, dalla stalla a chi compra",
+    "allTabMeta": "Dalla stalla al ritiro",
+    "allHeading": "Tutta la filiera, dalla stalla al ritiro",
     "allCount": "{n} eventi",
     "flowHint": "Clicca un evento sulla mappa per leggerne il testo qui sotto. Le frecce seguono il viaggio del latte e dello yogurt.",
     "flowAria": "Mappa degli eventi di tutta la filiera, tappa per tappa",

@@ -9,6 +9,7 @@ import { toDocument } from "../gs1/epcis.js";
 import { levelCode, glossaryBox } from "../ui/kit.js";
 import { $, show, jsonLines } from "../ui/dom.js";
 import { chainBar, wireChain } from "../ui/chain.js";
+import { jarQrHtml, jarPartsHtml } from "../ui/jar.js";
 
 export function whyCard(why) {
   const who = why.who.map(r => `<span class="role">${t("roles." + r)}</span>`).join("");
@@ -37,12 +38,14 @@ register("win", id => {
   const nextLabel = !next ? t("win.end") : next.id === "finale" ? t("win.nextFinale") : t("win.next", { id: next.id });
   const cards = codexOf(level).map(c => c.t).join(", ");
   const many = level.events.length > 1;
-  show(`${chainBar(level)}<div class="lv-head"><span class="code">${levelCode(level)}</span><h2 class="ok-title">${t("win.heading")}</h2><span class="stamp" id="stamp" aria-hidden="true">✓ ${t("win.stamp")}</span></div>
+  // Tappa senza eventi (1-9, chi compra): niente diario né timbro, al loro posto il QR code del vasetto.
+  const none = level.events.length === 0;
+  show(`${chainBar(level)}<div class="lv-head"><span class="code">${levelCode(level)}</span><h2 class="ok-title">${none ? t("win.headingDone") : t("win.heading")}</h2>${none ? "" : `<span class="stamp" id="stamp" aria-hidden="true">✓ ${t("win.stamp")}</span>`}</div>
     <div class="win">
       <div class="stack">
-        <div class="row between"><h3>${many ? t("win.diaryMany") : t("win.diary")}</h3><button class="btn alt small" id="doc">${t("win.showDoc")}</button></div>
+        ${none ? `<p class="fact">${t("win.noEvent")}</p><div class="jar-scan row">${jarQrHtml()}</div>${jarPartsHtml()}` : `<div class="row between"><h3>${many ? t("win.diaryMany") : t("win.diary")}</h3><button class="btn alt small" id="doc">${t("win.showDoc")}</button></div>
         <p class="dl-tip">${t("dl.tip")}</p>
-        <div class="stack" id="diary"></div>
+        <div class="stack" id="diary"></div>`}
       </div>
       <div class="stack">
         <div class="power"><span class="tag">${t("win.unlocked")}</span><span class="pn">${level.power[0]}</span><p>${level.power[1]}</p></div>
@@ -72,8 +75,8 @@ register("win", id => {
   const renderDoc = () => {
     $("#diary").innerHTML = `<p class="cap">${t("win.docNote")}</p><pre class="json" id="json0" tabindex="0">${jsonLines(toDocument(level.events)).join("\n")}</pre>`;
   };
-  renderEvents();
-  $("#doc").onclick = () => {
+  if (!none) renderEvents();
+  if (!none) $("#doc").onclick = () => {
     docMode = !docMode;
     $("#doc").textContent = docMode ? t("win.showEvents") : t("win.showDoc");
     docMode ? renderDoc() : renderEvents();
@@ -82,7 +85,7 @@ register("win", id => {
   popIn($(".power"), 0.2);
   confettiFrom($(".power .pn"), 30, { spread: 300, rise: 180 });
   // Il timbro «Registrato» cade sul diario; se la tappa è nuova piovono i coriandoli.
-  stamp($("#stamp"), $(".win"));
+  if (!none) stamp($("#stamp"), $(".win"));
   if (gained) rain(46);
   if (gained) floatScore($(".ok-title"), "+" + gained);
   pulse(document.querySelectorAll(".hud .pw span")[state.powers.indexOf(id)], 2);
