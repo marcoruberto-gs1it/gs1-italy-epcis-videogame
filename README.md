@@ -38,6 +38,14 @@ La filiera tessile è ancora nel codice ma è spenta: si riattiva aggiungendo `"
 
 Ogni tappa mostra le sue pagine del diario nel formato EPCIS 2.0 (JSON), un superpotere e una scheda «Perché conta». Le voci del **glossario del gioco** si sbloccano giocando. Il finale riassume i vantaggi per produttore, distribuzione e consumatore, in una versione stampabile.
 
+## Lingue: italiano e inglese
+
+In alto a destra **IT · EN** cambia la lingua di tutto il gioco: interfaccia, tappe, quiz, glossario, archivio e traguardo. La scelta resta salvata nel browser (`localStorage`, chiave `missione-l123-lang`); si può anche forzare con `?lang=en` nell'indirizzo. Gli eventi EPCIS restano quelli dello standard, uguali in tutte e due le lingue.
+
+- Testi: `src/content/it.json` e `src/content/en.json`, con la stessa struttura. Inglese britannico, come gli standard GS1 (*serialised*, *Distribution Centre*), con un glossario fisso: lotto → *lot*, CeDi → *DC (Distribution Centre)*, ritiro → *withdrawal*, richiamo → *recall*, avviso di spedizione → *despatch advice*.
+- Un test (`tests/unit/i18n.test.js`) controlla che l'inglese abbia gli stessi percorsi, gli stessi identificativi, le risposte giuste negli stessi posti, gli stessi segnaposto e tag HTML, nessun residuo di italiano e frasi di al massimo 24 parole.
+- La **pagina del vasetto** contiene le due versioni: si apre nella lingua scelta nel gioco, altrimenti in quella del telefono (italiano se è in italiano, inglese negli altri casi), e ha il suo selettore IT · EN.
+
 ## Come si gioca
 
 Il gioco è pensato per chi gioca da solo, da PC o da telefono.

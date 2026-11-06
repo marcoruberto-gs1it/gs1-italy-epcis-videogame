@@ -25,10 +25,14 @@ function steps() {
   return map.map(([key, e]) => ({ key, e }));
 }
 
-const fmtDate = iso => new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Rome" }).format(new Date(iso));
-const fmtTime = iso => new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Rome" }).format(new Date(iso));
+// Date nel formato della lingua: italiano (it-IT) o inglese britannico (en-GB), sempre all'ora di Roma.
+const LOCALE = { it: "it-IT", en: "en-GB" };
+let locale = "it-IT";
+const fmtDate = iso => new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Rome" }).format(new Date(iso));
+const fmtTime = iso => new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Rome" }).format(new Date(iso));
 const fill = (s, v) => s.replace(/\{(\w+)\}/g, (m, k) => (k in v ? v[k] : m));
-const num = n => String(n).replace(".", ",");
+let decimal = ",";
+const num = n => String(n).replace(".", decimal);
 
 const JAR_SVG = `<svg class="jar" viewBox="0 0 120 130" aria-hidden="true">
   <rect x="14" y="8" width="92" height="16" rx="6" class="lid"/>
@@ -38,8 +42,11 @@ const JAR_SVG = `<svg class="jar" viewBox="0 0 120 130" aria-hidden="true">
   <text x="60" y="85" text-anchor="middle" class="t2">L123</text>
 </svg>`;
 
-export function consumerPageHtml() {
-  const it = read("src/content/it.json");
+/** La pagina in una lingua: { head, main } (contenuto di <main>, con id resi unici dalla lingua). */
+function pageFor(code) {
+  const it = read(`src/content/${code}.json`);
+  locale = LOCALE[code];
+  decimal = it.level.decimalSep;
   const P = it.consumerPage, C = it.consumer, AI = it.dl.ai;
   const tokens = readFileSync("src/styles/tokens.css", "utf8");
   const recall = ev("sfida-finale")[0];
@@ -65,7 +72,8 @@ export function consumerPageHtml() {
     </li>`;
   }).join("");
 
-  return `<!doctype html>
+  const head = { title: `${P.recallTag}: ${P.title}`, description: `${P.recallTitle}. ${P.demo}`, langName: it.hud.langNames, langAria: it.hud.langAria };
+  const doc = `<!doctype html>
 <html lang="it">
 <head>
 <meta charset="utf-8">
@@ -146,6 +154,12 @@ code { font-family: var(--font-mono); font-size: .82em; }
 .btn:hover { background: var(--ui-navy-2); }
 a:focus-visible { outline: 3px solid var(--gs1-orange); outline-offset: 3px; }
 footer { font-size: .8em; color: var(--ui-muted); text-align: center; }
+main[hidden] { display: none; }
+.langsw { align-self: flex-end; display: flex; gap: 2px; background: var(--gs1-white); border-radius: 999px; padding: 3px; box-shadow: 0 2px 10px var(--ui-mist); }
+.langsw button { font: 800 .85em var(--font-body); letter-spacing: .04em; border: 0; border-radius: 999px; padding: 6px 12px; background: transparent; color: var(--gs1-blue); cursor: pointer; }
+.langsw button[aria-pressed="true"] { background: var(--gs1-blue); color: var(--gs1-white); }
+.langsw button:focus-visible { outline: 3px solid var(--gs1-orange); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -210,6 +224,40 @@ footer { font-size: .8em; color: var(--ui-muted); text-align: center; }
 </body>
 </html>
 `;
+  return { head, doc };
+}
+
+/** Rende unici gli id di una lingua (recallTitle → recallTitle-en), così le due versioni stanno nella stessa pagina. */
+const suffixIds = (html, code) => html.replace(/(id|aria-labelledby)="([\w-]+)"/g, (m, a, v) => `${a}="${v}-${code}"`);
+
+/**
+ * Pagina bilingue: la versione italiana e quella inglese, una sola visibile.
+ * Lingua: ?lang=, poi la scelta fatta nel gioco (stessa chiave, stesso sito), poi la lingua del telefono.
+ */
+export function consumerPageHtml() {
+  const pages = { it: pageFor("it"), en: pageFor("en") };
+  const mainOf = code => pages[code].doc.match(/<main>([\s\S]*)<\/main>/)[1];
+  const sw = code => `<nav class="langsw" aria-label="${pages[code].head.langAria}">${["it", "en"].map(l => `<button type="button" data-lang="${l}" lang="${l}" aria-pressed="${l === code}" title="${pages[code].head.langName[l]}"><span aria-hidden="true">${l.toUpperCase()}</span><span class="sr">${pages[code].head.langName[l]}</span></button>`).join("")}</nav>`;
+  const mains = ["it", "en"].map(code => `<main lang="${code}" data-lang="${code}" data-title="${pages[code].head.title}"${code === "it" ? "" : " hidden"}>${sw(code)}${suffixIds(mainOf(code), code)}</main>`).join("\n");
+  const script = `<script>
+(function () {
+  var KEY = "missione-l123-lang", langs = ["it", "en"], q = new URLSearchParams(location.search).get("lang"), l = q;
+  try { l = l || localStorage.getItem(KEY); } catch (e) {}
+  if (langs.indexOf(l) < 0) l = (navigator.language || "it").slice(0, 2).toLowerCase() === "it" ? "it" : "en";
+  function show(code) {
+    document.querySelectorAll("main[data-lang]").forEach(function (m) { m.hidden = m.dataset.lang !== code; if (!m.hidden) document.title = m.dataset.title; });
+    document.documentElement.lang = code;
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-lang]");
+    if (!b) return;
+    try { localStorage.setItem(KEY, b.dataset.lang); } catch (err) {}
+    show(b.dataset.lang);
+  });
+  show(l);
+})();
+</script>`;
+  return pages.it.doc.replace(/<main>[\s\S]*<\/main>/, () => mains + "\n" + script);
 }
 
 /** Scrive la pagina nel percorso del Digital Link, dentro la cartella di build. */

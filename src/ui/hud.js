@@ -1,6 +1,6 @@
 // Barra in alto: logo e nome del gioco, tappe completate, vite, punti, navigazione, archivio degli eventi, audio e comandi.
 import { state, commit, onChange } from "../engine/state.js";
-import { t } from "../content/index.js";
+import { t, lang, LANGS, setLang } from "../content/index.js";
 import { LEVELS } from "../levels/index.js";
 import { $, $$ } from "./dom.js";
 import { countUp, loseHeart, popDot, wobble } from "../anim/fx.js";
@@ -49,6 +49,7 @@ export function renderHud() {
         <button class="tool nav" id="navMap" data-nav="map">${icon("map")}<span class="lbl">${t("nav.map")}</span></button>
         <button class="tool nav" id="archBtn" data-nav="events">${icon("doc")}<span class="lbl">${t("hud.archive")}</span></button>
       </nav>
+      <div class="langsw" role="group" aria-label="${t("hud.langAria")}">${Object.keys(LANGS).map(l => `<button class="tool lang-btn" data-lang="${l}" lang="${l}" aria-pressed="${l === lang}" title="${t("hud.langNames")[l]}"><span aria-hidden="true">${l.toUpperCase()}</span><span class="sr-only">${t("hud.langNames")[l]}</span></button>`).join("")}</div>
       <button class="tool" id="mute" aria-pressed="${!state.muted}" title="${state.muted ? t("hud.audioOff") : t("hud.audioOn")}">${icon(state.muted ? "mute" : "sound")}<span class="lbl">${state.muted ? t("hud.audioOff") : t("hud.audioOn")}</span></button>
       <button class="tool" id="helpBtn" title="${t("hud.help")}">${icon("help")}<span class="lbl">${t("hud.help")}</span></button>
       <button class="tool reset ${resetArmed ? "armed" : ""}" id="resetBtn" title="${resetArmed ? t("hud.resetConfirm") : t("hud.reset")}" aria-label="${resetArmed ? t("hud.resetConfirm") : t("hud.resetAria")}">${icon("reset")}<span class="lbl">${resetArmed ? t("hud.resetConfirm") : t("hud.reset")}</span></button>
@@ -64,6 +65,7 @@ export function renderHud() {
   };
   animateChanges();
   $("#mute").onclick = toggleMute;
+  $$("#hud .lang-btn").forEach(b => { b.onclick = () => setLang(b.dataset.lang); });
   $("#helpBtn").onclick = () => onHelp();
   $("#archBtn").onclick = () => onArchive();
   // Inizio e Mappa: se sei già lì sotto l'archivio, basta chiudere l'archivio.
@@ -103,7 +105,7 @@ function animateChanges() {
 export function toggleMute() { state.muted = !state.muted; commit(); }
 
 /** Nome del renderer attivo, mostrato nei comandi e nelle note per chi presenta. */
-export const rendererLabel = () => (render.mode === "3d" ? t("help.mode3d", { q: render.quality }) : t("help.mode2d"));
+export const rendererLabel = () => (render.mode === "3d" ? t("help.mode3d", { q: t("help.quality")[render.quality] || render.quality }) : t("help.mode2d"));
 
 function fallbackNotice(r) {
   if (r.mode !== "2d" || !r.reason || r.reason === "manual") return;

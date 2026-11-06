@@ -26,18 +26,34 @@ describe("GS1 Digital Link del vasetto", () => {
   });
 });
 
-describe("pagina del vasetto", () => {
+describe("pagina del vasetto, in italiano e in inglese", () => {
   const html = consumerPageHtml();
+  const main = code => html.split(`<main lang="${code}"`)[1].split("</main>")[0];
+  it("due versioni, una sola visibile all'apertura", () => {
+    expect((html.match(/<main /g) || []).length).toBe(2);
+    expect(html).toMatch(/<main lang="en"[^>]* hidden>/);
+  });
   it("richiamo in evidenza, prima del resto", () => {
-    expect(html.indexOf('class="recall"')).toBeLessThan(html.indexOf('id="productTitle"'));
-    expect(html).toContain("Non mangiare lo yogurt di questo lotto");
-    expect(html).toContain("30 novembre 2026");
-    expect(html).toContain("5 novembre 2026");
+    for (const code of ["it", "en"]) {
+      const m = main(code);
+      expect(m.indexOf('class="recall"')).toBeLessThan(m.indexOf(`id="productTitle-${code}"`));
+    }
+    expect(main("it")).toContain("Non mangiare lo yogurt di questo lotto");
+    expect(main("it")).toContain("30 novembre 2026");
+    expect(main("it")).toContain("5 novembre 2026");
+    expect(main("en")).toContain("Do not eat yogurt from this lot");
+    expect(main("en")).toContain("30 November 2026");
+    expect(main("en")).toContain("5 November 2026");
   });
   it("storia del lotto dagli eventi, senza segnaposto rimasti", () => {
-    expect((html.match(/<li class="step/g) || []).length).toBe(9);
-    expect(html).toContain("tra 4,1 e 9 °C");
+    for (const code of ["it", "en"]) expect((main(code).match(/<li class="step/g) || []).length).toBe(9);
+    expect(main("it")).toContain("tra 4,1 e 9 °C");
+    expect(main("en")).toContain("between 4.1 and 9 °C");
     expect(html).not.toMatch(/\{\w+\}/);
+  });
+  it("id unici: le due versioni non si pestano i piedi", () => {
+    const ids = [...html.matchAll(/ id="([^"]+)"/g)].map(m => m[1]);
+    expect(ids.length).toBe(new Set(ids).size);
   });
   it("niente colori scritti a mano fuori dai token", () => {
     const css = html.split("</style>")[0].split(":root {")[1].split("\n}\n").slice(1).join("");

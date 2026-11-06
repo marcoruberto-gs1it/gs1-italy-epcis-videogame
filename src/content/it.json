@@ -21,7 +21,12 @@
     "archive": "Eventi (E)",
     "reset": "Ricomincia da zero",
     "resetConfirm": "Sicuro? Premi di nuovo",
-    "resetAria": "Ricomincia da zero: cancella i progressi"
+    "resetAria": "Ricomincia da zero: cancella i progressi",
+    "langAria": "Lingua del gioco",
+    "langNames": {
+      "it": "Italiano",
+      "en": "English"
+    }
   },
   "narrator": {
     "name": "Bip",
@@ -34,7 +39,8 @@
     "start": "Inizia la missione",
     "record": "Tempo da battere: un ritiro in 35 minuti",
     "credit": "Reverse Coaching EPCIS di GS1 Italy",
-    "jarAlt": "Il vasetto di yogurt, protagonista del gioco"
+    "jarAlt": "Il vasetto di yogurt, protagonista del gioco",
+    "metaDescription": "Gioco per scoprire EPCIS: il diario del lotto L123. GS1 Italy, Reverse Coaching."
   },
   "map": {
     "food": {
@@ -75,7 +81,8 @@
     "codeFinale": "Tappa 1-8",
     "register": "Registra l'evento",
     "context": "Il contesto",
-    "glossary": "Glossario"
+    "glossary": "Glossario",
+    "decimalSep": ","
   },
   "win": {
     "heading": "Evento registrato",
@@ -1141,7 +1148,8 @@
           "Richiamo",
           "Si avvisa chi ha già comprato il prodotto di non consumarlo e di riportarlo. Riguarda chi compra."
         ]
-      ]
+      ],
+      "clock": "{d} g {h} h"
     },
     "food-consumatore": {
       "meta": {
@@ -1420,7 +1428,12 @@
     ],
     "renderer": "Grafica attiva: {m}",
     "mode3d": "3D, qualità {q}",
-    "mode2d": "2D"
+    "mode2d": "2D",
+    "quality": {
+      "alta": "alta",
+      "media": "media",
+      "bassa": "bassa"
+    }
   },
   "nav": {
     "aria": "Navigazione",

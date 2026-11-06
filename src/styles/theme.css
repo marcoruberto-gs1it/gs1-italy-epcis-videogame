@@ -423,3 +423,19 @@ pre.json { white-space: pre; }
   .topbar .tools > .tool.reset.armed { width: auto; padding: 8px 14px; }
   .topbar .tools > .tool.reset.armed .lbl { position: static !important; width: auto; height: auto; overflow: visible; clip: auto; }
 }
+
+/* Scelta della lingua: IT · EN in una pillola, la lingua attiva è piena. */
+.langsw { display: flex; gap: 2px; background: var(--ui-mist); border-radius: 999px; padding: 3px; }
+.langsw .lang-btn { background: transparent; min-height: 36px; padding: 6px 10px; font-weight: 800; letter-spacing: .04em; }
+.langsw .lang-btn:hover { background: var(--ui-sky); }
+.langsw .lang-btn[aria-pressed="true"] { background: var(--gs1-blue); color: var(--gs1-white); }
+@media (max-width: 640px) {
+  .langsw .lang-btn { width: auto; padding: 0 8px; }
+}
+/* Telefono: con la scelta della lingua, la barra degli strumenti resta su una riga. */
+@media (max-width: 640px) {
+  .topbar .tools { gap: 4px; }
+  .topbar .tools .tool { width: 38px; min-height: 38px; }
+  .langsw { padding: 2px; }
+  .langsw .lang-btn { width: auto; min-height: 34px; padding: 0 7px; font-size: .78em; }
+}

@@ -2,6 +2,7 @@
 import events from "../data/events/sfida-finale.json";
 import { defineLevel } from "./define.js";
 import { question } from "../ui/kit.js";
+import { t as tt } from "../content/index.js";
 
 const DL = "https://id.gs1.org/01";
 const MILK = `${DL}/08000000002013/10/C0471`;
@@ -12,7 +13,7 @@ export default defineLevel({
 
   mount({ C, hook, show, levelShell, ask, setMsg, win, sfx, sprite, img, fx, later, reduced, state, commit, $ }) {
     show(levelShell(this,
-      `<div data-blink>${img("alarm", 64)}</div><div class="clock" id="clock">0 g 00 h</div>
+      `<div data-blink>${img("alarm", 64)}</div><div class="clock" id="clock">${C.clock.replace("{d}", 0).replace("{h}", "00")}</div>
        <div class="minimap" id="minimap" role="img" aria-label="${C.mapAria}"><div class="route"></div>${C.map.map(p => `<span class="pt" data-pt="${p.id}" style="left:${p.x}%;top:${p.y}%"><i></i>${p.t}</span>`).join("")}</div>
        <div class="feed" id="feed"></div><span class="cap" id="fcap">${C.round1}</span>`,
       `<p class="story">${C.story}</p>
@@ -24,7 +25,7 @@ export default defineLevel({
       let h = 0, s = 0; const total = 6 * 24 + 18;
       const iv = later.every(() => {
         h = Math.min(total, h + 4);
-        $("#clock").textContent = `${Math.floor(h / 24)} g ${String(h % 24).padStart(2, "0")} h`;
+        $("#clock").textContent = C.clock.replace("{d}", Math.floor(h / 24)).replace("{h}", String(h % 24).padStart(2, "0"));
         if (h >= (s + 1) * (total / C.steps.length) && s < C.steps.length) { $("#feed").insertAdjacentHTML("beforeend", `<div>${C.steps[s++]}</div>`); sfx.no(); }
         if (h < total) return;
         later.stop(iv); state.lives = Math.max(1, state.lives - 1); commit(); fx.shake($("#screen"));
@@ -39,7 +40,7 @@ export default defineLevel({
       let t = 0;
       const iv = later.every(() => {
         t = Math.min(to, t + 2);
-        $("#clock").textContent = (t / 10).toFixed(1).replace(".", ",") + " s";
+        $("#clock").textContent = (t / 10).toFixed(1).replace(".", tt("level.decimalSep")) + " s";
         if (t >= to) { later.stop(iv); done(); }
       }, reduced() ? 5 : 60);
     };

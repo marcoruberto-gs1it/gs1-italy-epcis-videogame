@@ -80,11 +80,12 @@ test("tappa 1-9 (QR code del vasetto) e pagina prodotto accessibili", async ({ p
   await expect(page.locator("#link .dl-parts")).toBeVisible();
   await audit(page, "tappa 1-9 qr code del vasetto");
   // La pagina che si apre inquadrando il QR code: richiamo per primo, poi prodotto e storia del lotto.
-  await page.goto(pathToFileURL(resolve("dist/01/08000000001016/10/L123.html")).href + "?15=261130");
-  await expect(page.locator(".recall h1")).toHaveText("Non mangiare lo yogurt di questo lotto");
-  await expect(page.locator(".recall")).toContainText("30 novembre 2026");
-  await expect(page.locator(".story .step")).toHaveCount(9);
-  await expect(page.locator(".story .step.alert")).toContainText("recalled");
+  await page.goto(pathToFileURL(resolve("dist/01/08000000001016/10/L123.html")).href + "?15=261130&lang=it");
+  const vis = page.locator("main:not([hidden])");
+  await expect(vis.locator(".recall h1")).toHaveText("Non mangiare lo yogurt di questo lotto");
+  await expect(vis.locator(".recall")).toContainText("30 novembre 2026");
+  await expect(vis.locator(".story .step")).toHaveCount(9);
+  await expect(vis.locator(".story .step.alert")).toContainText("recalled");
   await page.screenshot({ path: `docs/screenshots/${test.info().project.name}/38-pagina-vasetto.png`, fullPage: true });
   await audit(page, "pagina del vasetto");
 });

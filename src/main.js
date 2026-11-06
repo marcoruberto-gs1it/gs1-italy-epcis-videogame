@@ -8,6 +8,7 @@ import "./styles/theme.css";
 import "./styles/print.css";
 
 import { state, restore } from "./engine/state.js";
+import { t, lang } from "./content/index.js";
 import { go } from "./engine/router.js";
 import { initInput } from "./engine/input.js";
 import { initHud } from "./ui/hud.js";
@@ -25,6 +26,11 @@ import "./screens/level.js";
 import "./screens/win.js";
 import "./screens/final.js";
 import "./screens/codex.js";
+
+// Lingua della pagina: attributo lang, titolo e descrizione.
+document.documentElement.lang = lang;
+document.title = t("title.heading");
+document.querySelector("meta[name=description]")?.setAttribute("content", t("title.metaDescription"));
 
 restore();
 initHud();

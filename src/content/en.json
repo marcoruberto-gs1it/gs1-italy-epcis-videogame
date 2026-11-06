@@ -1,0 +1,1616 @@
+{
+  "hud": {
+    "events": "Points",
+    "lot": "Lot L123",
+    "lives": "Lives",
+    "livesAria": "{n} lives",
+    "powers": "Stages",
+    "audioOn": "Sound on",
+    "audioOff": "Sound off",
+    "audioAria": "Turn sound on or off",
+    "powersAria": "Stages completed: {n} of {total}",
+    "help": "Controls (?)",
+    "logoPlaceholder": "GS1 Italy logo",
+    "fallback": "3D graphics are not available on this computer: continuing in 2D.",
+    "world": {
+      "food": "Stages",
+      "textile": "Textile",
+      "finale": "Finale"
+    },
+    "homeAria": "Mission L123: back to the start",
+    "archive": "Events (E)",
+    "reset": "Start over",
+    "resetConfirm": "Sure? Press again",
+    "resetAria": "Start over: erase your progress",
+    "langAria": "Game language",
+    "langNames": {
+      "it": "Italiano",
+      "en": "English"
+    }
+  },
+  "narrator": {
+    "name": "Bip",
+    "alt": "Bip, the barcode scanner who is your guide"
+  },
+  "title": {
+    "presents": "GS1 Italy presents",
+    "heading": "Mission L123",
+    "sub": "The supply chain's secret diary: discover what EPCIS is for, one stage at a time.",
+    "start": "Start the mission",
+    "record": "Time to beat: a withdrawal in 35 minutes",
+    "credit": "EPCIS Reverse Coaching by GS1 Italy",
+    "jarAlt": "The pot of yogurt, star of the game",
+    "metaDescription": "A game to discover EPCIS: the diary of lot L123. GS1 Italy, Reverse Coaching."
+  },
+  "map": {
+    "food": {
+      "heading": "Food supply chain",
+      "text": "A pot of yogurt's journey: from the farm's milk to the shelf, then the withdrawal, the recall and the people who bought it."
+    },
+    "textile": {
+      "heading": "Textile supply chain",
+      "text": "The label that talks: from cotton fibre to a return in the shop."
+    },
+    "finale": {
+      "heading": "Final challenge",
+      "text": "An alert on the milk in lot L123. You face it after both supply chains, with all your superpowers."
+    },
+    "level": "Stage {id}",
+    "finaleNode": "Stage 1-8",
+    "here": "You are here",
+    "play": "Play stage {id}",
+    "playFinale": "Play stage 1-8",
+    "seeEnd": "See the finish line",
+    "codex": "Game glossary (G)",
+    "tabsAria": "Choose the supply chain",
+    "progress": "{n} of {total}",
+    "goto": {
+      "food": "Back to the food supply chain",
+      "textile": "Go to the textile supply chain",
+      "finale": "Go to the final challenge"
+    }
+  },
+  "intro": {
+    "tag": "{w} · stage {n} of {total}",
+    "tagFinale": "Food supply chain · stage 8 of nine",
+    "concept": "Concept: {c}",
+    "go": "Start"
+  },
+  "level": {
+    "code": "Stage {id}",
+    "codeFinale": "Stage 1-8",
+    "register": "Record the event",
+    "context": "Context",
+    "glossary": "Glossary",
+    "decimalSep": "."
+  },
+  "win": {
+    "heading": "Event recorded",
+    "diary": "The diary page, in EPCIS format",
+    "diaryMany": "The diary pages, in EPCIS format",
+    "showDoc": "Full document (D)",
+    "showEvents": "Events only (D)",
+    "docNote": "The same event inside the full document that companies' systems exchange.",
+    "unlocked": "Superpower unlocked",
+    "whyTitle": "Why it matters",
+    "who": "Who it helps",
+    "source": "Source",
+    "codexNew": "New entries in the game glossary: {list}",
+    "map": "Map",
+    "next": "Stage {id}",
+    "nextFinale": "Withdrawal and recall",
+    "end": "Go to the finish line",
+    "glossary": "Glossary",
+    "stamp": "Recorded",
+    "noEvent": "Here is the pot's QR code: scan it with your smartphone and open the page the shopper sees.",
+    "headingDone": "Stage complete",
+    "missing": "You still have a few stages to go before the finish line. Next up: {id}."
+  },
+  "roles": {
+    "produttore": "Producer",
+    "distribuzione": "Distribution",
+    "consumatore": "Consumer",
+    "autorita": "Authorities"
+  },
+  "continue": {
+    "heading": "Out of lives. Continue?",
+    "coin": "Continue with three lives"
+  },
+  "final": {
+    "tag": "Finish line",
+    "heading": "Mission accomplished",
+    "sub": "EPCIS: when it works, you don't even know it's there.",
+    "score": "Score: {n} events",
+    "powersTitle": "Your superpowers",
+    "benefitsTitle": "What you take home",
+    "benefitsSub": "The main benefits that came up in the game, for those who produce, distribute and buy.",
+    "print": "Print the summary",
+    "map": "Map",
+    "again": "Play again",
+    "benefits": {
+      "produttore": [
+        "Targeted withdrawals: you stop only the lots involved",
+        "Fewer phone calls and fewer mistakes with other companies",
+        "The history of materials is ready to share with customers and authorities"
+      ],
+      "distribuzione": [
+        "Fast receiving: scan one label and know everything inside",
+        "Cold chain checked pallet by pallet",
+        "Corrections visible to every company, without deleting anything"
+      ],
+      "consumatore": [
+        "Safer products, with fast, targeted withdrawals and recalls",
+        "Reliable information about origin",
+        "Quick warnings if a product you bought needs to go back"
+      ]
+    }
+  },
+  "levels": {
+    "food-stalla": {
+      "meta": {
+        "t": "The lot is born at the farm",
+        "c": "Object event",
+        "place": "Dairy farm · tank",
+        "short": "Farm"
+      },
+      "intro": "Hi, I'm Bip! I'll guide you through the diary of lot L123. Every fact about the product becomes a page in the diary: an EPCIS event. EPCIS (Electronic Product Code Information Services) is the GS1 standard for telling the story of products. We start with the milk.",
+      "story": "It's six in the morning. Milking fills the farm tank: 2,400 litres of raw milk. Before it leaves for the dairy, that milk gets its lot code: C0471.",
+      "cap": "Farm · lot C0471 · 2,400 litres",
+      "q": "The fresh milk is in the tank. When is the best moment to give it its lot, C0471?",
+      "qCtx": "A lot is a group of product made together, under the same conditions. Here it is the milk from one milking, collected in the same tank. The farm records the birth of the lot with an event: what, how much, where and when.",
+      "opts": [
+        {
+          "t": "At the dairy, when the milk arrives: that's where they decide how to use it",
+          "why": "The dairy receives milk from many tanks. The lot must be given where the milk is born, so it stays linked to the farm and the milking."
+        },
+        {
+          "t": "Straight away, at the farm: milk from the same milking gets lot C0471 before it leaves",
+          "ok": true,
+          "why": "Exactly. The lot is born where the milk is born. From here on, every company in the supply chain uses the same code."
+        },
+        {
+          "t": "In the yogurt vat, together with the cultures: no code is needed before that",
+          "why": "In the vat the milk becomes yogurt. To link milk and yogurt, the milk must already have its lot."
+        },
+        {
+          "t": "Only if the lab finds a problem: the lot is needed only to withdraw the milk",
+          "why": "A lot is always given, before it is needed. If a problem comes up, the link must already be written down."
+        }
+      ],
+      "q2Ctx": "The milk tanker reaches the dairy with lot C0471. The dairy records a receiving event. In the event it also states the place of departure, the farm, with its GS1 location code.",
+      "q2": "The dairy receives the milk. What does it write in the receiving event?",
+      "opts2": [
+        {
+          "t": "A new lot, chosen by the dairy, instead of C0471",
+          "why": "Changing the code breaks the thread back to the farm. The milk is the same, so the lot stays C0471."
+        },
+        {
+          "t": "Only the tanker's number plate and the arrival time",
+          "why": "The number plate tells you which vehicle arrived, not which milk. The event is about lot C0471."
+        },
+        {
+          "t": "Lot C0471, the quantity received and the farm as the place of departure",
+          "ok": true,
+          "why": "Exactly. Same lot, quantity and place of departure: whoever reads the event traces it from the dairy back to the farm in one step."
+        },
+        {
+          "t": "Nothing: the paper transport document travelling with the milk is enough",
+          "why": "The paper stays in the lorry and nobody can search it. The event, on the other hand, can be found at once when needed."
+        }
+      ],
+      "events": [
+        "Birth of raw milk lot C0471 at the farm: 2,400 litres",
+        "Receipt of lot C0471 at the dairy, with the farm as the place of departure"
+      ],
+      "fact": "An object event tells a fact about a product or a lot. Here lot C0471 is born at the farm and then reaches the dairy. In the same way, the cultures arrive with their own lot, F2290. The production date and country of origin are born with the lot too. They are written with the shared words of the GS1 Web Vocabulary.",
+      "power": [
+        "Roots",
+        "Every lot gets its code where it is born, and keeps it along the whole supply chain."
+      ],
+      "why": {
+        "benefit": "If the milk has a problem, you know at once which farm and which milking it came from.",
+        "who": [
+          "produttore",
+          "autorita"
+        ]
+      },
+      "hint": "Ask yourself where the milk is born, and who knows it best.",
+      "sceneDesc": "Scene: the farm with the cows, the milk tank and the milk tanker leaving for the dairy.",
+      "glossary": [
+        [
+          "Lot",
+          "A group of product made together, under the same conditions. It has a code, here C0471."
+        ],
+        [
+          "Event",
+          "A page in the diary: it says what happened, when, where and why."
+        ],
+        [
+          "EPCIS",
+          "The GS1 standard for recording a product's events and sharing them with the other companies in the supply chain."
+        ],
+        [
+          "Raw milk",
+          "Freshly milked milk, not yet treated."
+        ],
+        [
+          "Receiving",
+          "The moment the goods arrive: whoever receives them records it."
+        ]
+      ]
+    },
+    "food-latte": {
+      "meta": {
+        "t": "From milk to yogurt",
+        "c": "Transformation event",
+        "place": "Dairy · vat 1",
+        "short": "Vat"
+      },
+      "intro": "Milk C0471 has arrived from the farm. Now, in vat 1, it becomes yogurt: lot L123 is born.",
+      "story": "Lot L123 is born in vat 1. Put in the vat only what goes into the yogurt.",
+      "tankEmpty": "The vat is empty",
+      "tankLabel": "In the vat",
+      "put": "Put in the vat",
+      "ingredients": [
+        {
+          "id": "latte",
+          "t": "Raw milk · lot C0471",
+          "ok": true
+        },
+        {
+          "id": "pallet",
+          "t": "Pallet the cultures arrived on · SSCC code 180000000090000019",
+          "why": "The SSCC is the code of the pallet, the packaging used for transport. The cultures go into the yogurt, not the pallet."
+        },
+        {
+          "id": "fermenti",
+          "t": "Yogurt cultures · lot F2290",
+          "ok": true
+        },
+        {
+          "id": "detergente",
+          "t": "Food-grade detergent for the vat · lot D3310",
+          "why": "It has a lot like an ingredient, but it is used to clean the equipment. It does not go into the yogurt."
+        }
+      ],
+      "tankFull": "Milk and cultures are in the vat. Lot L123 is being born!",
+      "born": "Lot L123 · 288 pots",
+      "q": "Tomorrow the lab reports a problem with milk C0471. What in this event leads you to the yogurt lots?",
+      "opts": [
+        {
+          "t": "The extra notes on lot L123, where you can write in the milk used by hand",
+          "why": "Notes describe the lot, for example its expiry date, but do not link it to the milk. The link comes from the input and output materials."
+        },
+        {
+          "t": "The place of the event: searching for what went through vat 1 finds the right lots",
+          "why": "Searching by place also finds lots made with other milk. The precise link comes from the input and output of the same event."
+        },
+        {
+          "t": "Milk C0471 among the input materials and lot L123 as output, in the same event",
+          "ok": true,
+          "why": "Exactly. Input and output in the same event link milk and yogurt in both directions, even with lots alone."
+        },
+        {
+          "t": "The serial number of each pot, without which the milk cannot be linked to the yogurt",
+          "why": "You don't need a number for each pot: transformation also works with lots and quantities."
+        }
+      ],
+      "events": [
+        "Transformation: milk and cultures become 288 pots of lot L123"
+      ],
+      "fact": "A transformation event links the input materials, milk and cultures, to the output product, the yogurt. From here you can always trace back to the original milk, and from the milk to all its lots.",
+      "power": [
+        "Family tree",
+        "From every lot you trace back to its ingredients, and from every ingredient to the lots it ended up in."
+      ],
+      "why": {
+        "benefit": "If an ingredient has a problem, you know at once which finished product lots contain it. You'll see this in the last stage.",
+        "who": [
+          "produttore",
+          "autorita"
+        ]
+      },
+      "hint": "Ask yourself what is really used up to make the yogurt.",
+      "sceneDesc": "Scene: the dairy vat. Around it are milk, cultures, an empty pallet and a detergent. Whatever you put in the vat appears in the list.",
+      "qCtx": "The dairy records a transformation event: it lists the input materials and the output product. The inputs are milk C0471 and cultures F2290; the output is yogurt lot L123. Tomorrow this event will be the written link between milk and yogurt.",
+      "glossary": [
+        [
+          "Lot",
+          "A group of products made together, under the same conditions. It has a code, here L123."
+        ],
+        [
+          "Event",
+          "A page in the diary: it says what happened, when, where and why."
+        ],
+        [
+          "EPCIS",
+          "The GS1 standard for recording a product's events and sharing them with the other companies in the supply chain."
+        ],
+        [
+          "Transformation event",
+          "An event where input materials become a new output product: milk and cultures become yogurt."
+        ],
+        [
+          "SSCC",
+          "Serial Shipping Container Code: the GS1 code for a transport unit, such as a pallet. It is on the logistics label."
+        ]
+      ]
+    },
+    "food-nascita": {
+      "meta": {
+        "t": "The pot is born",
+        "c": "The four questions of an event",
+        "place": "Dairy · line 2",
+        "short": "Quality check"
+      },
+      "intro": "Lot L123 was born in the vat. Now it goes through the quality check on line 2. Let's write its identity card.",
+      "story": "Every EPCIS event answers four questions. WHAT: which product. WHEN: date, time and time zone. WHERE: the place, given by its GLN code. WHY: the step in the process. Lot L123 is at the quality check on line 2: choose one answer for each row.",
+      "cap": "Lot L123 · 288 pots · expiry 30/11",
+      "rows": [
+        {
+          "d": "WHAT",
+          "o": [
+            "GTIN 08000000001016 + lot L123",
+            "Only GTIN 08000000001016",
+            "Only lot L123"
+          ],
+          "ok": 0,
+          "why": "At the check you look at one specific lot: you need the GTIN plus the lot. The GTIN alone doesn't tell lots apart; the lot alone doesn't say which product."
+        },
+        {
+          "d": "WHEN",
+          "o": [
+            "08:20, the time the event reaches the archive",
+            "08:15 with time zone +01:00",
+            "08:15 without a time zone"
+          ],
+          "ok": 1,
+          "why": "You need the moment of the check, with its time zone. The system writes the archive arrival time by itself."
+        },
+        {
+          "d": "WHERE",
+          "o": [
+            "GLN of the group's registered office",
+            "GLN of the DC the lot is going to",
+            "GLN of the dairy with the extension “line 2”"
+          ],
+          "ok": 2,
+          "why": "WHERE is the place where it happened: the dairy, with the line extension. The registered office is master data; the DC is the destination."
+        },
+        {
+          "d": "WHY",
+          "o": [
+            "Production of the lot",
+            "Quality check of the lot",
+            "Preparing the lot for shipping"
+          ],
+          "ok": 1,
+          "why": "The lot was already born in the vat and isn't leaving yet. Right now you are checking it: it's the quality check."
+        }
+      ],
+      "needAll": "Choose one answer for each row.",
+      "wrongOne": "One row isn't clear to the other companies. Fix it and try again.",
+      "wrongMany": "{n} rows aren't clear to the other companies. Fix them and try again.",
+      "events": [
+        "Quality check of lot L123 on line 2"
+      ],
+      "fact": "Every answer uses a GS1 code or a shared word. Product and lot with the GTIN, time with the time zone, place with the GLN, then the process step. This way every company reads the event in the same way.",
+      "power": [
+        "Identity card",
+        "Every lot has a GS1 identity that all companies read in the same way."
+      ],
+      "why": {
+        "benefit": "Every company reads the same event in the same way: no phone calls to work out what, where and when.",
+        "who": [
+          "produttore",
+          "distribuzione"
+        ]
+      },
+      "hint": "For each row ask yourself: would another company understand it? And does it describe the fact, or something else?",
+      "sceneDesc": "Scene: the dairy and line 2, with the pot from lot L123 on the conveyor belt heading to the quality check.",
+      "glossary": [
+        [
+          "GTIN",
+          "Global Trade Item Number: the GS1 code that identifies a product. It is the number under the barcode."
+        ],
+        [
+          "GLN",
+          "Global Location Number: the GS1 code for a place, such as a dairy or a warehouse. The extension points to a precise spot, such as a line."
+        ],
+        [
+          "Time zone",
+          "It says which local time the timestamp refers to: +01:00 is Italian time in winter."
+        ],
+        [
+          "The four questions",
+          "WHAT, WHEN, WHERE and WHY: every event always answers these questions."
+        ]
+      ]
+    },
+    "food-raggi-x": {
+      "meta": {
+        "t": "X-ray vision",
+        "c": "Aggregation event",
+        "place": "Dairy · end of line",
+        "short": "Pallet"
+      },
+      "intro": "288 pots, 12 cases, one pallet. At the DC (Distribution Centre) nobody will feel like opening it.",
+      "story": "Each case holds 24 pots. Stack the 12 cases on the pallet.",
+      "stack": "Stack a case",
+      "stackAll": "Stack them all",
+      "count": "Cases {n}/12 · pots {j}/288",
+      "q": "At the DC they only read the pallet's SSCC code. How do they know it holds 12 cases and 288 pots of lot L123?",
+      "opts": [
+        {
+          "t": "The SSCC code already contains the list of cases and pots",
+          "why": "No: the SSCC is just the pallet's serial number, like a number plate. The contents travel in the events, not in the code."
+        },
+        {
+          "t": "The dairy records a single event with the pallet and all the pots, listed together",
+          "why": "That tells you they were in the same place, not what contains what. You need to say which is the container and which is the content."
+        },
+        {
+          "t": "The dairy sends the DC a spreadsheet with the pallet's contents",
+          "why": "The spreadsheet stays outside the event archive. And if the pallet is broken down, nobody updates it."
+        },
+        {
+          "t": "The dairy records two aggregations: the pots inside each case, the cases on the pallet",
+          "ok": true,
+          "why": "Exactly. Each aggregation states container and content: from the pallet you trace back to the cases, from the cases to the pots. If the pallet is broken down, a new event is recorded."
+        }
+      ],
+      "scan": "Scan the pallet code",
+      "scanned": "A single scan of the pallet's SSCC code: 12 cases and 288 pots.",
+      "cap": "Pallet · SSCC 180000000012345679",
+      "events": [
+        "First case: 24 pots of lot L123 (the same event repeats for all 12 cases)",
+        "Pallet: the 12 cases, each with its own SSCC"
+      ],
+      "fact": "Two levels of aggregation: 24 pots in each case, 12 cases on the pallet. Each event says which is the container, which is the content and when the link begins.",
+      "power": [
+        "X-ray vision",
+        "With aggregation you scan the pallet and know what's inside, without opening it."
+      ],
+      "why": {
+        "benefit": "Faster receiving: scan one label and you know all the contents, without opening the pallet.",
+        "who": [
+          "distribuzione",
+          "produttore"
+        ]
+      },
+      "hint": "What does an SSCC code really know? And who says what is inside the pallet, and inside each case?",
+      "sceneDesc": "Scene: a pallet to stack 12 cases of 24 pots on. With the scanner the pallet turns transparent and you see the 288 pots.",
+      "qCtx": "The pallet has a label with an SSCC code. It is just a serial number, like a car's number plate: it doesn't say what is inside. But at the DC they want to know without opening the pallet.",
+      "glossary": [
+        [
+          "Pallet",
+          "The platform that cases are stacked on for transport."
+        ],
+        [
+          "SSCC",
+          "Serial Shipping Container Code: the GS1 code for a pallet or a case. It is a serial number and does not contain the list of goods."
+        ],
+        [
+          "Aggregation",
+          "The link between a container and its contents, like cases on a pallet. It is recorded with an aggregation event and can be undone."
+        ],
+        [
+          "DC",
+          "Distribution Centre: the warehouse that goods leave from on their way to shops."
+        ]
+      ]
+    },
+    "food-cbv": {
+      "meta": {
+        "t": "Words are not made up",
+        "c": "Common vocabulary (CBV)",
+        "place": "Dairy · bay 3",
+        "short": "Shipping"
+      },
+      "intro": "The pallet leaves for the Bologna DC. The DC's system must understand what is happening, without phone calls.",
+      "bubble": "Hi, I'm the Bologna DC. What are you sending me?",
+      "bubbleBad": "??? I don't know this word.",
+      "bubbleGood": "Got it! Pallet on its way, linked to the order and the despatch advice. See you soon.",
+      "cap": "THE DC'S SYSTEM IS LISTENING",
+      "story": "The pallet goes onto the lorry. Every company names facts its own way: “goods_out”, “dispatched”, “delivery note issued”. Every day the DC receives events from dozens of different suppliers.",
+      "q": "In the event it sends to the DC, the dairy does not use its in-house name “goods_out”, but the common word “shipping”. What does the DC gain?",
+      "opts": [
+        {
+          "t": "It knows straight away that it is a shipment, without asking the dairy what “goods_out” means",
+          "ok": true,
+          "why": "Exactly. With common words every company understands the event the same way, with no conversion table for each supplier."
+        },
+        {
+          "t": "Nothing: its system would have understood “goods_out” on its own, like any other word",
+          "why": "No system knows what “goods_out” means. Without common words, you need a conversion table for every supplier."
+        },
+        {
+          "t": "The event becomes valid: with the in-house system's words, the DC's system would reject it",
+          "why": "EPCIS also accepts a company's own words. The problem is that only whoever invented them understands them."
+        },
+        {
+          "t": "With the event, the DC also receives the product's features, such as weight and ingredients",
+          "why": "The common vocabulary describes facts, not the product. Product features travel with other GS1 services, such as the product data catalogue."
+        }
+      ],
+      "events": [
+        "Shipping of the pallet to the Bologna DC, linked to the order and the despatch advice"
+      ],
+      "fact": "The common vocabulary gives words for steps, such as “shipping” (sending goods out), and for states, such as “in_transit” (on the way). References to the order and the despatch advice travel with the event: the DC knows who is sending, who is receiving and what.",
+      "power": [
+        "Speaks to everyone",
+        "The common vocabulary: the same words for every system in the supply chain."
+      ],
+      "why": {
+        "benefit": "Fewer errors and fewer phone calls: companies' systems understand each other without translation.",
+        "who": [
+          "produttore",
+          "distribuzione"
+        ]
+      },
+      "hint": "Think of whoever receives events from many suppliers, each with their own words.",
+      "sceneDesc": "Scene: the dairy's loading bay with the lorry, and the Bologna DC in the background.",
+      "qCtx": "Inside its in-house system, the dairy calls this step “goods_out”: an internal name that only the dairy knows. For supply chain facts, GS1 has defined a list of common words: the CBV (Core Business Vocabulary). They are in English and the same worldwide: sending goods out is called “shipping”.",
+      "glossary": [
+        [
+          "CBV",
+          "Core Business Vocabulary: the GS1 common vocabulary, that is, the standard words for supply chain steps and states."
+        ],
+        [
+          "In-house system",
+          "The software a company uses for orders, warehouse and shipments."
+        ],
+        [
+          "Conversion table",
+          "The list that translates one company's words into another's. With the common vocabulary, you don't need it."
+        ],
+        [
+          "Despatch advice",
+          "The electronic document the supplier sends the customer before departure. It lists the incoming pallets and what they carry. In-house systems call it DESADV."
+        ],
+        [
+          "Purchase order",
+          "The document the customer uses to request goods from the supplier: what, how much and by when."
+        ]
+      ],
+      "q2Ctx": "Before the lorry leaves, the dairy sends the DC a despatch advice. It is an electronic document that passes from one in-house system to another. It lists the incoming pallets and what is on them. The shipping event refers to exactly that despatch advice.",
+      "q2": "The DC has already received the despatch advice. What does the shipping event linked to it add?",
+      "opts2": [
+        {
+          "t": "It replaces the despatch advice: after the event, the DC can delete the despatch advice it received",
+          "why": "No: the DC needs the despatch advice to prepare for and check the arrival. The event does not replace it; it confirms it."
+        },
+        {
+          "t": "It repeats the prices and payment terms from the despatch advice, so the DC can prepare the invoice",
+          "why": "Prices and payments belong in the order and the invoice. The event says what happened, where and when."
+        },
+        {
+          "t": "It confirms that the very pallets listed in the despatch advice really left, at what time and from which bay",
+          "ok": true,
+          "why": "Exactly. The despatch advice announces what will arrive; the event confirms what happened. Thanks to the link, the DC finds them together."
+        },
+        {
+          "t": "It confirms to the dairy that the pallets arrived and were checked, instead of the receiving advice",
+          "why": "The DC confirms the arrival when it receives the goods, with the receiving advice. Shipping only tells the story of the departure."
+        }
+      ]
+    },
+    "food-freddo": {
+      "meta": {
+        "t": "Cold chain",
+        "c": "Association event · sensors",
+        "place": "On the road to Bologna",
+        "short": "Journey"
+      },
+      "intro": "Two hours on the motorway. Before leaving, a temperature sensor is fitted on the pallet. It must be linked to the right object.",
+      "story": "The sensor records the temperature for the whole journey. The yogurt must stay below 8 °C.",
+      "q1": "The pallet will change lorry at the DC. Why link the sensor to the pallet with an association event?",
+      "opts1": [
+        {
+          "t": "Because only this type of event can contain sensor readings",
+          "why": "Sensor readings can go in any type of event. The association links the device to the goods."
+        },
+        {
+          "t": "Because the measurements stay tied to the pallet for the whole journey, whatever vehicle carries it",
+          "ok": true,
+          "why": "Exactly. The association says which object the measurements refer to. It is new in EPCIS 2.0."
+        },
+        {
+          "t": "Because the measurements stay tied to the lorry, which passes them to the pallet when it changes vehicle",
+          "why": "The sensor must be linked to the goods, not the vehicle. If it is linked to the lorry, the pallet loses its measurements when it changes vehicle."
+        },
+        {
+          "t": "Because the sensor's number goes into the SSCC and becomes part of the pallet's identity",
+          "why": "The SSCC does not change. The sensor has its own identity, and the event links the two."
+        }
+      ],
+      "drive": "Start the journey",
+      "linked": "Sensor SENS042 on pallet 180000000012345679",
+      "cap": "Yogurt threshold · maximum 8 °C",
+      "q2": "The sensor recorded 9 °C for 40 minutes. What does the EPCIS event add compared with the temperature logger's file?",
+      "opts2": [
+        {
+          "t": "The data is tied to that pallet, and the event automatically marks the pallet as damaged",
+          "why": "EPCIS does not decide. Companies and industry rules set the thresholds and actions."
+        },
+        {
+          "t": "The data is tied to that pallet, and the event certifies that the sensor was calibrated",
+          "why": "EPCIS records the measurements and who took them; it does not certify the device. Calibration remains the companies' responsibility."
+        },
+        {
+          "t": "The data is tied to the lorry and the journey, and every company looks it up the same way",
+          "why": "The lorry changes at the DC: the useful data is the data tied to the pallet, which is the goods to be assessed."
+        },
+        {
+          "t": "The data is tied to that pallet, place and moment, and every company looks it up the same way",
+          "ok": true,
+          "why": "Exactly. Minimum, maximum and alarm become a shared fact: the decision targets that pallet."
+        }
+      ],
+      "events": [
+        "Association: the sensor is linked to the pallet",
+        "Transport: minimum, maximum and temperature alarm"
+      ],
+      "fact": "Two pages. The association event links the sensor to the pallet. Then the transport event carries the minimum, maximum and alarm, in degrees Celsius.",
+      "power": [
+        "Cold chain",
+        "Sensor data travels inside the event: minimum, maximum, alarms."
+      ],
+      "why": {
+        "benefit": "Whoever receives the goods knows at once if the cold chain held, and can decide on that pallet, not the whole load.",
+        "who": [
+          "distribuzione",
+          "consumatore"
+        ]
+      },
+      "hint": "Think about what happens to the measurements when the pallet changes vehicle.",
+      "sceneDesc": "Scene: the lorry on the motorway to Bologna. The sensor's temperature appears at the top.",
+      "q1Ctx": "The pallet carries a sensor that measures the temperature for the whole journey. At the DC the pallet will move to another lorry, while the sensor stays attached to the pallet. An association event records which object a device, such as a sensor, is linked to.",
+      "q2Ctx": "The sensor's measurements go into the pallet's transport event: minimum temperature, maximum temperature and an alarm above 8 °C. Without EPCIS they would stay in a temperature logger file, downloaded by the carrier and sent on request.",
+      "glossary": [
+        [
+          "Sensor",
+          "A device that measures a value, here the temperature, and records it over time."
+        ],
+        [
+          "Association event",
+          "An event that links a device, such as a sensor, to an object, such as a pallet. It is new in EPCIS 2.0."
+        ],
+        [
+          "Cold chain",
+          "All the steps in which a fresh product must stay below a certain temperature, from production to the shelf."
+        ]
+      ]
+    },
+    "food-errore": {
+      "meta": {
+        "t": "Oops, an error!",
+        "c": "Error declaration",
+        "place": "Bologna DC",
+        "short": "DC"
+      },
+      "intro": "The pallet arrives at the DC. A tired warehouse worker records the receiving...",
+      "req": "receiving · lot <span class=\"bad\">L132</span> · 288 units",
+      "cap": "Event already read by three companies",
+      "story": "The person recording the receiving types <code>L132</code> instead of <code>L123</code>. The dairy, the transport company and head office have already read the event.",
+      "q": "Three companies have already read the event with the wrong lot. How do you correct it with EPCIS?",
+      "opts": [
+        {
+          "t": "You republish the event with the same identifier and the right lot, replacing the old one",
+          "why": "<b>Game over for trust.</b> Two different versions with the same code: each company would have a different story."
+        },
+        {
+          "t": "You publish a deletion event that cancels the receiving, then the correct one",
+          "why": "In EPCIS, “delete” describes a physical fact, such as taking a pallet apart. It does not cancel an event already published."
+        },
+        {
+          "t": "You declare the error on the wrong event, with the reason, and link it to the correct event",
+          "ok": true,
+          "why": "Exactly. The story stays verifiable: whoever read the wrong event sees the error and finds the correction."
+        },
+        {
+          "t": "You publish the correct event and declare the error on it, pointing to the wrong one",
+          "why": "It's the wrong way round: the error is declared on the wrong event, which then points to the correct one."
+        }
+      ],
+      "register": "Record correction",
+      "events": [
+        "The wrong event (lot L132) with the error declaration",
+        "The correct event (lot L123), with the receiving advice"
+      ],
+      "fact": "Two pages stay in the diary: the wrong event, with its error declaration and reason, and the correct event, linked to the first. Nothing disappears; everything is explained. Only after the correction does the DC send the dairy the receiving advice: it confirms what really arrived.",
+      "power": [
+        "Honest memory",
+        "Errors are corrected with a declaration, never by deleting."
+      ],
+      "why": {
+        "benefit": "Reliable data: every correction is visible to all companies, with time and reason.",
+        "who": [
+          "produttore",
+          "distribuzione",
+          "autorita"
+        ]
+      },
+      "hint": "In EPCIS you don't rewrite history: you add something.",
+      "sceneDesc": "Scene: the pallet that has just arrived outside the Bologna DC.",
+      "qCtx": "A published EPCIS event is shared: other companies have already read it and saved it in their systems. In this receiving event the lot written is L132, but the real one is L123. The correction must be clear to everyone, including those who already read the error.",
+      "glossary": [
+        [
+          "Receiving",
+          "Recording goods when they arrive at a warehouse or shop."
+        ],
+        [
+          "Error declaration",
+          "A note added to a wrong event: it says that it was wrong, why, and which event is the correct one."
+        ],
+        [
+          "Supply chain companies",
+          "Those who read the same events: dairy, carrier, DC, shops."
+        ],
+        [
+          "Receiving advice",
+          "The electronic document with which whoever receives the goods confirms to the supplier what really arrived. In-house systems call it RECADV."
+        ]
+      ]
+    },
+    "tessile-filo": {
+      "meta": {
+        "t": "From thread to garment",
+        "c": "Multi-step TransformationEvent",
+        "place": "Textile supply chain",
+        "short": "Spinning and making"
+      },
+      "intro": "New world: same standard, different sector. A T-shirt starts as fabric, the fabric as yarn, the yarn as fibre.",
+      "story": "Five real steps between fibre and T-shirt. Only some of them create a new product: those are the ones that build the family tree.",
+      "q": "Pick, in order, only the steps that are transformations.",
+      "steps": [
+        {
+          "id": "spedizione",
+          "t": "Shipping · the yarn goes from the spinning mill to the weaving mill",
+          "pos": -1,
+          "why": "The place changes, not the product: it is just a shipment."
+        },
+        {
+          "id": "tessitura",
+          "t": "Weaving · the yarn becomes fabric",
+          "pos": 1
+        },
+        {
+          "id": "filatura",
+          "t": "Spinning · the cotton fibre becomes yarn",
+          "pos": 0
+        },
+        {
+          "id": "etichetta",
+          "t": "Labelling · an RFID tag goes on each T-shirt",
+          "pos": -1,
+          "why": "The garment stays the same: a label is linked to an object that already exists."
+        },
+        {
+          "id": "confezione",
+          "t": "Making · the fabric becomes 24 T-shirts",
+          "pos": 2
+        }
+      ],
+      "wrong": "Not yet: each transformation uses what comes out of the one before.",
+      "chainTitle": "The story of the T-shirts",
+      "chainEmpty": "Pick the first step.",
+      "done": "The chain is complete: fibre, yarn, fabric, T-shirts.",
+      "events": [
+        "Spinning: 120 kg of fibre become 110 kg of yarn",
+        "Weaving: the yarn becomes 600 metres of fabric",
+        "Making: 36 metres of fabric become 24 serialised T-shirts"
+      ],
+      "fact": "Three <code>TransformationEvent</code>s in a row: fibre, yarn, fabric, 24 serialised T-shirts. Each output becomes the input of the next step. It is the common thread the Digital Product Passport (DPP) is built on.",
+      "power": [
+        "Common thread",
+        "Every garment carries the story of its materials with it, step by step."
+      ],
+      "why": {
+        "benefit": "Information on materials and processing travels with the garment. It supports sustainability and the Digital Product Passport required by the EU ESPR regulation.",
+        "who": [
+          "produttore",
+          "consumatore",
+          "autorita"
+        ],
+        "source": "Regulation (EU) 2024/1781 on ecodesign requirements for sustainable products (ESPR)"
+      },
+      "hint": "Ask yourself: after this step, is there a product that did not exist before? If not, it is not a transformation.",
+      "sceneDesc": "Scene: three stations, spinning, weaving and making. Each correct step lights up.",
+      "qCtx": "A transformation is a step where one or more materials give rise to a new product, with a new identity. Moving a product or labelling it does not transform it."
+    },
+    "tessile-inventario": {
+      "meta": {
+        "t": "Lightning stocktake",
+        "c": "EPC + RAIN RFID",
+        "place": "Milan shop",
+        "short": "Milan shop"
+      },
+      "intro": "The 24 T-shirts have arrived at the shop in Milan. It is 8:55: the doors open in five minutes.",
+      "story": "Each T-shirt has a swing tag with a barcode and a RAIN RFID (Radio Frequency Identification) tag. Both hold the same identity: the garment's EPC (Electronic Product Code).",
+      "q": "Round 1 · barcode. Scan the T-shirts one at a time, as with a handheld scanner.",
+      "q2": "Round 2 · RAIN RFID. One single command, from a distance, without seeing the garments.",
+      "toRfid": "Enough, switch to RFID",
+      "scan": "RAIN RFID read",
+      "counter": "Read {n}/24 · 00:{s}",
+      "result": "With the barcode: {n} garments in {s} seconds. With RAIN RFID: 24 garments in one second.",
+      "q3": "The RAIN RFID reader read 24 tags in one second. What did it really read, and why does it matter?",
+      "opts": [
+        {
+          "t": "24 EPCs, that is GTIN plus serial number: an identity that only holds while it stays in the tag",
+          "why": "The identity does not depend on the carrier: the same EPC can sit in a barcode or in a database."
+        },
+        {
+          "t": "24 EPCs, that is GTIN plus serial number: the same identity can sit in a QR code or a Data Matrix",
+          "ok": true,
+          "why": "Exactly. The identity does not depend on the carrier: you change technology without changing data and events."
+        },
+        {
+          "t": "24 chip manufacturer codes, which the reader translates into GTIN and serial number",
+          "why": "The chip code identifies the chip, not the garment. The tag already carries the GS1 EPC: no translation needed."
+        },
+        {
+          "t": "24 EPCs with the same code: the tag recognises the garment model, not the single garment",
+          "why": "The tag carries GTIN plus serial number: every garment is unique. That is why no garment gets counted twice."
+        }
+      ],
+      "register": "Record stocktake",
+      "events": [
+        "Stocktake: the 24 T-shirts counted one by one"
+      ],
+      "fact": "All 24 serial numbers are in the list: each garment is counted one by one, without seeing it. They are the same T-shirts made in level 2-1.",
+      "power": [
+        "Lightning read",
+        "Same EPC identity, RAIN RFID carrier: a whole shelf in one go."
+      ],
+      "why": {
+        "benefit": "Faster, more accurate stocktakes: you know what is really on the shelf and reorder when needed.",
+        "who": [
+          "distribuzione",
+          "consumatore"
+        ],
+        "case": "Decathlon puts an EPC/RFID tag on 100% of its products and uses over 50,000 readers worldwide. It reports five times higher stocktake efficiency.",
+        "source": "GS1 US, case study “Global Retail Sporting Goods Leader Finishes First with RFID”"
+      },
+      "hint": "Separate the data from the carrier that holds it. And ask yourself whether the data identifies a model or a garment.",
+      "sceneDesc": "Scene: a shelf with 24 T-shirts and an RFID reader. Garments that are read light up; the counter at the bottom shows how many.",
+      "q3Ctx": "Each RAIN RFID tag has a tiny chip that the reader reads by radio, even without seeing the garments. The chip's memory holds the EPC, the garment's GS1 identity."
+    },
+    "tessile-reso": {
+      "meta": {
+        "t": "The suspicious return",
+        "c": "Garment history · pedigree",
+        "place": "Rome shop",
+        "short": "Rome shop"
+      },
+      "intro": "Two people bring back the same jacket model. Neither of them has a receipt.",
+      "story": "Rome shop. Two identical jackets come back without a receipt. Query the EPCIS repository, the event archive, and read the history of each serial number.",
+      "q": "You have queried both jackets. Which conclusion can you stand behind in front of the customer?",
+      "jacketA": "Garment A<br>JK-0457",
+      "jacketB": "Garment B<br>JK-9999",
+      "query": "Query",
+      "cap": "Same GTIN 09506000134369 · different serial numbers",
+      "historyA": [
+        [
+          "03/09",
+          "Production · Biella factory"
+        ],
+        [
+          "10/09",
+          "Shipping · Biella → DC"
+        ],
+        [
+          "11/09",
+          "Receiving · Piacenza DC"
+        ],
+        [
+          "19/09",
+          "Shipping · DC → shop"
+        ],
+        [
+          "20/09",
+          "Receiving · Rome shop"
+        ],
+        [
+          "12/10",
+          "Sale · Rome shop"
+        ]
+      ],
+      "historyB": "Zero events found. None of the brand's factories ever created this serial number.",
+      "opts": [
+        {
+          "t": "A has a complete history; B is new, because a garment in the warehouse generates no events",
+          "why": "Warehouses generate events too, and a real garment is born with a production event at the factory. No events is a warning sign."
+        },
+        {
+          "t": "A has a complete history; B is genuine, because its QR code opens the brand's website",
+          "why": "A QR code can be copied, and it opens the website even with a made-up serial number. A history of events cannot be copied."
+        },
+        {
+          "t": "A is suspicious, because it was sold almost a month ago; B needs checking with the supplier",
+          "why": "Time since the sale says nothing about authenticity. A's history is complete and verifiable: it is B that has no history."
+        },
+        {
+          "t": "A has a history up to the sale; B's serial number was never created in a factory",
+          "ok": true,
+          "why": "Exactly. Made in Biella, sold here in Rome on 12/10: a verifiable history is worth more than a receipt."
+        }
+      ],
+      "register": "Record the return",
+      "events": [
+        "Return accepted for jacket JK-0457"
+      ],
+      "fact": "The sequence of events is the garment's pedigree: who made it, where it went, where it was sold. It is the basis for returns, anti-counterfeiting and the Digital Product Passport.",
+      "power": [
+        "Pedigree",
+        "The garment's history tells you whether it is genuine: returns, anti-counterfeiting, DPP."
+      ],
+      "why": {
+        "benefit": "Safer returns and fewer counterfeits: a serial number with no history is a warning sign.",
+        "who": [
+          "distribuzione",
+          "produttore",
+          "consumatore"
+        ]
+      },
+      "hint": "Query both garments. Can a real garment have no events at all?",
+      "sceneDesc": "Scene: two identical jackets on the counter and the map of garment A's journey.",
+      "qCtx": "The EPCIS repository keeps the history of every serialised garment: production, shipments, receipts, sale. You queried the repository for both jackets: you find six events for A and none for B."
+    },
+    "sfida-finale": {
+      "meta": {
+        "t": "Withdrawal and recall",
+        "c": "Archive search, withdrawal and recall",
+        "place": "The whole supply chain",
+        "short": "Withdrawal and recall"
+      },
+      "intro": "Alert! The lab reports a problem with the milk from tank C0471. Where did the pots made with that milk end up?",
+      "story": "The milk from tank C0471 has a problem. Every pot made with that milk must be withdrawn, wherever it is, and those already sold must be recalled. First, try how it was done without EPCIS.",
+      "old": "Try the old way",
+      "round1": "First try · the old way",
+      "round2": "Second try · with EPCIS",
+      "steps": [
+        "Phone call to the dairy: “we'll call you back tomorrow morning”",
+        "Email to the haulier: automatic reply, out of office",
+        "I open lots_FINAL_v3_final(2).xlsx",
+        "The Monza supermarket cannot find the delivery note",
+        "Just to be safe: I withdraw the whole week's production"
+      ],
+      "tooLate": "Too late: almost seven days to respond, and in the end you withdraw everything. Try again with your superpowers.",
+      "usePowers": "Use your superpowers",
+      "q1": "Milk C0471 has a problem. What do you search for first in the event archive?",
+      "opts1": [
+        {
+          "t": "The events of lot L123, the one you are following: they say where it is now",
+          "why": "That way you find L123, but you do not know whether the same milk also ended up in other lots."
+        },
+        {
+          "t": "Transformations with C0471 among the input materials: they say which yogurt lots it ended up in",
+          "ok": true,
+          "why": "The FAMILY TREE superpower: from the milk you reach every yogurt lot that contains it."
+        },
+        {
+          "t": "Transformations with L123 as output: they say which milk went into the lot",
+          "why": "That is the opposite direction: from the lot back to the milk. You need the reverse, from the milk to all its lots."
+        },
+        {
+          "t": "The events of tank C0471: they say which dairies the milk reached",
+          "why": "They tell you where the milk arrived, not which products it ended up in."
+        }
+      ],
+      "found": "Milk C0471 ended up in two lots: L123 and L124.",
+      "q2": "You have found lots L123 and L124. What do you do?",
+      "opts2": [
+        {
+          "t": "Withdraw L123 and L124 from warehouses, lorries and shelves, and recall the pots already sold",
+          "ok": true,
+          "why": "Exactly: withdrawal where the product is still in the supply chain, recall for whoever bought it. Now I'll find where they are right now."
+        },
+        {
+          "t": "Withdraw L123 and L124 still in the supply chain; nothing can be done for the pots already sold",
+          "why": "The last event says which shop sold them: with a recall, the shop warns whoever bought them."
+        },
+        {
+          "t": "Withdraw and recall L123 and L124, but only after the lab result on each lot",
+          "why": "With a safety risk you act on the affected lots straight away. Testing goes on, but the product stops."
+        },
+        {
+          "t": "Withdraw all yogurt lots made that day in vat 1, to be on the safe side",
+          "why": "The transformations already say where the milk ended up. Withdrawing healthy lots is a waste: the superpower is targeted withdrawal."
+        }
+      ],
+      "rows": [
+        {
+          "sp": "cedi",
+          "t": "Bologna DC · in the warehouse",
+          "n": "96 + 288 pcs",
+          "lot": "L123 + L124"
+        },
+        {
+          "sp": "truck",
+          "t": "Lorry · two cases heading to Monza",
+          "n": "48 pcs",
+          "lot": "L123"
+        },
+        {
+          "sp": "store",
+          "t": "Milan supermarket · on the shelf",
+          "n": "72 pcs",
+          "lot": "L123"
+        },
+        {
+          "sp": "store",
+          "t": "Monza supermarket · in the stockroom",
+          "n": "48 pcs",
+          "lot": "L123"
+        },
+        {
+          "sp": "person",
+          "t": "Already sold · in the homes of whoever bought them",
+          "n": "24 pcs",
+          "lot": "L123"
+        }
+      ],
+      "summary": "576 pots found in five locations: 288 from lot L123 and 288 from lot L124.",
+      "map": [
+        {
+          "id": "caseificio",
+          "t": "Dairy",
+          "x": 8,
+          "y": 52
+        },
+        {
+          "id": "cedi",
+          "t": "DC",
+          "x": 36,
+          "y": 52
+        },
+        {
+          "id": "camion",
+          "t": "Lorry",
+          "x": 58,
+          "y": 52
+        },
+        {
+          "id": "milano",
+          "t": "Milan",
+          "x": 78,
+          "y": 22
+        },
+        {
+          "id": "monza",
+          "t": "Monza",
+          "x": 80,
+          "y": 82
+        },
+        {
+          "id": "casa",
+          "t": "Homes",
+          "x": 94,
+          "y": 52
+        }
+      ],
+      "mapLit": [
+        "cedi",
+        "camion",
+        "milano",
+        "monza"
+      ],
+      "mapNotice": [
+        "casa"
+      ],
+      "mapAria": "Supply chain map: the places where lots L123 and L124 are located light up",
+      "block": "Withdraw the lots",
+      "blocked": "Withdrawn",
+      "notice": "Recall",
+      "recap": "552 pots withdrawn: 264 from lot L123 and 288 from lot L124. For the 24 pots already sold, the recall starts: a warning to whoever bought them.",
+      "done": "Challenge complete ▶",
+      "events": [
+        "Withdrawal at the DC: lots L123 and L124",
+        "Withdrawal on the lorry: the two cases, read via their SSCC",
+        "Withdrawal at the Milan supermarket",
+        "Withdrawal at the Monza supermarket"
+      ],
+      "fact": "Two archive searches and one withdrawal per place: 264 pots of L123 withdrawn plus 24 recalled make 288, the whole lot. Lot L124, made with the same milk, is stopped before it even leaves the DC.",
+      "power": [
+        "Targeted withdrawal",
+        "Only the affected lots, and you know where they are right now. Seconds, not days."
+      ],
+      "why": {
+        "benefit": "Fast, targeted withdrawals and recalls: only the affected products are stopped, and whoever already bought them is warned.",
+        "who": [
+          "produttore",
+          "distribuzione",
+          "consumatore",
+          "autorita"
+        ],
+        "case": "At Leeds Teaching Hospitals NHS Trust, the average time to withdraw a product fell from 8.33 days to under 35 minutes. The credit goes to the GS1 standards of the Scan4Safety programme.",
+        "source": "GS1 UK, “A scan of the benefits: the Scan4Safety evidence report”, 2020"
+      },
+      "hint": "Start from the milk, not from the lot you know. Then look for those lots, wherever they are.",
+      "sceneDesc": "Scene: the supply chain map. In the second try, only the places where lots L123 and L124 are located light up.",
+      "q1Ctx": "The archive holds all the events recorded by the companies in the supply chain: transformations, shipments, receipts, sales. You can search by lot or by place, for example. For now, you only know that the milk from tank C0471 has a problem.",
+      "q2Ctx": "The search found two yogurt lots made with milk C0471: L123 and L124. Some pots are in a warehouse, some on the road, some on the shelf, some already sold. A withdrawal removes the product from the supply chain; a recall warns whoever already bought it.",
+      "glossary": [
+        [
+          "Event archive",
+          "The system where EPCIS events are stored and where the companies in the supply chain search for them."
+        ],
+        [
+          "Search",
+          "A question to the archive: which events concern this lot, this place, this period?"
+        ],
+        [
+          "Withdrawal",
+          "The product is removed from the supply chain before it reaches the shopper: warehouses, lorries, shelves. It involves companies."
+        ],
+        [
+          "Recall",
+          "People who already bought the product are told not to consume it and to bring it back. It involves shoppers."
+        ]
+      ],
+      "clock": "{d} d {h} h"
+    },
+    "food-consumatore": {
+      "meta": {
+        "t": "The consumer scans the QR code",
+        "c": "GS1 Digital Link and GS1 QR code",
+        "place": "At the home of whoever bought the pot",
+        "short": "Consumer"
+      },
+      "intro": "Last stage. A pot from lot L123 is already on someone's kitchen table. It carries a GS1 QR code: what happens when they scan it?",
+      "story": "Before the withdrawal, twenty-four pots from lot L123 were sold. One person has one at home and scans the QR code with their smartphone.",
+      "cap": "Lot L123 · GS1 QR code",
+      "scanNote": "The QR code is real: scan it yourself with your smartphone.",
+      "q": "What is inside the pot's GS1 QR code?",
+      "qCtx": "The QR code contains a web address. Read it carefully: after the domain there are numbers between slashes, and a part after the question mark.",
+      "opts": [
+        {
+          "t": "Only the product code, as in the usual barcode",
+          "why": "The classic barcode carries only the GTIN. The GS1 QR code can also carry the lot and the date."
+        },
+        {
+          "t": "A GS1 Digital Link: a web address with the product code, the lot and the date",
+          "ok": true,
+          "why": "That's right. The shop's till reads it and the smartphone opens it: one code for both."
+        },
+        {
+          "t": "All the lot's EPCIS events, written inside the code",
+          "why": "The events stay in the companies' archives. The QR code carries the link: the page shows the story, taken from the events."
+        },
+        {
+          "t": "A code made up by the supermarket, valid only in its own shop",
+          "why": "GS1 codes work everywhere: the same QR code works in every shop and in every country."
+        }
+      ],
+      "linkTitle": "The QR code's link, piece by piece",
+      "events": [],
+      "fact": "No new page in the diary: whoever buys reads the lot's story, but does not write it. The GS1 QR code carries GTIN, lot and date in a single link. From there you reach the recall and the lot's story.",
+      "power": [
+        "Direct line",
+        "From the pot's QR code to the lot's story: whoever buys it knows at once if their product is recalled."
+      ],
+      "why": {
+        "benefit": "Whoever buys finds out at once if their pot is recalled, without waiting for notices in the shop. The same code works at the till and on the smartphone.",
+        "who": [
+          "consumatore",
+          "produttore",
+          "distribuzione"
+        ]
+      },
+      "hint": "Look at the QR code's link: how many GS1 codes can you spot between the slashes?",
+      "sceneDesc": "Scene: a pot of yogurt on a kitchen table, with its GS1 QR code, and a smartphone scanning it.",
+      "glossary": [
+        [
+          "GS1 QR code",
+          "A square code that contains a GS1 Digital Link. The till reads it and the smartphone opens it."
+        ],
+        [
+          "GS1 Digital Link",
+          "A web address that carries GS1 codes: for example product, lot and date."
+        ],
+        [
+          "Recall",
+          "The warning to people who have already bought a product: do not use it, and bring it back."
+        ]
+      ],
+      "done": "Complete the stage"
+    }
+  },
+  "codex": {
+    "heading": "Game glossary",
+    "sub": "Entries unlock as you play: {n} of {total} found.",
+    "locked": "Still to discover",
+    "lockedText": "Play stage {id} to unlock this entry.",
+    "example": "In the game",
+    "useful": "In real life",
+    "back": "Back to the map",
+    "cards": [
+      {
+        "id": "epcis",
+        "unlock": "food-stalla",
+        "t": "EPCIS",
+        "def": "Electronic Product Code Information Services: the GS1 standard for recording and sharing a product's events.",
+        "ex": "Every page in the diary of lot L123 is an EPCIS event.",
+        "use": "It lets the systems of producers, logistics and shops talk in a common language."
+      },
+      {
+        "id": "object",
+        "unlock": "food-stalla",
+        "t": "Object event",
+        "def": "An event that tells a fact about a product or a lot: it is created, checked, leaves, arrives.",
+        "ex": "Milk lot C0471 is created at the farm and arrives at the dairy.",
+        "use": "Following every lot step by step, from the raw material onwards."
+      },
+      {
+        "id": "transformation",
+        "unlock": "food-latte",
+        "t": "Transformation event",
+        "def": "An event in which input materials become a new output product.",
+        "ex": "Milk and cultures become the yogurt of lot L123.",
+        "use": "Tracing back from ingredients to finished products, and the other way round."
+      },
+      {
+        "id": "gtin",
+        "unlock": "food-nascita",
+        "t": "GTIN",
+        "def": "Global Trade Item Number: the GS1 code that identifies a product.",
+        "ex": "08000000001016 is the 125 g pot of plain yogurt.",
+        "use": "It is the number under the barcode: the till, the warehouse and the online shop all read it."
+      },
+      {
+        "id": "gln",
+        "unlock": "food-nascita",
+        "t": "GLN",
+        "def": "Global Location Number: the GS1 code for a place or a company.",
+        "ex": "8000000000026 is the dairy.",
+        "use": "It says exactly where something happened and who is involved."
+      },
+      {
+        "id": "dimensions",
+        "unlock": "food-nascita",
+        "t": "The four questions",
+        "def": "WHAT, WHEN, WHERE and WHY: the questions every event answers.",
+        "ex": "The quality check of lot L123 on line 2, at 8:15.",
+        "use": "A fixed structure that every company can read."
+      },
+      {
+        "id": "sscc",
+        "unlock": "food-raggi-x",
+        "t": "SSCC",
+        "def": "Serial Shipping Container Code: the GS1 code for a logistic unit, such as a case or a pallet.",
+        "ex": "180000000012345679 is the pallet of lot L123.",
+        "use": "It is read from the logistics label and links the pallet to its contents."
+      },
+      {
+        "id": "aggregation",
+        "unlock": "food-raggi-x",
+        "t": "Aggregation event",
+        "def": "An event that links contents to a container. It can be undone.",
+        "ex": "24 pots in a case, 12 cases on a pallet.",
+        "use": "Scanning a pallet and knowing what is inside without opening it."
+      },
+      {
+        "id": "cbv",
+        "unlock": "food-cbv",
+        "t": "Common vocabulary (CBV)",
+        "def": "Core Business Vocabulary: the standard words for process steps and statuses.",
+        "ex": "shipping (sending goods out), in_transit (on the way), receiving (taking goods in).",
+        "use": "It stops every company from inventing its own jargon."
+      },
+      {
+        "id": "association",
+        "unlock": "food-freddo",
+        "t": "Association event",
+        "def": "An event that links a device or an asset to an object. New in EPCIS 2.0.",
+        "ex": "The temperature sensor linked to the pallet.",
+        "use": "Sensor data follows the right object."
+      },
+      {
+        "id": "error",
+        "unlock": "food-errore",
+        "t": "Error declaration",
+        "def": "A statement that an event was wrong, with the reason and a pointer to the correct event.",
+        "ex": "Lot L132, typed by mistake at the DC.",
+        "use": "Correcting without deleting: the history stays reliable."
+      },
+      {
+        "id": "dpp",
+        "unlock": "tessile-filo",
+        "t": "DPP",
+        "def": "Digital Product Passport: information about a product throughout its whole life, required by the European ESPR regulation.",
+        "ex": "The story of the T-shirts, from fibre to garment.",
+        "use": "Sustainability, repair, recycling and information for whoever buys."
+      },
+      {
+        "id": "epc",
+        "unlock": "tessile-inventario",
+        "t": "EPC",
+        "def": "Electronic Product Code: the unique identity of an object, down to the single item.",
+        "ex": "T-shirt TS-0001 has its own EPC, different from TS-0002.",
+        "use": "Counting, tracing and authenticating every single item."
+      },
+      {
+        "id": "rfid",
+        "unlock": "tessile-inventario",
+        "t": "RAIN RFID",
+        "def": "Radio tags that can be read from a distance, many at once. They are a way to carry the EPC.",
+        "ex": "24 T-shirts read with a single command.",
+        "use": "Fast stocktaking, automatic gates, anti-theft."
+      },
+      {
+        "id": "repository",
+        "unlock": "sfida-finale",
+        "t": "Event archive",
+        "def": "The system where EPCIS events are stored and where companies look them up.",
+        "ex": "All the events for milk C0471 and lots L123 and L124.",
+        "use": "Each partner asks for what they need, when they need it."
+      },
+      {
+        "id": "query",
+        "unlock": "sfida-finale",
+        "t": "Archive search",
+        "def": "A question to the archive: which events involve this lot, this place, this period?",
+        "ex": "From milk C0471 to lots L123 and L124, then where they are now.",
+        "use": "Withdrawals in minutes instead of days."
+      },
+      {
+        "id": "ritiro",
+        "unlock": "sfida-finale",
+        "t": "Withdrawal and recall",
+        "def": "Withdrawal: the product is removed from the supply chain before it reaches the shopper. Recall: people who already bought it are warned.",
+        "ex": "552 pots withdrawn, 24 recalled.",
+        "use": "With EPCIS you withdraw and recall only what you need to."
+      },
+      {
+        "id": "digitallink",
+        "unlock": "food-consumatore",
+        "t": "GS1 Digital Link",
+        "def": "A web address that contains GS1 codes, such as GTIN, lot and date. It is printed in a QR code.",
+        "ex": "The pot's QR code leads to …/01/08000000001016/10/L123?15=261130.",
+        "use": "One single code for the shop till and for the shopper's smartphone."
+      }
+    ]
+  },
+  "hint": {
+    "button": "Hint (H)",
+    "hide": "Hide hint (H)"
+  },
+  "help": {
+    "title": "Controls",
+    "close": "Press ? or Esc to close",
+    "closeBtn": "Close",
+    "rows": [
+      [
+        "1-9",
+        "Choose an option"
+      ],
+      [
+        "Enter",
+        "Confirm, next"
+      ],
+      [
+        "Esc",
+        "Back to the map"
+      ],
+      [
+        "M",
+        "Sound on/off"
+      ],
+      [
+        "X",
+        "Pixel effect for 3D graphics on/off"
+      ],
+      [
+        "R",
+        "Switch graphics: 3D or 2D"
+      ],
+      [
+        "H",
+        "Hint"
+      ],
+      [
+        "G",
+        "Game glossary"
+      ],
+      [
+        "D",
+        "Full EPCIS document (event screen)"
+      ],
+      [
+        "E",
+        "Event archive: the text of every event"
+      ],
+      [
+        "?",
+        "This screen"
+      ]
+    ],
+    "renderer": "Graphics in use: {m}",
+    "mode3d": "3D, {q} quality",
+    "mode2d": "2D",
+    "quality": {
+      "alta": "high",
+      "media": "medium",
+      "bassa": "low"
+    }
+  },
+  "nav": {
+    "aria": "Navigation",
+    "home": "Home",
+    "map": "Map",
+    "prev": "Previous stage",
+    "next": "Next stage",
+    "chainAria": "{w}: stages"
+  },
+  "archive": {
+    "tag": "Event archive",
+    "heading": "All the events in the supply chain",
+    "sub": "Here you find the real text of every event, stage by stage, or the whole supply chain at once. The game is paused. It is written in JSON-LD: a text format that companies' systems exchange.",
+    "tabsAria": "Supply chain stages",
+    "events": "Events in this stage",
+    "showDoc": "Show as a single document",
+    "showEvents": "Show one event at a time",
+    "docNote": "The same content, gathered into a single EPCIS document: this is how it travels between two companies.",
+    "copy": "Copy the EPCIS document",
+    "copied": "Full EPCIS document copied: you can paste it into EPCIS tools.",
+    "copyFail": "Copy failed: select the text by hand.",
+    "close": "Back to the game",
+    "closeHint": "Press E or Esc to go back to the game, right where you were.",
+    "allTab": "Whole supply chain",
+    "allTabMeta": "From farm to withdrawal",
+    "allHeading": "The whole supply chain, from farm to withdrawal",
+    "allCount": "{n} events",
+    "flowHint": "Click an event on the map to read its text below. The arrows follow the journey of the milk and the yogurt.",
+    "flowAria": "Map of the events across the whole supply chain, stage by stage",
+    "flowPrev": "Previous event",
+    "flowNext": "Next event",
+    "flowPos": "Event {i} of {n}",
+    "flowError": "Corrects an error",
+    "allNote": "All the events in the game, in stage order: the complete story of milk C0471 and yogurt L123. Follow the lot codes to move from one event to the next."
+  },
+  "dl": {
+    "tag": "GS1 Digital Link",
+    "heading": "How to read this link",
+    "open": "Read the link piece by piece: {uri}",
+    "tip": "Tap a link that starts with id.gs1.org and we break it down piece by piece. Underlined words, such as commissioning or gs1:bestBeforeDate, lead to their official GS1 definition.",
+    "intro": "A GS1 Digital Link is a web address that contains GS1 codes. You read it in pairs: a short number, then its value.",
+    "aiWhat": "The short number is called an Application Identifier (AI). It says what kind of data comes right after it.",
+    "domainName": "GS1 web address",
+    "domainText": "The first part is an ordinary internet address. That way the same code opens on a phone and can be read by an in-house system.",
+    "value": "Value",
+    "check": "The last digit ({d}) is the check digit: it catches typing errors.",
+    "qr": "The same link can go in a QR code on the label. In EPCIS events it says exactly which product, place or package is meant.",
+    "unknownName": "Application Identifier",
+    "unknownText": "This identifier does not appear in the game's stages.",
+    "close": "Close",
+    "ai": {
+      "10": [
+        "Batch/lot number",
+        "The production lot number, such as L123. Pots made together share the same lot: it is the key data for withdrawals and recalls."
+      ],
+      "253": [
+        "GDTI, the document code",
+        "Global Document Type Identifier: identifies a document, such as a purchase order or a despatch advice."
+      ],
+      "254": [
+        "Exact spot within the place",
+        "Points to a spot inside the place just given, such as vat 1 or bay 3. It always follows a location GLN."
+      ],
+      "414": [
+        "Location GLN",
+        "Global Location Number: identifies a physical place, such as a dairy, a warehouse or a shop."
+      ],
+      "417": [
+        "Company GLN",
+        "Identifies a company, such as the seller or the receiver of the goods. It does not point to a place, but to who is responsible."
+      ],
+      "8004": [
+        "GIAI, the code for a company asset",
+        "Global Individual Asset Identifier: identifies a company asset, such as a temperature sensor or a trolley."
+      ],
+      "01": [
+        "GTIN, the product code",
+        "Global Trade Item Number: identifies the type of product, such as the yogurt or the milk. It is the same number as in the barcode."
+      ],
+      "00": [
+        "SSCC, the package code",
+        "Serial Shipping Container Code: identifies a single logistic unit, such as a pallet or a case. Every pallet has a number all its own."
+      ]
+    }
+  },
+  "voc": {
+    "open": "{term}: official definition in the GS1 Web Vocabulary (opens in a new tab)"
+  },
+  "consumer": {
+    "qrAria": "The pot's QR code: GS1 Digital Link with product, lot L123 and date",
+    "product": "Whole-milk plain yogurt",
+    "linkText": "It is a web address that carries GS1 codes. The path holds the product and the lot; the part after the question mark holds the date.",
+    "domain": [
+      "Domain",
+      "The website of whoever makes or sells the product. Here it is the game's site: the brand chooses it, id.gs1.org is not needed."
+    ],
+    "ai15": [
+      "Best before",
+      "The date in year, month, day format: 261130 means 30 November 2026."
+    ],
+    "sunrise": "By the end of 2027, shop tills are getting ready to read 2D codes like this one too. It is the GS1 “Sunrise 2027” initiative: one single code for the till and the smartphone.",
+    "open": "Open the pot's page",
+    "newTab": "opens in a new tab",
+    "finalTitle": "The pot's QR code",
+    "finalText": "Scan it with your smartphone: the story of lot L123 and its recall, as the shopper sees them."
+  },
+  "consumerPage": {
+    "title": "Whole-milk plain yogurt · lot L123",
+    "demo": "Demo page from the game Mission L123: the product, companies and recall are fictional.",
+    "recallTag": "Product recall",
+    "recallTitle": "Do not eat yogurt from this lot",
+    "recallText": "The laboratory found a problem in the milk used for this lot. As a precaution, lot L123 was recalled on {date}.",
+    "rows": {
+      "product": "Product",
+      "lot": "Lot",
+      "bestBefore": "Best before",
+      "reason": "Reason",
+      "date": "Recall date",
+      "gtin": "Product code (GTIN)"
+    },
+    "reason": "A problem in the raw milk from tank C0471, used to make this lot",
+    "whatTitle": "What to do",
+    "what": [
+      "Do not eat the yogurt.",
+      "Take it back to the shop where you bought it: you will get a refund, even without a receipt.",
+      "If you have already eaten it and feel unwell, call your doctor."
+    ],
+    "alsoL124": "Lot L124, made with the same milk, has also been recalled.",
+    "productTitle": "The product",
+    "maker": "Fictional dairy from the game Mission L123",
+    "storyTitle": "The story of this pot",
+    "storySub": "Each step is an EPCIS event, recorded by whoever handled the lot. If you played Mission L123, you wrote them yourself.",
+    "steps": {
+      "stalla": [
+        "The milk starts at the farm",
+        "Morning milking: 2,400 litres of raw milk are given lot code C0471."
+      ],
+      "ricevimento": [
+        "The milk reaches the dairy",
+        "The dairy records the arrival of lot C0471 and the farm it came from."
+      ],
+      "vasca": [
+        "The milk becomes yogurt",
+        "In vat 1, milk and cultures become 288 pots of lot L123."
+      ],
+      "controllo": [
+        "Quality check",
+        "On line 2, lot L123 passes its quality check."
+      ],
+      "pallet": [
+        "Cases and pallet",
+        "Twelve cases of twenty-four pots go onto a pallet, each with its own SSCC code."
+      ],
+      "spedizione": [
+        "On the way to Bologna",
+        "The pallet leaves for the Distribution Centre, linked to the purchase order and the despatch advice."
+      ],
+      "freddo": [
+        "The cold chain",
+        "A sensor measures the temperature throughout the journey: between {min} and {max} °C. Above eight degrees an alarm goes off and is recorded in the event."
+      ],
+      "cedi": [
+        "Arrival at the Bologna DC",
+        "The Distribution Centre records the arrival. A typing error in the lot number was corrected, without deleting anything."
+      ],
+      "richiamo": [
+        "Withdrawal and recall",
+        "The lot is stopped at the DC, on the lorry and in supermarkets in Milan and Monza. Anyone who has already bought it receives this notice."
+      ]
+    },
+    "dlTitle": "How this QR code works",
+    "gameTitle": "Did you play Mission L123?",
+    "gameText": "This is the story you built, event by event. In the game you can also find the real text of each event.",
+    "gameLink": "Play Mission L123",
+    "footer": "Mission L123 · a GS1 Italy game for understanding traceability with EPCIS. GS1 codes, companies and places are fictional."
+  },
+  "cbv": {
+    "open": "{term}: official definition in the GS1 Core Business Vocabulary (opens in a new tab)"
+  }
+}
