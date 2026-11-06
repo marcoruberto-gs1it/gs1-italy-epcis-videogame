@@ -138,15 +138,21 @@ code { font-family: var(--font-mono); font-size: .82em; }
 .btn:hover { background: var(--ui-navy-2); }
 a:focus-visible { outline: 3px solid var(--gs1-orange); outline-offset: 3px; }
 footer { font-size: .8em; color: var(--ui-muted); text-align: center; }
+main[hidden] { display: none; }
+.langsw { align-self: flex-end; display: flex; gap: 2px; background: var(--gs1-white); border-radius: 999px; padding: 3px; box-shadow: 0 2px 10px var(--ui-mist); }
+.langsw button { font: 800 .85em var(--font-body); letter-spacing: .04em; border: 0; border-radius: 999px; padding: 6px 12px; background: transparent; color: var(--gs1-blue); cursor: pointer; }
+.langsw button[aria-pressed="true"] { background: var(--gs1-blue); color: var(--gs1-white); }
+.langsw button:focus-visible { outline: 3px solid var(--gs1-orange); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 </head>
 <body>
-<main>
+<main lang="it" data-lang="it" data-title="Richiamo del prodotto: Yogurt bianco intero · lotto L123"><nav class="langsw" aria-label="Lingua del gioco"><button type="button" data-lang="it" lang="it" aria-pressed="true" title="Italiano"><span aria-hidden="true">IT</span><span class="sr">Italiano</span></button><button type="button" data-lang="en" lang="en" aria-pressed="false" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></button></nav>
   <p class="demo">Pagina dimostrativa del gioco Missione L123: prodotto, aziende e richiamo sono di fantasia.</p>
 
-  <section class="recall" aria-labelledby="recallTitle">
+  <section class="recall" aria-labelledby="recallTitle-it">
     <span class="tag">Richiamo del prodotto</span>
-    <h1 id="recallTitle">Non mangiare lo yogurt di questo lotto</h1>
+    <h1 id="recallTitle-it">Non mangiare lo yogurt di questo lotto</h1>
     <p>Il laboratorio ha trovato un problema nel latte usato per questo lotto. Per sicurezza il lotto L123 è stato richiamato il 5 novembre 2026.</p>
     <dl>
       <dt>Prodotto</dt><dd>Yogurt bianco intero</dd>
@@ -162,8 +168,8 @@ footer { font-size: .8em; color: var(--ui-muted); text-align: center; }
     <p class="also">Anche il lotto L124, fatto con lo stesso latte, è richiamato.</p>
   </section>
 
-  <section class="card" aria-labelledby="productTitle">
-    <h2 id="productTitle">Il prodotto</h2>
+  <section class="card" aria-labelledby="productTitle-it">
+    <h2 id="productTitle-it">Il prodotto</h2>
     <div class="product">
       <svg class="jar" viewBox="0 0 120 130" aria-hidden="true">
   <rect x="14" y="8" width="92" height="16" rx="6" class="lid"/>
@@ -184,8 +190,8 @@ footer { font-size: .8em; color: var(--ui-muted); text-align: center; }
     </div>
   </section>
 
-  <section class="card" aria-labelledby="storyTitle">
-    <h2 id="storyTitle">La storia di questo vasetto</h2>
+  <section class="card" aria-labelledby="storyTitle-it">
+    <h2 id="storyTitle-it">La storia di questo vasetto</h2>
     <p>Ogni passaggio è un evento EPCIS, registrato da chi ha avuto in mano il lotto. Se hai giocato a Missione L123, li hai scritti tu.</p>
     <ol class="story"><li class="step ">
       <span class="dot" aria-hidden="true"></span>
@@ -262,20 +268,174 @@ footer { font-size: .8em; color: var(--ui-muted); text-align: center; }
     </li></ol>
   </section>
 
-  <section class="card" aria-labelledby="dlTitle">
-    <h2 id="dlTitle">Come funziona questo QR code</h2>
+  <section class="card" aria-labelledby="dlTitle-it">
+    <h2 id="dlTitle-it">Come funziona questo QR code</h2>
     <p>È un indirizzo web che porta con sé i codici GS1. Il percorso contiene prodotto e lotto, la parte dopo il punto interrogativo contiene la data.</p>
     <p class="url" aria-label="https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/01/08000000001016/10/L123?15=261130"><span class="seg dom">marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame</span><span class="sl">/</span><span class="seg ai">01</span><span class="sl">/</span><span class="seg val">08000000001016</span><span class="sl">/</span><span class="seg ai">10</span><span class="sl">/</span><span class="seg val">L123</span><span class="sl">?</span><span class="seg ai">15</span><span class="sl">=</span><span class="seg val">261130</span></p>
     <ul class="parts"><li><span class="b">www</span><div><p><strong>Dominio</strong> <span class="v">marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame</span></p><p>Il sito di chi produce o vende. Qui è quello del gioco: lo sceglie la marca, non serve id.gs1.org.</p></div></li><li><span class="b">(01)</span><div><p><strong>GTIN, il codice del prodotto</strong> <span class="v">08000000001016</span></p><p>Global Trade Item Number: identifica il tipo di prodotto, come lo yogurt o il latte. È lo stesso numero del codice a barre.</p></div></li><li><span class="b">(10)</span><div><p><strong>Lotto</strong> <span class="v">L123</span></p><p>Il numero del lotto di produzione, come L123. I vasetti prodotti insieme hanno lo stesso lotto: è il dato chiave per ritiri e richiami.</p></div></li><li><span class="b">(15)</span><div><p><strong>Da consumarsi preferibilmente entro</strong> <span class="v">261130</span></p><p>La data nel formato anno, mese, giorno: 261130 vuol dire 30 novembre 2026.</p></div></li></ul>
   </section>
 
-  <section class="card" aria-labelledby="gameTitle">
-    <h2 id="gameTitle">Hai giocato a Missione L123?</h2>
+  <section class="card" aria-labelledby="gameTitle-it">
+    <h2 id="gameTitle-it">Hai giocato a Missione L123?</h2>
     <p>Questa è la storia che hai costruito evento dopo evento. Nel gioco trovi anche il testo vero di ogni evento.</p>
     <a class="btn" href="https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/">Gioca a Missione L123</a>
   </section>
 
   <footer>Missione L123 · un gioco di GS1 Italy per capire la tracciabilità con EPCIS. Codici GS1, aziende e luoghi sono di fantasia.</footer>
 </main>
+<main lang="en" data-lang="en" data-title="Product recall: Whole-milk plain yogurt · lot L123" hidden><nav class="langsw" aria-label="Game language"><button type="button" data-lang="it" lang="it" aria-pressed="false" title="Italiano"><span aria-hidden="true">IT</span><span class="sr">Italiano</span></button><button type="button" data-lang="en" lang="en" aria-pressed="true" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></button></nav>
+  <p class="demo">Demo page from the game Mission L123: the product, companies and recall are fictional.</p>
+
+  <section class="recall" aria-labelledby="recallTitle-en">
+    <span class="tag">Product recall</span>
+    <h1 id="recallTitle-en">Do not eat yogurt from this lot</h1>
+    <p>The laboratory found a problem in the milk used for this lot. As a precaution, lot L123 was recalled on 5 November 2026.</p>
+    <dl>
+      <dt>Product</dt><dd>Whole-milk plain yogurt</dd>
+      <dt>Lot</dt><dd><strong>L123</strong></dd>
+      <dt>Best before</dt><dd>30 November 2026</dd>
+      <dt>Reason</dt><dd>A problem in the raw milk from tank C0471, used to make this lot</dd>
+      <dt>Recall date</dt><dd>5 November 2026</dd>
+    </dl>
+    <div class="what">
+      <h2>What to do</h2>
+      <ol><li>Do not eat the yogurt.</li><li>Take it back to the shop where you bought it: you will get a refund, even without a receipt.</li><li>If you have already eaten it and feel unwell, call your doctor.</li></ol>
+    </div>
+    <p class="also">Lot L124, made with the same milk, has also been recalled.</p>
+  </section>
+
+  <section class="card" aria-labelledby="productTitle-en">
+    <h2 id="productTitle-en">The product</h2>
+    <div class="product">
+      <svg class="jar" viewBox="0 0 120 130" aria-hidden="true">
+  <rect x="14" y="8" width="92" height="16" rx="6" class="lid"/>
+  <path d="M20 28h80l-8 92a8 8 0 0 1-8 7H36a8 8 0 0 1-8-7z" class="cup"/>
+  <rect x="26" y="52" width="68" height="40" rx="6" class="lbl"/>
+  <text x="60" y="70" text-anchor="middle" class="t1">YOGURT</text>
+  <text x="60" y="85" text-anchor="middle" class="t2">L123</text>
+</svg>
+      <div>
+        <p><strong>Whole-milk plain yogurt</strong></p>
+        <p class="maker">Fictional dairy from the game Mission L123</p>
+        <dl>
+          <dt>Product code (GTIN)</dt><dd><code>08000000001016</code></dd>
+          <dt>Lot</dt><dd><code>L123</code></dd>
+          <dt>Best before</dt><dd>30 November 2026</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="storyTitle-en">
+    <h2 id="storyTitle-en">The story of this pot</h2>
+    <p>Each step is an EPCIS event, recorded by whoever handled the lot. If you played Mission L123, you wrote them yourself.</p>
+    <ol class="story"><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-01T06:10:00.000+01:00">1 Nov, 06:10</time></p>
+        <h3>The milk starts at the farm</h3>
+        <p>Morning milking: 2,400 litres of raw milk are given lot code C0471.</p>
+        <p class="ev"><code>ObjectEvent · commissioning · active</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-01T08:40:00.000+01:00">1 Nov, 08:40</time></p>
+        <h3>The milk reaches the dairy</h3>
+        <p>The dairy records the arrival of lot C0471 and the farm it came from.</p>
+        <p class="ev"><code>ObjectEvent · receiving · in_progress</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T07:30:00.000+01:00">2 Nov, 07:30</time></p>
+        <h3>The milk becomes yogurt</h3>
+        <p>In vat 1, milk and cultures become 288 pots of lot L123.</p>
+        <p class="ev"><code>TransformationEvent · commissioning · active</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T08:15:00.000+01:00">2 Nov, 08:15</time></p>
+        <h3>Quality check</h3>
+        <p>On line 2, lot L123 passes its quality check.</p>
+        <p class="ev"><code>ObjectEvent · inspecting · active</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T09:40:00.000+01:00">2 Nov, 09:40</time></p>
+        <h3>Cases and pallet</h3>
+        <p>Twelve cases of twenty-four pots go onto a pallet, each with its own SSCC code.</p>
+        <p class="ev"><code>AggregationEvent · packing · in_progress</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T11:05:00.000+01:00">2 Nov, 11:05</time></p>
+        <h3>On the way to Bologna</h3>
+        <p>The pallet leaves for the Distribution Centre, linked to the purchase order and the despatch advice.</p>
+        <p class="ev"><code>ObjectEvent · shipping · in_transit</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T13:20:00.000+01:00">2 Nov, 13:20</time></p>
+        <h3>The cold chain</h3>
+        <p>A sensor measures the temperature throughout the journey: between 4.1 and 9 °C. Above eight degrees an alarm goes off and is recorded in the event.</p>
+        <p class="ev"><code>ObjectEvent · transporting · in_transit</code></p>
+      </div>
+    </li><li class="step ">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-02T16:30:00.000+01:00">2 Nov, 16:30</time></p>
+        <h3>Arrival at the Bologna DC</h3>
+        <p>The Distribution Centre records the arrival. A typing error in the lot number was corrected, without deleting anything.</p>
+        <p class="ev"><code>ObjectEvent · receiving · in_progress</code></p>
+      </div>
+    </li><li class="step alert">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="sc">
+        <p class="when"><time datetime="2026-11-05T10:00:00.000+01:00">5 Nov, 10:00</time></p>
+        <h3>Withdrawal and recall</h3>
+        <p>The lot is stopped at the DC, on the lorry and in supermarkets in Milan and Monza. Anyone who has already bought it receives this notice.</p>
+        <p class="ev"><code>ObjectEvent · holding · recalled</code></p>
+      </div>
+    </li></ol>
+  </section>
+
+  <section class="card" aria-labelledby="dlTitle-en">
+    <h2 id="dlTitle-en">How this QR code works</h2>
+    <p>It is a web address that carries GS1 codes. The path holds the product and the lot; the part after the question mark holds the date.</p>
+    <p class="url" aria-label="https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/01/08000000001016/10/L123?15=261130"><span class="seg dom">marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame</span><span class="sl">/</span><span class="seg ai">01</span><span class="sl">/</span><span class="seg val">08000000001016</span><span class="sl">/</span><span class="seg ai">10</span><span class="sl">/</span><span class="seg val">L123</span><span class="sl">?</span><span class="seg ai">15</span><span class="sl">=</span><span class="seg val">261130</span></p>
+    <ul class="parts"><li><span class="b">www</span><div><p><strong>Domain</strong> <span class="v">marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame</span></p><p>The website of whoever makes or sells the product. Here it is the game's site: the brand chooses it, id.gs1.org is not needed.</p></div></li><li><span class="b">(01)</span><div><p><strong>GTIN, the product code</strong> <span class="v">08000000001016</span></p><p>Global Trade Item Number: identifies the type of product, such as the yogurt or the milk. It is the same number as in the barcode.</p></div></li><li><span class="b">(10)</span><div><p><strong>Batch/lot number</strong> <span class="v">L123</span></p><p>The production lot number, such as L123. Pots made together share the same lot: it is the key data for withdrawals and recalls.</p></div></li><li><span class="b">(15)</span><div><p><strong>Best before</strong> <span class="v">261130</span></p><p>The date in year, month, day format: 261130 means 30 November 2026.</p></div></li></ul>
+  </section>
+
+  <section class="card" aria-labelledby="gameTitle-en">
+    <h2 id="gameTitle-en">Did you play Mission L123?</h2>
+    <p>This is the story you built, event by event. In the game you can also find the real text of each event.</p>
+    <a class="btn" href="https://marcoruberto-gs1it.github.io/gs1-italy-epcis-videogame/">Play Mission L123</a>
+  </section>
+
+  <footer>Mission L123 · a GS1 Italy game for understanding traceability with EPCIS. GS1 codes, companies and places are fictional.</footer>
+</main>
+<script>
+(function () {
+  var KEY = "missione-l123-lang", langs = ["it", "en"], q = new URLSearchParams(location.search).get("lang"), l = q;
+  try { l = l || localStorage.getItem(KEY); } catch (e) {}
+  if (langs.indexOf(l) < 0) l = (navigator.language || "it").slice(0, 2).toLowerCase() === "it" ? "it" : "en";
+  function show(code) {
+    document.querySelectorAll("main[data-lang]").forEach(function (m) { m.hidden = m.dataset.lang !== code; if (!m.hidden) document.title = m.dataset.title; });
+    document.documentElement.lang = code;
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-lang]");
+    if (!b) return;
+    try { localStorage.setItem(KEY, b.dataset.lang); } catch (err) {}
+    show(b.dataset.lang);
+  });
+  show(l);
+})();
+</script>
 </body>
 </html>
